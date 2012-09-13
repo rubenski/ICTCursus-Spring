@@ -1,0 +1,1 @@
+<div id="logo">ICTCursus.nl</div>

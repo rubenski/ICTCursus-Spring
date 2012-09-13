@@ -1,0 +1,88 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: verdana;
+    font-size: 11px;
+}
+
+#wrapper {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+#wrapper #header {
+    background-color: #1e90ff;
+    padding: 10px;
+}
+
+#wrapper #header #logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
+#wrapper #middle {
+    overflow: auto;
+}
+
+#wrapper #middle #menu {
+    padding: 10px;
+    width: 200px;
+    float: left;
+}
+
+#wrapper #middle #main-content {
+    padding: 10px;
+    width: 750px;
+    float: left;
+}
+
+#wrapper #footer {
+    background-color: #1e90ff;
+    padding: 10px;
+}
+
+#data-entry-form {
+    width: 600px;
+}
+
+#data-entry-form .form-entry {
+    padding: 7px;
+    background-color: #ecf5ff;
+    margin-bottom: 1px;
+}
+
+#data-entry-form .form-entry .form-error {
+    color: red;
+}
+
+
+#data-entry-form .form-entry label {
+    display: block;
+    width: 300px;
+    font-weight: bold;
+    padding-bottom: 1px;
+}
+
+#data-entry-form .form-entry .form-input {
+    width: 300px;
+}
+
+#data-entry-form .form-entry .form-input-error {
+    width: 300px;
+    border:  1px solid red;
+}
+
+
+#data-entry-form .form-entry input[type="submit"]{
+    padding:  4px;
+}
+
+
+
+
