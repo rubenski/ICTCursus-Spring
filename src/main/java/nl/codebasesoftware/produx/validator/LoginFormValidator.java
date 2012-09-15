@@ -23,11 +23,7 @@ public class LoginFormValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        UserProfile profile = (UserProfile) target;
-        String email = profile.getEmail();
-        String password = profile.getPassword();
-
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, email, "errors.email.required");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, password, "errors.email.required");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "errors.email.required");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "errors.password.required");
     }
 }

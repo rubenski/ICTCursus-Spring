@@ -33,27 +33,23 @@ public class LoginFormController {
     @RequestMapping(method = RequestMethod.GET)
     public String createForm(Model model) {
         model.addAttribute("mainContent", "forms/login");
+        UserProfile userProfile = new UserProfile();
+        model.addAttribute("userProfile", userProfile);
         return "main";
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public String submitForm(@ModelAttribute("userProfile") UserProfile userProfile, BindingResult result, Model model) {
         validator.validate(userProfile, result);
-
         if (result.hasErrors()) {
             model.addAttribute("mainContent", "forms/login");
             return "main";
         } else {
-
-
-
-            if(userProfile.hasRole(Roles.ADMIN)){
+            if (userProfile.hasRole(Roles.ADMIN)) {
                 model.addAttribute("mainContent", "content/adminhome");
-            }else if(userProfile.hasRole(Roles.COMPANY)){
+            } else if (userProfile.hasRole(Roles.COMPANY)) {
                 model.addAttribute("mainContent", "content/companyhome");
             }
-
-
         }
         return "main";
     }

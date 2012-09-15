@@ -34,13 +34,17 @@ public class CreateUserProfileFormController {
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public String setupForm(Model model, Sess) {
+    public String setupForm(Model model) {
+        /*
         UserProfile userProfile = null;
         if (userProfileId != null) {
             userProfile = userProfileService.findById(userProfileId);
         } else {
             userProfile = new UserProfile();
         }
+        */
+
+        UserProfile userProfile = new UserProfile();
 
         model.addAttribute("userProfile", userProfile);
         model.addAttribute("mainContent", "forms/createUserProfile");

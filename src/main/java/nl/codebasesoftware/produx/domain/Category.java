@@ -17,6 +17,7 @@ public class Category implements DomainObject {
     private String name;
     private String description;
     private Set<Course> courses = new HashSet<Course>();
+    private Category parent;
 
     @Override
     @Id
@@ -62,5 +63,15 @@ public class Category implements DomainObject {
 
     public void setCourses(Set<Course> courses) {
         this.courses = courses;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "parent")
+    public Category getCategory() {
+        return parent;
+    }
+
+    public void setCategory(Category category) {
+        this.parent = category;
     }
 }
