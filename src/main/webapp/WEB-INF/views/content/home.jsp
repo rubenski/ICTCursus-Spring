@@ -7,7 +7,7 @@
         <li>${category.name}
             <ul>
                 <c:forEach items="${category.courses}" var="course">
-                    <li>${course.name}</li>
+                    <li><a href="/c/${course.urlTitle}">${course.name}</a></li>
                 </c:forEach>
             </ul>
         </li>

@@ -19,6 +19,7 @@ public class Category implements DomainObject {
     private Set<Course> courses = new HashSet<Course>();
     private Category parent;
     private Long numberOfVisits;
+    private String urlTitle;
 
     @Override
     @Id
@@ -83,5 +84,11 @@ public class Category implements DomainObject {
         this.numberOfVisits = numberOfVisits;
     }
 
+    public String getUrlTitle() {
+        return urlTitle;
+    }
 
+    public void setUrlTitle(String urlTitle) {
+        this.urlTitle = urlTitle;
+    }
 }

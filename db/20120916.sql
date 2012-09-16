@@ -14,6 +14,44 @@ MySQL - 5.5.19 : Database - ic
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 CREATE DATABASE /*!32312 IF NOT EXISTS*/`ic` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
+/*Table structure for table `articlepage` */
+
+DROP TABLE IF EXISTS `articlepage`;
+
+CREATE TABLE `articlepage` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `body` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `keywords` varchar(255) DEFAULT NULL,
+  `position` int(11) DEFAULT NULL,
+  `publicationDate` varchar(255) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `version` int(11) DEFAULT NULL,
+  `parent_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK942CE085EE21D4C6` (`parent_id`),
+  CONSTRAINT `FK942CE085EE21D4C6` FOREIGN KEY (`parent_id`) REFERENCES `articlepage` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `articlepage` */
+
+/*Table structure for table `articlepage_articlepage` */
+
+DROP TABLE IF EXISTS `articlepage_articlepage`;
+
+CREATE TABLE `articlepage_articlepage` (
+  `ArticlePage_id` bigint(20) NOT NULL,
+  `pages_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`ArticlePage_id`,`pages_id`),
+  UNIQUE KEY `pages_id` (`pages_id`),
+  KEY `FKB1087FCB9DA0C70B` (`ArticlePage_id`),
+  KEY `FKB1087FCBA6035F6C` (`pages_id`),
+  CONSTRAINT `FKB1087FCBA6035F6C` FOREIGN KEY (`pages_id`) REFERENCES `articlepage` (`id`),
+  CONSTRAINT `FKB1087FCB9DA0C70B` FOREIGN KEY (`ArticlePage_id`) REFERENCES `articlepage` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `articlepage_articlepage` */
+
 /*Table structure for table `category` */
 
 DROP TABLE IF EXISTS `category`;
@@ -23,6 +61,7 @@ CREATE TABLE `category` (
   `description` varchar(255) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   `numberOfVisits` bigint(20) DEFAULT NULL,
+  `urlTitle` varchar(255) DEFAULT NULL,
   `version` int(11) DEFAULT NULL,
   `parent_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -33,7 +72,7 @@ CREATE TABLE `category` (
 
 /*Data for the table `category` */
 
-insert  into `category`(`id`,`description`,`name`,`numberOfVisits`,`version`,`parent_id`) values (1,'Programmeren','Programmeren',NULL,NULL,NULL),(2,'PHP','PHP',NULL,NULL,1),(3,'.NET C#','.NET C#',NULL,NULL,1),(4,'.NET Visual Basic','.NET Visual Basic',NULL,NULL,1),(5,'Java','Java',NULL,NULL,1),(6,'Python','Python',NULL,NULL,1),(7,'Objective C','Objective C',NULL,NULL,1),(8,'Databases','Databases',NULL,NULL,1),(9,'Mysql','Mysql',NULL,NULL,8),(10,'Oracle','Oracle',NULL,NULL,8),(11,'Microsoft Sql Server','Microsoft Sql Server',NULL,NULL,8),(12,'Informatiebeveiliging','Informatiebeveiliging',NULL,NULL,NULL),(13,'Business Intelligence','Business Intelligence',NULL,NULL,NULL),(14,'Informatica (HBO/WO)','Informatica (HBO/WO)',NULL,NULL,NULL),(15,'Computervaardigheden','Computervaardigheden',NULL,NULL,NULL),(16,'Microsoft Office','Microsoft Office',NULL,NULL,NULL),(17,'Excel','Excel',NULL,NULL,16),(18,'Word','Word',NULL,NULL,16),(19,'Outlook','Outlook',NULL,NULL,16),(20,'Powerpoint','Powerpoint',NULL,NULL,16),(21,'Access','Access',NULL,NULL,16),(22,'Datawarehousing','Datawarehousing',NULL,NULL,NULL),(23,'Systeembeheer','Systeembeheer',NULL,NULL,NULL),(24,'Linux / Unix','Linux / Unix',NULL,NULL,23),(25,'Microsoft','Microsoft',NULL,NULL,23),(26,'Netwerken','Netwerken',NULL,NULL,NULL),(27,'Informatie management','Informatie management',NULL,NULL,NULL),(28,'Project management','Project management',NULL,NULL,NULL),(29,'Software architectuur','Software architectuur',NULL,NULL,NULL),(30,'Interactie en grafisch ontwerp','Interactie en grafisch ontwerp',NULL,NULL,NULL);
+insert  into `category`(`id`,`description`,`name`,`numberOfVisits`,`urlTitle`,`version`,`parent_id`) values (1,'Programmeren','Programmeren',NULL,'programmeren',NULL,NULL),(2,'PHP','PHP',NULL,'php',NULL,1),(3,'.NET C#','.NET C#',NULL,'c-sharp',NULL,1),(4,'.NET Visual Basic','.NET Visual Basic',NULL,'visual-basic',NULL,1),(5,'Java','Java',NULL,'java',NULL,1),(6,'Python','Python',NULL,'python',NULL,1),(7,'Objective C','Objective C',NULL,'objective-c',NULL,1),(8,'Databases','Databases',NULL,'databases',NULL,1),(9,'Mysql','Mysql',NULL,'mysql',NULL,8),(10,'Oracle','Oracle',NULL,'oracle',NULL,8),(11,'Microsoft Sql Server','Microsoft Sql Server',NULL,'sql-server',NULL,8),(12,'Informatiebeveiliging','Informatiebeveiliging',NULL,'informatiebeveiliging',NULL,NULL),(13,'Business Intelligence','Business Intelligence',NULL,'business-intelligence',NULL,NULL),(14,'Informatica (HBO/WO)','Informatica (HBO/WO)',NULL,'informatica',NULL,NULL),(15,'Computervaardigheden','Computervaardigheden',NULL,'computervaardigheden',NULL,NULL),(16,'Microsoft Office','Microsoft Office',NULL,'ms-office',NULL,NULL),(17,'Excel','Excel',NULL,'excel',NULL,16),(18,'Word','Word',NULL,'word',NULL,16),(19,'Outlook','Outlook',NULL,'outlook',NULL,16),(20,'Powerpoint','Powerpoint',NULL,'powerpoint',NULL,16),(21,'Access','Access',NULL,'access',NULL,16),(22,'Datawarehousing','Datawarehousing',NULL,'datawarehousing',NULL,NULL),(23,'Systeembeheer','Systeembeheer',NULL,'systeembeheer',NULL,NULL),(24,'Linux / Unix','Linux / Unix',NULL,'linux-unix',NULL,23),(25,'Microsoft','Microsoft',NULL,'microsoft',NULL,23),(26,'Netwerken','Netwerken',NULL,NULL,NULL,NULL),(27,'Informatie management','Informatie management',NULL,NULL,NULL,NULL),(28,'Project management','Project management',NULL,NULL,NULL,NULL),(29,'Software architectuur','Software architectuur',NULL,NULL,NULL,NULL),(30,'Interactie en grafisch ontwerp','Interactie en grafisch ontwerp',NULL,NULL,NULL,NULL);
 
 /*Table structure for table `comment` */
 
@@ -111,6 +150,38 @@ CREATE TABLE `course_region` (
 
 /*Data for the table `course_region` */
 
+/*Table structure for table `course_tag` */
+
+DROP TABLE IF EXISTS `course_tag`;
+
+CREATE TABLE `course_tag` (
+  `courses_id` bigint(20) NOT NULL,
+  `tags_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`courses_id`,`tags_id`),
+  KEY `FKB4DAD76F98A6EC` (`tags_id`),
+  KEY `FKB4DAD76574C792C` (`courses_id`),
+  CONSTRAINT `FKB4DAD76574C792C` FOREIGN KEY (`courses_id`) REFERENCES `course` (`id`),
+  CONSTRAINT `FKB4DAD76F98A6EC` FOREIGN KEY (`tags_id`) REFERENCES `tag` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `course_tag` */
+
+/*Table structure for table `page` */
+
+DROP TABLE IF EXISTS `page`;
+
+CREATE TABLE `page` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `body` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `keywords` varchar(255) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `version` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `page` */
+
 /*Table structure for table `region` */
 
 DROP TABLE IF EXISTS `region`;
@@ -151,6 +222,20 @@ CREATE TABLE `role_userprofile` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `role_userprofile` */
+
+/*Table structure for table `tag` */
+
+DROP TABLE IF EXISTS `tag`;
+
+CREATE TABLE `tag` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `description` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `version` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `tag` */
 
 /*Table structure for table `userprofile` */
 

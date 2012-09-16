@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.service;
 
 import nl.codebasesoftware.produx.domain.Category;
+import nl.codebasesoftware.produx.domain.Course;
 
 import java.util.List;
 
@@ -11,4 +12,5 @@ import java.util.List;
  */
 public interface CourseService {
     public List<Category> findFirstLevelCategories();
+    public List<Course> findCourses();
 }

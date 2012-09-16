@@ -1,9 +1,6 @@
 package nl.codebasesoftware.produx.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Version;
+import javax.persistence.*;
 import java.util.Set;
 
 /**
@@ -69,6 +66,7 @@ public class ArticlePage implements DomainObject {
         this.keywords = keywords;
     }
 
+    @OneToMany
     public Set<ArticlePage> getPages() {
         return pages;
     }
@@ -77,6 +75,7 @@ public class ArticlePage implements DomainObject {
         this.pages = pages;
     }
 
+    @ManyToOne
     public ArticlePage getParent() {
         return parent;
     }
