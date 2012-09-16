@@ -690,6 +690,7 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/apache/openjpa/openjpa/2.2.0/openjpa-2.2.0-sources.jar!/" />
+        <root url="intellijad://intellijad" />
       </SOURCES>
     </library>
     <library name="Maven: org.aspectj:aspectjrt:1.6.12">

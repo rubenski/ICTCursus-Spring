@@ -4,6 +4,7 @@ import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.domain.Region;
 import nl.codebasesoftware.produx.domain.Tag;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -12,9 +13,10 @@ import java.util.Set;
  * Time: 12:49
  */
 public class CourseFilter {
-    private Set<Category> categories;
-    private Set<Tag> tags;
-    private Set<Region> regions;
+    private Set<Category> categories = new HashSet<Category>();
+    private Set<Tag> tags = new HashSet<Tag>();
+    private Set<Region> regions = new HashSet<Region>();
+    private String freeTextQuery; // TODO: to be implemented later with Hibernate search
 
     public Set<Category> getCategories() {
         return categories;
@@ -38,5 +40,13 @@ public class CourseFilter {
 
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
+    }
+
+    public String getFreeTextQuery() {
+        return freeTextQuery;
+    }
+
+    public void setFreeTextQuery(String freeTextQuery) {
+        this.freeTextQuery = freeTextQuery;
     }
 }

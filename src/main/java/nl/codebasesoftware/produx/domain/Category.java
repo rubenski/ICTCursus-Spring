@@ -20,6 +20,7 @@ public class Category implements DomainObject {
     private Category parent;
     private Long numberOfVisits;
     private String urlTitle;
+    private Set<Category> children;
 
     @Override
     @Id
@@ -84,11 +85,21 @@ public class Category implements DomainObject {
         this.numberOfVisits = numberOfVisits;
     }
 
+    @Column(unique = true, nullable = false)
     public String getUrlTitle() {
         return urlTitle;
     }
 
     public void setUrlTitle(String urlTitle) {
         this.urlTitle = urlTitle;
+    }
+
+    @OneToMany
+    public Set<Category> getChildren() {
+        return children;
+    }
+
+    public void setChildren(Set<Category> children) {
+        this.children = children;
     }
 }

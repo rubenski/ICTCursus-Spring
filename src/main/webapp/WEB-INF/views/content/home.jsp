@@ -2,14 +2,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 
+
 <ul>
     <c:forEach items="${categories}" var="category">
-        <li>${category.name}
-            <ul>
-                <c:forEach items="${category.courses}" var="course">
-                    <li><a href="/c/${course.urlTitle}">${course.name}</a></li>
-                </c:forEach>
-            </ul>
+        <li><a href="/c/${category.urlTitle}">${category.name}</a>
+            <c:if test="${fn:length(category.children) > 0}">
+                <ul>
+                    <c:forEach items="${category.children}" var="subCategory">
+                        <li><a href="/c/${subCategory.urlTitle}">${subCategory.name}</a>
+                    </c:forEach>
+                </ul>
+            </c:if>
         </li>
     </c:forEach>
 </ul>
