@@ -10,5 +10,5 @@ import java.util.List;
  * Time: 17:13
  */
 public interface CourseService {
-    List<Category> findCategorizedCourses();
+    public List<Category> findFirstLevelCategories();
 }

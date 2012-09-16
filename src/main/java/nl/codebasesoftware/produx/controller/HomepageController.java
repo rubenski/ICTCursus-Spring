@@ -25,7 +25,7 @@ public class HomepageController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String setup(Model model){
-        model.addAttribute("categories", courseService.findCategorizedCourses());
+        model.addAttribute("categories", courseService.findFirstLevelCategories());
         model.addAttribute("mainContent", "content/home");
         return "main";
     }

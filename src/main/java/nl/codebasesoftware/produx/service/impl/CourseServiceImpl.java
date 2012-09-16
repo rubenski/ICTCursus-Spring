@@ -24,7 +24,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Category> findCategorizedCourses() {
-        return courseDao.findCategorizedCourses();
+    public List<Category> findFirstLevelCategories() {
+        return courseDao.findFirstLevelCategories();
     }
 }

@@ -24,6 +24,7 @@ public class Course implements DomainObject {
     private Date lastUpdated;
     private Set<Comment> comments = new HashSet<Comment>();
     private Category category;
+    private Set<Tag> tags;
 
     @Override
     @Id
@@ -121,5 +122,14 @@ public class Course implements DomainObject {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @ManyToMany
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 }

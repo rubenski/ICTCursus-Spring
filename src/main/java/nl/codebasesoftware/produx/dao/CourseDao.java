@@ -11,5 +11,5 @@ import java.util.List;
  * Time: 17:39
  */
 public interface CourseDao extends GenericDao<Course> {
-    List<Category> findCategorizedCourses();
+    List<Category> findFirstLevelCategories();
 }

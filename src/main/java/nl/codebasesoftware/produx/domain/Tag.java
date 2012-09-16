@@ -1,24 +1,22 @@
 package nl.codebasesoftware.produx.domain;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
  * User: rvanloen
- * Date: 14-7-12
- * Time: 22:08
+ * Date: 16-9-12
+ * Time: 10:58
  */
 @Entity
-public class Category implements DomainObject {
+public class Tag implements DomainObject {
 
     private Long id;
     private Integer version;
     private String name;
     private String description;
-    private Set<Course> courses = new HashSet<Course>();
-    private Category parent;
-    private Long numberOfVisits;
+    private Set<Course> courses;
+
 
     @Override
     @Id
@@ -40,7 +38,6 @@ public class Category implements DomainObject {
         this.id = id;
     }
 
-    @Column(unique=true, nullable=false)
     public String getName() {
         return name;
     }
@@ -57,7 +54,7 @@ public class Category implements DomainObject {
         this.description = description;
     }
 
-    @OneToMany(mappedBy = "category")
+    @ManyToMany(mappedBy = "tags")
     public Set<Course> getCourses() {
         return courses;
     }
@@ -65,23 +62,4 @@ public class Category implements DomainObject {
     public void setCourses(Set<Course> courses) {
         this.courses = courses;
     }
-
-    @ManyToOne
-    public Category getParent() {
-        return parent;
-    }
-
-    public void setParent(Category parent) {
-        this.parent = parent;
-    }
-
-    public Long getNumberOfVisits() {
-        return numberOfVisits;
-    }
-
-    public void setNumberOfVisits(Long numberOfVisits) {
-        this.numberOfVisits = numberOfVisits;
-    }
-
-
 }
