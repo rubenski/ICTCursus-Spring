@@ -11,15 +11,47 @@
         <url>jar://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/5.1.6/mysql-connector-java-5.1.6.jar!/</url>
       </library>
     </libraries>
+    <table name="articlepage" schema="" catalog="ic" type="TABLE">
+      <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true" />
+      <column name="body" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="description" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="keywords" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="position" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="publicationDate" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="title" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="version" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="parent_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <primary-key name="PRIMARY" columns="id" />
+      <foreign-key name="FK942CE085EE21D4C6" columns="parent_id" ref-table="articlepage" ref-schema="" ref-catalog="ic" ref-columns="id" />
+    </table>
+    <table name="articlepage_articlepage" schema="" catalog="ic" type="TABLE">
+      <column name="ArticlePage_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <column name="pages_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <primary-key name="PRIMARY" columns="articlepage_id,pages_id" />
+      <foreign-key name="FKB1087FCBA6035F6C" columns="pages_id" ref-table="articlepage" ref-schema="" ref-catalog="ic" ref-columns="id" />
+      <foreign-key name="FKB1087FCB9DA0C70B" columns="ArticlePage_id" ref-table="articlepage" ref-schema="" ref-catalog="ic" ref-columns="id" />
+      <index name="pages_id" unique="true" columns="pages_id" />
+    </table>
     <table name="category" schema="" catalog="ic" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true" />
       <column name="description" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
       <column name="name" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
+      <column name="numberOfVisits" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="urlTitle" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
       <column name="version" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
-      <column name="parent" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="parent_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
       <primary-key name="PRIMARY" columns="id" />
-      <foreign-key name="FK6DD211EC2903F7" columns="parent" ref-table="category" ref-schema="" ref-catalog="ic" ref-columns="id" />
+      <foreign-key name="FK6DD211EC2E4AC1D" columns="parent_id" ref-table="category" ref-schema="" ref-catalog="ic" ref-columns="id" />
       <index name="name" unique="true" columns="name" />
+      <index name="urlTitle" unique="true" columns="urlTitle" />
+    </table>
+    <table name="category_category" schema="" catalog="ic" type="TABLE">
+      <column name="Category_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <column name="children_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <primary-key name="PRIMARY" columns="category_id,children_id" />
+      <foreign-key name="FK8635931F2F0FDAA8" columns="children_id" ref-table="category" ref-schema="" ref-catalog="ic" ref-columns="id" />
+      <foreign-key name="FK8635931FA326A749" columns="Category_id" ref-table="category" ref-schema="" ref-catalog="ic" ref-columns="id" />
+      <index name="children_id" unique="true" columns="children_id" />
     </table>
     <table name="comment" schema="" catalog="ic" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true" />
@@ -64,6 +96,22 @@
       <foreign-key name="FK613D1B981A263DE9" columns="Course_id" ref-table="course" ref-schema="" ref-catalog="ic" ref-columns="id" />
       <foreign-key name="FK613D1B986535F25E" columns="regions_id" ref-table="region" ref-schema="" ref-catalog="ic" ref-columns="id" />
     </table>
+    <table name="course_tag" schema="" catalog="ic" type="TABLE">
+      <column name="courses_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <column name="tags_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <primary-key name="PRIMARY" columns="courses_id,tags_id" />
+      <foreign-key name="FKB4DAD76574C792C" columns="courses_id" ref-table="course" ref-schema="" ref-catalog="ic" ref-columns="id" />
+      <foreign-key name="FKB4DAD76F98A6EC" columns="tags_id" ref-table="tag" ref-schema="" ref-catalog="ic" ref-columns="id" />
+    </table>
+    <table name="page" schema="" catalog="ic" type="TABLE">
+      <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true" />
+      <column name="body" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="description" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="keywords" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="title" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="version" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="id" />
+    </table>
     <table name="region" schema="" catalog="ic" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true" />
       <column name="name" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
@@ -81,6 +129,13 @@
       <column name="userProfiles_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
       <foreign-key name="FKB405351536E3F394" columns="userProfiles_id" ref-table="userprofile" ref-schema="" ref-catalog="ic" ref-columns="id" />
       <foreign-key name="FKB40535156203D3C9" columns="Role_id" ref-table="role" ref-schema="" ref-catalog="ic" ref-columns="id" />
+    </table>
+    <table name="tag" schema="" catalog="ic" type="TABLE">
+      <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true" />
+      <column name="description" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="name" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="version" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="id" />
     </table>
     <table name="userprofile" schema="" catalog="ic" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true" />

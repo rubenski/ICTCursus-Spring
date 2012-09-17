@@ -25,10 +25,8 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
 
     @Override
     public List<Category> findFirstLevelCategories() {
-        Query query = entityManager.createQuery("select c from Category c left join fetch c.children where c.parent is null order by c.name");
-
+        Query query = entityManager.createQuery("select distinct c from Category c left join fetch c.children where c.parent is null order by c.name");
         return query.getResultList();
-
     }
 
     @Override

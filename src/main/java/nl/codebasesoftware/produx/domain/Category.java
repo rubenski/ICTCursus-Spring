@@ -95,6 +95,7 @@ public class Category implements DomainObject {
     }
 
     @OneToMany
+    @JoinColumn(name = "parent_id")
     public Set<Category> getChildren() {
         return children;
     }
