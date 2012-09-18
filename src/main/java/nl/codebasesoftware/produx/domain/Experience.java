@@ -1,9 +1,6 @@
 package nl.codebasesoftware.produx.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Version;
+import javax.persistence.*;
 
 /**
  * User: rvanloen
@@ -17,6 +14,7 @@ public class Experience implements DomainObject {
     private Integer version;
     private String message;
     private int rating;
+    private Course course;
 
     @Override
     @Id
@@ -52,5 +50,14 @@ public class Experience implements DomainObject {
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    @ManyToOne
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }

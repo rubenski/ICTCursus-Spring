@@ -106,7 +106,7 @@ public class Course implements DomainObject {
         this.lastUpdated = lastUpdated;
     }
 
-    @OneToMany
+    @OneToMany(mappedBy = "course")
     public Set<Experience> getExperiences() {
         return experiences;
     }
