@@ -101,15 +101,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="CategoryController.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/controller/CategoryController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="0" selection-start="626" selection-end="626" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="CourseDaoJpa.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/dao/jpa/CourseDaoJpa.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -128,13 +119,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Rating.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/domain/Rating.java">
+      <file leaf-file-name="Course.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/domain/Course.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="24" selection-start="355" selection-end="355" vertical-scroll-proportion="0.27530363">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="82" column="18" selection-start="1771" selection-end="1771" vertical-scroll-proportion="0.63663965">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ArticlePage.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/domain/ArticlePage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="24" column="5" selection-start="544" selection-end="544" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -199,10 +197,8 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/domain/Article.java" />
         <option value="$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/domain/ArticlePages.java" />
         <option value="$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/domain/Page.java" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/domain/ArticlePage.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/content/category.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/service/CourseService.java" />
         <option value="$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/service/helpers/CourseFilter.java" />
@@ -214,7 +210,9 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/content/home.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/dao/jpa/CourseDaoJpa.java" />
         <option value="$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/domain/Category.java" />
+        <option value="$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/domain/ArticlePage.java" />
         <option value="$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/domain/Rating.java" />
+        <option value="$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/domain/Course.java" />
       </list>
     </option>
   </component>
@@ -682,7 +680,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1186" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32890365" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -700,7 +698,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17807487" sideWeight="0.0" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2053476" sideWeight="0.0" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2053476" sideWeight="0.0" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19496167" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -794,16 +792,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/content/category.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="0" selection-start="137" selection-end="137" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/domain/Region.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="13" selection-start="261" selection-end="261" vertical-scroll-proportion="0.1918736" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/service/CourseService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="55" selection-start="434" selection-end="434" vertical-scroll-proportion="0.0" />
@@ -859,13 +847,6 @@
         <state line="20" column="82" selection-start="691" selection-end="691" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/domain/Category.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="78" selection-start="1391" selection-end="1391" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/domain/Company.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="14" column="4" selection-start="239" selection-end="831" vertical-scroll-proportion="0.0">
@@ -873,12 +854,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/domain/Rating.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/domain/ArticlePage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="24" selection-start="355" selection-end="355" vertical-scroll-proportion="0.27530363">
+        <state line="24" column="5" selection-start="544" selection-end="544" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/domain/Experience.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="7" selection-start="247" selection-end="247" vertical-scroll-proportion="0.18927126">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/domain/Category.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="69" column="78" selection-start="1391" selection-end="1391" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/domain/Course.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="82" column="18" selection-start="1771" selection-end="1771" vertical-scroll-proportion="0.63663965">
+          <folding />
         </state>
       </provider>
     </entry>

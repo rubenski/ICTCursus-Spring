@@ -22,9 +22,9 @@ public class Course implements DomainObject {
     private String pricingInfo;
     private Company company;
     private Date lastUpdated;
-    private Set<Comment> comments = new HashSet<Comment>();
     private Category category;
     private Set<Tag> tags;
+    private Set<Experience> experiences;
 
     @Override
     @Id
@@ -106,13 +106,13 @@ public class Course implements DomainObject {
         this.lastUpdated = lastUpdated;
     }
 
-    @OneToMany(mappedBy = "course", orphanRemoval = true, cascade = { javax.persistence.CascadeType.ALL })
-    public Set<Comment> getComments() {
-        return comments;
+    @OneToMany
+    public Set<Experience> getExperiences() {
+        return experiences;
     }
 
-    public void setComments(Set<Comment> comments) {
-        this.comments = comments;
+    public void setExperiences(Set<Experience> experiences) {
+        this.experiences = experiences;
     }
 
     @ManyToOne

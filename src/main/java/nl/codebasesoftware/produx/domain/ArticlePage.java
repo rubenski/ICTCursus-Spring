@@ -21,6 +21,8 @@ public class ArticlePage implements DomainObject {
     private ArticlePage parent;
     private Integer position;
     private Set<ArticlePage> pages;
+    private Set<Comment> comments;
+
 
     @Override
     @Id
@@ -82,6 +84,16 @@ public class ArticlePage implements DomainObject {
 
     public void setParent(ArticlePage parent) {
         this.parent = parent;
+    }
+
+
+    @OneToMany(mappedBy = "course", orphanRemoval = true, cascade = { javax.persistence.CascadeType.ALL })
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 
     public Integer getPosition() {

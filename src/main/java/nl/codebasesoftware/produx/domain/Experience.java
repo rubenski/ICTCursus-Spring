@@ -1,5 +1,6 @@
 package nl.codebasesoftware.produx.domain;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Version;
@@ -9,7 +10,8 @@ import javax.persistence.Version;
  * Date: 18-9-12
  * Time: 17:02
  */
-public class Rating implements DomainObject {
+@Entity
+public class Experience implements DomainObject {
 
     private Long id;
     private Integer version;
