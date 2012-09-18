@@ -35,5 +35,7 @@
         </property>
     </bean>
 
+    <!-- Exception translation - translates persistence exceptions to Spring exceptions -->
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
 </beans>

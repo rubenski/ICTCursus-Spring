@@ -7,6 +7,7 @@ import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.service.helpers.CourseFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    @Transactional
     public List<Course> findCourses(CourseFilter filter) {
         return courseDao.findCourses(filter);
     }

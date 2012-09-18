@@ -3,11 +3,16 @@ package nl.codebasesoftware.produx.dao.jpa;
 import nl.codebasesoftware.produx.dao.CourseDao;
 import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.domain.Course;
+import nl.codebasesoftware.produx.domain.Course_;
 import nl.codebasesoftware.produx.service.helpers.CourseFilter;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
-import javax.persistence.criteria.*;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,27 +36,23 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
 
     @Override
     public List<Course> findCourses(CourseFilter filter) {
-
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        Expression<Category> param = builder.parameter(Category.class);
-
-
-        CriteriaQuery<Course> query = builder.createQuery(Course.class);
-        Root<Course> from = query.from(Course.class);
-        query.select(from);
-
-        List<Predicate> predicates = new ArrayList<Predicate>();
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Course> criteriaQuery = criteriaBuilder.createQuery(Course.class);
+        Root<Course> root = criteriaQuery.from(Course.class);
+        List<Predicate> predicateList = new ArrayList<Predicate>();
 
         if (!filter.getCategories().isEmpty()) {
-            Predicate categoriesPredicate = param.in(filter.getCategories());
-            predicates.add(categoriesPredicate);
+            Predicate predicate = root.get(Course_.category).in(filter.getCategories());
+            predicateList.add(predicate);
         }
 
-        Predicate[] predicateArray = new Predicate[predicates.size()];
-        predicates.toArray(predicateArray);
-        query.where(predicateArray);
+        Predicate[] predicates = new Predicate[predicateList.size()];
+        predicateList.toArray(predicates);
 
-        return entityManager.createQuery(query).getResultList();
+        criteriaQuery.where(predicates);
+        TypedQuery<Course> typedQuery = entityManager.createQuery(criteriaQuery);
+
+        return typedQuery.getResultList();
     }
 
 }

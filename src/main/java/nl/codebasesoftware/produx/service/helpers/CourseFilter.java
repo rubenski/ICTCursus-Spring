@@ -26,6 +26,10 @@ public class CourseFilter {
         this.categories = categories;
     }
 
+    public void addCategory(Category category){
+        this.categories.add(category);
+    }
+
     public Set<Region> getRegions() {
         return regions;
     }

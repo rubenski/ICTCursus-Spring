@@ -15,6 +15,14 @@
         <tomcat.dir>C:\tomcat7</tomcat.dir>
     </properties>
 
+    <pluginRepositories>
+        <pluginRepository>
+            <id>maven-annotation</id>
+            <url>http://maven-annotation-plugin.googlecode.com/svn/trunk/mavenrepo</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+
     <dependencies>
         <!-- Spring dependencies -->
         <dependency>
@@ -67,7 +75,6 @@
         </dependency>
 
 
-
         <!-- Other data related dependencies -->
         <dependency>
             <groupId>org.apache.openjpa</groupId>
@@ -79,8 +86,6 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.6</version>
         </dependency>
-
-
 
 
         <dependency>
@@ -120,7 +125,47 @@
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
+                    <compilerArgument>-proc:none</compilerArgument>
                 </configuration>
+
+            </plugin>
+
+            <plugin>
+                <groupId>org.bsc.maven</groupId>
+                <artifactId>maven-processor-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>process</id>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <!-- source output directory -->
+                            <outputDirectory>target/metamodel</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.3</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>target/metamodel</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
@@ -136,7 +181,7 @@
                                     <arg line=""/>
                                 </exec>
                                 <!-- give Tomcat some time to shut down -->
-                                <sleep seconds="1"/>
+                                <sleep seconds="3"/>
                                 <!-- delete the web application folder -->
                                 <delete dir="C:\tomcat7\webapps\ROOT"/>
                                 <!-- copy the new war file to Tomcat and overwrite an existing file -->

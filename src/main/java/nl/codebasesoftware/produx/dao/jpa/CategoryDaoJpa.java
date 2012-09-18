@@ -2,7 +2,7 @@ package nl.codebasesoftware.produx.dao.jpa;
 
 import nl.codebasesoftware.produx.dao.CategoryDao;
 import nl.codebasesoftware.produx.domain.Category;
-import nl.codebasesoftware.produx.domain.metamodel.Category_;
+import nl.codebasesoftware.produx.domain.Category_;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;
@@ -30,9 +30,9 @@ public class CategoryDaoJpa extends GenericDaoJpa<Category> implements CategoryD
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Category> query = builder.createQuery(Category.class);
         Root<Category> root = query.from(Category.class);
-        Predicate predicate = builder.equal(root.get(Category_.name), name);
+        Predicate predicate = builder.equal(root.get(Category_.urlTitle), name);
         query.where(predicate);
         TypedQuery<Category> typedQuery = entityManager.createQuery(query);
-        return typedQuery.getSingleResult();
+        return getSingleResult(typedQuery);
     }
 }

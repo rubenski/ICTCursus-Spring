@@ -5,6 +5,7 @@ import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * User: rvanloen
@@ -22,7 +23,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category findByName(String name) {
+    @Transactional
+    public Category findByName(String name)  {
         return categoryDao.findByName(name);
     }
 }

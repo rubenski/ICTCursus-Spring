@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.controller;
 
 import nl.codebasesoftware.produx.domain.Category;
+import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.service.CategoryService;
 import nl.codebasesoftware.produx.service.CourseService;
@@ -11,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.List;
 
 /**
  * User: rvanloen
@@ -32,7 +35,6 @@ public class CategoryController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/{categoryUrlName}")
     public String setup(@PathVariable("categoryUrlName") String categoryUrlName, Model model){
-        CourseFilter filter = new CourseFilter();
 
         Category category = categoryService.findByName(categoryUrlName);
 
@@ -40,6 +42,12 @@ public class CategoryController {
             throw new ResourceNotFoundException();
         }
 
+        CourseFilter filter = new CourseFilter();
+        filter.addCategory(category);
+
+        List<Course> courses = courseService.findCourses(filter);
+
+        model.addAttribute("courses", courses);
         model.addAttribute("category", category);
         model.addAttribute("mainContent", "content/category");
         return "main";

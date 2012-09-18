@@ -11,12 +11,12 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
             <property name = "hibernate.show_sql" value = "true" />
         </properties>
     </persistence-unit>
 
     <!-- Needed to properly process @PersistenceContext which injects the entity manager -->
     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+
 
 </persistence>

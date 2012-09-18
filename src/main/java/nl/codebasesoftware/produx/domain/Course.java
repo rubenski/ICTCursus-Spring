@@ -106,7 +106,7 @@ public class Course implements DomainObject {
         this.lastUpdated = lastUpdated;
     }
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany
     public Set<Experience> getExperiences() {
         return experiences;
     }
@@ -132,4 +132,6 @@ public class Course implements DomainObject {
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
     }
+
+
 }
