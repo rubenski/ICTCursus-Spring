@@ -12,7 +12,7 @@
         <spring.version>3.1.1.RELEASE</spring.version>
         <hibernate.version>4.1.1.Final</hibernate.version>
         <tiles.version>3.0.0</tiles.version>
-        <tomcat.dir>C:\tomcat7</tomcat.dir>
+        <tomcat.dir>C:\tomcat6</tomcat.dir>
     </properties>
 
     <pluginRepositories>
@@ -84,10 +84,8 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.6</version>
+            <version>5.1.21</version>
         </dependency>
-
-
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
@@ -113,7 +111,9 @@
             <artifactId>validation-api</artifactId>
             <version>1.0.0.GA</version>
         </dependency>
+
     </dependencies>
+
 
     <build>
         <finalName>ROOT</finalName>
@@ -127,7 +127,6 @@
                     <target>1.6</target>
                     <compilerArgument>-proc:none</compilerArgument>
                 </configuration>
-
             </plugin>
 
             <plugin>
@@ -183,9 +182,9 @@
                                 <!-- give Tomcat some time to shut down -->
                                 <sleep seconds="3"/>
                                 <!-- delete the web application folder -->
-                                <delete dir="C:\tomcat7\webapps\ROOT"/>
+                                <delete dir="C:\tomcat6\webapps\ROOT"/>
                                 <!-- copy the new war file to Tomcat and overwrite an existing file -->
-                                <copy file="C:\PROJECTS\ICTCursus Spring\target\ROOT.war" todir="C:\tomcat7\webapps" overwrite="true"
+                                <copy file="C:\PROJECTS\ICTCursus Spring\target\ROOT.war" todir="C:\tomcat6\webapps" overwrite="true"
                                       failonerror="true"/>
                                 <!-- start tomcat -->
                                 <exec dir="${tomcat.dir}" executable="${tomcat.dir}/bin/startup.bat" failonerror="true">

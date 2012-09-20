@@ -18,8 +18,12 @@ public class Company implements DomainObject {
     private String password;
     private String firstName;
     private String lastName;
+    private String description;
+    private String name;
+    private String city;
+    private String province;
     private String phone;
-    private byte[] logo;
+    private String logo;
     private Set<Course> courses = new HashSet<Course>();
 
     @Override
@@ -82,12 +86,11 @@ public class Company implements DomainObject {
         this.phone = phone;
     }
 
-    @Lob
-    public byte[] getLogo() {
+    public String getLogo() {
         return logo;
     }
 
-    public void setLogo(byte[] logo) {
+    public void setLogo(String logo) {
         this.logo = logo;
     }
 
@@ -99,4 +102,27 @@ public class Company implements DomainObject {
     public void setCourses(Set<Course> courses) {
         this.courses = courses;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+
+
+
+
+
 }

@@ -23,7 +23,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    @Transactional
     public Category findByName(String name)  {
         return categoryDao.findByName(name);
     }

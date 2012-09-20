@@ -133,5 +133,11 @@ public class Course implements DomainObject {
         this.tags = tags;
     }
 
+    @Transient
+    public String getUrl(){
+        name =  name.replaceAll("[^A-Za-z0-9- ]", "");
+        name = name.replaceAll("\\s", "-");
+        return "/c/" + category.getUrlTitle() + "/" + id + "-" + name;
+    }
 
 }

@@ -7,7 +7,7 @@ body {
     padding: 0;
     margin: 0;
     font-family: verdana;
-    font-size: 11px;
+    font-size: 12px;
 }
 
 #wrapper {
@@ -40,6 +40,24 @@ body {
     padding: 10px;
     width: 750px;
     float: left;
+}
+
+#wrapper #middle #main-content .course-list-item {
+    width: 500px;
+    display: block;
+    clear: both;
+    position: relative;
+    overflow:  auto;
+}
+
+#wrapper #middle #main-content .courselink .course-list-item .logo{
+    float: left;
+    padding:  10px;
+}
+
+#wrapper #middle #main-content .courselink {
+    text-decoration: none;
+    color: #000;
 }
 
 #wrapper #footer {

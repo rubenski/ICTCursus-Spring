@@ -55,4 +55,25 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
         return typedQuery.getResultList();
     }
 
+    /*
+    public List<Course> findCourses(Category category) {
+        Query queryGood = entityManager.createQuery("select c from Course c join fetch c.company where c.category.id = :categoryId");
+        Query queryBad = entityManager.createQuery("from Course c where c.category = :category");
+
+        queryGood.setParameter("categoryId", category.getId());
+        queryBad.setParameter("category", category);
+
+        List<Category> categoriesGood = queryGood.getResultList();
+        List<Category> categoriesBad = queryBad.getResultList();
+        return null;
+
+    }
+    */
+
+    public List<Course> findCourses(Category category) {
+        Query queryGood = entityManager.createQuery("select c from Course c join fetch c.company where c.category.id = :categoryId");
+        queryGood.setParameter("categoryId", category.getId());
+        return queryGood.getResultList();
+    }
+
 }

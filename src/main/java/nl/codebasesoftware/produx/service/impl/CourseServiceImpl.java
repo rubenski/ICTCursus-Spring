@@ -27,6 +27,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    @Transactional
     public List<Category> findFirstLevelCategories() {
         return courseDao.findFirstLevelCategories();
     }
@@ -35,5 +36,11 @@ public class CourseServiceImpl implements CourseService {
     @Transactional
     public List<Course> findCourses(CourseFilter filter) {
         return courseDao.findCourses(filter);
+    }
+
+    @Override
+    @Transactional
+    public List<Course> findCourses(Category category){
+        return courseDao.findCourses(category);
     }
 }
