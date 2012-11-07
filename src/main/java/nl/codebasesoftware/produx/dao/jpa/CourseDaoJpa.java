@@ -30,7 +30,7 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
 
     @Override
     public List<Category> findFirstLevelCategories() {
-        Query query = entityManager.createQuery("select distinct c from Category c left join fetch c.children where c.parent is null order by c.name");
+        Query query = entityManager.createQuery("select distinct c from Category c left join fetch c.children ch where c.parent is null order by c.name");
         return query.getResultList();
     }
 
@@ -55,25 +55,18 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
         return typedQuery.getResultList();
     }
 
-    /*
-    public List<Course> findCourses(Category category) {
+    public List<Course> findCourses(Long categoryId) {
         Query queryGood = entityManager.createQuery("select c from Course c join fetch c.company where c.category.id = :categoryId");
-        Query queryBad = entityManager.createQuery("from Course c where c.category = :category");
-
-        queryGood.setParameter("categoryId", category.getId());
-        queryBad.setParameter("category", category);
-
-        List<Category> categoriesGood = queryGood.getResultList();
-        List<Category> categoriesBad = queryBad.getResultList();
-        return null;
-
+        queryGood.setParameter("categoryId", categoryId);
+        return queryGood.getResultList();
     }
-    */
 
+    /*
     public List<Course> findCourses(Category category) {
         Query queryGood = entityManager.createQuery("select c from Course c join fetch c.company where c.category.id = :categoryId");
         queryGood.setParameter("categoryId", category.getId());
         return queryGood.getResultList();
     }
+    */
 
 }

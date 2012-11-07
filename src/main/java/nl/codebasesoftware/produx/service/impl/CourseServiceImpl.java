@@ -7,6 +7,7 @@ import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.service.helpers.CourseFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -39,8 +40,13 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    @Transactional
-    public List<Course> findCourses(Category category){
-        return courseDao.findCourses(category);
+    @Transactional( propagation = Propagation.REQUIRES_NEW )
+    public List<Course> findCourses(Long categoryId){
+        return courseDao.findCourses(categoryId);
+    }
+
+    @Override
+    public List<Course> findByCompany(Long companyId) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

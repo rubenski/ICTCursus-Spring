@@ -21,7 +21,7 @@ public class UserProfileDaoJpa extends GenericDaoJpa<UserProfile> implements Use
     public UserProfile findByEmailAndPassword(String email, String password) throws DataAccessException, AuthenticationException {
         List<UserProfile> results = null;
         String hashedPassword = SecurityUtil.createPasswordHash(password);
-        Query query = entityManager.createQuery("from Person as p where p.email = :email and p.password = :password");
+        Query query = entityManager.createQuery("from UserProfile as p where p.email = :email and p.passwordHash = :password");
         query.setParameter("email", email);
         query.setParameter("password", hashedPassword);
         results = query.getResultList();
@@ -34,11 +34,11 @@ public class UserProfileDaoJpa extends GenericDaoJpa<UserProfile> implements Use
 
     public UserProfile findByEmail(String email) throws DataAccessException, EntityNotFoundException {
         List<UserProfile> results = null;
-        Query query = entityManager.createQuery("from Person as a where a.email = :email");
+        Query query = entityManager.createQuery("from UserProfile as up where up.email = :email");
         query.setParameter("email", email);
         results = query.getResultList();
         if (results == null || results.size() <= 0) {
-            throw new EntityNotFoundException(email + " not found");
+            return null;
         } else {
             return results.get(0);
         }

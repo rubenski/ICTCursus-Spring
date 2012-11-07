@@ -14,5 +14,6 @@ import java.util.List;
 public interface CourseService {
     public List<Category> findFirstLevelCategories();
     public List<Course> findCourses(CourseFilter filter);
-    List<Course> findCourses(Category category);
+    List<Course> findCourses(Long categoryId);
+    List<Course> findByCompany(Long companyId);
 }

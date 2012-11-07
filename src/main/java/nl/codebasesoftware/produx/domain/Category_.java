@@ -1,5 +1,6 @@
 package nl.codebasesoftware.produx.domain;
 
+import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
@@ -19,6 +20,6 @@ public class Category_ {
     public static volatile SingularAttribute<Category, Category> parent;
     public static volatile SingularAttribute<Category, Long> numberOfVisits;
     public static volatile SingularAttribute<Category, String> urlTitle;
-    public static volatile SetAttribute<Category, Category> children;
+    public static volatile ListAttribute<Category, Category> children;
 }
 

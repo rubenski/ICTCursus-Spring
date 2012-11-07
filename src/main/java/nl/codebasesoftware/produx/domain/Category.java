@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.domain;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -20,7 +21,7 @@ public class Category implements DomainObject {
     private Category parent;
     private Long numberOfVisits;
     private String urlTitle;
-    private Set<Category> children;
+    private List<Category> children;
 
     @Override
     @Id
@@ -96,11 +97,11 @@ public class Category implements DomainObject {
 
     @OneToMany
     @JoinColumn(name = "parent_id")
-    public Set<Category> getChildren() {
+    public List<Category> getChildren() {
         return children;
     }
 
-    public void setChildren(Set<Category> children) {
+    public void setChildren(List<Category> children) {
         this.children = children;
     }
 }

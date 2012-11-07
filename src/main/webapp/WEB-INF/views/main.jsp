@@ -6,7 +6,9 @@
 <head>
     <meta charset="utf-8"/>
     <link href="/static/style/style.css" rel="stylesheet">
-    <title></title>
+    <title>
+        <jsp:include page="components/title.jsp"/>
+    </title>
 </head>
 <body>
 <div id="wrapper">

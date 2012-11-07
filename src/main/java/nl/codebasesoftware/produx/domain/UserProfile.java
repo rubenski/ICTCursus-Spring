@@ -1,20 +1,29 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.authentication.ProduxAuthority;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class UserProfile implements DomainObject {
+public class UserProfile implements DomainObject, UserDetails {
 
     private Long id;
     private Integer version;
     private String email;
-    private String password;
+    private String passwordHash;
     private String firstName;
     private String lastName;
     private String phone;
     private Company company;
     private Set<Role> roles;
+
+    @Transient
+    private final String PERMISSION_PREFIX = "ROLE_PERM_";
 
     @Override
     @Id
@@ -22,6 +31,7 @@ public class UserProfile implements DomainObject {
     public final Long getId() {
         return id;
     }
+
 
     @Version
     public Integer getVersion() {
@@ -36,6 +46,7 @@ public class UserProfile implements DomainObject {
         this.id = id;
     }
 
+    @Column(unique = true, nullable = false)
     public String getEmail() {
         return email;
     }
@@ -44,14 +55,22 @@ public class UserProfile implements DomainObject {
         this.email = email;
     }
 
+    @Column(nullable = false)
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    @Override
+    @Transient
     public String getPassword() {
-        return password;
+        return passwordHash;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
+    @Column(nullable = false)
     public String getFirstName() {
         return firstName;
     }
@@ -60,6 +79,7 @@ public class UserProfile implements DomainObject {
         this.firstName = firstName;
     }
 
+    @Column(nullable = false)
     public String getLastName() {
         return lastName;
     }
@@ -77,6 +97,7 @@ public class UserProfile implements DomainObject {
     }
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     public Company getCompany() {
         return company;
     }
@@ -85,7 +106,7 @@ public class UserProfile implements DomainObject {
         this.company = company;
     }
 
-    @ManyToMany
+    @ManyToMany (fetch = FetchType.EAGER)
     public Set<Role> getRoles() {
         return roles;
     }
@@ -94,12 +115,50 @@ public class UserProfile implements DomainObject {
         this.roles = roles;
     }
 
-    public boolean hasRole(Roles role){
-        for (Role assignedRole : roles) {
-            if(assignedRole.getName().equals(role)){
-                return true;
+    /**
+     * Methods from interface UserDetails
+     */
+
+    @Override
+    @Transient
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<ProduxAuthority> authorities = new HashSet<ProduxAuthority>();
+        for (Role role : roles) {
+            for (Right right : role.getRights()) {
+                ProduxAuthority produxAuthority = new ProduxAuthority(PERMISSION_PREFIX + right.getName());
+                authorities.add(produxAuthority);
             }
         }
-        return false;
+        return authorities;
+    }
+
+    @Override
+    @Transient
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    @Transient
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    @Transient
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    @Transient
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    @Transient
+    public boolean isEnabled() {
+        return true;
     }
 }

@@ -29,6 +29,10 @@ public class HomepageController {
     @RequestMapping(method = RequestMethod.GET)
     public String setup(Model model){
         List<Category> firstLevelCategories = courseService.findFirstLevelCategories();
+
+
+
+        model.addAttribute("title", "ICT Cursus - cursussen en trainingen in de IT");
         model.addAttribute("categories", firstLevelCategories);
         model.addAttribute("mainContent", "content/home");
         return "main";

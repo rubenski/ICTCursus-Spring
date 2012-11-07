@@ -10,6 +10,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.List;
 
 
 /**
@@ -34,5 +35,16 @@ public class CategoryDaoJpa extends GenericDaoJpa<Category> implements CategoryD
         query.where(predicate);
         TypedQuery<Category> typedQuery = entityManager.createQuery(query);
         return getSingleResult(typedQuery);
+    }
+
+    @Override
+    public List<Category> findSubCategories(Category category) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Category> query = builder.createQuery(Category.class);
+        Root<Category> root = query.from(Category.class);
+        Predicate predicate = builder.equal(root.get(Category_.parent), category);
+        query.where(predicate);
+        TypedQuery<Category> typedQuery = entityManager.createQuery(query);
+        return typedQuery.getResultList();
     }
 }

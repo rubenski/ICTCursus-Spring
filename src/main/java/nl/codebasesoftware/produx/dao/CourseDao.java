@@ -13,5 +13,5 @@ import java.util.List;
 public interface CourseDao extends GenericDao<Course> {
     List<Category> findFirstLevelCategories();
     List<Course> findCourses(CourseFilter filter);
-    List<Course> findCourses(Category category);
+    List<Course> findCourses(Long categoryId);
 }

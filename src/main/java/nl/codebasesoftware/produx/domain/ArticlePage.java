@@ -18,9 +18,9 @@ public class ArticlePage implements DomainObject {
     private String publicationDate;
     private String description;
     private String keywords;
-    private ArticlePage parent;
+    private ArticlePage parentPage;
     private Integer position;
-    private Set<ArticlePage> pages;
+    private Set<ArticlePage> childPages;
     private Set<Comment> comments;
 
 
@@ -69,21 +69,22 @@ public class ArticlePage implements DomainObject {
     }
 
     @OneToMany
-    public Set<ArticlePage> getPages() {
-        return pages;
+    @JoinColumn(name = "parentPage_id")
+    public Set<ArticlePage> getChildPages() {
+        return childPages;
     }
 
-    public void setPages(Set<ArticlePage> pages) {
-        this.pages = pages;
+    public void setChildPages(Set<ArticlePage> childPages) {
+        this.childPages = childPages;
     }
 
     @ManyToOne
-    public ArticlePage getParent() {
-        return parent;
+    public ArticlePage getParentPage() {
+        return parentPage;
     }
 
-    public void setParent(ArticlePage parent) {
-        this.parent = parent;
+    public void setParentPage(ArticlePage parentPage) {
+        this.parentPage = parentPage;
     }
 
 

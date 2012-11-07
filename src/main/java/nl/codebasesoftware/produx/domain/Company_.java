@@ -15,8 +15,6 @@ public class Company_ {
     public static volatile SingularAttribute<Category,  Integer> version;
     public static volatile SingularAttribute<Category,  String> email;
     public static volatile SingularAttribute<Category,  String> password;
-    public static volatile SingularAttribute<Category,  String> firstName;
-    public static volatile SingularAttribute<Category,  String> lastName;
     public static volatile SingularAttribute<Category,  String> phone;
     public static volatile SingularAttribute<Category,  String> description;
     public static volatile SingularAttribute<Category,  String> name;

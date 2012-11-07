@@ -34,15 +34,16 @@ public class CategoryController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String setup(@PathVariable("categoryUrlName") String categoryUrlName, Model model){
-
         Category category = categoryService.findByName(categoryUrlName);
-
         if(category == null){
             throw new ResourceNotFoundException();
         }
 
-        List<Course> courses = courseService.findCourses(category);
+        List<Course> courses = courseService.findCourses(category.getId());
 
+
+
+        model.addAttribute("title", "Cursussen " + category.getName() + " - ICT Cursus");
         model.addAttribute("courses", courses);
         model.addAttribute("category", category);
         model.addAttribute("mainContent", "content/category");

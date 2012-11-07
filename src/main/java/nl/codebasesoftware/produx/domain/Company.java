@@ -13,13 +13,10 @@ import java.util.Set;
 public class Company implements DomainObject {
 
     private Long id;
-    private Integer version;
     private String email;
-    private String password;
-    private String firstName;
-    private String lastName;
-    private String description;
     private String name;
+    private String description;
+    private Integer version;
     private String city;
     private String province;
     private String phone;
@@ -33,6 +30,10 @@ public class Company implements DomainObject {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Version
     public Integer getVersion() {
         return version;
@@ -42,8 +43,13 @@ public class Company implements DomainObject {
         this.version = version;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @Column(nullable = false)
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -52,30 +58,6 @@ public class Company implements DomainObject {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getPhone() {
@@ -111,13 +93,7 @@ public class Company implements DomainObject {
         this.description = description;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
 
 

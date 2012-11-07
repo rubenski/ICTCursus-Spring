@@ -3,6 +3,7 @@ package nl.codebasesoftware.produx.service.impl;
 import nl.codebasesoftware.produx.dao.UserProfileDao;
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.service.UserProfileService;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +15,7 @@ import java.util.List;
  * Date: 16-7-12
  * Time: 23:01
  */
-@Service
+@Service(value = "userProfileService")
 public class UserProfileServiceImpl implements UserProfileService {
 
     private UserProfileDao userProfileDao;
@@ -24,11 +25,7 @@ public class UserProfileServiceImpl implements UserProfileService {
         this.userProfileDao = userProfileDao;
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public UserProfile authenticate(String username, String password) {
-        return null;
-    }
+
 
     @Override
     public UserProfile findById(Long id) {
@@ -47,8 +44,15 @@ public class UserProfileServiceImpl implements UserProfileService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public UserProfile findByEmail(String email) {
+        return userProfileDao.findByEmail(email);
+    }
+
+    @Override
     @Transactional
     public void update(UserProfile userProfile) {
         userProfileDao.updateDetached(userProfile, new String[]{"password"});
     }
+
 }

@@ -1,20 +1,21 @@
 package nl.codebasesoftware.produx.domain;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
-import java.util.Set;
 
 /**
  * User: rvanloen
- * Date: 15-8-12
- * Time: 11:39
+ * Date: 31-10-12
+ * Time: 22:28
  */
 @Entity
-public class Role implements DomainObject {
+@Table(name = "Right")
+public class Right implements DomainObject, GrantedAuthority {
 
     private Long id;
     private Integer version;
     private String name;
-    private Set<Right> rights;
 
     @Override
     @Id
@@ -41,30 +42,13 @@ public class Role implements DomainObject {
         return name;
     }
 
-    private void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public void setName(Roles role){
-        this.name = role.toString();
-    }
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    public Set<Right> getRights() {
-        return rights;
-    }
-
-    public void setRights(Set<Right> rights) {
-        this.rights = rights;
-    }
-
+    @Override
     @Transient
-    public boolean hasRight(String rightName){
-        for (Right right : rights) {
-            if(right.getAuthority().equals(rightName)){
-                return true;
-            }
-        }
-        return false;
+    public String getAuthority() {
+        return name;
     }
 }

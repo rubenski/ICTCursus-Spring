@@ -10,7 +10,7 @@ import java.util.List;
  * Time: 23:00
  */
 public interface UserProfileService {
-    UserProfile authenticate (String username, String passwordLiteral);
+    UserProfile findByEmail(String email);
     UserProfile findById(Long id);
     List<UserProfile> findAll();
     void removeUserProfile(String username);
