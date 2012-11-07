@@ -20,6 +20,7 @@
             <jsp:include page="components/menu.jsp"/>
         </div>
         <div id="main-content">
+            ${mainMessage}
             <jsp:include page="${mainContent}.jsp"/>
         </div>
     </div>

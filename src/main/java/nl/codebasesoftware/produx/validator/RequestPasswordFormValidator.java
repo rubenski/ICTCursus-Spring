@@ -1,0 +1,34 @@
+package nl.codebasesoftware.produx.validator;
+
+
+import nl.codebasesoftware.produx.formdata.BindableForgotPassword;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * User: rvanloen
+ * Date: 7-11-12
+ * Time: 15:07
+ */
+@Component
+public class RequestPasswordFormValidator implements Validator {
+    @Override
+    public boolean supports(Class<?> aClass) {
+        return BindableForgotPassword.class.isAssignableFrom(aClass);
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        BindableForgotPassword forgotPassword = (BindableForgotPassword) target;
+        Pattern p = Pattern.compile("[a-zA-Z0-9_%.-]+@[a-zA-Z0-9_%.-]+\\.[a-z]+");
+        Matcher m = p.matcher(forgotPassword.getEmail());
+
+        if(!m.matches()){
+            errors.rejectValue("email", "email.error");
+        }
+    }
+}

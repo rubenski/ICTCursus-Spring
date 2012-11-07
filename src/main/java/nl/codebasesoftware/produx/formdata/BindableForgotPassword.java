@@ -1,4 +1,4 @@
-package nl.codebasesoftware.produx.formobject;
+package nl.codebasesoftware.produx.formdata;
 
 /**
  * User: rvanloen

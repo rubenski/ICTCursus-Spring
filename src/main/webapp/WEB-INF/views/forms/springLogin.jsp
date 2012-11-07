@@ -23,7 +23,7 @@
             <input type="submit" value="Verzenden"/>
         </div>
         <div class="form-entry">
-            <a href="/login/forgotpassword"><spring:message code="login.form.label.forgotpassword"/></a>
+            <a href="/login/requestpassword"><spring:message code="login.form.label.forgotpassword"/></a>
         </div>
     </div>
 </form>
