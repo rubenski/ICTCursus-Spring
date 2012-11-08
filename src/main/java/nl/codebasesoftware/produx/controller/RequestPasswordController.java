@@ -1,9 +1,11 @@
 package nl.codebasesoftware.produx.controller;
 
+import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.formdata.BindableForgotPassword;
-import nl.codebasesoftware.produx.net.mail.Mailer;
+import nl.codebasesoftware.produx.net.mail.PasswordMailer;
+import nl.codebasesoftware.produx.service.UserProfileService;
+import nl.codebasesoftware.produx.util.SecurityUtil;
 import nl.codebasesoftware.produx.validator.RequestPasswordFormValidator;
-import org.apache.commons.mail.EmailException;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -26,11 +28,17 @@ import java.util.Locale;
 public class RequestPasswordController implements ApplicationContextAware {
 
     private RequestPasswordFormValidator validator;
+    private UserProfileService userProfileService;
+    private PasswordMailer passwordMailer;
     private ApplicationContext applicationContext;
 
+
+
     @Autowired
-    public RequestPasswordController(RequestPasswordFormValidator validator) {
+    public RequestPasswordController(RequestPasswordFormValidator validator, UserProfileService userProfileService, PasswordMailer passwordMailer) {
         this.validator = validator;
+        this.userProfileService = userProfileService;
+        this.passwordMailer = passwordMailer;
     }
 
     @RequestMapping(value = "/login/requestpassword", method = RequestMethod.GET)
@@ -47,18 +55,28 @@ public class RequestPasswordController implements ApplicationContextAware {
         if (result.hasErrors()) {
             model.addAttribute("mainContent", "forms/requestPassword");
         } else {
+
+            String randomPassword = userProfileService.generateRandomPassword();
+            UserProfile profile = userProfileService.findByEmail(forgotPassword.getEmail());
+
+            passwordMailer.sendPasswordEmail(profile, randomPassword, locale);
+            updatePassword(profile, randomPassword);
+
             model.addAttribute("mainContent", "content/empty");
             model.addAttribute("mainMessage", applicationContext.getMessage("password.sent", null, locale));
 
-            try {
-                Mailer.sendHtmlEmail();
-            } catch (EmailException e) {
-                e.printStackTrace();
-            }
         }
 
         return "main";
     }
+
+    private void updatePassword(UserProfile profile, String randomPassword) {
+        String randomPasswordHash = SecurityUtil.createPasswordHash(randomPassword);
+
+        profile.setPasswordHash(randomPasswordHash);
+        userProfileService.update(profile);
+    }
+
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {

@@ -12,7 +12,6 @@ import java.util.Date;
 public class Comment implements DomainObject {
 
     private Long id;
-    private Integer version;
     private String commentText;
     private String email;
     private String name;
@@ -24,15 +23,6 @@ public class Comment implements DomainObject {
     @GeneratedValue
     public final Long getId() {
         return id;
-    }
-
-    @Version
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
     }
 
     public void setId(Long id) {

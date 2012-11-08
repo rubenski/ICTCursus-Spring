@@ -2,7 +2,7 @@ package nl.codebasesoftware.produx.authentication;
 
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.service.UserProfileService;
-import org.apache.commons.codec.digest.DigestUtils;
+import nl.codebasesoftware.produx.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -35,7 +35,7 @@ public class ProduxAuthenticationProvider implements AuthenticationProvider {
             throw new UsernameNotFoundException(String.format("Invalid credentials", authentication.getPrincipal()));
         }
 
-        String suppliedPasswordHash = DigestUtils.shaHex(authentication.getCredentials().toString());
+        String suppliedPasswordHash = SecurityUtil.createPasswordHash(authentication.getCredentials().toString());
 
         if(!profile.getPasswordHash().equals(suppliedPasswordHash)){
             throw new BadCredentialsException("Invalid credentials");

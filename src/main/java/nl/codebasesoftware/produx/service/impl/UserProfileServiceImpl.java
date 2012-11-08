@@ -1,12 +1,13 @@
 package nl.codebasesoftware.produx.service.impl;
 
+import nl.codebasesoftware.produx.dao.CompanyDao;
 import nl.codebasesoftware.produx.dao.UserProfileDao;
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.service.UserProfileService;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import util.NumberUtil;
 
 import java.util.List;
 
@@ -19,10 +20,12 @@ import java.util.List;
 public class UserProfileServiceImpl implements UserProfileService {
 
     private UserProfileDao userProfileDao;
+    private CompanyDao companyDao;
 
     @Autowired
-    public UserProfileServiceImpl(UserProfileDao userProfileDao) {
+    public UserProfileServiceImpl(UserProfileDao userProfileDao, CompanyDao companyDao) {
         this.userProfileDao = userProfileDao;
+        this.companyDao = companyDao;
     }
 
 
@@ -50,9 +53,26 @@ public class UserProfileServiceImpl implements UserProfileService {
     }
 
     @Override
-    @Transactional
-    public void update(UserProfile userProfile) {
-        userProfileDao.updateDetached(userProfile, new String[]{"password"});
+    public String generateRandomPassword() {
+        String randomString = "";
+        for(int i = 0; i < 10; i++){
+            int randomInt = NumberUtil.randomInt(97, 122);
+            randomString += (char) randomInt;
+        }
+
+        return randomString;
     }
 
+    @Override
+    @Transactional
+    public void update(UserProfile profile) {
+        UserProfile persistentProfile = userProfileDao.find(profile.getId());
+        persistentProfile.setPasswordHash(profile.getPasswordHash());
+        persistentProfile.setEmail(profile.getEmail());
+        persistentProfile.setFirstName(profile.getFirstName());
+        persistentProfile.setLastName(profile.getLastName());
+        persistentProfile.setPhone(profile.getPhone());
+        // persistentProfile.setRoles(profile.getRoles());
+        userProfileDao.persist(persistentProfile);
+    }
 }

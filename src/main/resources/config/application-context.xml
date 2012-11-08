@@ -17,6 +17,7 @@
     <context:component-scan base-package="nl.codebasesoftware.produx.dao"/>
     <context:component-scan base-package="nl.codebasesoftware.produx.validator"/>
     <context:component-scan base-package="nl.codebasesoftware.produx.authentication"/>
+    <context:component-scan base-package="nl.codebasesoftware.produx.net"/>
 
     <!-- Data and JPA setup -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" p:driverClassName="${db.driverClassName}"
@@ -51,6 +52,32 @@
     <!-- Request parameter that can be used to change the locale -->
     <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
         <property name="paramName" value="ln"/>
+    </bean>
+
+
+    <!-- Mail properties -->
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="mail.mirabeau.nl"/>
+    </bean>
+
+    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="velocityProperties">
+            <value>
+                resource.loader=class
+                class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+            </value>
+        </property>
+    </bean>
+
+    <!-- gather properties from environment.properties -->
+    <bean id="properties" class="nl.codebasesoftware.produx.util.Properties">
+        <property name="properties">
+            <map>
+                <entry key="email.from.address" value="${email.from.address}"/>
+                <entry key="site.host" value="${site.host}"/>
+                <entry key="site.port" value="${site.port}"/>
+            </map>
+        </property>
     </bean>
 
 </beans>

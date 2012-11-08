@@ -14,7 +14,6 @@ import java.util.Set;
 public class Course implements DomainObject {
 
     private Long id;
-    private Integer version;
     private String name;
     private String shortDescription;
     private String duration;
@@ -36,15 +35,6 @@ public class Course implements DomainObject {
     public void setId(Long id) {
         this.id = id;
     }
-
-    @Version
-	public Integer getVersion() {
-		return version;
-	}
-
-	public void setVersion(Integer version) {
-		this.version = version;
-	}
 
     public String getName() {
         return name;

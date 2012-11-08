@@ -61,12 +61,6 @@ public class GenericDaoJpa<T extends DomainObject> implements GenericDao<T> {
         entityManager.refresh(object);
     }
 
-    @Override
-    public void updateDetached(DomainObject object, String... ignoreFields) {
-        DomainObject persisted = entityManager.find(object.getClass(), object.getId());
-        BeanUtils.copyProperties(object, persisted, ignoreFields);
-    }
-
     protected T getSingleResult(TypedQuery query) {
         List<T> resultList = query.getResultList();
         return resultList.isEmpty() ? null : resultList.get(0);

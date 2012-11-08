@@ -12,7 +12,6 @@ import java.util.Set;
 public class Role implements DomainObject {
 
     private Long id;
-    private Integer version;
     private String name;
     private Set<Right> rights;
 
@@ -23,17 +22,8 @@ public class Role implements DomainObject {
         return id;
     }
 
-    @Version
-    public Integer getVersion() {
-        return version;
-    }
-
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
     }
 
     @Column(nullable = false)

@@ -109,7 +109,7 @@ public class BindableUserProfile {
 
     public UserProfile asUserProfile(){
         UserProfile profile = new UserProfile();
-        profile.setPassword(password);
+        profile.setPasswordHash(password);
         profile.setEmail(email);
         profile.setFirstName(firstName);
         profile.setId(id);

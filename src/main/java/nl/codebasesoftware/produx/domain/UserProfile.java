@@ -13,7 +13,6 @@ import java.util.Set;
 public class UserProfile implements DomainObject, UserDetails {
 
     private Long id;
-    private Integer version;
     private String email;
     private String passwordHash;
     private String firstName;
@@ -30,16 +29,6 @@ public class UserProfile implements DomainObject, UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public final Long getId() {
         return id;
-    }
-
-
-    @Version
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
     }
 
     public void setId(Long id) {

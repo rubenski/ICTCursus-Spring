@@ -11,7 +11,6 @@ import javax.persistence.*;
 public class Experience implements DomainObject {
 
     private Long id;
-    private Integer version;
     private String message;
     private int rating;
     private Course course;
@@ -23,14 +22,6 @@ public class Experience implements DomainObject {
         return id;
     }
 
-    @Version
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
 
     public void setId(Long id) {
         this.id = id;

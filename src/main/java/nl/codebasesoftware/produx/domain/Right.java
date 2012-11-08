@@ -14,7 +14,6 @@ import javax.persistence.*;
 public class Right implements DomainObject, GrantedAuthority {
 
     private Long id;
-    private Integer version;
     private String name;
 
     @Override
@@ -24,17 +23,8 @@ public class Right implements DomainObject, GrantedAuthority {
         return id;
     }
 
-    @Version
-    public Integer getVersion() {
-        return version;
-    }
-
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
     }
 
     @Column(nullable = false)

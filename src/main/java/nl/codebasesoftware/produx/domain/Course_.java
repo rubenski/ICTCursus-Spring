@@ -12,7 +12,6 @@ import java.util.Date;
 public class Course_ {
     
     public static volatile SingularAttribute<Course, Long> id;
-    public static volatile SingularAttribute<Course, Integer> version;
     public static volatile SingularAttribute<Course, String> name;
     public static volatile SingularAttribute<Course, String> shortDescription;
     public static volatile SingularAttribute<Course, String> duration;

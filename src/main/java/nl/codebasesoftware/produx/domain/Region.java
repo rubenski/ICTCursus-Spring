@@ -3,7 +3,6 @@ package nl.codebasesoftware.produx.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Version;
 
 /**
  * User: rvanloen
@@ -14,7 +13,6 @@ import javax.persistence.Version;
 public class Region implements DomainObject {
 
     private Long id;
-    private Integer version;
     private String name;
 
     @Override
@@ -27,15 +25,6 @@ public class Region implements DomainObject {
     public void setId(Long id) {
         this.id = id;
     }
-
-    @Version
-	public Integer getVersion() {
-		return version;
-	}
-
-	public void setVersion(Integer version) {
-		this.version = version;
-	}
 
     public String getName() {
         return name;

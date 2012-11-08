@@ -10,7 +10,6 @@ import javax.persistence.metamodel.SingularAttribute;
  */
 public class Tag_ {
     public static volatile SingularAttribute<Tag, Long> id;
-    public static volatile SingularAttribute<Tag, Integer> version;
     public static volatile SingularAttribute<Tag, String> name;
     public static volatile SingularAttribute<Tag, String> description;
     public static volatile SetAttribute<Tag, Course> courses;

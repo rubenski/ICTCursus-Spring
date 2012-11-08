@@ -14,7 +14,6 @@ import java.util.Set;
 public class Category implements DomainObject {
 
     private Long id;
-    private Integer version;
     private String name;
     private String description;
     private Set<Course> courses = new HashSet<Course>();
@@ -28,15 +27,6 @@ public class Category implements DomainObject {
     @GeneratedValue
     public final Long getId() {
         return id;
-    }
-
-    @Version
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
     }
 
     public void setId(Long id) {
