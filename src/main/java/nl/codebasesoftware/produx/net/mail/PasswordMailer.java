@@ -34,12 +34,11 @@ public class PasswordMailer {
 
     public void sendPasswordEmail(final UserProfile userProfile, final String password, Locale locale) {
 
-        TextProperties textProperties = new TextProperties();
         final String fromEmail = properties.getProperty("email.from.address");
         final String host = properties.getProperty("site.host");
         final String port = properties.getProperty("site.port");
-        final String subject = textProperties.getTextProperty("password.request.mail.subject", locale.getLanguage());
-        final String senderName = textProperties.getTextProperty("mail.standard.sendername", locale.getLanguage());
+        final String subject = TextProperties.getTextProperty("password.request.mail.subject", locale.getLanguage());
+        final String senderName = TextProperties.getTextProperty("mail.standard.sendername", locale.getLanguage());
 
 
         MimeMessagePreparator preparator = new MimeMessagePreparator() {

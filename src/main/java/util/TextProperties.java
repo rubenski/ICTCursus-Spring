@@ -11,12 +11,12 @@ import java.util.Properties;
  */
 public class TextProperties {
 
-    public String getTextProperty(String key, String language) {
+    public static String getTextProperty(String key, String language) {
         Properties properties = new Properties();
 
         try {
             String fileName = String.format("messages/messages_%s.properties", language);
-            InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(fileName);
+            InputStream inputStream = TextProperties.class.getClassLoader().getResourceAsStream(fileName);
             properties.load(inputStream);
         } catch (IOException ex) {
             ex.printStackTrace();
