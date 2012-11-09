@@ -1,12 +1,9 @@
 package nl.codebasesoftware.produx.controller;
 
-import nl.codebasesoftware.produx.domain.Company;
-import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.service.CourseService;
+import nl.codebasesoftware.produx.util.SessionData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,25 +20,21 @@ public class ManagementHomeController {
 
     private CourseService userService;
     private CompanyService companyService;
+    private SessionData sessionData;
 
     @Autowired
-    public ManagementHomeController(CourseService userService, CompanyService companyService) {
+    public ManagementHomeController(CourseService userService, CompanyService companyService, SessionData sessionData) {
         this.userService = userService;
         this.companyService = companyService;
+        this.sessionData = sessionData;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public String get(Model model) {
         model.addAttribute("mainContent", "content/managementHome");
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        UserProfile profile = (UserProfile) auth.getPrincipal();
-        Company company = companyService.findByUserProfile(profile);
-
+        // sessionData.company is null here!
 
         return "main";
     }
-
-
-
 }

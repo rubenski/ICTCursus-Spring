@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.controller;
 
 import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.service.CourseService;
+import nl.codebasesoftware.produx.util.SessionData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,10 +21,12 @@ import java.util.List;
 public class HomepageController {
 
     private CourseService courseService;
+    private SessionData sessionData;
 
     @Autowired
-    public HomepageController(CourseService courseService) {
+    public HomepageController(CourseService courseService, SessionData sessionData) {
         this.courseService = courseService;
+        this.sessionData = sessionData;
     }
 
     @RequestMapping(method = RequestMethod.GET)

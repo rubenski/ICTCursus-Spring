@@ -1,4 +1,4 @@
-package util;
+package nl.codebasesoftware.produx.util;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -2,13 +2,13 @@ package nl.codebasesoftware.produx.net.mail;
 
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.util.Properties;
+import nl.codebasesoftware.produx.util.TextProperties;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.velocity.VelocityEngineUtils;
-import util.TextProperties;
 
 import javax.annotation.Resource;
 import javax.mail.internet.MimeMessage;

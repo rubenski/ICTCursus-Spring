@@ -73,6 +73,7 @@
             <element id="library" level="project" name="Maven: org.apache.velocity:velocity:1.7" />
             <element id="library" level="project" name="Maven: javax.mail:mail:1.4" />
             <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
+            <element id="library" level="project" name="Maven: cglib:cglib:2.2.2" />
           </element>
         </element>
       </root>
@@ -524,6 +525,17 @@
         <root url="jar://$MAVEN_REPOSITORY$/asm/asm/3.2/asm-3.2-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: cglib:cglib:2.2.2">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/cglib/cglib/2.2.2/cglib-2.2.2.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/cglib/cglib/2.2.2/cglib-2.2.2-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/cglib/cglib/2.2.2/cglib-2.2.2-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: commons-codec:commons-codec:1.4">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/commons-codec/commons-codec/1.4/commons-codec-1.4.jar!/" />
@@ -875,7 +887,6 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/mortbay/jetty/servlet-api-2.5/6.1.2/servlet-api-2.5-6.1.2-sources.jar!/" />
-        <root url="intellijad://intellijad" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework.security:spring-security-acl:3.1.1.RELEASE">
@@ -1067,7 +1078,6 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/3.1.1.RELEASE/spring-web-3.1.1.RELEASE-sources.jar!/" />
-        <root url="intellijad://intellijad" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework:spring-webmvc:3.1.1.RELEASE">

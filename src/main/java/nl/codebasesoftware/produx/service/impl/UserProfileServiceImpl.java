@@ -4,10 +4,10 @@ import nl.codebasesoftware.produx.dao.CompanyDao;
 import nl.codebasesoftware.produx.dao.UserProfileDao;
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.service.UserProfileService;
+import nl.codebasesoftware.produx.util.NumberUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import util.NumberUtil;
 
 import java.util.List;
 
