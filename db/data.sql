@@ -22,3 +22,24 @@ INSERT INTO `px_userprofile` (`id`, `email`, `first_name`, `last_name`, `passwor
 
 -- userprofile2role
 INSERT INTO `px_userprofile2role` (`userprofile_id`, `role_id`) VALUES('1','1');
+
+-- category
+INSERT INTO `px_category` (`id`, `name`, `url_title`, `parent_id`) VALUES
+(1, 'Microsoft Office', 'microsoft_office', NULL), 
+(2, 'Excel', 'excel', 1), 
+(3, 'Word', 'word', 1), 
+(4, 'Access', 'access', 1), 
+(5, 'Programmeren', 'programmeren', NULL),
+(6, 'PHP', 'php', 5),
+(7, 'Java', 'java', 5),
+(8, 'C#', 'csharp', 5),
+(9, 'C++', 'cplus', 5),
+(10, 'Business Intelligence', 'business_intelligence', NULL);
+
+-- course
+INSERT INTO `px_course` (`id`, `duration`, `last_updated`, `name`, `pricing_info`, `short_description`, `long_description`, `category_id`, `company_id`) VALUES
+(1, 'Deze cursus duurt drie dagen', '2012-09-27 14:22:33', 'Cursus Excel', '725 euro per persoon', 'korte omschrijving', 'lange omschrijving' 2, 1),
+(2, 'Deze cursus duurt vier dagen', '2012-09-27 14:22:33', 'Cursus Office algemeen', '725 euro per persoon', 'korte omschrijving', 'lange omschrijving' 1, 1),
+(3, 'Deze cursus duurt vijf dagen', '2012-09-27 14:22:33', 'Cursus Word', '725 euro per persoon', 'korte omschrijving', 'lange omschrijving' 3, 1);
+
+

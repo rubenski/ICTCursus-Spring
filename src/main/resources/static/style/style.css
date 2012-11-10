@@ -75,26 +75,25 @@ body {
     margin-bottom: 1px;
 }
 
+#data-entry-form .manage * {
+    width: 450px;
+    font-family: arial;
+}
+
 #data-entry-form .form-entry .form-error {
     color: red;
 }
 
-
 #data-entry-form .form-entry label {
     display: block;
-    width: 300px;
-    padding-bottom: 2px;
-}
-
-#data-entry-form .form-entry .form-input {
-    width: 300px;
+    padding-bottom: 4px;
+    font-weight: bold;
 }
 
 #data-entry-form .form-entry .form-input-error {
     width: 300px;
     border:  1px solid red;
 }
-
 
 #data-entry-form .form-entry input[type="submit"]{
     padding:  4px;

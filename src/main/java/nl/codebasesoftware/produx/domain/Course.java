@@ -16,6 +16,7 @@ public class Course implements DomainObject {
     private Long id;
     private String name;
     private String shortDescription;
+    private String longDescription;
     private String duration;
     private Set<Region> regions = new HashSet<Region>();
     private String pricingInfo;
@@ -50,6 +51,14 @@ public class Course implements DomainObject {
 
     public void setShortDescription(String shortDescription) {
         this.shortDescription = shortDescription;
+    }
+
+    public String getLongDescription() {
+        return longDescription;
+    }
+
+    public void setLongDescription(String longDescription) {
+        this.longDescription = longDescription;
     }
 
     public String getDuration() {

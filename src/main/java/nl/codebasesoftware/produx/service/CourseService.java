@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.service;
 
 import nl.codebasesoftware.produx.domain.Category;
+import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.service.helpers.CourseFilter;
 
@@ -12,8 +13,9 @@ import java.util.List;
  * Time: 17:13
  */
 public interface CourseService {
-    public List<Category> findFirstLevelCategories();
-    public List<Course> findCourses(CourseFilter filter);
+    List<Course> findByCompany(Company company);
+    List<Category> findFirstLevelCategories();
+    List<Course> findCourses(CourseFilter filter);
     List<Course> findCourses(Long categoryId);
-    List<Course> findByCompany(Long companyId);
+    Course findById(Long id);
 }

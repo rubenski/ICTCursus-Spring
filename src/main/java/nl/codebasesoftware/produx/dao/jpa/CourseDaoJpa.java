@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.dao.jpa;
 
 import nl.codebasesoftware.produx.dao.CourseDao;
 import nl.codebasesoftware.produx.domain.Category;
+import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.Course_;
 import nl.codebasesoftware.produx.service.helpers.CourseFilter;
@@ -55,18 +56,19 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
         return typedQuery.getResultList();
     }
 
+    @Override
     public List<Course> findCourses(Long categoryId) {
         Query queryGood = entityManager.createQuery("select c from Course c join fetch c.company where c.category.id = :categoryId");
         queryGood.setParameter("categoryId", categoryId);
         return queryGood.getResultList();
     }
 
-    /*
-    public List<Course> findCourses(Category category) {
-        Query queryGood = entityManager.createQuery("select c from Course c join fetch c.company where c.category.id = :categoryId");
-        queryGood.setParameter("categoryId", category.getId());
-        return queryGood.getResultList();
+    @Override
+    public List<Course> findCourses(Company company) {
+        Query query = entityManager.createQuery("select c from Course c where c.company = :company");
+        query.setParameter("company", company);
+        return query.getResultList();
     }
-    */
+
 
 }

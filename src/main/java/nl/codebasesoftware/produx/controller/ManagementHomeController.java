@@ -1,13 +1,20 @@
 package nl.codebasesoftware.produx.controller;
 
+import nl.codebasesoftware.produx.domain.Company;
+import nl.codebasesoftware.produx.domain.Course;
+import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.util.SessionData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.List;
+
 
 /**
  * User: rvanloen
@@ -21,19 +28,25 @@ public class ManagementHomeController {
     private CourseService userService;
     private CompanyService companyService;
     private SessionData sessionData;
+    private CourseService courseService;
 
     @Autowired
-    public ManagementHomeController(CourseService userService, CompanyService companyService, SessionData sessionData) {
+    public ManagementHomeController(CourseService userService, CompanyService companyService, CourseService courseService, SessionData sessionData) {
         this.userService = userService;
         this.companyService = companyService;
         this.sessionData = sessionData;
+        this.courseService = courseService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public String get(Model model) {
         model.addAttribute("mainContent", "content/managementHome");
 
-        // sessionData.company is null here!
+        UserProfile userProfile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Company company = companyService.findByUserProfile(userProfile);
+        List<Course> courses = courseService.findByCompany(company);
+        model.addAttribute("courses", courses);
+        model.addAttribute("numberOfCourses", courses.size());
 
         return "main";
     }

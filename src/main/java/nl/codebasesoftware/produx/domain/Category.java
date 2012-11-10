@@ -15,10 +15,8 @@ public class Category implements DomainObject {
 
     private Long id;
     private String name;
-    private String description;
     private Set<Course> courses = new HashSet<Course>();
     private Category parent;
-    private Long numberOfVisits;
     private String urlTitle;
     private List<Category> children;
 
@@ -42,14 +40,6 @@ public class Category implements DomainObject {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     @OneToMany(mappedBy = "category")
     public Set<Course> getCourses() {
         return courses;
@@ -60,20 +50,13 @@ public class Category implements DomainObject {
     }
 
     @ManyToOne
+    @JoinColumn(name = "parent_id")
     public Category getParent() {
         return parent;
     }
 
     public void setParent(Category parent) {
         this.parent = parent;
-    }
-
-    public Long getNumberOfVisits() {
-        return numberOfVisits;
-    }
-
-    public void setNumberOfVisits(Long numberOfVisits) {
-        this.numberOfVisits = numberOfVisits;
     }
 
     @Column(unique = true, nullable = false)

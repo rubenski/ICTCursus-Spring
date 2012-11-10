@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.service.impl;
 
 import nl.codebasesoftware.produx.dao.CourseDao;
 import nl.codebasesoftware.produx.domain.Category;
+import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.service.helpers.CourseFilter;
@@ -46,7 +47,12 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> findByCompany(Long companyId) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public List<Course> findByCompany(Company company) {
+        return courseDao.findCourses(company);
+    }
+
+    @Override
+    public Course findById(Long id) {
+        return courseDao.find(id);
     }
 }

@@ -14,10 +14,8 @@ import javax.persistence.metamodel.StaticMetamodel;
 public class Category_ {
     public static volatile SingularAttribute<Category, Long> id;
     public static volatile SingularAttribute<Category, String> name;
-    public static volatile SingularAttribute<Category, String> description;
     public static volatile SetAttribute<Category, Course> courses;
     public static volatile SingularAttribute<Category, Category> parent;
-    public static volatile SingularAttribute<Category, Long> numberOfVisits;
     public static volatile SingularAttribute<Category, String> urlTitle;
     public static volatile ListAttribute<Category, Category> children;
 }
