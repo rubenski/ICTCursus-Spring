@@ -70,7 +70,7 @@
         </property>
     </bean>
 
-    <!-- gather properties from environment.properties -->
+    <!-- Gather properties from environment.properties -->
     <bean id="properties" class="nl.codebasesoftware.produx.util.Properties">
         <property name="properties">
             <map>
@@ -80,6 +80,7 @@
             </map>
         </property>
     </bean>
+
 
 
 

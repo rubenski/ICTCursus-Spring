@@ -42,6 +42,9 @@
             <element id="library" level="project" name="Maven: org.springframework.security:spring-security-web:3.1.1.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework.security:spring-security-acl:3.1.1.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:3.1.1.RELEASE" />
+            <element id="library" level="project" name="Maven: org.directwebremoting:dwr:2.0.3" />
+            <element id="library" level="project" name="Maven: org.springframework:spring-oxm:3.1.1.RELEASE" />
+            <element id="library" level="project" name="Maven: commons-lang:commons-lang:2.5" />
             <element id="library" level="project" name="Maven: org.hibernate:hibernate-core:4.1.1.Final" />
             <element id="library" level="project" name="Maven: antlr:antlr:2.7.7" />
             <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.1.0.GA" />
@@ -55,7 +58,6 @@
             <element id="library" level="project" name="Maven: org.hibernate:hibernate-validator:4.3.0.Final" />
             <element id="library" level="project" name="Maven: javax.validation:validation-api:1.0.0.GA" />
             <element id="library" level="project" name="Maven: org.apache.openjpa:openjpa:2.2.0" />
-            <element id="library" level="project" name="Maven: commons-lang:commons-lang:2.4" />
             <element id="library" level="project" name="Maven: commons-collections:commons-collections:3.2.1" />
             <element id="library" level="project" name="Maven: net.sourceforge.serp:serp:1.13.1" />
             <element id="library" level="project" name="Maven: junit:junit:3.8.1" />
@@ -569,15 +571,15 @@
         <root url="jar://$MAVEN_REPOSITORY$/commons-dbcp/commons-dbcp/1.2.2/commons-dbcp-1.2.2-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: commons-lang:commons-lang:2.4">
+    <library name="Maven: commons-lang:commons-lang:2.5">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-lang/commons-lang/2.4/commons-lang-2.4.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/commons-lang/commons-lang/2.5/commons-lang-2.5.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-lang/commons-lang/2.4/commons-lang-2.4-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/commons-lang/commons-lang/2.5/commons-lang-2.5-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-lang/commons-lang/2.4/commons-lang-2.4-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/commons-lang/commons-lang/2.5/commons-lang-2.5-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: commons-logging:commons-logging:1.1.1">
@@ -765,6 +767,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/aspectj/aspectjrt/1.6.12/aspectjrt-1.6.12-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.directwebremoting:dwr:2.0.3">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/directwebremoting/dwr/2.0.3/dwr-2.0.3.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/directwebremoting/dwr/2.0.3/dwr-2.0.3-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/directwebremoting/dwr/2.0.3/dwr-2.0.3-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.hibernate.common:hibernate-commons-annotations:4.0.1.Final">
@@ -955,7 +968,6 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/3.1.1.RELEASE/spring-aop-3.1.1.RELEASE-sources.jar!/" />
-        <root url="intellijad://intellijad" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework:spring-asm:3.1.1.RELEASE">
@@ -1057,6 +1069,17 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-orm/3.1.1.RELEASE/spring-orm-3.1.1.RELEASE-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: org.springframework:spring-oxm:3.1.1.RELEASE">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-oxm/3.1.1.RELEASE/spring-oxm-3.1.1.RELEASE.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-oxm/3.1.1.RELEASE/spring-oxm-3.1.1.RELEASE-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-oxm/3.1.1.RELEASE/spring-oxm-3.1.1.RELEASE-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: org.springframework:spring-tx:3.1.1.RELEASE">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-tx/3.1.1.RELEASE/spring-tx-3.1.1.RELEASE.jar!/" />
@@ -1078,7 +1101,6 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/3.1.1.RELEASE/spring-web-3.1.1.RELEASE-sources.jar!/" />
-        <root url="intellijad://intellijad" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework:spring-webmvc:3.1.1.RELEASE">

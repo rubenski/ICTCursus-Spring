@@ -38,8 +38,16 @@ INSERT INTO `px_category` (`id`, `name`, `url_title`, `parent_id`) VALUES
 
 -- course
 INSERT INTO `px_course` (`id`, `duration`, `last_updated`, `name`, `pricing_info`, `short_description`, `long_description`, `category_id`, `company_id`) VALUES
-(1, 'Deze cursus duurt drie dagen', '2012-09-27 14:22:33', 'Cursus Excel', '725 euro per persoon', 'korte omschrijving', 'lange omschrijving' 2, 1),
-(2, 'Deze cursus duurt vier dagen', '2012-09-27 14:22:33', 'Cursus Office algemeen', '725 euro per persoon', 'korte omschrijving', 'lange omschrijving' 1, 1),
-(3, 'Deze cursus duurt vijf dagen', '2012-09-27 14:22:33', 'Cursus Word', '725 euro per persoon', 'korte omschrijving', 'lange omschrijving' 3, 1);
+(1, 'Deze cursus duurt drie dagen', '2012-09-27 14:22:33', 'Cursus Excel', '725 euro per persoon', 'korte omschrijving', 'lange omschrijving', 2, 1),
+(2, 'Deze cursus duurt vier dagen', '2012-09-27 14:22:33', 'Cursus Office algemeen', '725 euro per persoon', 'korte omschrijving', 'lange omschrijving', 1, 1),
+(3, 'Deze cursus duurt vijf dagen', '2012-09-27 14:22:33', 'Cursus Word', '725 euro per persoon', 'korte omschrijving', 'lange omschrijving', 3, 1);
+
+-- region
+INSERT INTO `px_region` (`id`, `name`) VALUES
+(1, 'Amsterdam'),
+(2, 'Rotterdam'),
+(3, 'Nijmegen'),
+(4, 'Utrecht'),
+(5, 'Groningen');
 
 

@@ -3,6 +3,8 @@ package nl.codebasesoftware.produx.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * User: rvanloen
@@ -10,6 +12,7 @@ import javax.persistence.Id;
  * Time: 21:23
  */
 @Entity
+@XmlRootElement(name = "region")
 public class Region implements DomainObject {
 
     private Long id;
@@ -22,6 +25,7 @@ public class Region implements DomainObject {
         return id;
     }
 
+    @XmlElement
     public void setId(Long id) {
         this.id = id;
     }
@@ -30,6 +34,7 @@ public class Region implements DomainObject {
         return name;
     }
 
+    @XmlElement
     public void setName(String name) {
         this.name = name;
     }

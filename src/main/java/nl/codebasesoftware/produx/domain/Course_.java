@@ -14,6 +14,7 @@ public class Course_ {
     public static volatile SingularAttribute<Course, Long> id;
     public static volatile SingularAttribute<Course, String> name;
     public static volatile SingularAttribute<Course, String> shortDescription;
+    public static volatile SingularAttribute<Course, String> longDescription;
     public static volatile SingularAttribute<Course, String> duration;
     public static volatile SetAttribute<Course, Region> regions;
     public static volatile SingularAttribute<Course, String> pricingInfo;
