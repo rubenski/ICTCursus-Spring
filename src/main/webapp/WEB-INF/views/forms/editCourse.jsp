@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<form:form method="post" commandName="course">
+<form:form method="post" modelAttribute="bindableCourse">
     <div id="data-entry-form">
         <form:hidden path="id"/>
         <div class="form-entry">
@@ -40,6 +40,15 @@
                 <span><spring:message code="course.form.regions.helptext"/></span>
             </form:label>
             <form:checkboxes path="regions" items="${allRegions}"/>
+            <br><br>
+            <c:forEach items="${allRegions}" var="region">
+                <input type="checkbox" name="regions[]" value="${region.id}"> ${region.name}
+            </c:forEach>
+            <br><br>
+            <c:forEach items="${allRegions}" var="region">
+                <form:checkbox path="regions" value="${region.id}" label="${region.name}"/>
+            </c:forEach>
+
             <form:errors path="duration" cssClass="form-error"/>
         </div>
         <div class="form-entry">
