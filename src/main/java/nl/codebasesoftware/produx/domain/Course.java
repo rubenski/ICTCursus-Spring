@@ -19,7 +19,7 @@ public class Course implements DomainObject {
     private String longDescription;
     private String duration;
     private Set<Region> regions = new HashSet<Region>();
-    private String pricingInfo;
+    private Double price;
     private Company company;
     private Date lastUpdated;
     private Category category;
@@ -79,12 +79,12 @@ public class Course implements DomainObject {
         this.regions = regions;
     }
 
-    public String getPricingInfo() {
-        return pricingInfo;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setPricingInfo(String pricingInfo) {
-        this.pricingInfo = pricingInfo;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     @ManyToOne

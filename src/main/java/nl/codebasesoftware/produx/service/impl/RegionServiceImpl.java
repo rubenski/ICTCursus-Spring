@@ -27,4 +27,9 @@ public class RegionServiceImpl implements RegionService {
     public List<Region> findRegionsBySubstring(String substring) {
         return regionDao.findRegionsBySubstring(substring);
     }
+
+    @Override
+    public List<Region> findAll() {
+        return regionDao.findAll();
+    }
 }

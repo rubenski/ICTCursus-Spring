@@ -15,5 +15,6 @@ public interface CourseDao extends GenericDao<Course> {
     List<Category> findFirstLevelCategories();
     List<Course> findCourses(CourseFilter filter);
     List<Course> findCourses(Long categoryId);
-    public List<Course> findCourses(Company company);
+    List<Course> findCourses(Company company);
+    Course findFull(Long id);
 }

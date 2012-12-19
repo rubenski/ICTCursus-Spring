@@ -41,4 +41,12 @@ public class TagDaoJpa extends GenericDaoJpa<Tag> implements TagDao {
         Query query = entityManager.createQuery(jpql);
         return query.getResultList();
     }
+
+    @Override
+    public Tag findByName(String tagName) {
+        String jpql = "from Tag t where t.name = :tagName";
+        Query query = entityManager.createQuery(jpql);
+        query.setParameter("tagName", tagName);
+        return (Tag) query.getSingleResult();
+    }
 }

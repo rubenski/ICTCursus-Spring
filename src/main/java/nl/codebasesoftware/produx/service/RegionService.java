@@ -11,4 +11,5 @@ import java.util.List;
  */
 public interface RegionService {
     List<Region> findRegionsBySubstring(String substring);
+    List<Region> findAll();
 }

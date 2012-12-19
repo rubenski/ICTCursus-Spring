@@ -1,11 +1,10 @@
-package nl.codebasesoftware.produx.controller;
+package nl.codebasesoftware.produx.controller.management;
 
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.service.CourseService;
-import nl.codebasesoftware.produx.util.SessionData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -25,16 +24,12 @@ import java.util.List;
 @RequestMapping(value = "/manage/home")
 public class ManagementHomeController {
 
-    private CourseService userService;
     private CompanyService companyService;
-    private SessionData sessionData;
     private CourseService courseService;
 
     @Autowired
-    public ManagementHomeController(CourseService userService, CompanyService companyService, CourseService courseService, SessionData sessionData) {
-        this.userService = userService;
+    public ManagementHomeController(CompanyService companyService, CourseService courseService) {
         this.companyService = companyService;
-        this.sessionData = sessionData;
         this.courseService = courseService;
     }
 

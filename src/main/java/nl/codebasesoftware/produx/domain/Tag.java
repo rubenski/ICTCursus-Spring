@@ -28,6 +28,7 @@ public class Tag implements DomainObject {
         this.id = id;
     }
 
+    @Column(nullable = false, unique = true)
     public String getName() {
         return name;
     }

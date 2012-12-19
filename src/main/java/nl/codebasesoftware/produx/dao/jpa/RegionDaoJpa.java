@@ -13,9 +13,9 @@ import java.util.List;
  * Time: 14:12
  */
 @Repository
-public class RegionDaoJap extends GenericDaoJpa<Region> implements RegionDao {
+public class RegionDaoJpa extends GenericDaoJpa<Region> implements RegionDao {
 
-    public RegionDaoJap() {
+    public RegionDaoJpa() {
         super(Region.class);
     }
 
@@ -23,6 +23,12 @@ public class RegionDaoJap extends GenericDaoJpa<Region> implements RegionDao {
     public List<Region> findRegionsBySubstring(String substring) {
         Query query = entityManager.createQuery("from Region r where r.name like :substring");
         query.setParameter("substring", "%" + substring + "%");
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Region> findAll() {
+        Query query = entityManager.createQuery("from Region r order by name");
         return query.getResultList();
     }
 }

@@ -1,14 +1,20 @@
-package nl.codebasesoftware.produx.controller;
+package nl.codebasesoftware.produx.controller.management;
 
+import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.domain.Course;
+import nl.codebasesoftware.produx.domain.Region;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
+import nl.codebasesoftware.produx.service.CategoryService;
 import nl.codebasesoftware.produx.service.CourseService;
+import nl.codebasesoftware.produx.service.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.List;
 
 /**
  * User: rvanloen
@@ -20,21 +26,33 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ManagementCourseController {
 
     private CourseService courseService;
+    private RegionService regionService;
+    private CategoryService categoryService;
 
     @Autowired
-    public ManagementCourseController(CourseService courseService) {
+    public ManagementCourseController(CourseService courseService, RegionService regionService, CategoryService categoryService) {
         this.courseService = courseService;
+        this.regionService = regionService;
+        this.categoryService = categoryService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public String get(@PathVariable("id") Long id, Model model) {
+
         model.addAttribute("mainContent", "forms/editCourse");
-        Course course = courseService.findById(id);
+
+        Course course = courseService.findFull(id);
+        List<Category> categories = categoryService.findAll();
+
+        List<Region> allRegions = regionService.findAll();
+
         if(course == null){
             throw new ResourceNotFoundException();
         }
-        model.addAttribute("course", course);
 
-        return "main";
+        model.addAttribute("course", course);
+        model.addAttribute("allRegions", allRegions);
+        model.addAttribute("categories", categories);
+        return "managementMain";
     }
 }

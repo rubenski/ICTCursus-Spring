@@ -13,4 +13,5 @@ import java.util.List;
  */
 public interface TagDao extends GenericDao<Tag> {
     List<Tag> findTagsForCourses(Collection<Course> courses);
+    Tag findByName(String tagName);
 }

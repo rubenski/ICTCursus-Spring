@@ -55,4 +55,9 @@ public class CourseServiceImpl implements CourseService {
     public Course findById(Long id) {
         return courseDao.find(id);
     }
+
+    @Override
+    public Course findFull(Long id) {
+        return courseDao.findFull(id);
+    }
 }

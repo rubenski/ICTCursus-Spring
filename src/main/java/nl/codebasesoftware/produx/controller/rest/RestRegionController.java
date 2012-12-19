@@ -1,7 +1,6 @@
-package nl.codebasesoftware.produx.controller;
+package nl.codebasesoftware.produx.controller.rest;
 
 import nl.codebasesoftware.produx.domain.Region;
-import nl.codebasesoftware.produx.rest.JaxbList;
 import nl.codebasesoftware.produx.service.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,9 +27,8 @@ public class RestRegionController {
     }
 
     @RequestMapping(value = "/regions/{input}")
-    public @ResponseBody JaxbList<Region> getRegionsBySubstring(@PathVariable("input") String input, Model model){
+    public @ResponseBody List<Region> getRegionsBySubstring(@PathVariable("input") String input, Model model){
         List<Region> regions = regionService.findRegionsBySubstring(input);
-        JaxbList<Region> jaxbRegions = new JaxbList<Region>(regions);
-        return jaxbRegions;
+        return regions;
     }
 }

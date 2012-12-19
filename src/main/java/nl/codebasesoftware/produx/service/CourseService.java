@@ -18,4 +18,5 @@ public interface CourseService {
     List<Course> findCourses(CourseFilter filter);
     List<Course> findCourses(Long categoryId);
     Course findById(Long id);
+    Course findFull(Long id);
 }

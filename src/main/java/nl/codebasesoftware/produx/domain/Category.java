@@ -1,5 +1,7 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.domain.support.NameComparable;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
@@ -11,7 +13,7 @@ import java.util.Set;
  * Time: 22:08
  */
 @Entity
-public class Category implements DomainObject {
+public class Category implements DomainObject, NameComparable {
 
     private Long id;
     private String name;
@@ -31,6 +33,7 @@ public class Category implements DomainObject {
         this.id = id;
     }
 
+    @Override
     @Column(unique=true, nullable=false)
     public String getName() {
         return name;

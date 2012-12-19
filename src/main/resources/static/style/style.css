@@ -75,10 +75,6 @@ body {
     margin-bottom: 1px;
 }
 
-#data-entry-form .manage * {
-    width: 450px;
-    font-family: arial;
-}
 
 #data-entry-form .form-entry .form-error {
     color: red;
@@ -90,6 +86,12 @@ body {
     font-weight: bold;
 }
 
+#data-entry-form .form-entry label span{
+    display: block;
+    font-size: 10px;
+    font-weight: normal;
+}
+
 #data-entry-form .form-entry .form-input-error {
     width: 300px;
     border:  1px solid red;
@@ -98,6 +100,12 @@ body {
 #data-entry-form .form-entry input[type="submit"]{
     padding:  4px;
 }
+
+#data-entry-form .form-entry.checkboxlist span label{
+    display: inline;
+    padding: 0px 8px 0px 6px;
+}
+
 
 .error {
     display: block;

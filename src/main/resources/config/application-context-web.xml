@@ -16,20 +16,6 @@
     <context:component-scan base-package="nl.codebasesoftware.produx.controller"/>
 
 
-    <!-- Define REST template for Region entity -->
-    <bean id="regionTemplate" class="org.springframework.web.servlet.view.xml.MarshallingView">
-        <constructor-arg>
-            <bean class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
-                <property name="classesToBeBound">
-                    <list>
-                        <value>nl.codebasesoftware.produx.rest.JaxbList</value>
-                        <value>nl.codebasesoftware.produx.domain.Region</value>
-                    </list>
-                </property>
-            </bean>
-        </constructor-arg>
-    </bean>
-
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/"/>
         <property name="suffix" value=".jsp"/>
