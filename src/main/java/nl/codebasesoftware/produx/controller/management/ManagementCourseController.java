@@ -50,7 +50,7 @@ public class ManagementCourseController {
             throw new ResourceNotFoundException();
         }
 
-        model.addAttribute("bindableCourse", course);
+        model.addAttribute("bindableCourse", course.toBindableCourse());
         model.addAttribute("allRegions", allRegions);
         model.addAttribute("categories", categories);
         return "managementMain";

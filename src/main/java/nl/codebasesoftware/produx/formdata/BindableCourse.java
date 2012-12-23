@@ -12,10 +12,10 @@ public class BindableCourse {
     private String shortDescription;
     private String longDescription;
     private String duration;
-    private long[] regions = new long[]{};
+    private long[] regions;
     private Double price;
     private long category;
-    private long[] tags = new long[]{};
+    private long[] tags;
 
 
     public String getDuration() {

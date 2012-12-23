@@ -6,6 +6,8 @@ import nl.codebasesoftware.produx.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * User: rvanloen
  * Date: 18-9-12
@@ -25,5 +27,10 @@ public class TagServiceImpl implements TagService {
     @Override
     public Tag findByName(String tagName) {
         return tagDao.findByName(tagName);
+    }
+
+    @Override
+    public List<Tag> findBySubString(String tagName) {
+        return tagDao.findBySubString(tagName);
     }
 }

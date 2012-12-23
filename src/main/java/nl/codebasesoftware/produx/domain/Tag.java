@@ -1,5 +1,7 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.domain.dto.TagDTO;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -13,7 +15,6 @@ public class Tag implements DomainObject {
 
     private Long id;
     private String name;
-    private String description;
     private Set<Course> courses;
 
 
@@ -37,14 +38,6 @@ public class Tag implements DomainObject {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     @ManyToMany(mappedBy = "tags")
     public Set<Course> getCourses() {
         return courses;
@@ -52,5 +45,13 @@ public class Tag implements DomainObject {
 
     public void setCourses(Set<Course> courses) {
         this.courses = courses;
+    }
+
+    @Transient
+    public TagDTO toDTO(){
+        TagDTO tagDTO = new TagDTO();
+        tagDTO.setId(id);
+        tagDTO.setName(name);
+        return tagDTO;
     }
 }

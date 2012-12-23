@@ -69,7 +69,7 @@
                 <spring:message code="course.form.tags"/>
                 <span><spring:message code="course.form.tags.helptext"/></span>
             </form:label>
-            <form:input path="tags" cssErrorClass="form-input-error" size="78" id="tagSelection"/>
+            <form:input path="tags" cssErrorClass="form-input-error" size="40" id="tagSelection"/>
             <form:errors path="tags" cssClass="form-error"/>
         </div>
         <div class="form-entry">

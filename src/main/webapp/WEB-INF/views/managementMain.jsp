@@ -6,6 +6,7 @@
 <head>
     <meta charset="utf-8"/>
     <link href="/static/style/style.css" rel="stylesheet">
+    <script type="text/javascript" src="/static/javascript/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="/static/javascript/management.js"></script>
     <title>
         <jsp:include page="components/title.jsp"/>

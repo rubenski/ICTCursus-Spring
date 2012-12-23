@@ -1,7 +1,8 @@
 package nl.codebasesoftware.produx.service;
 
 import nl.codebasesoftware.produx.domain.Tag;
-import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * User: rvanloen
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
  */
 public interface TagService {
     Tag findByName(String tagName);
+    List<Tag> findBySubString(String tagName);
 }
 
 

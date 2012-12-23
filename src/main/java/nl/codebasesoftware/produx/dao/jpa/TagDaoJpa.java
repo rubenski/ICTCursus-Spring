@@ -49,4 +49,13 @@ public class TagDaoJpa extends GenericDaoJpa<Tag> implements TagDao {
         query.setParameter("tagName", tagName);
         return (Tag) query.getSingleResult();
     }
+
+    @Override
+    public List<Tag> findBySubString(String tagName) {
+        String jpql = "from Tag t where t.name like :tagName";
+        Query query = entityManager.createQuery(jpql);
+        query.setParameter("tagName", "%" + tagName + "%");
+        return query.getResultList();
+    }
+
 }

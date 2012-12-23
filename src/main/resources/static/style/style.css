@@ -106,12 +106,31 @@ body {
     padding: 0px 8px 0px 6px;
 }
 
-
 .error {
     display: block;
     color: red;
     padding:  10px 10px 10px 0px;
 }
+
+#suggestBox{
+    background-color: #fff;
+    border:  1px solid gray;
+    width: 250px;
+    position: absolute;
+}
+
+#suggestBox a {
+    padding:  3px;
+    display: block;
+    text-decoration: none;
+    color: black;
+}
+
+#suggestBox a:hover {
+    background-color: #1e90ff;
+}
+
+
 
 
 
