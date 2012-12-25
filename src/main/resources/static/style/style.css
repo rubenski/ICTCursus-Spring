@@ -138,7 +138,7 @@ a#addTag{
     text-decoration: none;
 }
 
-#tagLengthError{
+#tagLengthError, #tagCharactersError {
     display:none;
 }
 

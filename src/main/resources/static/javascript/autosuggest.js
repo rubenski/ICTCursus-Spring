@@ -89,8 +89,8 @@ $(document).ready(function() {
         var regex = new RegExp("^[a-zA-Z0-9#@ -]+$");
 
         if(!regex.test(tagName)){
-            alert("wrong");
-            return false;
+            alert($('#tagCharactersError').text());
+            return;
         }
 
         // Do nothing and return if the tag is too short
@@ -123,7 +123,7 @@ $(document).ready(function() {
             if (!dontAppend) {
                 $('#selectedTags').append("<div class='selectedTag' id='" + id + "'><span>" + name + "</span><a href='#'><img src='/static/img/remove.png' width='10' height='10'/></a></div>");
                 // Add hidden fields to the form
-                $('#courseForm').append("<input type='hidden' name='tags' value='" + name + "'/>");
+                $('#courseForm').append("<input type='hidden' class='hiddenTagSelection' name='tags' value='" + name + "'/>");
                 updateSelectedTagsHeader();
                 $('#selectedTags a').click(removeTagClickHandler);
             }
@@ -146,7 +146,17 @@ $(document).ready(function() {
     function removeTagClickHandler(event) {
         event.preventDefault();
 
-        $(this.parentNode).remove(); // parents('.selectedTag').remove();
+        var selectedTagElement = $(this.parentNode);
+        var selectedTagName = selectedTagElement.children().filter(':first').text();
+        // remove the hidden field
+        $('.hiddenTagSelection').each(function(){
+            var current = $(this).val();
+            if(current == selectedTagName){
+                $(this).remove();
+            }
+        });
+
+        $(this.parentNode).remove();
 
         updateSelectedTagsHeader();
     }

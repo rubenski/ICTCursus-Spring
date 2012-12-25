@@ -75,6 +75,7 @@
             <a href="#" id="addTag"><spring:message code="course.form.tags.add"/></a>
             <div id="selectedTags"></div>
             <span id="tagLengthError"><spring:message code="course.form.tags.taglengtherror"/></span>
+            <span id="tagCharactersError"><spring:message code="course.form.tags.tagCharactersError"/></span>
             <form:errors path="tags" cssClass="form-error"/>
         </div>
         <div class="form-entry">
