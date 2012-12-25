@@ -27,14 +27,20 @@ public class TagController {
         this.tagService = tagService;
     }
 
-    @RequestMapping(value= "/tag/{tagName}")
-    public @ResponseBody List<TagDTO> testTag(@PathVariable String tagName){
+    @RequestMapping(value= "/tag/search/{tagName}")
+    public @ResponseBody List<TagDTO> search(@PathVariable String tagName){
         List<Tag> tags = tagService.findBySubString(tagName);
         List<TagDTO> tagDTOs = new ArrayList<TagDTO>();
         for (Tag tag : tags) {
             tagDTOs.add(tag.toDTO());
         }
         return tagDTOs;
+    }
+
+    @RequestMapping(value= "/tag/byname/{tagName}")
+    public @ResponseBody TagDTO byName(@PathVariable String tagName){
+        Tag tag = tagService.findByName(tagName);
+        return tag == null ? null : tag.toDTO();
     }
 
 }

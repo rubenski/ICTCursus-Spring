@@ -21,16 +21,6 @@ public class TagDaoJpa extends GenericDaoJpa<Tag> implements TagDao {
         super(Tag.class);
     }
 
-    int test;
-
-    public int getTest() {
-        return test;
-    }
-
-    public void setTest(int test) {
-        this.test = test;
-    }
-
     public TagDaoJpa(Class<Tag> type) {
         super(type);
     }
@@ -47,7 +37,7 @@ public class TagDaoJpa extends GenericDaoJpa<Tag> implements TagDao {
         String jpql = "from Tag t where t.name = :tagName";
         Query query = entityManager.createQuery(jpql);
         query.setParameter("tagName", tagName);
-        return (Tag) query.getSingleResult();
+        return getSingleResult(query);
     }
 
     @Override

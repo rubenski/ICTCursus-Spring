@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<form:form method="post" modelAttribute="bindableCourse">
+<form:form method="post" modelAttribute="bindableCourse" id="courseForm">
     <div id="data-entry-form">
         <form:hidden path="id"/>
         <div class="form-entry">
@@ -65,11 +65,16 @@
             <form:errors path="category" cssClass="form-error"/>
         </div>
         <div class="form-entry">
+            <div id="test"></div>
             <form:label class="defaultlabel" path="tags">
                 <spring:message code="course.form.tags"/>
                 <span><spring:message code="course.form.tags.helptext"/></span>
             </form:label>
-            <form:input path="tags" cssErrorClass="form-input-error" size="40" id="tagSelection"/>
+            <form:input path="tags" autocomplete="off" cssErrorClass="form-input-error" size="40" id="tagSelection"/>
+            &nbsp;
+            <a href="#" id="addTag"><spring:message code="course.form.tags.add"/></a>
+            <div id="selectedTags"></div>
+            <span id="tagLengthError"><spring:message code="course.form.tags.taglengtherror"/></span>
             <form:errors path="tags" cssClass="form-error"/>
         </div>
         <div class="form-entry">

@@ -2,13 +2,10 @@ package nl.codebasesoftware.produx.dao.jpa;
 
 import nl.codebasesoftware.produx.dao.GenericDao;
 import nl.codebasesoftware.produx.domain.DomainObject;
-import nl.codebasesoftware.produx.domain.Tag;
-import org.springframework.beans.BeanUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import java.util.List;
 
 
@@ -63,7 +60,8 @@ public class GenericDaoJpa<T extends DomainObject> implements GenericDao<T> {
         entityManager.refresh(object);
     }
 
-    protected T getSingleResult(TypedQuery query) {
+    // Replaces silly getSingleResult behaviour (throws an exception when nothing is found)
+    protected T getSingleResult(Query query) {
         List<T> resultList = query.getResultList();
         return resultList.isEmpty() ? null : resultList.get(0);
     }
