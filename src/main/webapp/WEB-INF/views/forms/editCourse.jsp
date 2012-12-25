@@ -40,14 +40,14 @@
                 <span><spring:message code="course.form.regions.helptext"/></span>
             </form:label>
             <form:checkboxes path="regions" items="${allRegions}"/>
-            <br><br>
+           <%-- <br><br>
             <c:forEach items="${allRegions}" var="region">
                 <input type="checkbox" name="regions[]" value="${region.id}"> ${region.name}
             </c:forEach>
             <br><br>
             <c:forEach items="${allRegions}" var="region">
                 <form:checkbox path="regions" value="${region.id}" label="${region.name}"/>
-            </c:forEach>
+            </c:forEach>  --%>
 
             <form:errors path="duration" cssClass="form-error"/>
         </div>

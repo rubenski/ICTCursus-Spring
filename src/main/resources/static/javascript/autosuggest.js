@@ -130,6 +130,10 @@ $(document).ready(function() {
 
             $('#tagSelection').val('');
         });
+
+        if($('.selectedTag').length == 4){
+            $('#tagSelection').attr('disabled', 'disabled');
+        }
     }
 
 
@@ -159,6 +163,10 @@ $(document).ready(function() {
         $(this.parentNode).remove();
 
         updateSelectedTagsHeader();
+
+        if($('.selectedTag').length < 5){
+            $('#tagSelection').removeAttr('disabled');
+        }
     }
 
     function tagSuggestionClickHandler(event) {
