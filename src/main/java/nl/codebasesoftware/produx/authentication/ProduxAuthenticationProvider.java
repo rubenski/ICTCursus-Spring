@@ -1,6 +1,9 @@
 package nl.codebasesoftware.produx.authentication;
 
+import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.domain.support.UserDetails;
+import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.service.UserProfileService;
 import nl.codebasesoftware.produx.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +24,13 @@ import org.springframework.stereotype.Component;
 public class ProduxAuthenticationProvider implements AuthenticationProvider {
 
     private UserProfileService userProfileService;
+    private CompanyService companyService;
 
 
     @Autowired
-    public ProduxAuthenticationProvider(UserProfileService userProfileService) {
+    public ProduxAuthenticationProvider(UserProfileService userProfileService, CompanyService companyService) {
         this.userProfileService = userProfileService;
+        this.companyService = companyService;
     }
 
     @Override
@@ -43,6 +48,7 @@ public class ProduxAuthenticationProvider implements AuthenticationProvider {
         }
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(profile, null, profile.getAuthorities());
+
 
         return token;
     }

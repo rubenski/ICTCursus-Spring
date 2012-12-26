@@ -3,10 +3,7 @@ package nl.codebasesoftware.produx.domain;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 /**
  * User: rvanloen
@@ -135,17 +132,6 @@ public class Course implements DomainObject {
         this.tags = tags;
     }
 
-    @Transient
-    public void applyBindableCourse(BindableCourse bindableCourse){
-        id = bindableCourse.getId();
-        name = bindableCourse.getName();
-        shortDescription = bindableCourse.getShortDescription();
-        longDescription = bindableCourse.getLongDescription();
-        duration = bindableCourse.getDuration();
-
-    }
-
-
     public BindableCourse toBindableCourse(){
         BindableCourse bindableCourse = new BindableCourse();
         bindableCourse.setCategory(category.getId());
@@ -156,30 +142,40 @@ public class Course implements DomainObject {
         bindableCourse.setPrice(price);
         bindableCourse.setRegions(getRegionIds());
         bindableCourse.setShortDescription(shortDescription);
-        bindableCourse.setTags(getTagIds());
+        bindableCourse.setTags(getTagNames());
         return bindableCourse;
     }
 
     @Transient
-    private long[] getRegionIds(){
-        long[] regionIds = new long[]{};
+    private List<Long> getRegionIds(){
+        List<Long> idList = new ArrayList<Long>();
         Iterator<Region> regionsIterator = regions.iterator();
         for(int i = 0; regionsIterator.hasNext(); i++){
             Region region = regionsIterator.next();
-            regionIds[i] = region.getId();
+            idList.add(region.getId());
         }
-        return regionIds;
+        return idList;
     }
 
     @Transient
-    private long[] getTagIds(){
-        long[] tagIds = new long[]{};
+    private List<String> getTagNames(){
+        List<String> names = new ArrayList<String>();
         Iterator<Tag> tagIterator = tags.iterator();
         for(int i = 0; tagIterator.hasNext(); i++){
             Tag region = tagIterator.next();
-            tagIds[i] = region.getId();
+            names.add(region.getName());
         }
-        return tagIds;
+        return names;
+    }
+
+    @Transient
+    public void addRegion(Region region){
+        regions.add(region);
+    }
+
+    @Transient
+    public void addTag(Tag tag){
+        tags.add(tag);
     }
 
 }

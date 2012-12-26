@@ -4,12 +4,14 @@ import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.Region;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
+import nl.codebasesoftware.produx.formdata.BindableCourse;
 import nl.codebasesoftware.produx.service.CategoryService;
 import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.service.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,7 +45,6 @@ public class ManagementCourseController {
 
         Course course = courseService.findFull(id);
         List<Category> categories = categoryService.findAll();
-
         List<Region> allRegions = regionService.findAll();
 
         if(course == null){
@@ -54,6 +55,13 @@ public class ManagementCourseController {
         model.addAttribute("allRegions", allRegions);
         model.addAttribute("categories", categories);
         return "managementMain";
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public String post(@ModelAttribute("bindableCourse") BindableCourse course, Model model) {
+        courseService.update(course);
+        model.addAttribute("updated", 1);
+        return get(course.getId(), model);
     }
 
 

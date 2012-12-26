@@ -3,7 +3,7 @@ package nl.codebasesoftware.produx.service;
 import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
-import nl.codebasesoftware.produx.service.helpers.CourseFilter;
+import nl.codebasesoftware.produx.formdata.BindableCourse;
 
 import java.util.List;
 
@@ -15,8 +15,7 @@ import java.util.List;
 public interface CourseService {
     List<Course> findByCompany(Company company);
     List<Category> findFirstLevelCategories();
-    List<Course> findCourses(CourseFilter filter);
     List<Course> findCourses(Long categoryId);
-    Course findById(Long id);
     Course findFull(Long id);
+    void update(BindableCourse course);
 }

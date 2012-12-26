@@ -1,5 +1,8 @@
 package nl.codebasesoftware.produx.formdata;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * User: rvanloen
  * Date: 19-12-12
@@ -12,10 +15,10 @@ public class BindableCourse {
     private String shortDescription;
     private String longDescription;
     private String duration;
-    private long[] regions;
+    private List<Long> regions = new ArrayList<Long>();
     private Double price;
     private long category;
-    private long[] tags;
+    private List<String> tags = new ArrayList<String>();
 
 
     public String getDuration() {
@@ -74,19 +77,19 @@ public class BindableCourse {
         this.category = category;
     }
 
-    public long[] getRegions() {
+    public List<Long> getRegions() {
         return regions;
     }
 
-    public void setRegions(long[] regions) {
+    public void setRegions(List<Long> regions) {
         this.regions = regions;
     }
 
-    public long[] getTags() {
+    public List<String> getTags() {
         return tags;
     }
 
-    public void setTags(long[] tags) {
+    public void setTags(List<String> tags) {
         this.tags = tags;
     }
 }

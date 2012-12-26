@@ -725,6 +725,7 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/apache/geronimo/specs/geronimo-jpa_2.0_spec/1.1/geronimo-jpa_2.0_spec-1.1-sources.jar!/" />
+        <root url="intellijad://intellijad" />
       </SOURCES>
     </library>
     <library name="Maven: org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1">

@@ -39,15 +39,15 @@
                 <spring:message code="course.form.regions"/>
                 <span><spring:message code="course.form.regions.helptext"/></span>
             </form:label>
-            <form:checkboxes path="regions" items="${allRegions}"/>
-           <%-- <br><br>
+            <%--  <form:checkboxes path="regions" items="${allRegions}"/>
+            <br><br>
             <c:forEach items="${allRegions}" var="region">
                 <input type="checkbox" name="regions[]" value="${region.id}"> ${region.name}
             </c:forEach>
-            <br><br>
+            <br><br>  --%>
             <c:forEach items="${allRegions}" var="region">
-                <form:checkbox path="regions" value="${region.id}" label="${region.name}"/>
-            </c:forEach>  --%>
+                <form:checkbox path="regions" value="${region.id}" label="${region.name}" />
+            </c:forEach>
 
             <form:errors path="duration" cssClass="form-error"/>
         </div>
@@ -70,7 +70,7 @@
                 <spring:message code="course.form.tags"/>
                 <span><spring:message code="course.form.tags.helptext"/></span>
             </form:label>
-            <form:input path="tags" autocomplete="off" cssErrorClass="form-input-error" size="40" id="tagSelection"/>
+            <input autocomplete="off" size="40" id="tagSelection"/>
             &nbsp;
             <a href="#" id="addTag"><spring:message code="course.form.tags.add"/></a>
             <div id="selectedTags"></div>
