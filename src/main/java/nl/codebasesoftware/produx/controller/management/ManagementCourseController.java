@@ -65,11 +65,15 @@ public class ManagementCourseController {
     public String updateCourse(@ModelAttribute("bindableCourse") BindableCourse bindableCourse, BindingResult result, Model model) {
         validator.validate(bindableCourse, result);
 
+        String courseValid = "false";
+
         if (!result.hasErrors()) {
             courseService.update(bindableCourse);
+            courseValid = "true";
         }
 
         model.addAttribute("mainContent", "forms/editCourse");
+        model.addAttribute("courseValid", courseValid);
         addDataToModel(model);
         return "managementMain";
 

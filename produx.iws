@@ -104,7 +104,7 @@
       <file leaf-file-name="ManagementCourseController.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/controller/management/ManagementCourseController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="84" column="8" selection-start="3099" selection-end="3099" vertical-scroll-proportion="0.0">
+            <state line="65" column="24" selection-start="2514" selection-end="2514" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -112,19 +112,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CreateUserProfileFormController.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/controller/CreateUserProfileFormController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="49" column="78" selection-start="1836" selection-end="1836" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="CourseFormValidator.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/validator/CourseFormValidator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="50" column="0" selection-start="1560" selection-end="1560" vertical-scroll-proportion="0.0">
+            <state line="53" column="17" selection-start="1696" selection-end="1696" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -133,7 +124,19 @@
       <file leaf-file-name="messages_en.properties" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/messages/messages_en.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="0" selection-start="1494" selection-end="1679" vertical-scroll-proportion="-26.35">
+            <state line="17" column="75" selection-start="802" selection-end="802" vertical-scroll-proportion="-7.85">
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="ResourceBundle">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="messages_nl.properties" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/messages/messages_nl.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="38" column="55" selection-start="1993" selection-end="1993" vertical-scroll-proportion="-23.15">
               <folding />
             </state>
           </provider>
@@ -164,19 +167,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="editCourse.jsp" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="editCourse.jsp" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/forms/editCourse.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="51" column="121" selection-start="2773" selection-end="2773" vertical-scroll-proportion="-1.9615384">
+            <state line="89" column="109" selection-start="4826" selection-end="4826" vertical-scroll-proportion="1.0816697">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="courseform.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/static/javascript/courseform.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="29" column="51" selection-start="705" selection-end="705" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/static/style/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="100" column="48" selection-start="1622" selection-end="1622" vertical-scroll-proportion="0.65684575">
+            <state line="120" column="13" selection-start="2105" selection-end="2105" vertical-scroll-proportion="-18.56">
               <folding />
             </state>
           </provider>
@@ -206,22 +218,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/formdata/BindableCompany.java" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/service/CompanyService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/service/impl/CompanyServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/service/CourseService.java" />
         <option value="$PROJECT_DIR$/db/data.sql" />
         <option value="$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/dao/jpa/CourseDaoJpa.java" />
         <option value="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/forms/editCourse.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/service/impl/CourseServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/formdata/BindableCourse.java" />
         <option value="$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/domain/Course.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/messages/messages_nl.properties" />
-        <option value="$PROJECT_DIR$/src/main/resources/messages/messages_en.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/validator/CourseFormValidator.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/static/javascript/autosuggest.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/managementMain.jsp" />
+        <option value="$PROJECT_DIR$/src/main/resources/static/javascript/courseform.js" />
         <option value="$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/controller/management/ManagementCourseController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/static/style/style.css" />
+        <option value="$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/validator/CourseFormValidator.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/messages/messages_en.properties" />
+        <option value="$PROJECT_DIR$/src/main/resources/messages/messages_nl.properties" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/forms/editCourse.jsp" />
       </list>
     </option>
   </component>
@@ -356,170 +368,6 @@
               <option name="myItemId" value="produx" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="produx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Maven: org.springframework:spring-beans:3.1.1.RELEASE" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="spring-beans-3.1.1.RELEASE.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="produx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Maven: org.springframework:spring-beans:3.1.1.RELEASE" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="spring-beans-3.1.1.RELEASE.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="beans" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="produx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Maven: org.springframework:spring-aop:3.1.1.RELEASE" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="spring-aop-3.1.1.RELEASE.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="produx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Maven: org.springframework:spring-aop:3.1.1.RELEASE" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="spring-aop-3.1.1.RELEASE.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="aop" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="produx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Maven: org.springframework:spring-aop:3.1.1.RELEASE" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="spring-aop-3.1.1.RELEASE.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="aop" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="support" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="produx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Maven: org.apache.geronimo.specs:geronimo-jpa_2.0_spec:1.1" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="geronimo-jpa_2.0_spec-1.1.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="produx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Maven: org.apache.geronimo.specs:geronimo-jpa_2.0_spec:1.1" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="geronimo-jpa_2.0_spec-1.1.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="persistence" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="produx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; 1.6 &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -632,40 +480,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="forms" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="produx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ICTCursus Spring" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WEB-INF" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="components" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1530,7 +1344,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2197861" sideWeight="0.7086528" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17634173" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28915662" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="JPA Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.56845564" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -1622,22 +1436,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/controller/management/ManagementProfileController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="13" selection-start="292" selection-end="292" vertical-scroll-proportion="0.30955994">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/service/impl/CompanyServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="8" selection-start="747" selection-end="747" vertical-scroll-proportion="0.5675266">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/domain/Course_.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="13" selection-start="242" selection-end="242" vertical-scroll-proportion="0.0">
@@ -1682,6 +1480,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/domain/Course.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="178" column="0" selection-start="4473" selection-end="4473" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/managementMain.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="69" selection-start="421" selection-end="421" vertical-scroll-proportion="0.265625">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/formdata/BindableCourse.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="64" column="16" selection-start="1376" selection-end="1376" vertical-scroll-proportion="0.0">
@@ -1691,9 +1503,39 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/style/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="120" column="13" selection-start="2105" selection-end="2105" vertical-scroll-proportion="-18.56">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/javascript/courseform.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="51" selection-start="705" selection-end="705" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/controller/management/ManagementCourseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="65" column="24" selection-start="2514" selection-end="2514" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/validator/CourseFormValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="17" selection-start="1696" selection-end="1696" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/messages/messages_nl.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="0" selection-start="1536" selection-end="1742" vertical-scroll-proportion="0.7671034">
+        <state line="38" column="55" selection-start="1993" selection-end="1993" vertical-scroll-proportion="-23.15">
           <folding />
         </state>
       </provider>
@@ -1703,7 +1545,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/messages/messages_en.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="0" selection-start="1494" selection-end="1679" vertical-scroll-proportion="-26.35">
+        <state line="17" column="75" selection-start="802" selection-end="802" vertical-scroll-proportion="-7.85">
           <folding />
         </state>
       </provider>
@@ -1711,39 +1553,9 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/validator/CourseFormValidator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="0" selection-start="1560" selection-end="1560" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/domain/Course.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="178" column="0" selection-start="4473" selection-end="4473" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/codebasesoftware/produx/controller/management/ManagementCourseController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="84" column="8" selection-start="3099" selection-end="3099" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/forms/editCourse.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="121" selection-start="2773" selection-end="2773" vertical-scroll-proportion="-1.9615384">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/style/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="100" column="48" selection-start="1622" selection-end="1622" vertical-scroll-proportion="0.65684575">
+        <state line="89" column="109" selection-start="4826" selection-end="4826" vertical-scroll-proportion="1.0816697">
           <folding />
         </state>
       </provider>

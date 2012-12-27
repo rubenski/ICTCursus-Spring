@@ -26,6 +26,13 @@ $(document).ready(function() {
         });
     })();
 
+    (function(){
+        $("#selectAllRegions").click(function(event){
+            event.preventDefault();
+            $("input[name='regions']").attr('checked', true);
+        })
+    })();
+
     function tagSelectionKeyHandler(event) {
         if ($('#suggestBox').length > 0) {
 

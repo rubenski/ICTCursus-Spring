@@ -60,6 +60,22 @@ body {
     color: #000;
 }
 
+#wrapper #middle #main-content #invalidMessage {
+    background-color: #ff6363;
+    color: #a10202;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    font-weight: bold;
+}
+
+#wrapper #middle #main-content #validMessage {
+    background-color: #74de1e;
+    color: #057700;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    font-weight: bold;
+}
+
 #wrapper #footer {
     background-color: #1e90ff;
     padding: 10px;
@@ -70,19 +86,22 @@ body {
 }
 
 #data-entry-form .form-entry {
-    padding: 7px;
-    background-color: #ecf5ff;
+    padding: 15px 7px 15px 7px;
+    background-color: #C5DCFF;
     margin-bottom: 1px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
 }
 
 #data-entry-form .form-entry .form-error {
     color: red;
     display: block;
+    padding-top: 5px;
 }
 
 #data-entry-form .form-entry label {
     display: block;
-    padding-bottom: 4px;
+    padding-bottom: 7px;
     font-weight: bold;
 }
 

@@ -48,6 +48,14 @@ public class CourseFormValidator implements Validator {
             errors.rejectValue("category", "errors.category.invalid");
         }
 
+        if(bindableCourse.getDuration().length() < 5){
+            errors.rejectValue("duration", "errors.duration.invalid");
+        }
+
+        if(bindableCourse.getRegions() == null || bindableCourse.getRegions().size() == 0){
+            errors.rejectValue("regions", "errors.regions.invalid");
+        }
+
         if(!matcher.matches()){
             errors.rejectValue("formattedPrice", "errors.formattedPrice.invalid");
         }
