@@ -4,17 +4,20 @@
 
 
 <form:form method="post" modelAttribute="bindableCourse" id="courseForm">
+    <c:forEach items="${bindableCourse.tags}" var="tag">
+        <input type="hidden" name="tags" value="${tag}"/>
+    </c:forEach>
     <div id="data-entry-form">
         <form:hidden path="id"/>
         <div class="form-entry">
-            <form:label class="defaultlabel" path="name">
+            <form:label  path="name">
                 <spring:message code="course.form.name"/>
             </form:label>
             <form:input path="name" cssErrorClass="form-input-error" size="78"/>
             <form:errors path="name" cssClass="form-error"/>
         </div>
         <div class="form-entry">
-            <form:label class="defaultlabel" path="shortDescription">
+            <form:label  path="shortDescription">
                 <spring:message code="course.form.shortdescription"/>
                 <span><spring:message code="course.form.shortdescription.helptext"/></span>
             </form:label>
@@ -22,12 +25,12 @@
             <form:errors path="shortDescription" cssClass="form-error"/>
         </div>
         <div class="form-entry">
-            <form:label class="defaultlabel" path="longDescription"><spring:message code="course.form.longdescription"/></form:label>
+            <form:label  path="longDescription"><spring:message code="course.form.longdescription"/></form:label>
             <form:textarea rows="20" path="longDescription" cssErrorClass="form-input-error" cols="60"/>
             <form:errors path="longDescription" cssClass="form-error"/>
         </div>
         <div class="form-entry">
-            <form:label class="defaultlabel" path="duration">
+            <form:label  path="duration">
                 <spring:message code="course.form.duration"/>
                 <span><spring:message code="course.form.duration.helptext"/></span>
             </form:label>
@@ -35,29 +38,22 @@
             <form:errors path="duration" cssClass="form-error"/>
         </div>
         <div class="form-entry checkboxlist">
-            <form:label class="defaultlabel" path="regions">
+            <form:label  path="regions">
                 <spring:message code="course.form.regions"/>
                 <span><spring:message code="course.form.regions.helptext"/></span>
             </form:label>
-            <%--  <form:checkboxes path="regions" items="${allRegions}"/>
-            <br><br>
             <c:forEach items="${allRegions}" var="region">
-                <input type="checkbox" name="regions[]" value="${region.id}"> ${region.name}
+                <span class="regionCheckBox"><form:checkbox path="regions" value="${region.id}" label="${region.name}" /></span>
             </c:forEach>
-            <br><br>  --%>
-            <c:forEach items="${allRegions}" var="region">
-                <form:checkbox path="regions" value="${region.id}" label="${region.name}" />
-            </c:forEach>
-
             <form:errors path="duration" cssClass="form-error"/>
         </div>
         <div class="form-entry">
-            <form:label class="defaultlabel" path="price"><spring:message code="course.form.price"/></form:label>
+            <form:label  path="price"><spring:message code="course.form.price"/></form:label>
             <form:input path="price" cssErrorClass="form-input-error" size="10"/>
             <form:errors path="price" cssClass="form-error"/>
         </div>
         <div class="form-entry">
-            <form:label class="defaultlabel" path="category"><spring:message code="course.form.category"/></form:label>
+            <form:label  path="category"><spring:message code="course.form.category"/></form:label>
             <form:select path="category">
                 <form:option value="-1" label=""/>
                 <form:options items="${categories}" itemValue="id" itemLabel="name"/>
@@ -65,8 +61,7 @@
             <form:errors path="category" cssClass="form-error"/>
         </div>
         <div class="form-entry">
-            <div id="test"></div>
-            <form:label class="defaultlabel" path="tags">
+            <form:label  path="tags">
                 <spring:message code="course.form.tags"/>
                 <span><spring:message code="course.form.tags.helptext"/></span>
             </form:label>

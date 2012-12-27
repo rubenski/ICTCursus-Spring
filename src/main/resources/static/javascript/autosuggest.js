@@ -20,6 +20,12 @@ $(document).ready(function() {
         }
     });
 
+    (function() {
+        $("[name = 'tags']").each(function() {
+            addTagToScreen($(this).val());
+        });
+    })();
+
     function tagSelectionKeyHandler(event) {
         if ($('#suggestBox').length > 0) {
 
@@ -59,6 +65,7 @@ $(document).ready(function() {
 
     function returnedTagsHandler(returnedTags) {
         // If there is no suggest box yet, draw it
+
         if ($('#suggestBox').length == 0) {
             $('#tagSelection').after("<div id=\"suggestBox\"></div>");
         }
@@ -75,10 +82,9 @@ $(document).ready(function() {
 
         $('#suggestBox a').click(function(event) {
             event.preventDefault();
-        })
+        });
 
         $('#suggestBox a').click(tagSuggestionClickHandler);
-
 
     }
 
@@ -88,7 +94,7 @@ $(document).ready(function() {
         var tagName = $('#tagSelection').val();
         var regex = new RegExp("^[a-zA-Z0-9#@ -]+$");
 
-        if(!regex.test(tagName)){
+        if (!regex.test(tagName)) {
             alert($('#tagCharactersError').text());
             return;
         }
@@ -100,40 +106,35 @@ $(document).ready(function() {
             return;
         }
 
-        // Test if the tag exists
-        $.get("http://localhost:8080/tag/byname/" + tagName, function(tag) {
-
-            var id = -1;
-            var name = '';
-            if (!tag) {
-                name = $('#tagSelection').val();
-            } else {
-                id = tag.id;
-                name = tag.name;
+        var dontAppend = false;
+        $('.selectedTag span').each(function() {
+            var existingName = $(this).text();
+            if (name == existingName) {
+                alert("not appending");
+                dontAppend = true;
             }
-
-            var dontAppend = false;
-            $('.selectedTag span').each(function() {
-                var existingName = $(this).text();
-                if (name == existingName) {
-                    dontAppend = true;
-                }
-            });
-
-            if (!dontAppend) {
-                $('#selectedTags').append("<div class='selectedTag' id='" + id + "'><span>" + name + "</span><a href='#'><img src='/static/img/remove.png' width='10' height='10'/></a></div>");
-                // Add hidden fields to the form
-                $('#courseForm').append("<input type='hidden' class='hiddenTagSelection' name='tags' value='" + name + "'/>");
-                updateSelectedTagsHeader();
-                $('#selectedTags a').click(removeTagClickHandler);
-            }
-
-            $('#tagSelection').val('');
         });
 
-        if($('.selectedTag').length == 4){
+        if (!dontAppend) {
+            addTagToScreen(tagName);
+            addTagHiddenElement(tagName);
+            updateSelectedTagsHeader();
+        }
+
+        $('#tagSelection').val('');
+
+        if ($('.selectedTag').length == 5) {
             $('#tagSelection').attr('disabled', 'disabled');
         }
+    }
+
+    function addTagToScreen(name) {
+        $('#selectedTags').append("<div class='selectedTag'><span>" + name + "</span><a href='#' title='" + name + "'><img src='/static/img/remove.png' width='10' height='10'/></a></div>");
+        $("[title='" + name + "']").click(removeTagClickHandler);
+    }
+
+    function addTagHiddenElement(name) {
+        $('#courseForm').append("<input type='hidden' name='tags' value='" + name + "'/>");
     }
 
 
@@ -152,19 +153,15 @@ $(document).ready(function() {
 
         var selectedTagElement = $(this.parentNode);
         var selectedTagName = selectedTagElement.children().filter(':first').text();
-        // remove the hidden field
-        $('.hiddenTagSelection').each(function(){
-            var current = $(this).val();
-            if(current == selectedTagName){
-                $(this).remove();
-            }
-        });
 
+        // remove the hidden field
+        $("[value='" + selectedTagName + "']").remove();
+        // Remove the tag
         $(this.parentNode).remove();
 
         updateSelectedTagsHeader();
 
-        if($('.selectedTag').length < 5){
+        if ($('.selectedTag').length < 5) {
             $('#tagSelection').removeAttr('disabled');
         }
     }

@@ -24,7 +24,7 @@ import java.util.List;
  * Time: 21:16
  */
 @Controller
-@RequestMapping(value = "/manage/course/{id}")
+@RequestMapping(value = "/manage/course/")
 public class ManagementCourseController {
 
     private CourseService courseService;
@@ -38,7 +38,7 @@ public class ManagementCourseController {
         this.categoryService = categoryService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public String get(@PathVariable("id") Long id, Model model) {
 
         model.addAttribute("mainContent", "forms/editCourse");
@@ -57,11 +57,30 @@ public class ManagementCourseController {
         return "managementMain";
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public String post(@ModelAttribute("bindableCourse") BindableCourse course, Model model) {
-        courseService.update(course);
-        model.addAttribute("updated", 1);
-        return get(course.getId(), model);
+    @RequestMapping(value = "{id}", method = RequestMethod.POST)
+    public String post(@ModelAttribute("bindableCourse") BindableCourse bindableCourse, Model model) {
+        courseService.update(bindableCourse);
+        model.addAttribute("updated", true);
+        return get(bindableCourse.getId(), model);
+    }
+
+
+    @RequestMapping(value = "new", method = RequestMethod.GET)
+    public String newCourse(Model model){
+        BindableCourse bindableCourse = new BindableCourse();
+        List<Category> categories = categoryService.findAll();
+        List<Region> allRegions = regionService.findAll();
+        model.addAttribute("categories", categories);
+        model.addAttribute("bindableCourse", bindableCourse);
+        model.addAttribute("allRegions", allRegions);
+        model.addAttribute("mainContent", "forms/editCourse");
+        return "managementMain";
+    }
+
+    @RequestMapping(value = "new", method = RequestMethod.POST)
+    public String addCourse(@ModelAttribute("bindableCourse") BindableCourse bindableCourse, Model model){
+        Course course = courseService.insert(bindableCourse);
+        return "redirect:/manage/course/" + course.getId();
     }
 
 

@@ -43,6 +43,6 @@ public class ManagementHomeController {
         model.addAttribute("courses", courses);
         model.addAttribute("numberOfCourses", courses.size());
 
-        return "main";
+        return "managementMain";
     }
 }

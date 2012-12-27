@@ -15,7 +15,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * User: rvanloen
@@ -65,19 +67,26 @@ public class CourseServiceImpl implements CourseService {
     @Transactional
     public void update(BindableCourse bindableCourse) {
 
-        Course existingCourse = courseDao.findFull(bindableCourse.getId());
-        if (existingCourse == null) {
+        Course course = courseDao.findFull(bindableCourse.getId());
+        if (course == null) {
             return;
         }
 
-        Course course = applyBindableCourseToCourse(bindableCourse, existingCourse);
-
+        applyBindableCourseToCourse(bindableCourse, course);
         courseDao.persist(course);
-
-
     }
 
-    private Course applyBindableCourseToCourse(BindableCourse bindableCourse, Course course) {
+    @Override
+    @Transactional
+    public Course insert(BindableCourse bindableCourse) {
+        Course course = new Course();
+        applyBindableCourseToCourse(bindableCourse, course);
+        courseDao.persist(course);
+        return course;
+    }
+
+
+    private void applyBindableCourseToCourse(BindableCourse bindableCourse, Course course) {
 
         // Get the category
         Category category = categoryDao.find(bindableCourse.getCategory());
@@ -88,11 +97,14 @@ public class CourseServiceImpl implements CourseService {
         Company company = userProfile.getCompany();
 
         // Get the regions
+        Set<Region> newRegions = new HashSet<Region>();
         for (Long id : bindableCourse.getRegions()) {
             Region region = regionDao.find(id);
-            course.addRegion(region);
+            newRegions.add(region);
         }
+        course.setRegions(newRegions);
 
+        Set<Tag> newTags = new HashSet<Tag>();
         for (String tagName : bindableCourse.getTags()) {
             Tag tag = tagDao.findByName(tagName);
             if(tag == null){
@@ -100,8 +112,9 @@ public class CourseServiceImpl implements CourseService {
                 tag.setName(tagName);
                 tagDao.persist(tag);
             }
-            course.addTag(tag);
+            newTags.add(tag);
         }
+        course.setTags(newTags);
 
         course.setId(bindableCourse.getId());
         course.setCategory(category);
@@ -112,8 +125,6 @@ public class CourseServiceImpl implements CourseService {
         course.setName(bindableCourse.getName());
         course.setPrice(bindableCourse.getPrice());
         course.setLongDescription(bindableCourse.getLongDescription());
-
-        return course;
     }
 
 

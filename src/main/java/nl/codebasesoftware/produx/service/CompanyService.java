@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.service;
 
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.formdata.BindableCompany;
 
 /**
  * User: rvanloen
@@ -10,4 +11,5 @@ import nl.codebasesoftware.produx.domain.UserProfile;
  */
 public interface CompanyService {
     Company findByUserProfile(UserProfile userProfile);
+    void update(BindableCompany bindableCompany);
 }

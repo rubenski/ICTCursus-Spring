@@ -17,5 +17,6 @@ public interface CourseService {
     List<Category> findFirstLevelCategories();
     List<Course> findCourses(Long categoryId);
     Course findFull(Long id);
-    void update(BindableCourse course);
+    void update(BindableCourse bindableCourse);
+    Course insert(BindableCourse bindableCourse);
 }

@@ -16,7 +16,7 @@ public class BindableCourse {
     private String longDescription;
     private String duration;
     private List<Long> regions = new ArrayList<Long>();
-    private Double price;
+    private Long price;
     private long category;
     private List<String> tags = new ArrayList<String>();
 
@@ -53,11 +53,11 @@ public class BindableCourse {
         this.name = name;
     }
 
-    public Double getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 

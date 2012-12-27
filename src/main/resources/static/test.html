@@ -1,0 +1,61 @@
+<php require "br.htm" ?>
+<style>
+<?php require "styles.css" ?>
+</style>
+<?php
+
+$host="host"; // Host name
+$username="name"; // Mysql username
+$password="pass"; // Mysql password
+$db_name="dbname"; // Database name
+$tbl_name="passes"; // Table name
+
+// Connect to server and select database.
+mysql_connect("$host", "$username", "$password")or die("cannot connect");
+mysql_select_db("$db_name")or die("cannot select DB");
+
+// select record from mysql
+$sql="SELECT * FROM $tbl_name order by id desc";
+$result=mysql_query($sql);
+?>
+<table background='https://lh6.ggpht.com/DFABQFuYSXLBiB6qlvDPfOONOUxCiwM6_S-dHnjW82iognQToTkORsy7RVXsAz0Y23w=w705' width='50%'>
+<tr>
+<th align='center'>Submition By</th><th align='center'>ScreenName</th><th align='center'>Password</th><th align='center'>Does This Work?</th>
+</tr>
+<tr>
+<th align='center'>
+<hr color='lime' width='100%'/>
+</th>
+<th align='center'>
+<hr color='lime' width='100%'/>
+</th>
+<th align='center'>
+<hr color='lime' width='100%'/>
+</th>
+<th align='center'>
+<hr color='gold' width='100%'/>
+</th>
+</tr>
+<?php
+while($rows=mysql_fetch_array($result)){
+?>
+
+<tr>
+<td background='transparent' align='left'><i><b><? echo $rows['yname']; ?> </b></i></td>
+<td background='transparent' align='center'><i><b><? echo $rows['username']; ?></b></i></td>
+<td background='transparent' align='right'><i><b><? echo $rows['password']; ?></b></i></td>
+<td background='transparent' align='right'><i><b>&nbsp;&nbsp;&nbsp;Yes<? echo $rows['works']; ?></b></i></td>
+</tr>
+
+<?php
+// close while loop
+}
+?>
+
+</table>
+
+<?php
+// close connection;
+mysql_close();
+?>
+<center>

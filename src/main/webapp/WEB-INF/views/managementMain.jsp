@@ -19,7 +19,7 @@
     </div>
     <div id="middle">
         <div id="menu">
-            <jsp:include page="components/menu.jsp"/>
+            <jsp:include page="components/managementMenu.jsp"/>
         </div>
         <div id="main-content">
             ${mainMessage}
