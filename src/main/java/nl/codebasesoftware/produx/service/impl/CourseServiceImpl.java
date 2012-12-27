@@ -98,16 +98,18 @@ public class CourseServiceImpl implements CourseService {
 
         // Get the regions
         Set<Region> newRegions = new HashSet<Region>();
-        for (Long id : bindableCourse.getRegions()) {
-            Region region = regionDao.find(id);
-            newRegions.add(region);
+        if (bindableCourse.getRegions() != null) {
+            for (Long id : bindableCourse.getRegions()) {
+                Region region = regionDao.find(id);
+                newRegions.add(region);
+            }
         }
         course.setRegions(newRegions);
 
         Set<Tag> newTags = new HashSet<Tag>();
         for (String tagName : bindableCourse.getTags()) {
             Tag tag = tagDao.findByName(tagName);
-            if(tag == null){
+            if (tag == null) {
                 tag = new Tag();
                 tag.setName(tagName);
                 tagDao.persist(tag);
@@ -123,7 +125,7 @@ public class CourseServiceImpl implements CourseService {
         course.setDuration(bindableCourse.getDuration());
         course.setLastUpdated(new Date());
         course.setName(bindableCourse.getName());
-        course.setPrice(bindableCourse.getPrice());
+        course.setPrice(bindableCourse.getPriceAsLong());
         course.setLongDescription(bindableCourse.getLongDescription());
     }
 

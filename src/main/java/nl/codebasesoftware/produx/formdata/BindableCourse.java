@@ -1,5 +1,7 @@
 package nl.codebasesoftware.produx.formdata;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,10 +18,9 @@ public class BindableCourse {
     private String longDescription;
     private String duration;
     private List<Long> regions = new ArrayList<Long>();
-    private Long price;
     private long category;
     private List<String> tags = new ArrayList<String>();
-
+    private String formattedPrice;
 
     public String getDuration() {
         return duration;
@@ -53,12 +54,25 @@ public class BindableCourse {
         this.name = name;
     }
 
-    public Long getPrice() {
-        return price;
+    public String getFormattedPrice() {
+        return formattedPrice;
     }
 
-    public void setPrice(Long price) {
-        this.price = price;
+    public void setFormattedPrice(String formattedPrice) {
+        this.formattedPrice = formattedPrice;
+    }
+
+    public Long getPriceAsLong(){
+        NumberFormat numberFormat = NumberFormat.getNumberInstance();
+        Number number = null;
+        try {
+            number = numberFormat.parse(formattedPrice);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Double priceDouble = number.doubleValue();
+        Long priceLong = Math.round(priceDouble * 100);
+        return priceLong;
     }
 
     public String getShortDescription() {

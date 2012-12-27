@@ -1,6 +1,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 <form:form method="post" modelAttribute="bindableCourse" id="courseForm">
@@ -48,9 +49,12 @@
             <form:errors path="duration" cssClass="form-error"/>
         </div>
         <div class="form-entry">
-            <form:label  path="price"><spring:message code="course.form.price"/></form:label>
-            <form:input path="price" cssErrorClass="form-input-error" size="10"/>
-            <form:errors path="price" cssClass="form-error"/>
+            <form:label  path="formattedPrice"><spring:message code="course.form.price"/></form:label>
+            <c:set var="localeCode" value="${pageContext.response.locale}" />
+            <spring:message code="course.form.currencysymbol"/>
+                <form:input path="formattedPrice" cssErrorClass="form-input-error" size="10" />
+            <spring:message code="course.form.price.perperson"/>
+            <form:errors path="formattedPrice" cssClass="form-error"/>
         </div>
         <div class="form-entry">
             <form:label  path="category"><spring:message code="course.form.category"/></form:label>

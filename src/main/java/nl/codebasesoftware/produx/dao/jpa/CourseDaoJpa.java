@@ -78,6 +78,6 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
                 "left join fetch c.tags " +
                 "where c.id = :id");
         query.setParameter("id", id);
-        return (Course) query.getSingleResult();
+        return getSingleResult(query);
     }
 }

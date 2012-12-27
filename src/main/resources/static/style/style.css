@@ -77,6 +77,7 @@ body {
 
 #data-entry-form .form-entry .form-error {
     color: red;
+    display: block;
 }
 
 #data-entry-form .form-entry label {
@@ -98,7 +99,6 @@ body {
 }
 
 #data-entry-form .form-entry .form-input-error {
-    width: 300px;
     border: 1px solid red;
 }
 

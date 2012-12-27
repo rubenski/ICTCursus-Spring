@@ -3,6 +3,7 @@ package nl.codebasesoftware.produx.domain;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
 
 import javax.persistence.*;
+import java.text.NumberFormat;
 import java.util.*;
 
 /**
@@ -115,6 +116,7 @@ public class Course implements DomainObject {
     }
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     public Category getCategory() {
         return category;
     }
@@ -139,7 +141,7 @@ public class Course implements DomainObject {
         bindableCourse.setId(id);
         bindableCourse.setLongDescription(longDescription);
         bindableCourse.setName(name);
-        bindableCourse.setPrice(price);
+        bindableCourse.setFormattedPrice(getFormattedPrice());
         bindableCourse.setRegions(getRegionIds());
         bindableCourse.setShortDescription(shortDescription);
         bindableCourse.setTags(getTagNames());
@@ -169,13 +171,13 @@ public class Course implements DomainObject {
     }
 
     @Transient
-    public void addRegion(Region region){
-        regions.add(region);
-    }
-
-    @Transient
-    public void addTag(Tag tag){
-        tags.add(tag);
+    private String getFormattedPrice(){
+        NumberFormat numberFormat = NumberFormat.getInstance();
+        numberFormat.setMaximumFractionDigits(2);
+        numberFormat.setMinimumFractionDigits(2);
+        Double priceDouble =  price / 100d;
+        String s = numberFormat.format(priceDouble);
+        return s;
     }
 
 }
