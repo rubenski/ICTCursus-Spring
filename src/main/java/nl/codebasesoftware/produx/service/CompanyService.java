@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.service;
 
 import nl.codebasesoftware.produx.domain.Company;
+import nl.codebasesoftware.produx.domain.Logo;
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.formdata.BindableCompany;
 
@@ -12,4 +13,8 @@ import nl.codebasesoftware.produx.formdata.BindableCompany;
 public interface CompanyService {
     Company findByUserProfile(UserProfile userProfile);
     void update(BindableCompany bindableCompany);
+    Company getCurrentlyLoggedInCompany();
+    Company findById(Long companyId);
+    void setLogo(Logo logo, Long companyId);
+
 }

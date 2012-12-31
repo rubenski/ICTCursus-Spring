@@ -3,41 +3,87 @@
     margin: 0;
 }
 
+html {
+    overflow: -moz-scrollbars-vertical;
+    overflow: scroll;
+}
+
 body {
-    padding: 0;
+    padding: 0 0 40px 0;
     margin: 0;
-    font-family: verdana;
+    font-family: arial;
     font-size: 12px;
 }
 
 #wrapper {
-    width: 1000px;
+    width: 951px;
     margin: 0 auto;
 }
 
 #wrapper #header {
-    background-color: #1e90ff;
+    background-color: #464646;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
     padding: 10px;
+    margin-bottom: 30px;
 }
 
 #wrapper #header #logo {
     font-size: 24px;
     font-weight: bold;
     color: white;
+    padding: 10px 0px 5px 0px;
 }
 
 #wrapper #middle {
     overflow: auto;
 }
 
-#wrapper #middle #menu {
-    padding: 10px;
+#wrapper #middle #left {
     width: 200px;
     float: left;
+    margin-right: 1px;
+}
+
+#wrapper #middle #left .default-block {
+    min-height: 200px;
+    height: auto !important;
+    height: 200px;
+    background-color: #a6a5a5;
+}
+
+#wrapper #middle .default-block table th {
+    font-size: 20px;
+    text-align: left;
+    padding: 7px;
+    font-weight: normal;
+}
+
+#wrapper #middle .default-block table td {
+    padding: 7px;
+}
+
+#wrapper #middle #left ul {
+    padding-left: 4px;
+}
+
+#wrapper #middle #left ul li {
+    padding-bottom: 6px;
+    list-style-type: none;
+}
+
+#wrapper #middle #left ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+#wrapper #middle #left ul li a:hover {
+    text-decoration: underline;
 }
 
 #wrapper #middle #main-content {
-    padding: 10px;
     width: 750px;
     float: left;
 }
@@ -65,7 +111,7 @@ body {
     color: #a10202;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
-    font-weight: bold;
+    font-size: 20px;
 }
 
 #wrapper #middle #main-content #validMessage {
@@ -73,7 +119,7 @@ body {
     color: #057700;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
-    font-weight: bold;
+    font-size: 20px;
 }
 
 #wrapper #footer {
@@ -81,47 +127,46 @@ body {
     padding: 10px;
 }
 
-#data-entry-form {
-    width: 600px;
-}
-
-#data-entry-form .form-entry {
+.default-block {
     padding: 15px 7px 15px 7px;
-    background-color: #C5DCFF;
+    background-color: #E6E4E4;
     margin-bottom: 1px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
 }
 
-#data-entry-form .form-entry .form-error {
-    color: red;
+.default-block .form-error {
+    color: #cc0000;
     display: block;
     padding-top: 5px;
+    font-weight: bold;
+    font-size: 15px;
 }
 
-#data-entry-form .form-entry label {
+.default-block label {
     display: block;
     padding-bottom: 7px;
-    font-weight: bold;
+    font-size: 20px;
 }
 
-#data-entry-form .form-entry.checkboxlist .regionCheckBox label {
+.default-block.checkboxlist .regionCheckBox label {
     display: inline;
     padding: 0px 12px 0px 5px;
     font-weight: normal;
+    font-size: 12px;
 }
 
-#data-entry-form .form-entry label span {
+.default-block label span {
     display: block;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: normal;
 }
 
-#data-entry-form .form-entry .form-input-error {
+.default-block .form-input-error {
     border: 1px solid red;
 }
 
-#data-entry-form .form-entry input[type="submit"] {
+.default-block input[type="submit"] {
     padding: 4px;
 }
 
@@ -191,11 +236,33 @@ textarea, input {
 }
 
 textarea, input, select {
-    border: 1px solid #c6c3ff;
+    border: 1px solid #8f91b0;
 }
 
-textarea:focus, input:focus, select:focus{
+textarea:focus, input:focus, select:focus {
     outline: 1px solid #b3bdff;
+}
+
+#overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+#lightbox {
+    position: absolute;
+    padding:  25px;
+    background-color: white;
+    width: 450px;
+    height: 180px;
+}
+
+#lightbox iframe {
+    width: 450px;
+    height: 180px;
+    overflow: hidden;
 }
 
 

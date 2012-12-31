@@ -14,4 +14,6 @@ public class NumberUtil {
         int randomNumber = rand.nextInt(max - min + 1) + min;
         return randomNumber;
     }
+
+
 }

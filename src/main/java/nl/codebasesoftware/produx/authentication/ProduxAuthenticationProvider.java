@@ -1,8 +1,6 @@
 package nl.codebasesoftware.produx.authentication;
 
-import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.UserProfile;
-import nl.codebasesoftware.produx.domain.support.UserDetails;
 import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.service.UserProfileService;
 import nl.codebasesoftware.produx.util.SecurityUtil;

@@ -1,4 +1,4 @@
-package nl.codebasesoftware.produx.domain.support;
+package nl.codebasesoftware.produx.comparator;
 
 import java.util.Comparator;
 

@@ -14,6 +14,5 @@ public interface UserProfileService {
     UserProfile findById(Long id);
     List<UserProfile> findAll();
     void removeUserProfile(String username);
-    String generateRandomPassword();
     void update(UserProfile profile);
 }

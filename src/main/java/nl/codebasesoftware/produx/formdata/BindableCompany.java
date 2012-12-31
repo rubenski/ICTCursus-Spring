@@ -1,18 +1,61 @@
 package nl.codebasesoftware.produx.formdata;
 
+import java.io.Serializable;
+
 /**
  * User: rvanloen
  * Date: 27-12-12
  * Time: 11:38
  */
-public class BindableCompany {
+public class BindableCompany implements Serializable {
 
     private Long id;
     private String email;
     private String name;
+    private String address;
+    private String zipCode;
     private String description;
+    private String vatNumber;
+    private String chamberOfCommerceNumber;
     private String phone;
-    private String logo;
+    private String logoFileName;
+    private String logoFileExtension;
+    private String logoFileType;
+    private String city;
+    private String country;
+
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getChamberOfCommerceNumber() {
+        return chamberOfCommerceNumber;
+    }
+
+    public void setChamberOfCommerceNumber(String chamberOfCommerceNumber) {
+        this.chamberOfCommerceNumber = chamberOfCommerceNumber;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
     public String getDescription() {
         return description;
@@ -38,12 +81,12 @@ public class BindableCompany {
         this.id = id;
     }
 
-    public String getLogo() {
-        return logo;
+    public String getLogoFileName() {
+        return logoFileName;
     }
 
-    public void setLogo(String logo) {
-        this.logo = logo;
+    public void setLogoFileName(String logoFileName) {
+        this.logoFileName = logoFileName;
     }
 
     public String getName() {
@@ -60,5 +103,37 @@ public class BindableCompany {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getVatNumber() {
+        return vatNumber;
+    }
+
+    public void setVatNumber(String vatNumber) {
+        this.vatNumber = vatNumber;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public String getLogoFileExtension() {
+        return logoFileExtension;
+    }
+
+    public String getLogoFileType() {
+        return logoFileType;
+    }
+
+    public void setLogoFileType(String logoFileType) {
+        this.logoFileType = logoFileType;
+    }
+
+    public void setLogoFileExtension(String logoFileExtension) {
+        this.logoFileExtension = logoFileExtension;
     }
 }

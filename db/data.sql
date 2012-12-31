@@ -1,6 +1,6 @@
 -- company
-INSERT INTO `px_company` (`id`, `description`, `email`, `logo`, `name`, `phone`) VALUES('1',NULL,NULL,NULL,'Produx default corp',NULL);
-INSERT INTO `px_company` (`id`, `description`, `email`, `logo`, `name`, `phone`) VALUES('2',NULL,NULL,NULL,'Rubenski corp',NULL);
+INSERT INTO `px_company` (`id`, `description`, `email`, `logo_path`, `name`, `phone`) VALUES('1',NULL,NULL,NULL,'Produx default corp',NULL);
+INSERT INTO `px_company` (`id`, `description`, `email`, `logo_path`, `name`, `phone`) VALUES('2',NULL,NULL,NULL,'Rubenski corp',NULL);
 
 -- role
 INSERT INTO `px_role` (`id`, `name`) VALUES('1','COMPANY');
@@ -25,10 +25,10 @@ INSERT INTO `px_userprofile2role` (`userprofile_id`, `role_id`) VALUES('1','1');
 
 -- category
 INSERT INTO `px_category` (`id`, `name`, `url_title`, `parent_id`) VALUES
-(1, 'Microsoft Office', 'microsoft_office', NULL), 
-(2, 'Excel', 'excel', 1), 
-(3, 'Word', 'word', 1), 
-(4, 'Access', 'access', 1), 
+(1, 'Microsoft Office', 'microsoft_office', NULL),
+(2, 'Excel', 'excel', 1),
+(3, 'Word', 'word', 1),
+(4, 'Access', 'access', 1),
 (5, 'Programmeren', 'programmeren', NULL),
 (6, 'PHP', 'php', 5),
 (7, 'Java', 'java', 5),
@@ -50,4 +50,7 @@ INSERT INTO `px_region` (`id`, `name`) VALUES
 (4, 'Utrecht'),
 (5, 'Groningen');
 
-
+INSERT INTO `px_tag` (`id`, `name`) VALUES
+(0, 'Database design'),
+(1, 'Calculatie'),
+(2, 'Office');

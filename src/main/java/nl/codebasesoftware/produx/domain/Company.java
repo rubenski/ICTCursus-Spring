@@ -1,5 +1,7 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.formdata.BindableCompany;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,10 +17,16 @@ public class Company implements DomainObject {
     private Long id;
     private String email;
     private String name;
+    private String address;
+    private String zipCode;
     private String description;
+    private String vatNumber;
+    private String chamberOfCommerceNumber;
     private String phone;
-    private String logo;
+    private String city;
+    private String country;
     private Set<Course> courses = new HashSet<Course>();
+    private Logo logo;
 
     @Override
     @Id
@@ -31,13 +39,54 @@ public class Company implements DomainObject {
         this.id = id;
     }
 
-    @Column(nullable = false)
-    public String getName() {
-        return name;
+    public String getAddress() {
+        return address;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getChamberOfCommerceNumber() {
+        return chamberOfCommerceNumber;
+    }
+
+    public void setChamberOfCommerceNumber(String chamberOfCommerceNumber) {
+        this.chamberOfCommerceNumber = chamberOfCommerceNumber;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    @OneToMany
+    public Set<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
+    }
+
+    @Lob
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getEmail() {
@@ -48,6 +97,15 @@ public class Company implements DomainObject {
         this.email = email;
     }
 
+    @Column(nullable = false)
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getPhone() {
         return phone;
     }
@@ -56,37 +114,56 @@ public class Company implements DomainObject {
         this.phone = phone;
     }
 
-    public String getLogo() {
+    public String getVatNumber() {
+        return vatNumber;
+    }
+
+    public void setVatNumber(String vatNumber) {
+        this.vatNumber = vatNumber;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    @Embedded
+    public Logo getLogo() {
         return logo;
     }
 
-    public void setLogo(String logo) {
+    public void setLogo(Logo logo) {
         this.logo = logo;
     }
 
-    @OneToMany(mappedBy = "company")
-    public Set<Course> getCourses() {
-        return courses;
+    @Transient
+    public BindableCompany toBindableCompany(){
+        BindableCompany bindableCompany = new BindableCompany();
+
+        bindableCompany.setAddress(address);
+        bindableCompany.setChamberOfCommerceNumber(chamberOfCommerceNumber);
+        bindableCompany.setCity(city);
+        bindableCompany.setCountry(country);
+        bindableCompany.setDescription(description);
+        bindableCompany.setEmail(email);
+        bindableCompany.setId(id);
+        bindableCompany.setLogoFileExtension(logo.getFileExtension());
+        bindableCompany.setLogoFileName(logo.getFileName());
+        bindableCompany.setLogoFileType(logo.getDataTypeString());
+        bindableCompany.setName(name);
+        bindableCompany.setPhone(phone);
+        bindableCompany.setVatNumber(vatNumber);
+        bindableCompany.setZipCode(zipCode);
+        return bindableCompany;
     }
 
-    public void setCourses(Set<Course> courses) {
-        this.courses = courses;
+    @Transient
+    public boolean hasLogo(){
+        return logo != null && logo.getFileName() != null && logo.getFileExtension() != null && logo.getFileType() != null;
     }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-
-
-
-
-
-
 
 
 }

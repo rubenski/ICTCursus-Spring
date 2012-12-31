@@ -4,7 +4,6 @@ import nl.codebasesoftware.produx.dao.CompanyDao;
 import nl.codebasesoftware.produx.dao.UserProfileDao;
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.service.UserProfileService;
-import nl.codebasesoftware.produx.util.NumberUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,16 +51,6 @@ public class UserProfileServiceImpl implements UserProfileService {
         return userProfileDao.findByEmail(email);
     }
 
-    @Override
-    public String generateRandomPassword() {
-        String randomString = "";
-        for(int i = 0; i < 10; i++){
-            int randomInt = NumberUtil.randomInt(97, 122);
-            randomString += (char) randomInt;
-        }
-
-        return randomString;
-    }
 
     @Override
     @Transactional

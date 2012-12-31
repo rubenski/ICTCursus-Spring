@@ -11,4 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/manage/profile")
 public class ManagementProfileController {
+
+
+    public ManagementProfileController() {
+    }
 }

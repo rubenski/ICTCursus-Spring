@@ -1,17 +1,32 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<c:if test="${numberOfCourses > 0}">
-    <table cellpadding="4" width="600">
-        <c:forEach items="${courses}" var="course">
-            <tr>
-                <td>
-                    <a href="/manage/course/${course.id}">${course.name}</a>
-                </td>
-                <td>
-                    ${fn:substring(course.shortDescription, 0, 15)}
-                </td>
-            </tr>
-        </c:forEach>
-    </table>
-</c:if>
+<div class="default-block">
+<c:choose>
+    <c:when test="${numberOfCourses > 0}">
+
+            <table cellpadding="4" width="600">
+                <tr>
+                    <th><spring:message code="management.home.coursetable.courseheader"/></th>
+                    <th><spring:message code="management.home.coursetable.description"/></th>
+                </tr>
+                <c:forEach items="${courses}" var="course">
+                    <tr>
+                        <td>
+                            <a href="/manage/course/${course.id}">${course.name}</a>
+                        </td>
+                        <td>
+                                ${fn:substring(course.shortDescription, 0, 50)}...
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+
+    </c:when>
+    <c:otherwise>
+        <spring:message code="management.home.nocourses.message"/>
+    </c:otherwise>
+</c:choose>
+</div>
+

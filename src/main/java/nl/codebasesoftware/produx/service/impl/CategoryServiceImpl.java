@@ -1,8 +1,8 @@
 package nl.codebasesoftware.produx.service.impl;
 
+import nl.codebasesoftware.produx.comparator.NameComparator;
 import nl.codebasesoftware.produx.dao.CategoryDao;
 import nl.codebasesoftware.produx.domain.Category;
-import nl.codebasesoftware.produx.domain.support.NameComparator;
 import nl.codebasesoftware.produx.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

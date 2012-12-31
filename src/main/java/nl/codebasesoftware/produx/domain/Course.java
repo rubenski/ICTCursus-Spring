@@ -38,6 +38,7 @@ public class Course implements DomainObject {
         this.id = id;
     }
 
+    @Column(nullable = false)
     public String getName() {
         return name;
     }
@@ -46,6 +47,8 @@ public class Course implements DomainObject {
         this.name = name;
     }
 
+    @Lob
+    @Column(nullable = false)
     public String getShortDescription() {
         return shortDescription;
     }
@@ -54,6 +57,8 @@ public class Course implements DomainObject {
         this.shortDescription = shortDescription;
     }
 
+    @Lob
+    @Column(nullable = false)
     public String getLongDescription() {
         return longDescription;
     }
@@ -66,6 +71,7 @@ public class Course implements DomainObject {
         return duration;
     }
 
+    @Column(nullable = false)
     public void setDuration(String duration) {
         this.duration = duration;
     }
@@ -80,6 +86,7 @@ public class Course implements DomainObject {
         this.regions = regions;
     }
 
+    @Column(nullable = false)
     public Long getPrice() {
         return price;
     }
@@ -89,6 +96,7 @@ public class Course implements DomainObject {
     }
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     public Company getCompany() {
         return company;
     }

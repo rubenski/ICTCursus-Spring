@@ -8,6 +8,7 @@
     <link href="/static/style/style.css" rel="stylesheet">
     <script type="text/javascript" src="/static/javascript/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="/static/javascript/courseform.js"></script>
+    <script type="text/javascript" src="/static/javascript/file-upload.js"></script>
     <title>
         <jsp:include page="components/title.jsp"/>
     </title>
@@ -18,7 +19,7 @@
         <jsp:include page="components/header.jsp"/>
     </div>
     <div id="middle">
-        <div id="menu">
+        <div id="left">
             <jsp:include page="components/managementMenu.jsp"/>
         </div>
         <div id="main-content">
@@ -26,9 +27,7 @@
             <jsp:include page="${mainContent}.jsp"/>
         </div>
     </div>
-    <div id="footer">
-        <jsp:include page="components/footer.jsp"/>
-    </div>
+
 </div>
 </body>
 </html>

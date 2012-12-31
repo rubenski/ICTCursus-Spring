@@ -1,6 +1,6 @@
 package nl.codebasesoftware.produx.domain;
 
-import nl.codebasesoftware.produx.domain.support.NameComparable;
+import nl.codebasesoftware.produx.comparator.NameComparable;
 
 import javax.persistence.*;
 import java.util.HashSet;
