@@ -65,7 +65,7 @@ $(document).ready(function() {
 
             var substring = $('#tagSelection').val();
             if (substring.length > 1) {
-                $.get("http://localhost:8080/tag/search/" + substring, returnedTagsHandler);
+                $.get("/tag/search/" + substring, returnedTagsHandler);
             }
         }
     }

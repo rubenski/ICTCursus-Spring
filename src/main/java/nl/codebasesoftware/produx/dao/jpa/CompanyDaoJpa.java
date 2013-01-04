@@ -23,6 +23,7 @@ public class CompanyDaoJpa extends GenericDaoJpa<Company> implements CompanyDao 
     @Override
     public void setLogo(Logo logo, Long companyId) {
         String q = "update Company c SET c.logo.fileExtension = :fileExtension, c.logo.fileName = :fileName, c.logo.fileType = :fileType where c.id = :companyId";
+
         Query query = entityManager.createQuery(q);
         query.setParameter("companyId", companyId);
         query.setParameter("fileExtension", logo.getFileExtension());

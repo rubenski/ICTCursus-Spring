@@ -43,7 +43,7 @@ public class LogoUploadFormValidator implements Validator {
         }
 
         String contentType = bindableLogoUpload.getFileData().getContentType();
-        if(!contentType.equals("image/jpeg") && !contentType.equals("image/png") && !contentType.equals("image/gif")){
+        if(!contentType.equals("image/jpeg") && !contentType.equals("image/png") && !contentType.equals("image/gif") && !contentType.equals("image/pjpeg")){
             errors.rejectValue("fileData", "errors.fileupload.wrongtype");
             return;
         }

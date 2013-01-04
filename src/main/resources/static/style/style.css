@@ -265,7 +265,9 @@ textarea:focus, input:focus, select:focus {
     overflow: hidden;
 }
 
-
+#companyLogo {
+    padding: 10px 0px 10px 0px;
+}
 
 
 

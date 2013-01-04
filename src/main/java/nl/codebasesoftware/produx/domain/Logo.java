@@ -68,7 +68,7 @@ public class Logo {
     }
 
     @Transient
-    public byte[] getBase64EncodedImage(){
+    public String getBase64EncodedImage(){
         return ImageUtil.encodeBase64(new File(getFullPath()));
     }
 

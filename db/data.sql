@@ -1,6 +1,7 @@
 -- company
-INSERT INTO `px_company` (`id`, `description`, `email`, `logo_path`, `name`, `phone`) VALUES('1',NULL,NULL,NULL,'Produx default corp',NULL);
-INSERT INTO `px_company` (`id`, `description`, `email`, `logo_path`, `name`, `phone`) VALUES('2',NULL,NULL,NULL,'Rubenski corp',NULL);
+INSERT INTO `px_company` (`id`, `address`, chamber_of_commerce_number, `city`, `country`, `email`, `name`, `phone`, `vat_number`, `zip_code`) VALUES
+(1, 'Bedrijfsstraat 22', '12345', 'Leiden', 'NL', 'email@example.com', 'Produx default corp', '0612345678', '328729837', '1056PH'),
+(2, 'Breestraat 22', '12345', 'Leiden', 'NL', 'bree@example.com', 'Produx Bree corp', '0612345678', '328729837', '1056PH');
 
 -- role
 INSERT INTO `px_role` (`id`, `name`) VALUES('1','COMPANY');
@@ -51,6 +52,6 @@ INSERT INTO `px_region` (`id`, `name`) VALUES
 (5, 'Groningen');
 
 INSERT INTO `px_tag` (`id`, `name`) VALUES
-(0, 'Database design'),
-(1, 'Calculatie'),
-(2, 'Office');
+(1, 'Database design'),
+(2, 'Calculatie'),
+(3, 'Office');

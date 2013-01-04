@@ -39,6 +39,7 @@ public class Company implements DomainObject {
         this.id = id;
     }
 
+    @Column(nullable = false)
     public String getAddress() {
         return address;
     }
@@ -47,6 +48,7 @@ public class Company implements DomainObject {
         this.address = address;
     }
 
+    @Column(nullable = false)
     public String getChamberOfCommerceNumber() {
         return chamberOfCommerceNumber;
     }
@@ -55,6 +57,7 @@ public class Company implements DomainObject {
         this.chamberOfCommerceNumber = chamberOfCommerceNumber;
     }
 
+    @Column(nullable = false)
     public String getCity() {
         return city;
     }
@@ -63,6 +66,7 @@ public class Company implements DomainObject {
         this.city = city;
     }
 
+    @Column(nullable = false)
     public String getCountry() {
         return country;
     }
@@ -89,6 +93,7 @@ public class Company implements DomainObject {
         this.description = description;
     }
 
+    @Column(nullable = false)
     public String getEmail() {
         return email;
     }
@@ -106,6 +111,7 @@ public class Company implements DomainObject {
         this.name = name;
     }
 
+    @Column(nullable = false)
     public String getPhone() {
         return phone;
     }
@@ -114,6 +120,7 @@ public class Company implements DomainObject {
         this.phone = phone;
     }
 
+    @Column(nullable = false)
     public String getVatNumber() {
         return vatNumber;
     }
@@ -122,6 +129,7 @@ public class Company implements DomainObject {
         this.vatNumber = vatNumber;
     }
 
+    @Column(nullable = false)
     public String getZipCode() {
         return zipCode;
     }
@@ -140,7 +148,7 @@ public class Company implements DomainObject {
     }
 
     @Transient
-    public BindableCompany toBindableCompany(){
+    public BindableCompany toBindableCompany() {
         BindableCompany bindableCompany = new BindableCompany();
 
         bindableCompany.setAddress(address);
@@ -150,19 +158,23 @@ public class Company implements DomainObject {
         bindableCompany.setDescription(description);
         bindableCompany.setEmail(email);
         bindableCompany.setId(id);
-        bindableCompany.setLogoFileExtension(logo.getFileExtension());
-        bindableCompany.setLogoFileName(logo.getFileName());
-        bindableCompany.setLogoFileType(logo.getDataTypeString());
         bindableCompany.setName(name);
         bindableCompany.setPhone(phone);
         bindableCompany.setVatNumber(vatNumber);
         bindableCompany.setZipCode(zipCode);
+
+        if (logo != null) {
+            bindableCompany.setLogoFileExtension(logo.getFileExtension());
+            bindableCompany.setLogoFileName(logo.getFileName());
+            bindableCompany.setLogoFileType(logo.getDataTypeString());
+        }
+
         return bindableCompany;
     }
 
     @Transient
-    public boolean hasLogo(){
-        return logo != null && logo.getFileName() != null && logo.getFileExtension() != null && logo.getFileType() != null;
+    public boolean hasLogo() {
+        return logo != null;
     }
 
 

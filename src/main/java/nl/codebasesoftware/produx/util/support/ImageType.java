@@ -8,6 +8,7 @@ package nl.codebasesoftware.produx.util.support;
 public enum ImageType {
 
     JPG("image/jpeg"),
+    PJPG("image/pjpeg"),
     GIF("image/gif"),
     PNG("image/png");
 
@@ -30,4 +31,5 @@ public enum ImageType {
         }
         return null;
     }
+
 }

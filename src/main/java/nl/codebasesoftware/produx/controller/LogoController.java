@@ -15,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -30,7 +27,6 @@ import java.io.IOException;
  * Time: 3:24
  */
 @Controller
-@RequestMapping("/logo")
 public class LogoController {
 
     Logger LOG = Logger.getLogger(LogoController.class);
@@ -45,14 +41,14 @@ public class LogoController {
         this.companyService = companyService;
     }
 
-    @RequestMapping(value = "/upload", method = RequestMethod.GET)
+    @RequestMapping(value = "/manage/logo/upload", method = RequestMethod.GET)
     public String getUploadForm(Model model) {
         model.addAttribute("bindableFileUpload", new BindableLogoUpload());
         return "forms/logoUpload";
     }
 
-    @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public String createOrUpdateLogo(BindableLogoUpload bindableFileUpload, BindingResult result, Model model) {
+    @RequestMapping(value = "/manage/logo/upload", method = RequestMethod.POST)
+    public String createOrUpdateLogo(@ModelAttribute("bindableFileUpload") BindableLogoUpload bindableFileUpload, BindingResult result, Model model) {
 
         Company company = companyService.getCurrentlyLoggedInCompany();
 
@@ -85,14 +81,14 @@ public class LogoController {
     private boolean scaleAndSave(Logo logo, BindableLogoUpload logoUpload, int maxLength) {
         BufferedImage bufferedImage = null;
         try {
-            bufferedImage = ImageUtil.scaleImage(logoUpload.getFileData().getInputStream(), maxLength, maxLength);
+            bufferedImage = ImageUtil.scaleImage(logoUpload.getFileData().getInputStream(), maxLength);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return ImageUtil.saveImage(bufferedImage, logo.getFullPath());
     }
 
-    @RequestMapping(value = "/{companyId}")
+    @RequestMapping(value = "/logo/{companyId}")
     public @ResponseBody LogoJsonData getLogo(@PathVariable("companyId") Long companyId) {
 
         Company company = companyService.findById(companyId);
@@ -105,6 +101,9 @@ public class LogoController {
         String logoPath = String.format("%s%s", logoDir, company.getLogo().getFullName());
         String base64EncodedImage = ImageUtil.encodeBase64(new File(logoPath));
 
+        if(base64EncodedImage == null){
+            return null;
+        }
 
         return new LogoJsonData(base64EncodedImage, company.getLogo().getDataTypeString());
     }
@@ -118,7 +117,7 @@ public class LogoController {
         ImageType imageType = ImageType.get(type);
 
 
-        if (type.equals("image/jpeg")) {
+        if (type.equals("image/jpeg") || type.equals("image/pjpeg")) {
             extension = "jpg";
         } else if (type.equals("image/png")) {
             extension = "png";

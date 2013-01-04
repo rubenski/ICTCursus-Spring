@@ -41,7 +41,7 @@ public class ImageUtil {
 
     }
 
-    public static BufferedImage scaleImage(InputStream imageData, int width, int height) {
+    public static BufferedImage scaleImage(InputStream imageData, int maxLength) {
 
         BufferedImage bufferedImage = null;
         try {
@@ -50,12 +50,11 @@ public class ImageUtil {
             e.printStackTrace();
         }
 
-        BufferedImage resizedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        ImageDimensions dimensions = getScaledImageDimensions(bufferedImage, maxLength);
+
+        BufferedImage resizedImage = new BufferedImage(dimensions.getWidth(), dimensions.getHeight(), BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = resizedImage.createGraphics();
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-
-        int maxLength = width >= height ? width : height;
-        ImageDimensions dimensions = getScaledImageDimensions(bufferedImage, maxLength);
 
         g.drawImage(bufferedImage, 0, 0, dimensions.getWidth(), dimensions.getHeight(), null);
         g.dispose();
@@ -71,10 +70,15 @@ public class ImageUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return success;
     }
 
     public static String encodeBase64(File file) {
+
+        if(!file.exists()){
+            return null;
+        }
 
         BufferedImage img = null;
         String formatName = null;
@@ -87,6 +91,8 @@ public class ImageUtil {
                 ImageReader reader = imageReaders.next();
                 formatName = reader.getFormatName();
             }
+            iis.flush();
+            iis.close();
 
             img = ImageIO.read(file);
             baos = new ByteArrayOutputStream();
