@@ -18,6 +18,7 @@ public class Course implements DomainObject {
     private String name;
     private String shortDescription;
     private String longDescription;
+    private String certificateText;
     private String duration;
     private Set<Region> regions = new HashSet<Region>();
     private Long price;
@@ -26,6 +27,9 @@ public class Course implements DomainObject {
     private Category category;
     private Set<Tag> tags;
     private Set<Experience> experiences;
+    private boolean inCompany;
+    private boolean certificate;
+
 
     @Override
     @Id
@@ -77,7 +81,7 @@ public class Course implements DomainObject {
     }
 
     // TODO: is cascading save actions really necessary here? Not sure. Might be removed. Test please.
-    @ManyToMany(cascade = { javax.persistence.CascadeType.ALL })
+    @ManyToMany(cascade = {javax.persistence.CascadeType.ALL})
     public Set<Region> getRegions() {
         return regions;
     }
@@ -96,7 +100,6 @@ public class Course implements DomainObject {
     }
 
     @ManyToOne
-    @JoinColumn(nullable = false)
     public Company getCompany() {
         return company;
     }
@@ -114,7 +117,7 @@ public class Course implements DomainObject {
         this.lastUpdated = lastUpdated;
     }
 
-    @OneToMany
+    @OneToMany (mappedBy = "course")
     public Set<Experience> getExperiences() {
         return experiences;
     }
@@ -142,7 +145,33 @@ public class Course implements DomainObject {
         this.tags = tags;
     }
 
-    public BindableCourse toBindableCourse(){
+    @Column(nullable = false)
+    public boolean isCertificate() {
+        return certificate;
+    }
+
+    public void setCertificate(boolean certificate) {
+        this.certificate = certificate;
+    }
+
+    public String getCertificateText() {
+        return certificateText;
+    }
+
+    public void setCertificateText(String certificateText) {
+        this.certificateText = certificateText;
+    }
+
+    @Column(nullable = false)
+    public boolean isInCompany() {
+        return inCompany;
+    }
+
+    public void setInCompany(boolean inCompany) {
+        this.inCompany = inCompany;
+    }
+
+    public BindableCourse toBindableCourse() {
         BindableCourse bindableCourse = new BindableCourse();
         bindableCourse.setCategory(category.getId());
         bindableCourse.setDuration(duration);
@@ -153,14 +182,17 @@ public class Course implements DomainObject {
         bindableCourse.setRegions(getRegionIds());
         bindableCourse.setShortDescription(shortDescription);
         bindableCourse.setTags(getTagNames());
+        bindableCourse.setCertificate(certificate);
+        bindableCourse.setCertificateText(certificateText);
+        bindableCourse.setInCompany(inCompany);
         return bindableCourse;
     }
 
     @Transient
-    private List<Long> getRegionIds(){
+    private List<Long> getRegionIds() {
         List<Long> idList = new ArrayList<Long>();
         Iterator<Region> regionsIterator = regions.iterator();
-        for(int i = 0; regionsIterator.hasNext(); i++){
+        for (int i = 0; regionsIterator.hasNext(); i++) {
             Region region = regionsIterator.next();
             idList.add(region.getId());
         }
@@ -168,10 +200,10 @@ public class Course implements DomainObject {
     }
 
     @Transient
-    private List<String> getTagNames(){
+    private List<String> getTagNames() {
         List<String> names = new ArrayList<String>();
         Iterator<Tag> tagIterator = tags.iterator();
-        for(int i = 0; tagIterator.hasNext(); i++){
+        for (int i = 0; tagIterator.hasNext(); i++) {
             Tag region = tagIterator.next();
             names.add(region.getName());
         }
@@ -179,13 +211,24 @@ public class Course implements DomainObject {
     }
 
     @Transient
-    private String getFormattedPrice(){
+    private String getFormattedPrice() {
         NumberFormat numberFormat = NumberFormat.getInstance();
         numberFormat.setMaximumFractionDigits(2);
         numberFormat.setMinimumFractionDigits(2);
-        Double priceDouble =  price / 100d;
+        Double priceDouble = price / 100d;
         String s = numberFormat.format(priceDouble);
         return s;
+    }
+
+    @Transient
+    public boolean equals(Object o){
+        if(!(o instanceof Course)) return false;
+        return ((Course) o).getId().equals(id);
+    }
+
+    @Transient
+    public int hashCode(){
+        return name.hashCode();
     }
 
 }

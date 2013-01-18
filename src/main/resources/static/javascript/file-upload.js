@@ -39,17 +39,12 @@ $(document).ready(function() {
 
             $.get("/logo/" + company.id, function(logoJsonData) {
 
-
-
                 if(logoJsonData){
                     $("<img/>")
                     .attr('src', 'data:' + logoJsonData.dataTypeString + ';base64,' + logoJsonData.base64EncodedData)
                     .attr('id', 'companyLogoImg')
                     .appendTo($('#companyLogo'));
                 }
-
-                // trigger a redraw by getting the offsetHeight (edo inspired trick)
-                var triggerRedraw = $('#companyLogoImg').offsetHeight;
 
             });
 

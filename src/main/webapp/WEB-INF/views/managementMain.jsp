@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!doctype html>
@@ -9,6 +9,17 @@
     <script type="text/javascript" src="/static/javascript/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="/static/javascript/courseform.js"></script>
     <script type="text/javascript" src="/static/javascript/file-upload.js"></script>
+    <script type="text/javascript" src="/static/javascript/tiny_mce/tiny_mce.js"></script>
+
+    <script type="text/javascript">
+        tinyMCE.init({
+            mode : "specific_textareas",
+            editor_selector : "richtext",
+            theme_advanced_buttons1 : "bold, italic, underline, separator, cut, copy, paste, separator, bullist, numlist, separator, undo, redo, separator, link, unlink",
+            content_css: "/static/style/style.css"
+
+        });
+    </script>
     <title>
         <jsp:include page="components/title.jsp"/>
     </title>

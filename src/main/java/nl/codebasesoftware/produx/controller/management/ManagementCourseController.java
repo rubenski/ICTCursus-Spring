@@ -1,11 +1,13 @@
 package nl.codebasesoftware.produx.controller.management;
 
 import nl.codebasesoftware.produx.domain.Category;
+import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.Region;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
 import nl.codebasesoftware.produx.service.CategoryService;
+import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.service.RegionService;
 import nl.codebasesoftware.produx.validator.CourseFormValidator;
@@ -34,24 +36,29 @@ public class ManagementCourseController {
     private RegionService regionService;
     private CategoryService categoryService;
     private CourseFormValidator validator;
+    private CompanyService companyService;
+
 
     @Autowired
-    public ManagementCourseController(CourseService courseService, RegionService regionService, CategoryService categoryService, CourseFormValidator validator) {
+    public ManagementCourseController(CourseService courseService, RegionService regionService, CategoryService categoryService,
+                                      CourseFormValidator validator, CompanyService companyService) {
         this.courseService = courseService;
         this.regionService = regionService;
         this.categoryService = categoryService;
         this.validator = validator;
+        this.companyService = companyService;
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public String getCourseForm(@PathVariable("id") Long id, Model model) {
 
-        model.addAttribute("mainContent", "forms/editCourse");
+        Company loggedInCompany = companyService.getCurrentlyLoggedInCompany();
+        List<Course> companyCourses = courseService.findByCompany(loggedInCompany);
 
+        model.addAttribute("mainContent", "forms/editCourse");
         Course course = courseService.findFull(id);
 
-
-        if (course == null) {
+        if(course == null || !companyCourses.contains(course)){
             throw new ResourceNotFoundException();
         }
 

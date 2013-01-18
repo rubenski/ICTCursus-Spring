@@ -38,10 +38,10 @@ INSERT INTO `px_category` (`id`, `name`, `url_title`, `parent_id`) VALUES
 (10, 'Business Intelligence', 'business_intelligence', NULL);
 
 -- course
-INSERT INTO `px_course` (`id`, `duration`, `last_updated`, `name`, `price`, `short_description`, `long_description`, `category_id`, `company_id`) VALUES
-(1, 'Deze cursus duurt drie dagen', '2012-09-27 14:22:33', 'Cursus Excel', 72500, 'korte omschrijving', 'lange omschrijving', 2, 1),
-(2, 'Deze cursus duurt vier dagen', '2012-09-27 14:22:33', 'Cursus Office algemeen', 72500, 'korte omschrijving', 'lange omschrijving', 1, 1),
-(3, 'Deze cursus duurt vijf dagen', '2012-09-27 14:22:33', 'Cursus Word', 82000, 'korte omschrijving', 'lange omschrijving', 3, 1);
+INSERT INTO `px_course` (`id`, `duration`, `last_updated`, `name`, `price`, `short_description`, `long_description`, `category_id`, `company_id`, `certificate`, `in_company`) VALUES
+(1, 'Deze cursus duurt drie dagen', '2012-09-27 14:22:33', 'Cursus Excel', 72500, 'korte omschrijving', 'lange omschrijving', 2, 1, 1, 0),
+(2, 'Deze cursus duurt vier dagen', '2012-09-27 14:22:33', 'Cursus Office algemeen', 72500, 'korte omschrijving', 'lange omschrijving', 1, 1, 0, 0),
+(3, 'Deze cursus duurt vijf dagen', '2012-09-27 14:22:33', 'Cursus Word', 82000, 'korte omschrijving', 'lange omschrijving', 3, 1, 0, 1);
 
 -- region
 INSERT INTO `px_region` (`id`, `name`) VALUES

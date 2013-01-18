@@ -60,5 +60,9 @@ public class CourseFormValidator implements Validator {
             errors.rejectValue("formattedPrice", "errors.formattedPrice.invalid");
         }
 
+        if(bindableCourse.getDuration().length() > 255){
+            errors.rejectValue("duration", "errors.duration.too.long");
+        }
+
     }
 }

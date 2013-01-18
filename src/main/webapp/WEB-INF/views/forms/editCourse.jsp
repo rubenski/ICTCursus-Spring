@@ -46,7 +46,7 @@
     <%-- long description --%>
     <div class="default-block">
         <form:label path="longDescription"><spring:message code="course.form.longdescription"/></form:label>
-        <form:textarea rows="20" path="longDescription" cssErrorClass="form-input-error" cols="100"/>
+        <form:textarea rows="20" path="longDescription" cssErrorClass="form-input-error" cols="100" cssClass="richtext"/>
         <form:errors path="longDescription" cssClass="form-error"/>
     </div>
 
@@ -56,7 +56,7 @@
             <spring:message code="course.form.duration"/>
             <span><spring:message code="course.form.duration.helptext"/></span>
         </form:label>
-        <form:textarea rows="2" path="duration" cssErrorClass="form-input-error" cols="100"/>
+        <form:textarea rows="2" path="duration" cssErrorClass="form-input-error" cols="100" />
         <form:errors path="duration" cssClass="form-error"/>
     </div>
 
@@ -67,7 +67,7 @@
             <span><spring:message code="course.form.regions.helptext"/></span>
         </form:label>
         <c:forEach items="${allRegions}" var="region">
-            <span class="regionCheckBox"><form:checkbox path="regions" value="${region.id}" label="${region.name}"/></span>
+            <span class="inlineCheckBox"><form:checkbox path="regions" value="${region.id}" label="${region.name}"/></span>
         </c:forEach>
         <div><br></rb><a href="#" id="selectAllRegions"><spring:message code="course.form.regions.selectall.linktext"/></a><br><br></div>
         <form:errors path="regions" cssClass="form-error"/>
@@ -107,9 +107,37 @@
         <span id="tagCharactersError"><spring:message code="course.form.tags.tagCharactersError"/></span>
     </div>
 
+    <%-- in company --%>
+    <div class="default-block checkboxlist">
+        <form:label path="inCompany">
+            <spring:message code="course.form.incompany"/>
+        </form:label>
+        <fmt:message key="course.form.incompany.label" var="incompanylabel"/>
+        <span class="inlineCheckBox"><form:checkbox path="inCompany" label="${incompanylabel}"/></span>
+    </div>
+
+    <%-- certificaat / diploma --%>
+    <div class="default-block checkboxlist">
+        <form:label path="certificate">
+            <spring:message code="course.form.certificate"/>
+        </form:label>
+        <fmt:message key="course.form.certificate.label" var="certificatelabel" />
+        <span class="inlineCheckBox"><form:checkbox path="certificate" label="${certificatelabel}"/></span>
+    </div>
+
+    <%-- certificate / diploma description --%>
+    <div class="default-block">
+        <form:label path="certificateText">
+            <spring:message code="course.form.certificatetext"/>
+            <span><spring:message code="course.form.certificatehelptext"/></span>
+        </form:label>
+        <form:textarea rows="3" path="certificateText" cssErrorClass="form-input-error" cols="100"/>
+        <form:errors path="certificateText" cssClass="form-error"/>
+    </div>
+
     <%-- submit button --%>
     <div class="default-block">
-        <input type="submit" value="Verzenden"/>
+        <input type="submit" value="Opslaan"/>
     </div>
 
 </form:form>

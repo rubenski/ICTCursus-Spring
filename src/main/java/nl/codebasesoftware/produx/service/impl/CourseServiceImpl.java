@@ -32,7 +32,6 @@ public class CourseServiceImpl implements CourseService {
     private RegionDao regionDao;
     private TagDao tagDao;
 
-
     @Autowired
     public CourseServiceImpl(CourseDao courseDao, CategoryDao categoryDao, RegionDao regionDao, TagDao tagDao) {
         this.courseDao = courseDao;
@@ -64,7 +63,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
     public void update(BindableCourse bindableCourse) {
 
         Course course = courseDao.findFull(bindableCourse.getId());
@@ -127,6 +126,9 @@ public class CourseServiceImpl implements CourseService {
         course.setName(bindableCourse.getName());
         course.setPrice(bindableCourse.getPriceAsLong());
         course.setLongDescription(bindableCourse.getLongDescription());
+        course.setInCompany(bindableCourse.isInCompany());
+        course.setCertificate(bindableCourse.isCertificate());
+        course.setCertificateText(bindableCourse.getCertificateText());
     }
 
 

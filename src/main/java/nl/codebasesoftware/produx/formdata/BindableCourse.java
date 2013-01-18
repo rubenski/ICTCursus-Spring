@@ -16,11 +16,15 @@ public class BindableCourse {
     private String name;
     private String shortDescription;
     private String longDescription;
+    private String certificateText;
     private String duration;
     private List<Long> regions = new ArrayList<Long>();
     private long category;
     private List<String> tags = new ArrayList<String>();
     private String formattedPrice;
+    private boolean inCompany;
+    private boolean certificate;
+
 
     public String getDuration() {
         return duration;
@@ -105,5 +109,29 @@ public class BindableCourse {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public boolean isCertificate() {
+        return certificate;
+    }
+
+    public void setCertificate(boolean certificate) {
+        this.certificate = certificate;
+    }
+
+    public String getCertificateText() {
+        return certificateText;
+    }
+
+    public void setCertificateText(String certificateText) {
+        this.certificateText = certificateText;
+    }
+
+    public boolean isInCompany() {
+        return inCompany;
+    }
+
+    public void setInCompany(boolean inCompany) {
+        this.inCompany = inCompany;
     }
 }
