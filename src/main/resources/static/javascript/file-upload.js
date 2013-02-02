@@ -36,7 +36,6 @@ $(document).ready(function() {
 
         $.get("/company/getcurrent", function(company) {
 
-
             $.get("/logo/" + company.id, function(logoJsonData) {
 
                 if(logoJsonData){
@@ -47,13 +46,10 @@ $(document).ready(function() {
                 }
 
             });
-
         });
-
-
     });
 
-    $('body').trigger('replaceLogo');
+    $('#companyLogo').trigger('replaceLogo');
 
 });
 

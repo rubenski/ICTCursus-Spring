@@ -7300,7 +7300,7 @@ tinymce.dom.TreeWalker = function(start_node, root_node) {
 			children = parent.children;
 			endIndex = children.length - 1;
 
-			// Perform a binary search for the position
+			// Perform a binary nl.codebasesoftware.produx.search for the position
 			while (startIndex <= endIndex) {
 				index = Math.floor((startIndex + endIndex) / 2);
 
@@ -8405,7 +8405,7 @@ var Expr = Sizzle.selectors = {
 
 		text: function( elem ) {
 			var attr = elem.getAttribute( "type" ), type = elem.type;
-			// IE6 and 7 will map elem.type to 'text' for new HTML5 types (search, etc)
+			// IE6 and 7 will map elem.type to 'text' for new HTML5 types (nl.codebasesoftware.produx.search, etc)
 			// use getAttribute instead to test this case
 			return elem.nodeName.toLowerCase() === "input" && "text" === type && ( attr === type || attr === null );
 		},

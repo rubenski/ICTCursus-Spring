@@ -53,6 +53,7 @@ public class ManagementCourseController {
     public String getCourseForm(@PathVariable("id") Long id, Model model) {
 
         Company loggedInCompany = companyService.getCurrentlyLoggedInCompany();
+
         List<Course> companyCourses = courseService.findByCompany(loggedInCompany);
 
         model.addAttribute("mainContent", "forms/editCourse");
@@ -63,8 +64,8 @@ public class ManagementCourseController {
         }
 
         model.addAttribute("bindableCourse", course.toBindableCourse());
-
         addDataToModel(model);
+
         return "managementMain";
     }
 

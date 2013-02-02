@@ -81,6 +81,13 @@
             <element id="library" level="project" name="Maven: cglib:cglib:2.2.2" />
             <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.7.1" />
             <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-core-asl:1.7.1" />
+            <element id="library" level="project" name="Maven: org.apache.solr:solr-solrj:4.0.0" />
+            <element id="library" level="project" name="Maven: org.apache.zookeeper:zookeeper:3.3.6" />
+            <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.1.3" />
+            <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.1.4" />
+            <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpmime:4.1.3" />
+            <element id="library" level="project" name="Maven: org.codehaus.woodstox:wstx-asl:3.2.7" />
+            <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.6.4" />
           </element>
         </element>
       </root>
@@ -774,6 +781,39 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/apache/geronimo/specs/geronimo-jta_1.1_spec/1.1.1/geronimo-jta_1.1_spec-1.1.1-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: org.apache.httpcomponents:httpclient:4.1.3">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpclient/4.1.3/httpclient-4.1.3.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpclient/4.1.3/httpclient-4.1.3-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpclient/4.1.3/httpclient-4.1.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.apache.httpcomponents:httpcore:4.1.4">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpcore/4.1.4/httpcore-4.1.4.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpcore/4.1.4/httpcore-4.1.4-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpcore/4.1.4/httpcore-4.1.4-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.apache.httpcomponents:httpmime:4.1.3">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpmime/4.1.3/httpmime-4.1.3.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpmime/4.1.3/httpmime-4.1.3-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpmime/4.1.3/httpmime-4.1.3-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: org.apache.openjpa:openjpa:2.2.0">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/org/apache/openjpa/openjpa/2.2.0/openjpa-2.2.0.jar!/" />
@@ -785,6 +825,17 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/apache/openjpa/openjpa/2.2.0/openjpa-2.2.0-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: org.apache.solr:solr-solrj:4.0.0">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/solr/solr-solrj/4.0.0/solr-solrj-4.0.0.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/solr/solr-solrj/4.0.0/solr-solrj-4.0.0-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/solr/solr-solrj/4.0.0/solr-solrj-4.0.0-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: org.apache.velocity:velocity:1.7">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/org/apache/velocity/velocity/1.7/velocity-1.7.jar!/" />
@@ -794,6 +845,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/apache/velocity/velocity/1.7/velocity-1.7-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.apache.zookeeper:zookeeper:3.3.6">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/zookeeper/zookeeper/3.3.6/zookeeper-3.3.6.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/zookeeper/zookeeper/3.3.6/zookeeper-3.3.6-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/zookeeper/zookeeper/3.3.6/zookeeper-3.3.6-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.aspectj:aspectjrt:1.6.12">
@@ -827,6 +889,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/jackson/jackson-mapper-asl/1.7.1/jackson-mapper-asl-1.7.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.codehaus.woodstox:wstx-asl:3.2.7">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/woodstox/wstx-asl/3.2.7/wstx-asl-3.2.7.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/woodstox/wstx-asl/3.2.7/wstx-asl-3.2.7-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/woodstox/wstx-asl/3.2.7/wstx-asl-3.2.7-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.directwebremoting:dwr:2.0.3">
@@ -962,6 +1035,17 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/mortbay/jetty/servlet-api-2.5/6.1.2/servlet-api-2.5-6.1.2-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: org.slf4j:slf4j-api:1.6.4">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.6.4/slf4j-api-1.6.4.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.6.4/slf4j-api-1.6.4-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.6.4/slf4j-api-1.6.4-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: org.springframework.security:spring-security-acl:3.1.1.RELEASE">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-acl/3.1.1.RELEASE/spring-security-acl-3.1.1.RELEASE.jar!/" />
@@ -1027,6 +1111,7 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/3.1.1.RELEASE/spring-aop-3.1.1.RELEASE-sources.jar!/" />
+        <root url="intellijad://intellijad" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework:spring-asm:3.1.1.RELEASE">

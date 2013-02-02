@@ -19,4 +19,5 @@ public interface CourseService {
     Course findFull(Long id);
     void update(BindableCourse bindableCourse);
     Course insert(BindableCourse bindableCourse);
+    List<Course> findIndexableCourses();
 }

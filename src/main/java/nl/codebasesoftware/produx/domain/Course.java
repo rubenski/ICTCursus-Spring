@@ -23,13 +23,13 @@ public class Course implements DomainObject {
     private Set<Region> regions = new HashSet<Region>();
     private Long price;
     private Company company;
-    private Date lastUpdated;
+    private Calendar lastUpdated;
+    private Calendar lastIndexed;
     private Category category;
     private Set<Tag> tags;
     private Set<Experience> experiences;
     private boolean inCompany;
     private boolean certificate;
-
 
     @Override
     @Id
@@ -99,7 +99,8 @@ public class Course implements DomainObject {
         this.price = price;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
     public Company getCompany() {
         return company;
     }
@@ -109,12 +110,21 @@ public class Course implements DomainObject {
     }
 
     @Temporal(TemporalType.TIMESTAMP)
-    public Date getLastUpdated() {
+    public Calendar getLastUpdated() {
         return lastUpdated;
     }
 
-    public void setLastUpdated(Date lastUpdated) {
+    public void setLastUpdated(Calendar lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    public Calendar getLastIndexed() {
+        return lastIndexed;
+    }
+
+    public void setLastIndexed(Calendar lastIndexed) {
+        this.lastIndexed = lastIndexed;
     }
 
     @OneToMany (mappedBy = "course")
@@ -126,7 +136,7 @@ public class Course implements DomainObject {
         this.experiences = experiences;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     public Category getCategory() {
         return category;
@@ -200,12 +210,12 @@ public class Course implements DomainObject {
     }
 
     @Transient
-    private List<String> getTagNames() {
+    public List<String> getTagNames() {
         List<String> names = new ArrayList<String>();
         Iterator<Tag> tagIterator = tags.iterator();
         for (int i = 0; tagIterator.hasNext(); i++) {
-            Tag region = tagIterator.next();
-            names.add(region.getName());
+            Tag tag = tagIterator.next();
+            names.add(tag.getName());
         }
         return names;
     }
@@ -229,6 +239,15 @@ public class Course implements DomainObject {
     @Transient
     public int hashCode(){
         return name.hashCode();
+    }
+
+    @Transient
+    public List<String> getRegionNames(){
+        List<String> regionNames = new ArrayList<String>();
+        for (Region region : regions) {
+            regionNames.add(region.getName());
+        }
+        return regionNames;
     }
 
 }

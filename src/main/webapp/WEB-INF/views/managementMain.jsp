@@ -5,7 +5,7 @@
 <html lang="nl" class="no-js">
 <head>
     <meta charset="utf-8"/>
-    <link href="/static/style/style.css" rel="stylesheet">
+    <link href="/static/style/admin.css" rel="stylesheet">
     <script type="text/javascript" src="/static/javascript/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="/static/javascript/courseform.js"></script>
     <script type="text/javascript" src="/static/javascript/file-upload.js"></script>
@@ -16,7 +16,7 @@
             mode : "specific_textareas",
             editor_selector : "richtext",
             theme_advanced_buttons1 : "bold, italic, underline, separator, cut, copy, paste, separator, bullist, numlist, separator, undo, redo, separator, link, unlink",
-            content_css: "/static/style/style.css"
+            content_css: "/static/style/admin.css"
 
         });
     </script>

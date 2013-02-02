@@ -65,7 +65,7 @@ $(document).ready(function() {
 
             var substring = $('#tagSelection').val();
             if (substring.length > 1) {
-                $.get("/tag/search/" + substring, returnedTagsHandler);
+                $.get("/tag/nl.codebasesoftware.produx.search/" + substring, returnedTagsHandler);
             }
         }
     }

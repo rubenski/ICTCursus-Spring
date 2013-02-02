@@ -2,6 +2,8 @@ package nl.codebasesoftware.produx.dao.jpa;
 
 import nl.codebasesoftware.produx.dao.GenericDao;
 import nl.codebasesoftware.produx.domain.DomainObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -9,10 +11,12 @@ import javax.persistence.Query;
 import java.util.List;
 
 
+
 public class GenericDaoJpa<T extends DomainObject> implements GenericDao<T> {
 
     private Class<T> type;
     protected EntityManager entityManager;
+    private static final Logger LOG = LoggerFactory.getLogger(GenericDaoJpa.class);
 
 
     @PersistenceContext(name = "mysqlPersistenceUnit")
@@ -63,6 +67,9 @@ public class GenericDaoJpa<T extends DomainObject> implements GenericDao<T> {
     // Replaces silly getSingleResult behaviour (throws an exception when nothing is found)
     protected T getSingleResult(Query query) {
         List<T> resultList = query.getResultList();
+        if(resultList.size() > 1){
+            LOG.warn(String.format("Multiple results were found when expecting a single result for query \n '%s' \n", query));
+        }
         return resultList.isEmpty() ? null : resultList.get(0);
     }
 

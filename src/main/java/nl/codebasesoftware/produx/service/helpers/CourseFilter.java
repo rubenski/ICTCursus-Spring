@@ -16,7 +16,7 @@ public class CourseFilter {
     private Set<Category> categories = new HashSet<Category>();
     private Set<Tag> tags = new HashSet<Tag>();
     private Set<Region> regions = new HashSet<Region>();
-    private String freeTextQuery; // TODO: to be implemented later with Hibernate search
+    private String freeTextQuery; // TODO: to be implemented later with Hibernate nl.codebasesoftware.produx.search
 
     public Set<Category> getCategories() {
         return categories;

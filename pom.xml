@@ -226,6 +226,13 @@
             <version>1.7.1</version>
         </dependency>
 
+        <!-- solrj, for indexing content -->
+        <dependency>
+            <groupId>org.apache.solr</groupId>
+            <artifactId>solr-solrj</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+
 
     </dependencies>
 
@@ -339,9 +346,21 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <scanIntervalSeconds>10</scanIntervalSeconds>
+                    <scanIntervalSeconds>120</scanIntervalSeconds>
                     <stopKey>foo</stopKey>
                     <stopPort>9999</stopPort>
+
+                    <scanTargetPatterns>
+                        <scanTargetPattern>
+                            <directory>src/main/resources/static/style</directory>
+                        </scanTargetPattern>
+                        <scanTargetPattern>
+                            <directory>src/main/resources/static/javascript</directory>
+                        </scanTargetPattern>
+                        <scanTargetPattern>
+                            <directory>src/main/resources/static/img</directory>
+                        </scanTargetPattern>
+                    </scanTargetPatterns>
                 </configuration>
             </plugin>
             <plugin>

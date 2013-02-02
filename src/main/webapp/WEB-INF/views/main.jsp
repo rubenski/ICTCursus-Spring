@@ -15,6 +15,9 @@
     <div id="header">
         <jsp:include page="components/header.jsp"/>
     </div>
+    <div id="search">
+        <jsp:include page="components/search.jsp"/>
+    </div>
     <div id="middle">
         <div id="menu">
             <jsp:include page="components/menu.jsp"/>

@@ -7,6 +7,9 @@ import nl.codebasesoftware.produx.dao.TagDao;
 import nl.codebasesoftware.produx.domain.*;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
 import nl.codebasesoftware.produx.service.CourseService;
+import nl.codebasesoftware.produx.service.SystemPropertyService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,10 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * User: rvanloen
@@ -31,13 +31,18 @@ public class CourseServiceImpl implements CourseService {
     private CategoryDao categoryDao;
     private RegionDao regionDao;
     private TagDao tagDao;
+    private SystemPropertyService systemPropertyService;
+
+    private Logger LOG = LoggerFactory.getLogger(CourseServiceImpl.class);
 
     @Autowired
-    public CourseServiceImpl(CourseDao courseDao, CategoryDao categoryDao, RegionDao regionDao, TagDao tagDao) {
+    public CourseServiceImpl(CourseDao courseDao, CategoryDao categoryDao, RegionDao regionDao, TagDao tagDao,
+                             SystemPropertyService systemPropertyService) {
         this.courseDao = courseDao;
         this.categoryDao = categoryDao;
         this.regionDao = regionDao;
         this.tagDao = tagDao;
+        this.systemPropertyService = systemPropertyService;
     }
 
     @Override
@@ -53,6 +58,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    @Transactional
     public List<Course> findByCompany(Company company) {
         return courseDao.findCourses(company);
     }
@@ -61,6 +67,7 @@ public class CourseServiceImpl implements CourseService {
     public Course findFull(Long id) {
         return courseDao.findFull(id);
     }
+
 
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
@@ -82,6 +89,20 @@ public class CourseServiceImpl implements CourseService {
         applyBindableCourseToCourse(bindableCourse, course);
         courseDao.persist(course);
         return course;
+    }
+
+    @Override
+    @Transactional
+    public List<Course> findIndexableCourses() {
+        Calendar calendar = systemPropertyService.lastSolrUpdateDate();
+        List<Long> indexableCourseIds = courseDao.findIndexableCourseIds(calendar);
+        List<Course> indexableCourses = new ArrayList<Course>();
+        for (Long indexableCourseId : indexableCourseIds) {
+            Course course = courseDao.findFull(indexableCourseId);
+            indexableCourses.add(course);
+        }
+
+        return indexableCourses;
     }
 
 
@@ -122,7 +143,7 @@ public class CourseServiceImpl implements CourseService {
         course.setShortDescription(bindableCourse.getShortDescription());
         course.setCompany(company);
         course.setDuration(bindableCourse.getDuration());
-        course.setLastUpdated(new Date());
+        course.setLastUpdated(Calendar.getInstance());
         course.setName(bindableCourse.getName());
         course.setPrice(bindableCourse.getPriceAsLong());
         course.setLongDescription(bindableCourse.getLongDescription());

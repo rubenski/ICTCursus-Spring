@@ -31,7 +31,7 @@
 
 			// Register commands
 			ed.addCommand('mceSearch', function() {
-				open('search');
+				open('nl.codebasesoftware.produx.search');
 			});
 
 			ed.addCommand('mceReplace', function() {
@@ -39,7 +39,7 @@
 			});
 
 			// Register buttons
-			ed.addButton('search', {title : 'searchreplace.search_desc', cmd : 'mceSearch'});
+			ed.addButton('nl.codebasesoftware.produx.search', {title : 'searchreplace.search_desc', cmd : 'mceSearch'});
 			ed.addButton('replace', {title : 'searchreplace.replace_desc', cmd : 'mceReplace'});
 
 			ed.addShortcut('ctrl+f', 'searchreplace.search_desc', 'mceSearch');

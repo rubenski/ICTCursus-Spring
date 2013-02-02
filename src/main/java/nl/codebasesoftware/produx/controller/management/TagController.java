@@ -27,7 +27,7 @@ public class TagController {
         this.tagService = tagService;
     }
 
-    @RequestMapping(value= "/tag/search/{tagName}")
+    @RequestMapping(value= "/tag/nl.codebasesoftware.produx.search/{tagName}")
     public @ResponseBody List<TagDTO> search(@PathVariable String tagName){
         List<Tag> tags = tagService.findBySubString(tagName);
         List<TagDTO> tagDTOs = new ArrayList<TagDTO>();

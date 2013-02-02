@@ -15,6 +15,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -56,6 +57,13 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
         return typedQuery.getResultList();
     }
 
+    public List<Long> findIndexableCourseIds(Calendar lastIndexDate){
+        String hql = "select id from Course c where c.lastIndexed is NULL OR c.lastIndexed > :lastIndexDate";
+        Query query = entityManager.createQuery(hql);
+        query.setParameter("lastIndexDate", lastIndexDate);
+        return query.getResultList();
+    }
+
     @Override
     public List<Course> findCourses(Long categoryId) {
         Query queryGood = entityManager.createQuery("select c from Course c join fetch c.company where c.category.id = :categoryId");
@@ -67,7 +75,8 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
     public List<Course> findCourses(Company company) {
         Query query = entityManager.createQuery("select c from Course c where c.company = :company");
         query.setParameter("company", company);
-        return query.getResultList();
+        List resultList = query.getResultList();
+        return resultList;
     }
 
     @Override
@@ -76,8 +85,10 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
                 "join fetch c.company " +
                 "left join fetch c.regions " +
                 "left join fetch c.tags " +
+                "left join fetch c.category " +
                 "where c.id = :id");
         query.setParameter("id", id);
-        return getSingleResult(query);
+        Course result = getSingleResult(query);
+        return result;
     }
 }

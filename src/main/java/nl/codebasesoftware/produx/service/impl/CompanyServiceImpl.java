@@ -45,6 +45,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
+    @Transactional
     public Company getCurrentlyLoggedInCompany() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserProfile userProfile = (UserProfile) authentication.getPrincipal();
