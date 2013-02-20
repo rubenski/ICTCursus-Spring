@@ -48,6 +48,7 @@ textarea, input {
 
 textarea, input, select {
     border: 1px solid #8f91b0;
+    margin-right: 4px;
 }
 
 textarea:focus, input:focus, select:focus {

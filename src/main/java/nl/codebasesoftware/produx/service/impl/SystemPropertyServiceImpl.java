@@ -27,7 +27,7 @@ public class SystemPropertyServiceImpl implements SystemPropertyService {
 
     @Override
     public Calendar lastSolrUpdateDate() {
-        SystemProperty property = systemPropertyDao.findForKey("last.solr.update.date");
+        SystemProperty property = systemPropertyDao.findByKey("last.solr.update.date");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
         try {
@@ -42,5 +42,15 @@ public class SystemPropertyServiceImpl implements SystemPropertyService {
         }
 
         return sdf.getCalendar();
+    }
+
+    @Override
+    public String findByKey(String key) {
+        SystemProperty property = systemPropertyDao.findByKey(key);
+        if(property != null){
+            return property.getValue();
+        }
+
+        return null;
     }
 }

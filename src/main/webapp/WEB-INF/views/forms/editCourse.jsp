@@ -56,12 +56,12 @@
             <spring:message code="course.form.duration"/>
             <span><spring:message code="course.form.duration.helptext"/></span>
         </form:label>
-        <form:textarea rows="2" path="duration" cssErrorClass="form-input-error" cols="100" />
+        <form:textarea rows="2" path="duration" cssErrorClass="form-input-error" cols="100"/>
         <form:errors path="duration" cssClass="form-error"/>
     </div>
 
     <%-- regions --%>
-    <div class="default-block checkboxlist">
+    <div class="default-block">
         <form:label path="regions">
             <spring:message code="course.form.regions"/>
             <span><spring:message code="course.form.regions.helptext"/></span>
@@ -69,7 +69,7 @@
         <c:forEach items="${allRegions}" var="region">
             <span class="inlineCheckBox"><form:checkbox path="regions" value="${region.id}" label="${region.name}"/></span>
         </c:forEach>
-        <div><br></rb><a href="#" id="selectAllRegions"><spring:message code="course.form.regions.selectall.linktext"/></a><br><br></div>
+        <div><br><a href="#" id="selectAllRegions"><spring:message code="course.form.regions.selectall.linktext"/></a><br><br></div>
         <form:errors path="regions" cssClass="form-error"/>
     </div>
 
@@ -92,6 +92,28 @@
         <form:errors path="category" cssClass="form-error"/>
     </div>
 
+    <%-- dates --%>
+    <div class="default-block">
+        <form:label path="dates"><spring:message code="course.form.dates"/></form:label>
+        <input autocomplete="off" size="40" id="dateSelection"/>
+        <input type="hidden" name="dates"/>
+        <a href="#" id="addDate"><spring:message code="course.form.buttontext.add"/></a>
+
+        <div id="selectedDates" class="selectionContainer">
+            <table></table>
+        </div>
+        <span id="dateError" class="hide"><spring:message code="course.form.dateError"/></span>
+    </div>
+
+    <%-- times --%>
+    <div class="default-block">
+        <form:label path="times"><spring:message code="course.form.times"/></form:label>
+        <c:forEach items="${times}" var="time">
+            <span class="inlineCheckBox"><form:checkbox path="times" value="${time.id}" label="${time.name}"/></span>
+        </c:forEach>
+        <form:errors path="times" cssClass="form-error"/>
+    </div>
+
     <%-- tags --%>
     <div class="default-block">
         <form:label path="tags">
@@ -99,29 +121,36 @@
             <span><spring:message code="course.form.tags.helptext"/></span>
         </form:label>
         <input autocomplete="off" size="40" id="tagSelection"/>
-        &nbsp;
-        <a href="#" id="addTag"><spring:message code="course.form.tags.add"/></a>
+        <a href="#" id="addTag"><spring:message code="course.form.buttontext.add"/></a>
 
-        <div id="selectedTags"></div>
-        <span id="tagLengthError"><spring:message code="course.form.tags.taglengtherror"/></span>
-        <span id="tagCharactersError"><spring:message code="course.form.tags.tagCharactersError"/></span>
+        <div id="selectedTags" class="selectionContainer">
+            <table></table>
+        </div>
+        <span id="tagError" class="hide"><spring:message code="course.form.tags.tagerror"/></span>
     </div>
 
-    <%-- in company --%>
-    <div class="default-block checkboxlist">
-        <form:label path="inCompany">
-            <spring:message code="course.form.incompany"/>
+    <%-- Options --%>
+    <div class="default-block">
+        <form:label path="options">
+            <spring:message code="course.form.properties"/>
+            <span><spring:message code="course.form.properties.helptext"/></span>
         </form:label>
-        <fmt:message key="course.form.incompany.label" var="incompanylabel"/>
-        <span class="inlineCheckBox"><form:checkbox path="inCompany" label="${incompanylabel}"/></span>
+        <c:forEach items="${optionCategories}" var="optionCategory">
+            <div class="option-category">
+                <strong>${optionCategory.name}</strong>
+                <c:forEach items="${optionCategory.options}" var="option">
+                    <div><form:checkbox path="options" value="${option.id}" label="${option.displayName}"/></div>
+                </c:forEach>
+            </div>
+        </c:forEach>
     </div>
 
-    <%-- certificaat / diploma --%>
-    <div class="default-block checkboxlist">
+    <%-- Certificaat / diploma --%>
+    <div class="default-block">
         <form:label path="certificate">
             <spring:message code="course.form.certificate"/>
         </form:label>
-        <fmt:message key="course.form.certificate.label" var="certificatelabel" />
+        <fmt:message key="course.form.certificate.label" var="certificatelabel"/>
         <span class="inlineCheckBox"><form:checkbox path="certificate" label="${certificatelabel}"/></span>
     </div>
 

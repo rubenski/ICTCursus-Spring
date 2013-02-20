@@ -3,6 +3,7 @@ package nl.codebasesoftware.produx.service;
 import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
+import nl.codebasesoftware.produx.domain.Time;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
 
 import java.util.List;
@@ -20,4 +21,6 @@ public interface CourseService {
     void update(BindableCourse bindableCourse);
     Course insert(BindableCourse bindableCourse);
     List<Course> findIndexableCourses();
+    List<Course> findBasic(List<Long> ids);
+    List<Time> findCourseTimes();
 }

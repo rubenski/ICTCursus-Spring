@@ -22,9 +22,10 @@ public class BindableCourse {
     private long category;
     private List<String> tags = new ArrayList<String>();
     private String formattedPrice;
-    private boolean inCompany;
     private boolean certificate;
-
+    private List<Long> times = new ArrayList<Long>();
+    private List<String> dates = new ArrayList<String>();
+    private List<Long> options = new ArrayList<Long>();
 
     public String getDuration() {
         return duration;
@@ -127,11 +128,27 @@ public class BindableCourse {
         this.certificateText = certificateText;
     }
 
-    public boolean isInCompany() {
-        return inCompany;
+    public List<Long> getTimes() {
+        return times;
     }
 
-    public void setInCompany(boolean inCompany) {
-        this.inCompany = inCompany;
+    public void setTimes(List<Long> times) {
+        this.times = times;
+    }
+
+    public List<String> getDates() {
+        return dates;
+    }
+
+    public void setDates(List<String> dates) {
+        this.dates = dates;
+    }
+
+    public List<Long> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<Long> options) {
+        this.options = options;
     }
 }

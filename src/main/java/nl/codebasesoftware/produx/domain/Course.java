@@ -1,9 +1,8 @@
 package nl.codebasesoftware.produx.domain;
 
-import nl.codebasesoftware.produx.formdata.BindableCourse;
+import org.springframework.beans.factory.annotation.Configurable;
 
 import javax.persistence.*;
-import java.text.NumberFormat;
 import java.util.*;
 
 /**
@@ -12,6 +11,7 @@ import java.util.*;
  * Time: 21:06
  */
 @Entity
+@Configurable
 public class Course implements DomainObject {
 
     private Long id;
@@ -28,8 +28,14 @@ public class Course implements DomainObject {
     private Category category;
     private Set<Tag> tags;
     private Set<Experience> experiences;
-    private boolean inCompany;
     private boolean certificate;
+    private Set<CourseDate> dates;
+    private Set<Time> times;
+    private Set<CourseOption> options;
+
+
+    public Course() {
+    }
 
     @Override
     @Id
@@ -81,7 +87,7 @@ public class Course implements DomainObject {
     }
 
     // TODO: is cascading save actions really necessary here? Not sure. Might be removed. Test please.
-    @ManyToMany(cascade = {javax.persistence.CascadeType.ALL})
+    @ManyToMany(cascade = {javax.persistence.CascadeType.ALL}, fetch = FetchType.LAZY)
     public Set<Region> getRegions() {
         return regions;
     }
@@ -127,7 +133,7 @@ public class Course implements DomainObject {
         this.lastIndexed = lastIndexed;
     }
 
-    @OneToMany (mappedBy = "course")
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
     public Set<Experience> getExperiences() {
         return experiences;
     }
@@ -146,7 +152,7 @@ public class Course implements DomainObject {
         this.category = category;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     public Set<Tag> getTags() {
         return tags;
     }
@@ -172,41 +178,31 @@ public class Course implements DomainObject {
         this.certificateText = certificateText;
     }
 
-    @Column(nullable = false)
-    public boolean isInCompany() {
-        return inCompany;
+    @OneToMany(fetch = FetchType.LAZY)
+    public Set<CourseDate> getDates() {
+        return dates;
     }
 
-    public void setInCompany(boolean inCompany) {
-        this.inCompany = inCompany;
+    public void setDates(Set<CourseDate> dates) {
+        this.dates = dates;
     }
 
-    public BindableCourse toBindableCourse() {
-        BindableCourse bindableCourse = new BindableCourse();
-        bindableCourse.setCategory(category.getId());
-        bindableCourse.setDuration(duration);
-        bindableCourse.setId(id);
-        bindableCourse.setLongDescription(longDescription);
-        bindableCourse.setName(name);
-        bindableCourse.setFormattedPrice(getFormattedPrice());
-        bindableCourse.setRegions(getRegionIds());
-        bindableCourse.setShortDescription(shortDescription);
-        bindableCourse.setTags(getTagNames());
-        bindableCourse.setCertificate(certificate);
-        bindableCourse.setCertificateText(certificateText);
-        bindableCourse.setInCompany(inCompany);
-        return bindableCourse;
+    @ManyToMany(fetch = FetchType.LAZY)
+    public Set<Time> getTimes() {
+        return times;
     }
 
-    @Transient
-    private List<Long> getRegionIds() {
-        List<Long> idList = new ArrayList<Long>();
-        Iterator<Region> regionsIterator = regions.iterator();
-        for (int i = 0; regionsIterator.hasNext(); i++) {
-            Region region = regionsIterator.next();
-            idList.add(region.getId());
-        }
-        return idList;
+    public void setTimes(Set<Time> times) {
+        this.times = times;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    public Set<CourseOption> getOptions() {
+        return options;
+    }
+
+    public void setOptions(Set<CourseOption> options) {
+        this.options = options;
     }
 
     @Transient
@@ -221,28 +217,18 @@ public class Course implements DomainObject {
     }
 
     @Transient
-    private String getFormattedPrice() {
-        NumberFormat numberFormat = NumberFormat.getInstance();
-        numberFormat.setMaximumFractionDigits(2);
-        numberFormat.setMinimumFractionDigits(2);
-        Double priceDouble = price / 100d;
-        String s = numberFormat.format(priceDouble);
-        return s;
-    }
-
-    @Transient
-    public boolean equals(Object o){
-        if(!(o instanceof Course)) return false;
+    public boolean equals(Object o) {
+        if (!(o instanceof Course)) return false;
         return ((Course) o).getId().equals(id);
     }
 
     @Transient
-    public int hashCode(){
+    public int hashCode() {
         return name.hashCode();
     }
 
     @Transient
-    public List<String> getRegionNames(){
+    public List<String> getRegionNames() {
         List<String> regionNames = new ArrayList<String>();
         for (Region region : regions) {
             regionNames.add(region.getName());

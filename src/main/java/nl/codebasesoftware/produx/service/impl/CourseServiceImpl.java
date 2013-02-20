@@ -1,9 +1,6 @@
 package nl.codebasesoftware.produx.service.impl;
 
-import nl.codebasesoftware.produx.dao.CategoryDao;
-import nl.codebasesoftware.produx.dao.CourseDao;
-import nl.codebasesoftware.produx.dao.RegionDao;
-import nl.codebasesoftware.produx.dao.TagDao;
+import nl.codebasesoftware.produx.dao.*;
 import nl.codebasesoftware.produx.domain.*;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
 import nl.codebasesoftware.produx.service.CourseService;
@@ -32,18 +29,21 @@ public class CourseServiceImpl implements CourseService {
     private RegionDao regionDao;
     private TagDao tagDao;
     private SystemPropertyService systemPropertyService;
+    private CourseOptionDao optionDao;
 
     private Logger LOG = LoggerFactory.getLogger(CourseServiceImpl.class);
 
     @Autowired
     public CourseServiceImpl(CourseDao courseDao, CategoryDao categoryDao, RegionDao regionDao, TagDao tagDao,
-                             SystemPropertyService systemPropertyService) {
+                             SystemPropertyService systemPropertyService, CourseOptionDao optionDao) {
         this.courseDao = courseDao;
         this.categoryDao = categoryDao;
         this.regionDao = regionDao;
         this.tagDao = tagDao;
         this.systemPropertyService = systemPropertyService;
+        this.optionDao = optionDao;
     }
+
 
     @Override
     @Transactional
@@ -61,6 +61,17 @@ public class CourseServiceImpl implements CourseService {
     @Transactional
     public List<Course> findByCompany(Company company) {
         return courseDao.findCourses(company);
+    }
+
+    @Override
+    @Transactional
+    public List<Course> findBasic(List<Long> ids){
+        return courseDao.findBasic(ids);
+    }
+
+    @Override
+    public List<Time> findCourseTimes() {
+        return courseDao.findCourseTimes();
     }
 
     @Override
@@ -126,6 +137,21 @@ public class CourseServiceImpl implements CourseService {
         }
         course.setRegions(newRegions);
 
+        // Get the course times
+        Set<Time> newTimes = new HashSet<Time>();
+        for (Long timeId : bindableCourse.getTimes()) {
+            newTimes.add(courseDao.getCourseTime(timeId));
+        }
+        course.setTimes(newTimes);
+
+        // Get course options
+        Set<CourseOption> options = new HashSet<CourseOption>();
+        for (Long optionId : bindableCourse.getOptions()) {
+            CourseOption courseOption = optionDao.find(optionId);
+            options.add(courseOption);
+        }
+        course.setOptions(options);
+
         Set<Tag> newTags = new HashSet<Tag>();
         for (String tagName : bindableCourse.getTags()) {
             Tag tag = tagDao.findByName(tagName);
@@ -147,7 +173,6 @@ public class CourseServiceImpl implements CourseService {
         course.setName(bindableCourse.getName());
         course.setPrice(bindableCourse.getPriceAsLong());
         course.setLongDescription(bindableCourse.getLongDescription());
-        course.setInCompany(bindableCourse.isInCompany());
         course.setCertificate(bindableCourse.isCertificate());
         course.setCertificateText(bindableCourse.getCertificateText());
     }

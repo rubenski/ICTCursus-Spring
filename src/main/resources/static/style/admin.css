@@ -100,7 +100,7 @@
     font-size: 20px;
 }
 
-.default-block.checkboxlist .inlineCheckBox label {
+.default-block .inlineCheckBox label {
     display: inline;
     padding: 0px 12px 0px 5px;
     font-weight: normal;
@@ -111,6 +111,22 @@
     display: block;
     font-size: 11px;
     font-weight: normal;
+}
+
+.default-block div.option-category strong {
+    display: block;
+    padding-top: 12px;
+    padding-bottom: 4px;
+}
+
+.default-block div.option-category div {
+    padding-bottom: 3px;
+}
+
+.default-block div.option-category label {
+    font-size: 12px;
+    display: inline;
+    padding-bottom: 2px;
 }
 
 .default-block .form-input-error {
@@ -151,7 +167,7 @@
     background-color: #1e90ff;
 }
 
-a#addTag {
+a#addTag, a#addDate {
     padding: 5px 8px 5px 8px;
     background-color: #0b0271;
     color: white;
@@ -159,30 +175,22 @@ a#addTag {
     text-decoration: none;
 }
 
-#tagLengthError, #tagCharactersError {
+.hide {
     display: none;
 }
 
-#selectedTags {
-    margin: 0 auto;
-    width: 150px;
-    padding-top: 15px;
+
+.selectionContainer table {
+    width: 250px;
+    margin:  12px 0px 0px 0px;
+    padding:  0;
+    background-color: #f4f2f2;
 }
 
-#selectedTags img {
-    padding-left: 4px;
+.selectionContainer table td {
+    margin:  0;
+    padding:  0;
 }
-
-#selectedTags #selectedTagsHeader {
-    font-weight: bold;
-    display: block;
-    padding-bottom: 5px;
-}
-
-.tagSelected {
-    background-color: #cc0000;
-}
-
 
 #overlay{
     position: absolute;

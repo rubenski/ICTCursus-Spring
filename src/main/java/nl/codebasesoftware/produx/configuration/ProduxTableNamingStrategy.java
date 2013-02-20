@@ -14,7 +14,7 @@ public class ProduxTableNamingStrategy extends ImprovedNamingStrategy {
     @Override
     public String tableName(String tableName) {
         String name = super.tableName(tableName);
-        return  (PREFIX + name).toLowerCase();
+        return (PREFIX + name).toLowerCase();
     }
 
     @Override
@@ -24,7 +24,16 @@ public class ProduxTableNamingStrategy extends ImprovedNamingStrategy {
 
     @Override
     public String collectionTableName(String ownerEntity, String ownerEntityTable, String associatedEntity, String associatedEntityTable, String propertyName) {
-        String name = PREFIX + ownerEntityTable + "2" + associatedEntityTable;
+
+        String name = "";
+
+        if (associatedEntity != null) {
+            name = PREFIX + ownerEntityTable + "2" + associatedEntityTable;
+        } else {
+            // @Embeddables don't have their own entity, therefore we base the name on the property name
+            name = PREFIX + propertyName;
+        }
+
         return name.toLowerCase();
     }
 

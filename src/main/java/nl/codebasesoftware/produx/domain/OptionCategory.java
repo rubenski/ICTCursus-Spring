@@ -1,0 +1,80 @@
+package nl.codebasesoftware.produx.domain;
+
+import nl.codebasesoftware.produx.formdata.BindableOptionCategory;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * User: rvanloen
+ * Date: 18-2-13
+ * Time: 16:50
+ */
+@Entity
+public class OptionCategory implements DomainObject {
+
+    private Long id;
+    private String name;
+    private Set<CourseOption> options = new HashSet<CourseOption>();
+    private int displayRank;
+
+    @Override
+    @Id
+    @GeneratedValue
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Column(unique = true)
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", targetEntity = CourseOption.class, cascade = CascadeType.ALL)
+    @OrderBy("displayRank ASC")
+    public Set<CourseOption> getOptions() {
+        return options;
+    }
+
+    public void setOptions(Set<CourseOption> options) {
+        this.options = options;
+    }
+
+    @Column(nullable = false)
+    public int getDisplayRank() {
+        return displayRank;
+    }
+
+    public void setDisplayRank(int displayRank) {
+        this.displayRank = displayRank;
+    }
+
+    public BindableOptionCategory toBindable() {
+        BindableOptionCategory bindableOptionCategory = new BindableOptionCategory();
+        bindableOptionCategory.setDisplayName(name);
+        for (CourseOption option : options) {
+            bindableOptionCategory.addOption(option.toBindable());
+        }
+        return bindableOptionCategory;
+    }
+
+    public boolean equals(Object o) {
+        if (!(o instanceof OptionCategory)) return false;
+        return ((OptionCategory) o).id.equals(id);
+    }
+
+    public int hashCode() {
+        return (int) (id * 17);
+    }
+
+
+}

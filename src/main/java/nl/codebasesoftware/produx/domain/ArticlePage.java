@@ -58,8 +58,8 @@ public class ArticlePage implements DomainObject {
         this.keywords = keywords;
     }
 
-    @OneToMany
-    @JoinColumn(name = "parentPage_id")
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_page_id")
     public Set<ArticlePage> getChildPages() {
         return childPages;
     }
@@ -78,7 +78,7 @@ public class ArticlePage implements DomainObject {
     }
 
 
-    @OneToMany(mappedBy = "course", orphanRemoval = true, cascade = { javax.persistence.CascadeType.ALL })
+    @OneToMany(mappedBy = "course", orphanRemoval = true, cascade = { javax.persistence.CascadeType.ALL}, fetch = FetchType.LAZY)
     public Set<Comment> getComments() {
         return comments;
     }

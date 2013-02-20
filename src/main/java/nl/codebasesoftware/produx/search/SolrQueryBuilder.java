@@ -8,6 +8,6 @@ package nl.codebasesoftware.produx.search;
 public class SolrQueryBuilder {
 
     public String buildFullTextQuery(String terms){
-
+        return String.format("q=%s", terms);
     }
 }

@@ -69,6 +69,8 @@ public class ManagementSolrController {
 
         ModifiableSolrParams solrParams = new ModifiableSolrParams();
 
+
+        // Fetch some data from Solr just for testing
         String query ="cursus";
 		solrParams.set("q", query);
 
@@ -82,7 +84,7 @@ public class ManagementSolrController {
                 result += String.format("%s<br>", solrDocument.getFieldValue("id"));
             }
         } catch (SolrServerException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
 
         model.addAttribute("result", result);

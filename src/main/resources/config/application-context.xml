@@ -19,6 +19,7 @@
     <context:component-scan base-package="nl.codebasesoftware.produx.authentication"/>
     <context:component-scan base-package="nl.codebasesoftware.produx.net"/>
     <context:component-scan base-package="nl.codebasesoftware.produx.util"/>
+    <context:component-scan base-package="nl.codebasesoftware.produx.search"/>
 
     <!-- Data and JPA setup -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" p:driverClassName="${db.driverClassName}"
@@ -94,6 +95,7 @@
         <property name="converters">
             <set>
                 <bean class="nl.codebasesoftware.produx.util.conversion.CourseToSolrInputDocument"/>
+                <bean class="nl.codebasesoftware.produx.util.conversion.CourseToBindableCourse"/>
             </set>
         </property>
     </bean>

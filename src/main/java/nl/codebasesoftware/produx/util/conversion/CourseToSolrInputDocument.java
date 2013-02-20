@@ -26,7 +26,6 @@ public class CourseToSolrInputDocument implements Converter<Course, SolrInputDoc
         solrInputDocument.addField("company", course.getCompany().getName());
         solrInputDocument.addField("regions", course.getRegionNames());
         solrInputDocument.addField("tags", course.getTagNames());
-        solrInputDocument.addField("incompany", course.isInCompany());
         solrInputDocument.addField("certificate", course.isCertificate());
 
         return solrInputDocument;

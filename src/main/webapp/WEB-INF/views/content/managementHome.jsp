@@ -3,6 +3,9 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <div class="default-block">
+    <a href="/manage/course/add">Cursus toevoegen</a>
+</div>
+<div class="default-block">
 <c:choose>
     <c:when test="${numberOfCourses > 0}">
 

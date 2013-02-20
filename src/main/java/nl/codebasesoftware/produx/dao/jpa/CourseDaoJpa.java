@@ -1,10 +1,7 @@
 package nl.codebasesoftware.produx.dao.jpa;
 
 import nl.codebasesoftware.produx.dao.CourseDao;
-import nl.codebasesoftware.produx.domain.Category;
-import nl.codebasesoftware.produx.domain.Company;
-import nl.codebasesoftware.produx.domain.Course;
-import nl.codebasesoftware.produx.domain.Course_;
+import nl.codebasesoftware.produx.domain.*;
 import nl.codebasesoftware.produx.service.helpers.CourseFilter;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +13,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -57,6 +55,17 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
         return typedQuery.getResultList();
     }
 
+    @Override
+    public List<Course> findBasic(List<Long> ids) {
+        if(ids == null || ids.size() == 0){
+            return Collections.emptyList();
+        }
+        String hql = "from Course c join fetch c.category cat where c.id in (:ids)";
+        Query query = entityManager.createQuery(hql);
+        query.setParameter("ids", ids);
+        return query.getResultList();
+    }
+
     public List<Long> findIndexableCourseIds(Calendar lastIndexDate){
         String hql = "select id from Course c where c.lastIndexed is NULL OR c.lastIndexed > :lastIndexDate";
         Query query = entityManager.createQuery(hql);
@@ -86,9 +95,25 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
                 "left join fetch c.regions " +
                 "left join fetch c.tags " +
                 "left join fetch c.category " +
+                "left join fetch c.times " +
+                "left join fetch c.dates " +
+                "left join fetch c.options " +
                 "where c.id = :id");
         query.setParameter("id", id);
         Course result = getSingleResult(query);
         return result;
+    }
+
+    @Override
+    public List<Time> findCourseTimes() {
+        Query query = entityManager.createQuery("from Time t order by t.displayRank");
+        return query.getResultList();
+    }
+
+    @Override
+    public Time getCourseTime(long id) {
+        Query query = entityManager.createQuery("from Time t where t.id = :id");
+        query.setParameter("id", id);
+        return (Time) query.getSingleResult();
     }
 }

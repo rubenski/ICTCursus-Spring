@@ -1,7 +1,6 @@
 package nl.codebasesoftware.produx.domain;
 
 import nl.codebasesoftware.produx.comparator.NameComparable;
-import org.hibernate.engine.FetchStyle;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -44,7 +43,7 @@ public class Category implements DomainObject, NameComparable {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     public Set<Course> getCourses() {
         return courses;
     }
@@ -72,7 +71,7 @@ public class Category implements DomainObject, NameComparable {
         this.urlTitle = urlTitle;
     }
 
-    @OneToMany
+    @OneToMany (fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     public List<Category> getChildren() {
         return children;

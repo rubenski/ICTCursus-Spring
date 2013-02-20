@@ -3,7 +3,7 @@
     <extra-name-characters>#@</extra-name-characters>
     <identifier-quote-string>`</identifier-quote-string>
     <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-    <jdbc-url>jdbc:mysql://localhost:3306/ic</jdbc-url>
+    <jdbc-url>jdbc:mysql://localhost:3306/ic2</jdbc-url>
     <user-name>root</user-name>
     <user-password>dfd9dfc7dfcfdfcfdfd8dfc1dfcbdfcbdfd9</user-password>
     <libraries>
@@ -11,150 +11,220 @@
         <url>jar://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/5.1.6/mysql-connector-java-5.1.6.jar!/</url>
       </library>
     </libraries>
-    <table name="articlepage" schema="" catalog="ic" type="TABLE">
+    <table name="px_articlepage" schema="" catalog="ic2" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true" />
       <column name="body" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
       <column name="description" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
       <column name="keywords" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
       <column name="position" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
-      <column name="publicationDate" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="publication_date" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
       <column name="title" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
-      <column name="version" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
-      <column name="parent_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="articlepage_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="parent_page_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
       <primary-key name="PRIMARY" columns="id" />
-      <foreign-key name="FK942CE085EE21D4C6" columns="parent_id" ref-table="articlepage" ref-schema="" ref-catalog="ic" ref-columns="id" />
+      <foreign-key name="FKAA3164CE51FA5A2C" columns="parent_page_id" ref-table="px_articlepage" ref-schema="" ref-catalog="ic2" ref-columns="id" />
+      <foreign-key name="FKAA3164CE9DA0C70B" columns="articlepage_id" ref-table="px_articlepage" ref-schema="" ref-catalog="ic2" ref-columns="id" />
     </table>
-    <table name="articlepage_articlepage" schema="" catalog="ic" type="TABLE">
-      <column name="ArticlePage_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
-      <column name="pages_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
-      <primary-key name="PRIMARY" columns="articlepage_id,pages_id" />
-      <foreign-key name="FKB1087FCBA6035F6C" columns="pages_id" ref-table="articlepage" ref-schema="" ref-catalog="ic" ref-columns="id" />
-      <foreign-key name="FKB1087FCB9DA0C70B" columns="ArticlePage_id" ref-table="articlepage" ref-schema="" ref-catalog="ic" ref-columns="id" />
-      <index name="pages_id" unique="true" columns="pages_id" />
-    </table>
-    <table name="category" schema="" catalog="ic" type="TABLE">
+    <table name="px_category" schema="" catalog="ic2" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true" />
-      <column name="description" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
       <column name="name" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
-      <column name="numberOfVisits" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
-      <column name="urlTitle" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
-      <column name="version" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="url_title" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
       <column name="parent_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
       <primary-key name="PRIMARY" columns="id" />
-      <foreign-key name="FK6DD211EC2E4AC1D" columns="parent_id" ref-table="category" ref-schema="" ref-catalog="ic" ref-columns="id" />
+      <foreign-key name="FKAEE32955C2E4AC1D" columns="parent_id" ref-table="px_category" ref-schema="" ref-catalog="ic2" ref-columns="id" />
       <index name="name" unique="true" columns="name" />
-      <index name="urlTitle" unique="true" columns="urlTitle" />
+      <index name="url_title" unique="true" columns="url_title" />
     </table>
-    <table name="category_category" schema="" catalog="ic" type="TABLE">
-      <column name="Category_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
-      <column name="children_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
-      <primary-key name="PRIMARY" columns="category_id,children_id" />
-      <foreign-key name="FK8635931F2F0FDAA8" columns="children_id" ref-table="category" ref-schema="" ref-catalog="ic" ref-columns="id" />
-      <foreign-key name="FK8635931FA326A749" columns="Category_id" ref-table="category" ref-schema="" ref-catalog="ic" ref-columns="id" />
-      <index name="children_id" unique="true" columns="children_id" />
-    </table>
-    <table name="comment" schema="" catalog="ic" type="TABLE">
+    <table name="px_comment" schema="" catalog="ic2" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true" />
-      <column name="commentText" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="comment_text" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
       <column name="date" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
       <column name="email" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
       <column name="name" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
-      <column name="version" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
       <column name="course_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
       <primary-key name="PRIMARY" columns="id" />
-      <foreign-key name="FK9BDE863F1A263DE9" columns="course_id" ref-table="course" ref-schema="" ref-catalog="ic" ref-columns="id" />
+      <foreign-key name="FK256B1B281A263DE9" columns="course_id" ref-table="px_course" ref-schema="" ref-catalog="ic2" ref-columns="id" />
+      <foreign-key name="FK256B1B28CA19FBB5" columns="course_id" ref-table="px_articlepage" ref-schema="" ref-catalog="ic2" ref-columns="id" />
     </table>
-    <table name="company" schema="" catalog="ic" type="TABLE">
+    <table name="px_company" schema="" catalog="ic2" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true" />
-      <column name="email" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
-      <column name="firstName" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
-      <column name="lastName" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
-      <column name="logo" sqlType="LONGBLOB" length="2147483647" precision="0" nullable="true" jdbcType="-4" />
-      <column name="password" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
-      <column name="phone" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
-      <column name="version" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="address" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
+      <column name="chamber_of_commerce_number" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
+      <column name="city" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
+      <column name="country" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
+      <column name="description" sqlType="LONGTEXT" length="2147483647" precision="0" nullable="true" jdbcType="-1" />
+      <column name="email" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
+      <column name="file_extension" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="file_name" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="file_type" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="name" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
+      <column name="phone" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
+      <column name="vat_number" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
+      <column name="zip_code" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
       <primary-key name="PRIMARY" columns="id" />
     </table>
-    <table name="course" schema="" catalog="ic" type="TABLE">
+    <table name="px_course" schema="" catalog="ic2" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true" />
+      <column name="certificate" sqlType="BIT" length="0" precision="0" nullable="false" jdbcType="-7" />
+      <column name="certificate_text" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
       <column name="duration" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
-      <column name="lastUpdated" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
-      <column name="name" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
-      <column name="pricingInfo" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
-      <column name="shortDescription" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
-      <column name="version" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
-      <column name="category_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
-      <column name="company_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="last_indexed" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
+      <column name="last_updated" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
+      <column name="long_description" sqlType="LONGTEXT" length="2147483647" precision="0" nullable="false" jdbcType="-1" />
+      <column name="name" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
+      <column name="price" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <column name="short_description" sqlType="LONGTEXT" length="2147483647" precision="0" nullable="false" jdbcType="-1" />
+      <column name="category_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <column name="company_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
       <primary-key name="PRIMARY" columns="id" />
-      <foreign-key name="FK78A7CC3BA326A749" columns="category_id" ref-table="category" ref-schema="" ref-catalog="ic" ref-columns="id" />
-      <foreign-key name="FK78A7CC3B632D006B" columns="company_id" ref-table="company" ref-schema="" ref-catalog="ic" ref-columns="id" />
+      <foreign-key name="FKE0307632A326A749" columns="category_id" ref-table="px_category" ref-schema="" ref-catalog="ic2" ref-columns="id" />
+      <foreign-key name="FKE0307632632D006B" columns="company_id" ref-table="px_company" ref-schema="" ref-catalog="ic2" ref-columns="id" />
     </table>
-    <table name="course_region" schema="" catalog="ic" type="TABLE">
-      <column name="Course_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
-      <column name="regions_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
-      <primary-key name="PRIMARY" columns="course_id,regions_id" />
-      <foreign-key name="FK613D1B981A263DE9" columns="Course_id" ref-table="course" ref-schema="" ref-catalog="ic" ref-columns="id" />
-      <foreign-key name="FK613D1B986535F25E" columns="regions_id" ref-table="region" ref-schema="" ref-catalog="ic" ref-columns="id" />
+    <table name="px_course2coursedate" schema="" catalog="ic2" type="TABLE">
+      <column name="course_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <column name="coursedate_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <primary-key name="PRIMARY" columns="course_id,coursedate_id" />
+      <foreign-key name="FK2DE54A89FB9CBBC9" columns="coursedate_id" ref-table="px_coursedate" ref-schema="" ref-catalog="ic2" ref-columns="id" />
+      <foreign-key name="FK2DE54A891A263DE9" columns="course_id" ref-table="px_course" ref-schema="" ref-catalog="ic2" ref-columns="id" />
+      <index name="coursedate_id" unique="true" columns="coursedate_id" />
     </table>
-    <table name="course_tag" schema="" catalog="ic" type="TABLE">
-      <column name="courses_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
-      <column name="tags_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
-      <primary-key name="PRIMARY" columns="courses_id,tags_id" />
-      <foreign-key name="FKB4DAD76574C792C" columns="courses_id" ref-table="course" ref-schema="" ref-catalog="ic" ref-columns="id" />
-      <foreign-key name="FKB4DAD76F98A6EC" columns="tags_id" ref-table="tag" ref-schema="" ref-catalog="ic" ref-columns="id" />
+    <table name="px_course2courseoption" schema="" catalog="ic2" type="TABLE">
+      <column name="course_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <column name="courseoption_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <primary-key name="PRIMARY" columns="course_id,courseoption_id" />
+      <foreign-key name="FK5D5598901A263DE9" columns="course_id" ref-table="px_course" ref-schema="" ref-catalog="ic2" ref-columns="id" />
+      <foreign-key name="FK5D55989017CF3AA9" columns="courseoption_id" ref-table="px_courseoption" ref-schema="" ref-catalog="ic2" ref-columns="id" />
     </table>
-    <table name="page" schema="" catalog="ic" type="TABLE">
+    <table name="px_course2region" schema="" catalog="ic2" type="TABLE">
+      <column name="course_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <column name="region_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <primary-key name="PRIMARY" columns="course_id,region_id" />
+      <foreign-key name="FKBBB947341A263DE9" columns="course_id" ref-table="px_course" ref-schema="" ref-catalog="ic2" ref-columns="id" />
+      <foreign-key name="FKBBB94734E03B2349" columns="region_id" ref-table="px_region" ref-schema="" ref-catalog="ic2" ref-columns="id" />
+    </table>
+    <table name="px_course2tag" schema="" catalog="ic2" type="TABLE">
+      <column name="course_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <column name="tag_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <primary-key name="PRIMARY" columns="course_id,tag_id" />
+      <foreign-key name="FKC9DE875A3757DFCB" columns="tag_id" ref-table="px_tag" ref-schema="" ref-catalog="ic2" ref-columns="id" />
+      <foreign-key name="FKC9DE875A1A263DE9" columns="course_id" ref-table="px_course" ref-schema="" ref-catalog="ic2" ref-columns="id" />
+    </table>
+    <table name="px_course2time" schema="" catalog="ic2" type="TABLE">
+      <column name="course_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <column name="time_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <primary-key name="PRIMARY" columns="course_id,time_id" />
+      <foreign-key name="FK71F2830D1A263DE9" columns="course_id" ref-table="px_course" ref-schema="" ref-catalog="ic2" ref-columns="id" />
+      <foreign-key name="FK71F2830DC1A22069" columns="time_id" ref-table="px_time" ref-schema="" ref-catalog="ic2" ref-columns="id" />
+    </table>
+    <table name="px_coursedate" schema="" catalog="ic2" type="TABLE">
+      <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true" />
+      <column name="start_date" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
+      <primary-key name="PRIMARY" columns="id" />
+    </table>
+    <table name="px_courseoption" schema="" catalog="ic2" type="TABLE">
+      <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true" />
+      <column name="display_name" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
+      <column name="system_name" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
+      <column name="optioncategory_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <primary-key name="PRIMARY" columns="id" />
+      <foreign-key name="FK344211276A312409" columns="optioncategory_id" ref-table="px_optioncategory" ref-schema="" ref-catalog="ic2" ref-columns="id" />
+      <index name="display_name" unique="true" columns="display_name" />
+      <index name="system_name" unique="true" columns="system_name" />
+    </table>
+    <table name="px_enrollmentform" schema="" catalog="ic2" type="TABLE">
+      <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true" />
+      <column name="name" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <primary-key name="PRIMARY" columns="id" />
+    </table>
+    <table name="px_experience" schema="" catalog="ic2" type="TABLE">
+      <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true" />
+      <column name="message" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="rating" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="course_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <primary-key name="PRIMARY" columns="id" />
+      <foreign-key name="FK305D0C011A263DE9" columns="course_id" ref-table="px_course" ref-schema="" ref-catalog="ic2" ref-columns="id" />
+    </table>
+    <table name="px_optioncategory" schema="" catalog="ic2" type="TABLE">
+      <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true" />
+      <column name="name" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <primary-key name="PRIMARY" columns="id" />
+      <index name="name" unique="true" columns="name" />
+    </table>
+    <table name="px_optioncategory2courseoption" schema="" catalog="ic2" type="TABLE">
+      <column name="optioncategory_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <column name="courseoption_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <primary-key name="PRIMARY" columns="optioncategory_id,courseoption_id" />
+      <foreign-key name="FK6CEA6E386A312409" columns="optioncategory_id" ref-table="px_optioncategory" ref-schema="" ref-catalog="ic2" ref-columns="id" />
+      <foreign-key name="FK6CEA6E3817CF3AA9" columns="courseoption_id" ref-table="px_courseoption" ref-schema="" ref-catalog="ic2" ref-columns="id" />
+      <index name="courseoption_id" unique="true" columns="courseoption_id" />
+    </table>
+    <table name="px_page" schema="" catalog="ic2" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true" />
       <column name="body" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
       <column name="description" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
       <column name="keywords" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
       <column name="title" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
-      <column name="version" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
       <primary-key name="PRIMARY" columns="id" />
     </table>
-    <table name="region" schema="" catalog="ic" type="TABLE">
+    <table name="px_region" schema="" catalog="ic2" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true" />
       <column name="name" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
-      <column name="version" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
       <primary-key name="PRIMARY" columns="id" />
     </table>
-    <table name="role" schema="" catalog="ic" type="TABLE">
+    <table name="px_right" schema="" catalog="ic2" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true" />
+      <column name="name" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
+      <primary-key name="PRIMARY" columns="id" />
+    </table>
+    <table name="px_role" schema="" catalog="ic2" type="TABLE">
+      <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true" />
+      <column name="name" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
+      <primary-key name="PRIMARY" columns="id" />
+    </table>
+    <table name="px_role2right" schema="" catalog="ic2" type="TABLE">
+      <column name="role_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <column name="right_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <primary-key name="PRIMARY" columns="role_id,right_id" />
+      <foreign-key name="FK557593B798B9E84B" columns="right_id" ref-table="px_right" ref-schema="" ref-catalog="ic2" ref-columns="id" />
+      <foreign-key name="FK557593B76203D3C9" columns="role_id" ref-table="px_role" ref-schema="" ref-catalog="ic2" ref-columns="id" />
+    </table>
+    <table name="px_systemproperty" schema="" catalog="ic2" type="TABLE">
+      <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true" />
+      <column name="_key" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
+      <column name="value" sqlType="LONGTEXT" length="2147483647" precision="0" nullable="false" jdbcType="-1" />
+      <primary-key name="PRIMARY" columns="id" />
+      <index name="_key" unique="true" columns="_key" />
+    </table>
+    <table name="px_tag" schema="" catalog="ic2" type="TABLE">
+      <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true" />
+      <column name="name" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
+      <primary-key name="PRIMARY" columns="id" />
+      <index name="name" unique="true" columns="name" />
+    </table>
+    <table name="px_time" schema="" catalog="ic2" type="TABLE">
+      <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true" />
+      <column name="display_rank" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
       <column name="name" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
-      <column name="version" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
       <primary-key name="PRIMARY" columns="id" />
     </table>
-    <table name="role_userprofile" schema="" catalog="ic" type="TABLE">
-      <column name="Role_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
-      <column name="userProfiles_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
-      <foreign-key name="FKB405351536E3F394" columns="userProfiles_id" ref-table="userprofile" ref-schema="" ref-catalog="ic" ref-columns="id" />
-      <foreign-key name="FKB40535156203D3C9" columns="Role_id" ref-table="role" ref-schema="" ref-catalog="ic" ref-columns="id" />
-    </table>
-    <table name="tag" schema="" catalog="ic" type="TABLE">
+    <table name="px_userprofile" schema="" catalog="ic2" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true" />
-      <column name="description" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
-      <column name="name" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
-      <column name="version" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
-      <primary-key name="PRIMARY" columns="id" />
-    </table>
-    <table name="userprofile" schema="" catalog="ic" type="TABLE">
-      <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true" />
-      <column name="email" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
-      <column name="firstName" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
-      <column name="lastName" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
-      <column name="password" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="email" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
+      <column name="first_name" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
+      <column name="last_name" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
+      <column name="password_hash" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" />
       <column name="phone" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
-      <column name="version" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
-      <column name="company_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="company_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
       <primary-key name="PRIMARY" columns="id" />
-      <foreign-key name="FK3EFA133E632D006B" columns="company_id" ref-table="company" ref-schema="" ref-catalog="ic" ref-columns="id" />
+      <foreign-key name="FKF1B773C7632D006B" columns="company_id" ref-table="px_company" ref-schema="" ref-catalog="ic2" ref-columns="id" />
+      <index name="email" unique="true" columns="email" />
     </table>
-    <table name="userprofile_role" schema="" catalog="ic" type="TABLE">
-      <column name="UserProfile_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
-      <column name="roles_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
-      <primary-key name="PRIMARY" columns="userprofile_id,roles_id" />
-      <foreign-key name="FKE887F0F71C4C22" columns="roles_id" ref-table="role" ref-schema="" ref-catalog="ic" ref-columns="id" />
-      <foreign-key name="FKE887F0F791F65C2B" columns="UserProfile_id" ref-table="userprofile" ref-schema="" ref-catalog="ic" ref-columns="id" />
+    <table name="px_userprofile2role" schema="" catalog="ic2" type="TABLE">
+      <column name="userprofile_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <column name="role_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" />
+      <primary-key name="PRIMARY" columns="userprofile_id,role_id" />
+      <foreign-key name="FK1C82E8416203D3C9" columns="role_id" ref-table="px_role" ref-schema="" ref-catalog="ic2" ref-columns="id" />
+      <foreign-key name="FK1C82E84191F65C2B" columns="userprofile_id" ref-table="px_userprofile" ref-schema="" ref-catalog="ic2" ref-columns="id" />
     </table>
   </data-source>
 </component>

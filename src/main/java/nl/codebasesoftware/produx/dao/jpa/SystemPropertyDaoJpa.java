@@ -20,7 +20,7 @@ public class SystemPropertyDaoJpa extends GenericDaoJpa<SystemProperty> implemen
     }
 
     @Override
-    public SystemProperty findForKey(String key) {
+    public SystemProperty findByKey(String key) {
         String hql = "from SystemProperty where key = :key";
         Query query = entityManager.createQuery(hql);
         query.setParameter("key", key);

@@ -8,5 +8,5 @@ import nl.codebasesoftware.produx.domain.SystemProperty;
  * Time: 21:50
  */
 public interface SystemPropertyDao extends GenericDao<SystemProperty> {
-    SystemProperty findForKey(String key);
+    SystemProperty findByKey(String key);
 }

@@ -75,7 +75,7 @@ public class Company implements DomainObject {
         this.country = country;
     }
 
-    @OneToMany (mappedBy = "company")
+    @OneToMany (mappedBy = "company", fetch = FetchType.LAZY)
     public Set<Course> getCourses() {
         return courses;
     }

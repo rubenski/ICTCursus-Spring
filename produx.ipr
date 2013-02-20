@@ -338,6 +338,13 @@
       </item>
     </group>
   </component>
+  <component name="ProjectDictionaryState">
+    <dictionary name="rvanloen">
+      <words>
+        <w>calculatie</w>
+      </words>
+    </dictionary>
+  </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
@@ -1111,7 +1118,6 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/3.1.1.RELEASE/spring-aop-3.1.1.RELEASE-sources.jar!/" />
-        <root url="intellijad://intellijad" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework:spring-asm:3.1.1.RELEASE">
