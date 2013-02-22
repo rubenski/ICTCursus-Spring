@@ -3,6 +3,7 @@ package nl.codebasesoftware.produx.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Calendar;
 
 /**
@@ -15,6 +16,7 @@ public class CourseDate implements DomainObject {
 
     private Long id;
     private Calendar startDate;
+    private Course course;
 
     @Override
     @Id
@@ -33,5 +35,14 @@ public class CourseDate implements DomainObject {
 
     public void setStartDate(Calendar startDate) {
         this.startDate = startDate;
+    }
+
+    @ManyToOne
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }

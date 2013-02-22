@@ -1,5 +1,6 @@
 package nl.codebasesoftware.produx.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -27,6 +28,7 @@ public class Time implements DomainObject {
         this.id = id;
     }
 
+    @Column(nullable = false, unique = true)
     public String getName() {
         return name;
     }

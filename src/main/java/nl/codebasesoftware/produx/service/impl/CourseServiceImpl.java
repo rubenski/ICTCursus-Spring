@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -23,6 +25,7 @@ import java.util.*;
  */
 @Service
 public class CourseServiceImpl implements CourseService {
+
 
     private CourseDao courseDao;
     private CategoryDao categoryDao;
@@ -65,7 +68,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     @Transactional
-    public List<Course> findBasic(List<Long> ids){
+    public List<Course> findBasic(List<Long> ids) {
         return courseDao.findBasic(ids);
     }
 
@@ -79,6 +82,17 @@ public class CourseServiceImpl implements CourseService {
         return courseDao.findFull(id);
     }
 
+    @Override
+    public List<String> getDates(Long id) {
+        List<CourseDate> dateList = courseDao.findDates(id);
+        List<String> dateStrings = new ArrayList<String>();
+        for (CourseDate courseDate : dateList) {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            String s = sdf.format(courseDate.getStartDate().getTime());
+            dateStrings.add(s);
+        }
+        return dateStrings;
+    }
 
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
@@ -119,6 +133,8 @@ public class CourseServiceImpl implements CourseService {
 
     private void applyBindableCourseToCourse(BindableCourse bindableCourse, Course course) {
 
+        // PersistMode mode = course.getId() != null ? PersistMode.UPDATE : PersistMode.INSERT;
+
         // Get the category
         Category category = categoryDao.find(bindableCourse.getCategory());
 
@@ -138,31 +154,60 @@ public class CourseServiceImpl implements CourseService {
         course.setRegions(newRegions);
 
         // Get the course times
-        Set<Time> newTimes = new HashSet<Time>();
-        for (Long timeId : bindableCourse.getTimes()) {
-            newTimes.add(courseDao.getCourseTime(timeId));
+        if (bindableCourse.getTimes() != null) {
+            Set<Time> newTimes = new HashSet<Time>();
+            for (Long timeId : bindableCourse.getTimes()) {
+                newTimes.add(courseDao.getCourseTime(timeId));
+            }
+            course.setTimes(newTimes);
         }
-        course.setTimes(newTimes);
 
         // Get course options
-        Set<CourseOption> options = new HashSet<CourseOption>();
-        for (Long optionId : bindableCourse.getOptions()) {
-            CourseOption courseOption = optionDao.find(optionId);
-            options.add(courseOption);
-        }
-        course.setOptions(options);
-
-        Set<Tag> newTags = new HashSet<Tag>();
-        for (String tagName : bindableCourse.getTags()) {
-            Tag tag = tagDao.findByName(tagName);
-            if (tag == null) {
-                tag = new Tag();
-                tag.setName(tagName);
-                tagDao.persist(tag);
+        if (bindableCourse.getOptions() != null) {
+            Set<CourseOption> options = new HashSet<CourseOption>();
+            for (Long optionId : bindableCourse.getOptions()) {
+                CourseOption courseOption = optionDao.find(optionId);
+                options.add(courseOption);
             }
-            newTags.add(tag);
+            course.setOptions(options);
         }
-        course.setTags(newTags);
+
+        // Get course dates
+        if (bindableCourse.getDates() != null) {
+            Set<CourseDate> dates = new HashSet<CourseDate>();
+            for (String dateString : bindableCourse.getDates()) {
+                Calendar cal = Calendar.getInstance();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                Date date = null;
+                try {
+                    date = sdf.parse(dateString);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                cal.setTime(date);
+
+                CourseDate courseDate = new CourseDate();
+                courseDate.setStartDate(cal);
+                dates.add(courseDate);
+            }
+            course.replaceDates(dates);
+        }
+
+       // Get tags
+        if (bindableCourse.getTags() != null) {
+            Set<Tag> newTags = new HashSet<Tag>();
+            for (String tagName : bindableCourse.getTags()) {
+                Tag tag = tagDao.findByName(tagName);
+                if (tag == null) {
+                    tag = new Tag();
+                    tag.setName(tagName);
+                    tagDao.persist(tag);
+                }
+                newTags.add(tag);
+            }
+            course.setTags(newTags);
+        }
+
 
         course.setId(bindableCourse.getId());
         course.setCategory(category);

@@ -20,18 +20,18 @@ public class Course implements DomainObject {
     private String longDescription;
     private String certificateText;
     private String duration;
-    private Set<Region> regions = new HashSet<Region>();
     private Long price;
     private Company company;
     private Calendar lastUpdated;
     private Calendar lastIndexed;
     private Category category;
-    private Set<Tag> tags;
-    private Set<Experience> experiences;
     private boolean certificate;
-    private Set<CourseDate> dates;
-    private Set<Time> times;
-    private Set<CourseOption> options;
+    private Set<Tag> tags = new HashSet<Tag>();
+    private Set<Experience> experiences = new HashSet<Experience>();
+    private Set<CourseDate> dates = new HashSet<CourseDate>();
+    private Set<Time> times = new HashSet<Time>();
+    private Set<CourseOption> options = new HashSet<CourseOption>();
+    private Set<Region> regions = new HashSet<Region>();
 
 
     public Course() {
@@ -178,13 +178,22 @@ public class Course implements DomainObject {
         this.certificateText = certificateText;
     }
 
-    @OneToMany(fetch = FetchType.LAZY)
+    // CascadeType.ALL results in unsaved dates being automatically saved
+    // Orpan removal removes any orphaned records in the coursedate table after an update of Course
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "course_id")
     public Set<CourseDate> getDates() {
         return dates;
     }
 
     public void setDates(Set<CourseDate> dates) {
         this.dates = dates;
+    }
+
+    // Sets new dates on the course while retaining the original collection that was created by Hibernate (or another ORM)
+    public void replaceDates(Set<CourseDate> newDates){
+        this.dates.clear();
+        this.dates.addAll(newDates);
     }
 
     @ManyToMany(fetch = FetchType.LAZY)

@@ -96,8 +96,7 @@
     <div class="default-block">
         <form:label path="dates"><spring:message code="course.form.dates"/></form:label>
         <input autocomplete="off" size="40" id="dateSelection"/>
-        <input type="hidden" name="dates"/>
-        <a href="#" id="addDate"><spring:message code="course.form.buttontext.add"/></a>
+        <a href="#" id="addDateButton"><spring:message code="course.form.buttontext.add"/></a>
 
         <div id="selectedDates" class="selectionContainer">
             <table></table>

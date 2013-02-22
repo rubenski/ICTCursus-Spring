@@ -9,41 +9,68 @@ $(document).ready(function() {
     })();
 
     (function() {
-        var addTagButton = $('#addTag');
-
         var regex = new RegExp("^[a-zA-Z0-9#@ -]{2,20}$");
         var errorContainer = $('#tagError');
         var selectionTable = $('#selectedTags table');
         var inputField = $('#tagSelection');
+        var addButton = $('#addTag');
 
-        addTagButton.click(function(event) {
-            addSelectedValueClickHandler(event, 'tags', regex, inputField, errorContainer, selectionTable)
+        addButton.click(function(event) {
+            event.preventDefault();
+            if(testValue(regex, inputField.val(), errorContainer)){
+                addValueToScreen('tags', inputField, inputField.val(), selectionTable, addButton);
+            }
         });
     })();
 
     (function() {
-        var addDateButton = $('#addDate');
-
         var regex = new RegExp("^[0-9]{2}-[0-9]{2}-[0-9]{4}$");
         var errorContainer = $('#dateError');
         var selectionTable = $('#selectedDates table');
         var inputField = $('#dateSelection');
+        var addButton = $('#addDateButton');
 
-        addDateButton.click(function(event) {
-            addSelectedValueClickHandler(event, 'dates', regex, inputField, errorContainer, selectionTable)
+        addButton.click(function(event) {
+            event.preventDefault();
+            if (testValue(regex, inputField.val(), errorContainer)) {
+                addValueToScreen('dates', inputField, inputField.val(), selectionTable, addButton);
+            }
         });
     })();
 
 
-    function addSelectedValueClickHandler(event, valueTypeName, regex, inputField, errorContainer, selectionTable) {
-        event.preventDefault();
+    /**
+     * Load course dates and set them in the screen on load
+     */
+    (function() {
+        var url = window.location.pathname;
 
-        var value = inputField.val();
+        var regex = new RegExp("^/manage/course/([0-9]+)$");
 
+        if (regex.test(url)) {
+            var courseId = url.split("/")[3];
+            var selectionTable = $('#selectedDates table');
+            var inputField = $('#dateSelection');
+            var addButton = $('#addDateButton');
+
+            $.get("/manage/course/dates/" + courseId, function(data) {
+                for (var i in data) {
+                    var storedDate = data[i];
+                    addValueToScreen('dates', inputField, storedDate, selectionTable, addButton);
+                }
+            });
+        }
+    })();
+
+    function testValue(regex, value, errorContainer) {
         if (!regex.test(value)) {
             alert(errorContainer.text());
-            return;
+            return false;
         }
+        return true;
+    }
+
+    function addValueToScreen(valueTypeName, inputField, value, selectionTable, addButton) {
 
         var selectedValues = selectionTable.find(".selectedValue");
 
@@ -59,6 +86,8 @@ $(document).ready(function() {
         if (add) {
             // Add new value to screen
             selectionTable.append("<tr><td class='selectedValue'>" + value + "</td><td><a href='#' id='" + value + "'>verwijder</a></td></tr>");
+            // Add hidden field
+            $('#courseForm').append("<input type='hidden' name='" + valueTypeName + "' value='" + value + "'/>");
 
             // Set a remove click handler on the 'verwijder' link
             selectionTable.find("[id='" + value + "']").click(function(event) {
@@ -74,16 +103,15 @@ $(document).ready(function() {
                 if (selectedValues.length < 5) {
                     inputField.removeAttr('disabled');
                     inputField.css('background-color', '#ffffff');
+                    addButton.removeClass('disabled-button');
                 }
             });
 
-            // Add hidden field
-            $('#courseForm').append("<input type='hidden' name='" + valueTypeName + "' value='" + value + "'/>");
-
             if (selectedValues.length + 1 == 5) {
                 inputField.attr('disabled', 'disabled');
-                inputField.css('background-color', '#e4e4e4');
+                inputField.css('background-color', '#d0d0d0');
                 inputField.val('');
+                addButton.addClass('disabled-button');
             }
         }
     }
@@ -109,52 +137,12 @@ $(document).ready(function() {
     })();
 
     $(function() {
-        $("#courseDates").datepicker({
+        $("#dateSelection").datepicker({
             showOn: "button",
             buttonImage: "/static/img/calendar.gif",
             buttonImageOnly: true
         });
     });
-
-    function addTagClickHandler(event) {
-        event.preventDefault();
-
-        var tagName = $('#tagSelection').val();
-        var regex = new RegExp("^[a-zA-Z0-9#@ -]+$");
-
-        if (!regex.test(tagName)) {
-            alert($('#tagCharactersError').text());
-            return;
-        }
-
-        // Do nothing and return if the tag is too short
-        if (tagName.length < 2) {
-            var error = $('#tagLengthError').text();
-            alert(error);
-            return;
-        }
-
-        var dontAppend = false;
-        $('.selectedTag span').each(function() {
-            var existingName = $(this).text();
-            if (name == existingName) {
-                alert("Deze tag heeft u reeds geselecteerd");
-                dontAppend = true;
-            }
-        });
-
-        if (!dontAppend) {
-            addTagToScreen(tagName);
-            addTagHiddenElement(tagName);
-            updateSelectedTagsHeader();
-        }
-
-        $('#tagSelection').val('');
-
-        if ($('.selectedTag').length == 5) {
-            $('#tagSelection').attr('disabled', 'disabled');
-        }
-    }
 
     function tagSelectionKeyHandler(event) {
         if ($('#suggestBox').length > 0) {
@@ -188,7 +176,7 @@ $(document).ready(function() {
 
             var substring = $('#tagSelection').val();
             if (substring.length > 1) {
-                $.get("/tag/nl.codebasesoftware.produx.search/" + substring, returnedTagsHandler);
+                $.get("/tag/search/" + substring, returnedTagsHandler);
             }
         }
     }
@@ -224,15 +212,6 @@ $(document).ready(function() {
         $("[title='" + name + "']").click(removeTagClickHandler);
     }
 
-    function addDateToScreen(name) {
-        $('#selectedDates').append("<div class='selectedDate'><span>" + name + "</span><a href='#' title='" + name + "'><img src='/static/img/remove.png' width='10' height='10'/></a></div>");
-        $("[title='" + name + "']").click(removeDateClickHandler);
-    }
-
-    function addTagHiddenElement(name) {
-        $('#courseForm').append("<input type='hidden' name='tags' value='" + name + "'/>");
-    }
-
 
     function updateSelectedTagsHeader() {
         if ($('.selectedTag').size() > 0 && $('#selectedTagsHeader').length == 0) {
@@ -256,24 +235,6 @@ $(document).ready(function() {
         $(this.parentNode).remove();
 
         updateSelectedTagsHeader();
-
-        if ($('.selectedTag').length < 5) {
-            $('#tagSelection').removeAttr('disabled');
-        }
-    }
-
-    function removeDateClickHandler(event) {
-        event.preventDefault();
-
-        var selectedDateElement = $(this.parentNode);
-        var selectedDate = selectedDateElement.children().filter(':first').text();
-
-        // remove the hidden field
-        $("[value='" + selectedDate + "']").remove();
-        // Remove the tag
-        $(this.parentNode).remove();
-
-        updateSelectedDatesHeader();
 
         if ($('.selectedTag').length < 5) {
             $('#tagSelection').removeAttr('disabled');

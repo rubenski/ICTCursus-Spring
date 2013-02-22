@@ -11,10 +11,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * User: rvanloen
@@ -115,5 +112,13 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
         Query query = entityManager.createQuery("from Time t where t.id = :id");
         query.setParameter("id", id);
         return (Time) query.getSingleResult();
+    }
+
+    @Override
+    public List<CourseDate> findDates(Long id) {
+        String hql = "from CourseDate cd where cd.course.id = :id order by cd.startDate";
+        Query query = entityManager.createQuery(hql);
+        query.setParameter("id", id);
+        return query.getResultList();
     }
 }

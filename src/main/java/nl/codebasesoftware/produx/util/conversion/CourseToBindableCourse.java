@@ -2,12 +2,10 @@ package nl.codebasesoftware.produx.util.conversion;
 
 import nl.codebasesoftware.produx.domain.*;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
-import nl.codebasesoftware.produx.formdata.BindableCourseOption;
 import org.springframework.core.convert.converter.Converter;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -38,20 +36,20 @@ public class CourseToBindableCourse implements Converter<Course, BindableCourse>
         return bindableCourse;
     }
 
-    private List<BindableCourseOption> getOptions(Course course) {
-        List<BindableCourseOption> bindableOptions = new ArrayList<BindableCourseOption>();
+    private List<Long> getOptions(Course course) {
+        List<Long> bindableOptions = new ArrayList<Long>();
 
         for (CourseOption courseOption : course.getOptions()) {
-            bindableOptions.add(courseOption.toBindable());
+            bindableOptions.add(courseOption.getId());
         }
 
         return bindableOptions;
     }
 
-    private List<Calendar> getCourseDates(Course course){
-        List<Calendar> dates = new ArrayList<Calendar>();
+    private List<String> getCourseDates(Course course){
+        List<String> dates = new ArrayList<String>();
         for (CourseDate courseDate : course.getDates()) {
-            dates.add(courseDate.getStartDate());
+            dates.add(courseDate.getStartDate().toString());
         }
         return dates;
     }

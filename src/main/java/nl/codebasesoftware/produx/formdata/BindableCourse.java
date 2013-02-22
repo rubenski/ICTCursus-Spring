@@ -27,6 +27,7 @@ public class BindableCourse {
     private List<String> dates = new ArrayList<String>();
     private List<Long> options = new ArrayList<Long>();
 
+
     public String getDuration() {
         return duration;
     }

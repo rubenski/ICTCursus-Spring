@@ -167,12 +167,18 @@
     background-color: #1e90ff;
 }
 
-a#addTag, a#addDate {
+a#addTag, a#addDateButton {
     padding: 5px 8px 5px 8px;
     background-color: #0b0271;
     color: white;
     border: 1px solid white;
     text-decoration: none;
+}
+
+a#addTag.disabled-button, a#addDateButton.disabled-button {
+    background-color: #d0d0d0;
+    pointer-events: none;
+    cursor: default;
 }
 
 .hide {

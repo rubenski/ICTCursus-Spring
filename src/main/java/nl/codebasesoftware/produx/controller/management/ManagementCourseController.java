@@ -10,10 +10,7 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -60,7 +57,7 @@ public class ManagementCourseController {
         model.addAttribute("mainContent", "forms/editCourse");
         Course course = courseService.findFull(id);
 
-        if(course == null || !companyCourses.contains(course)){
+        if (course == null || !companyCourses.contains(course)) {
             throw new ResourceNotFoundException();
         }
 
@@ -97,6 +94,12 @@ public class ManagementCourseController {
         return "managementMain";
     }
 
+    @RequestMapping(value = "/dates/{id}", method = RequestMethod.GET)
+    public @ResponseBody List<String> getDates(@PathVariable("id") Long id) {
+        List<String> dates = courseService.getDates(id);
+        return dates;
+    }
+
     @RequestMapping(value = "{id}", method = RequestMethod.POST)
     public String updateCourse(@ModelAttribute("bindableCourse") BindableCourse bindableCourse, BindingResult result, Model model) {
         validator.validate(bindableCourse, result);
@@ -115,7 +118,7 @@ public class ManagementCourseController {
 
     }
 
-    private void addDataToModel(Model model){
+    private void addDataToModel(Model model) {
         List<Category> categories = categoryService.findAll();
         List<Region> allRegions = regionService.findAll();
         List<Time> courseTimes = courseService.findCourseTimes();

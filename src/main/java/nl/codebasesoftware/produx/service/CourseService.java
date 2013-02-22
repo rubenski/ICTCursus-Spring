@@ -1,12 +1,11 @@
 package nl.codebasesoftware.produx.service;
 
-import nl.codebasesoftware.produx.domain.Category;
-import nl.codebasesoftware.produx.domain.Company;
-import nl.codebasesoftware.produx.domain.Course;
-import nl.codebasesoftware.produx.domain.Time;
+import nl.codebasesoftware.produx.domain.*;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
 
+import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 
 /**
  * User: rvanloen
@@ -23,4 +22,5 @@ public interface CourseService {
     List<Course> findIndexableCourses();
     List<Course> findBasic(List<Long> ids);
     List<Time> findCourseTimes();
+    List<String> getDates(Long id);
 }
