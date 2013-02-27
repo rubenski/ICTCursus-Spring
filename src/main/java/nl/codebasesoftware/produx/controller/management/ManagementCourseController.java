@@ -94,11 +94,13 @@ public class ManagementCourseController {
         return "managementMain";
     }
 
+    /*
     @RequestMapping(value = "/dates/{id}", method = RequestMethod.GET)
     public @ResponseBody List<String> getDates(@PathVariable("id") Long id) {
         List<String> dates = courseService.getDates(id);
         return dates;
     }
+    */
 
     @RequestMapping(value = "{id}", method = RequestMethod.POST)
     public String updateCourse(@ModelAttribute("bindableCourse") BindableCourse bindableCourse, BindingResult result, Model model) {

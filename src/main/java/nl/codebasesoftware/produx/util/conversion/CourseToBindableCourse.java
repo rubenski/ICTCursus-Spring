@@ -5,6 +5,7 @@ import nl.codebasesoftware.produx.formdata.BindableCourse;
 import org.springframework.core.convert.converter.Converter;
 
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -48,8 +49,10 @@ public class CourseToBindableCourse implements Converter<Course, BindableCourse>
 
     private List<String> getCourseDates(Course course){
         List<String> dates = new ArrayList<String>();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         for (CourseDate courseDate : course.getDates()) {
-            dates.add(courseDate.getStartDate().toString());
+            String s = sdf.format(courseDate.getStartDate().getTime());
+            dates.add(s);
         }
         return dates;
     }

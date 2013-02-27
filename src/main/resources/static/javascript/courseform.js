@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+    var limitNumberOfDates = 30;
+    var limitNumberOfTags = 5;
+
     (function() {
         $('#tagSelection').keyup(tagboxTypingHandler)
     })();
@@ -17,8 +20,8 @@ $(document).ready(function() {
 
         addButton.click(function(event) {
             event.preventDefault();
-            if(testValue(regex, inputField.val(), errorContainer)){
-                addValueToScreen('tags', inputField, inputField.val(), selectionTable, addButton);
+            if (testValue(regex, inputField.val(), errorContainer)) {
+                addValueToScreen('tags', inputField, inputField.val(), selectionTable, addButton, limitNumberOfTags);
             }
         });
     })();
@@ -33,35 +36,82 @@ $(document).ready(function() {
         addButton.click(function(event) {
             event.preventDefault();
             if (testValue(regex, inputField.val(), errorContainer)) {
-                addValueToScreen('dates', inputField, inputField.val(), selectionTable, addButton);
+                // addValueToScreen('dates', inputField, inputField.val(), selectionTable, addButton, limitNumberOfDates);
+                addValueAsHiddenField('dates', inputField, inputField.val(),selectionTable, addButton, limitNumberOfDates);
+                reloadDates();
             }
         });
     })();
 
 
     /**
-     * Load course dates and set them in the screen on load
+     *  Reload dates onload
      */
-    (function() {
-        var url = window.location.pathname;
-
-        var regex = new RegExp("^/manage/course/([0-9]+)$");
-
-        if (regex.test(url)) {
-            var courseId = url.split("/")[3];
-            var selectionTable = $('#selectedDates table');
-            var inputField = $('#dateSelection');
-            var addButton = $('#addDateButton');
-
-            $.get("/manage/course/dates/" + courseId, function(data) {
-                for (var i in data) {
-                    var storedDate = data[i];
-                    addValueToScreen('dates', inputField, storedDate, selectionTable, addButton);
-                }
-            });
-        }
+    (function(){
+        reloadDates();
     })();
 
+
+    /**
+     * Get course dates from dom and set them under the date field
+     */
+    function reloadDates() {
+
+        var selectionTable = $('#selectedDates table');
+        var inputField = $('#dateSelection');
+        var addButton = $('#addDateButton');
+
+        var dates = [];
+        $("input[name='dates']").each(function() {
+
+            var day = $(this).val().split("-")[0];
+            var month = $(this).val().split("-")[1] - 1;  // month array is zero based in javascript
+            var year = $(this).val().split("-")[2];
+
+            var myDate = new Date();
+            myDate.setFullYear(year);
+            myDate.setMonth(month);
+            myDate.setDate(day);
+            dates.push(myDate);
+
+            // Remove the value row from the screen. Rows will be re-added sorted in the next step
+            $("tr#" + $(this).val()).remove();
+        });
+
+        dates.sort(date_sort_asc);
+
+        for (var i = 0; i < dates.length; i++) {
+            // addValueAsHiddenField("dates", inputField, formatDate("dd-mm-yy", dates[i]), selectionTable, addButton, limitNumberOfDates);
+            addValueToScreen2(inputField, formatDate("dd-mm-yy", dates[i]), selectionTable, addButton, limitNumberOfDates);
+        }
+    }
+
+
+    /**
+     *
+     * Ascending date sorter
+     */
+    function date_sort_asc(date1, date2) {
+        if (date1 > date2) return 1;
+        if (date1 < date2) return -1;
+        return 0;
+    }
+
+
+    /**
+     *
+     * Format a date using the datepicker jquery ui plugin
+     */
+    function formatDate(dateFormat, datetime) {
+        var formatted = $.datepicker.formatDate(dateFormat, datetime);
+        return formatted;
+    }
+
+
+    /**
+     *
+     * Validate a value by regex
+     */
     function testValue(regex, value, errorContainer) {
         if (!regex.test(value)) {
             alert(errorContainer.text());
@@ -70,7 +120,84 @@ $(document).ready(function() {
         return true;
     }
 
-    function addValueToScreen(valueTypeName, inputField, value, selectionTable, addButton) {
+    /**
+     *
+     * Add a value as hidden field
+     */
+    function addValueAsHiddenField(valueTypeName, inputField, value, selectionTable, addButton, limit) {
+
+        var selectedValues = selectionTable.find(".selectedValue");
+
+        var add = true;
+        selectedValues.each(function() {
+            var existingValue = $(this).text();
+            if (value == existingValue) {
+                alert(value + " is al toegevoegd");
+                add = false;
+            }
+        });
+
+        if (add) {
+            // Add hidden field
+            $('#courseForm').append("<input type='hidden' name='" + valueTypeName + "' value='" + value + "'/>");
+
+            if (selectedValues.length + 1 == limit) {
+                inputField.attr('disabled', 'disabled');
+                inputField.css('background-color', '#d0d0d0');
+                inputField.val('');
+                addButton.addClass('disabled-button');
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     *
+     * Add a value to the screen
+     */
+    function addValueToScreen2(inputField, value, selectionTable, addButton, limit) {
+
+        var selectedValues = selectionTable.find(".selectedValue");
+
+        // Add new value to screen
+        selectionTable.append("<tr class='selectedValueRow' id='" + value + "'><td class='selectedValue'>" + value + "</td><td><a href='#' id='" + value + "'>verwijder</a></td></tr>");
+
+        // Set a remove click handler on the 'verwijder' link
+        selectionTable.find("[id='" + value + "']").click(function(event) {
+            event.preventDefault();
+
+            $(this).closest("tr").remove();
+
+            // Remove the hidden field
+            $("input[value='" + value + "']").remove();
+
+            var selectedValues = selectionTable.find(".selectedValue");
+
+            if (selectedValues.length < limit) {
+                inputField.removeAttr('disabled');
+                inputField.css('background-color', '#ffffff');
+                addButton.removeClass('disabled-button');
+            }
+        });
+
+        if (selectedValues.length + 1 == limit) {
+            inputField.attr('disabled', 'disabled');
+            inputField.css('background-color', '#d0d0d0');
+            inputField.val('');
+            addButton.addClass('disabled-button');
+        }
+
+    }
+
+
+    /**
+     *
+     * Add a value to the screen
+     */
+    function addValueToScreen(valueTypeName, inputField, value, selectionTable, addButton, limit) {
 
         var selectedValues = selectionTable.find(".selectedValue");
 
@@ -85,7 +212,7 @@ $(document).ready(function() {
 
         if (add) {
             // Add new value to screen
-            selectionTable.append("<tr><td class='selectedValue'>" + value + "</td><td><a href='#' id='" + value + "'>verwijder</a></td></tr>");
+            selectionTable.append("<tr class='selectedValueRow' id='" + value + "'><td class='selectedValue'>" + value + "</td><td><a href='#' id='" + value + "'>verwijder</a></td></tr>");
             // Add hidden field
             $('#courseForm').append("<input type='hidden' name='" + valueTypeName + "' value='" + value + "'/>");
 
@@ -95,19 +222,19 @@ $(document).ready(function() {
 
                 $(this).closest("tr").remove();
 
-                // remove the hidden field
+                // Remove the hidden field
                 $("input[value='" + value + "']").remove();
 
                 var selectedValues = selectionTable.find(".selectedValue");
 
-                if (selectedValues.length < 5) {
+                if (selectedValues.length < limit) {
                     inputField.removeAttr('disabled');
                     inputField.css('background-color', '#ffffff');
                     addButton.removeClass('disabled-button');
                 }
             });
 
-            if (selectedValues.length + 1 == 5) {
+            if (selectedValues.length + 1 == limit) {
                 inputField.attr('disabled', 'disabled');
                 inputField.css('background-color', '#d0d0d0');
                 inputField.val('');
@@ -115,6 +242,7 @@ $(document).ready(function() {
             }
         }
     }
+
 
     $(document).mouseup(function (e) {
         var container = $('#suggestBox');

@@ -6,9 +6,14 @@
 
 <form:form method="post" modelAttribute="bindableCourse" id="courseForm">
 
-    <%-- tags --%>
+    <%-- Add hidden tag fields --%>
     <c:forEach items="${bindableCourse.tags}" var="tag">
         <input type="hidden" name="tags" value="${tag}"/>
+    </c:forEach>
+
+    <%-- Add hidden date fields --%>
+    <c:forEach items="${bindableCourse.dates}" var="date">
+        <input type="hidden" name="dates" value="${date}"/>
     </c:forEach>
 
     <%-- a hidden id --%>
@@ -167,5 +172,7 @@
     <div class="default-block">
         <input type="submit" value="Opslaan"/>
     </div>
+
+
 
 </form:form>
