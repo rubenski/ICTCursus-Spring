@@ -21,7 +21,8 @@ $(document).ready(function() {
         addButton.click(function(event) {
             event.preventDefault();
             if (testValue(regex, inputField.val(), errorContainer)) {
-                addValueToScreen('tags', inputField, inputField.val(), selectionTable, addButton, limitNumberOfTags);
+                addValueAsHiddenField('tags', inputField, inputField.val(),selectionTable, addButton, limitNumberOfTags);
+                reloadTags();
             }
         });
     })();
@@ -36,7 +37,6 @@ $(document).ready(function() {
         addButton.click(function(event) {
             event.preventDefault();
             if (testValue(regex, inputField.val(), errorContainer)) {
-                // addValueToScreen('dates', inputField, inputField.val(), selectionTable, addButton, limitNumberOfDates);
                 addValueAsHiddenField('dates', inputField, inputField.val(),selectionTable, addButton, limitNumberOfDates);
                 reloadDates();
             }
@@ -49,6 +49,14 @@ $(document).ready(function() {
      */
     (function(){
         reloadDates();
+    })();
+
+
+    /**
+     * Reload tags
+     */
+    (function(){
+        reloadTags();
     })();
 
 
@@ -74,15 +82,40 @@ $(document).ready(function() {
             myDate.setDate(day);
             dates.push(myDate);
 
-            // Remove the value row from the screen. Rows will be re-added sorted in the next step
-            $("tr#" + $(this).val()).remove();
+            // Remove the value row from the screen. Rows will be sorted and re-added in the next step
+            $("tr#" + createIdValue($(this).val())).remove();
         });
 
         dates.sort(date_sort_asc);
 
         for (var i = 0; i < dates.length; i++) {
             // addValueAsHiddenField("dates", inputField, formatDate("dd-mm-yy", dates[i]), selectionTable, addButton, limitNumberOfDates);
-            addValueToScreen2(inputField, formatDate("dd-mm-yy", dates[i]), selectionTable, addButton, limitNumberOfDates);
+            addValueToScreen(inputField, formatDate("dd-mm-yy", dates[i]), selectionTable, addButton, limitNumberOfDates);
+        }
+    }
+
+
+    /**
+     *
+     * Reload tags
+     */
+    function reloadTags(){
+
+        var selectionTable = $('#selectedTags table');
+        var inputField = $('#tagSelection');
+        var addButton = $('#addTag');
+
+        var tags= [];
+        $("input[name='tags']").each(function(){
+            tags.push($(this).val());
+            // Remove the value row from the screen. Rows will be sorted and re-added in the next step
+            $("tr#" + createIdValue($(this).val())).remove();
+        });
+
+        tags.sort();
+
+        for (var i = 0; i < tags.length; i++) {
+            addValueToScreen(inputField, tags[i], selectionTable, addButton, limitNumberOfDates);
         }
     }
 
@@ -120,6 +153,7 @@ $(document).ready(function() {
         return true;
     }
 
+
     /**
      *
      * Add a value as hidden field
@@ -154,16 +188,28 @@ $(document).ready(function() {
         return false;
     }
 
+
+    /**
+     *
+     * Creates an id value
+     */
+    function createIdValue(value){
+        return value.toLowerCase().replace(" ", "_");
+    }
+
+
     /**
      *
      * Add a value to the screen
      */
-    function addValueToScreen2(inputField, value, selectionTable, addButton, limit) {
+    function addValueToScreen(inputField, value, selectionTable, addButton, limit) {
 
         var selectedValues = selectionTable.find(".selectedValue");
 
+        var idValue = createIdValue(value);
+
         // Add new value to screen
-        selectionTable.append("<tr class='selectedValueRow' id='" + value + "'><td class='selectedValue'>" + value + "</td><td><a href='#' id='" + value + "'>verwijder</a></td></tr>");
+        selectionTable.append("<tr class='selectedValueRow' id='" + idValue + "'><td class='selectedValue'>" + value + "</td><td><a href='#' id='" + value + "'>verwijder</a></td></tr>");
 
         // Set a remove click handler on the 'verwijder' link
         selectionTable.find("[id='" + value + "']").click(function(event) {
@@ -189,58 +235,6 @@ $(document).ready(function() {
             inputField.val('');
             addButton.addClass('disabled-button');
         }
-
-    }
-
-
-    /**
-     *
-     * Add a value to the screen
-     */
-    function addValueToScreen(valueTypeName, inputField, value, selectionTable, addButton, limit) {
-
-        var selectedValues = selectionTable.find(".selectedValue");
-
-        var add = true;
-        selectedValues.each(function() {
-            var existingValue = $(this).text();
-            if (value == existingValue) {
-                alert(value + " is al toegevoegd aan de lijst");
-                add = false;
-            }
-        });
-
-        if (add) {
-            // Add new value to screen
-            selectionTable.append("<tr class='selectedValueRow' id='" + value + "'><td class='selectedValue'>" + value + "</td><td><a href='#' id='" + value + "'>verwijder</a></td></tr>");
-            // Add hidden field
-            $('#courseForm').append("<input type='hidden' name='" + valueTypeName + "' value='" + value + "'/>");
-
-            // Set a remove click handler on the 'verwijder' link
-            selectionTable.find("[id='" + value + "']").click(function(event) {
-                event.preventDefault();
-
-                $(this).closest("tr").remove();
-
-                // Remove the hidden field
-                $("input[value='" + value + "']").remove();
-
-                var selectedValues = selectionTable.find(".selectedValue");
-
-                if (selectedValues.length < limit) {
-                    inputField.removeAttr('disabled');
-                    inputField.css('background-color', '#ffffff');
-                    addButton.removeClass('disabled-button');
-                }
-            });
-
-            if (selectedValues.length + 1 == limit) {
-                inputField.attr('disabled', 'disabled');
-                inputField.css('background-color', '#d0d0d0');
-                inputField.val('');
-                addButton.addClass('disabled-button');
-            }
-        }
     }
 
 
@@ -251,12 +245,10 @@ $(document).ready(function() {
         }
     });
 
-    (function() {
-        $("[name = 'tags']").each(function() {
-            addTagToScreen($(this).val());
-        });
-    })();
 
+    /**
+     * Selecting all regions
+     */
     (function() {
         $("#selectAllRegions").click(function(event) {
             event.preventDefault();
@@ -264,6 +256,10 @@ $(document).ready(function() {
         })
     })();
 
+
+    /**
+     * Initialize date picker
+     */
     $(function() {
         $("#dateSelection").datepicker({
             showOn: "button",
@@ -271,6 +267,7 @@ $(document).ready(function() {
             buttonImageOnly: true
         });
     });
+
 
     function tagSelectionKeyHandler(event) {
         if ($('#suggestBox').length > 0) {
@@ -294,11 +291,15 @@ $(document).ready(function() {
             } else if (event.keyCode == 13) {
                 event.preventDefault();
                 alert("enter was pressed");
-                return false;
             }
         }
     }
 
+
+    /**
+     *
+     * Get tags from the server when typing
+     */
     function tagboxTypingHandler(event) {
         if (event.keyCode != 40 && event.keyCode != 38 && event.keyCode != 13) {
 
@@ -309,6 +310,10 @@ $(document).ready(function() {
         }
     }
 
+    /**
+     *
+     * Shows the suggest box with tags
+     */
     function returnedTagsHandler(returnedTags) {
         // If there is no suggest box yet, draw it
 
@@ -335,50 +340,13 @@ $(document).ready(function() {
     }
 
 
-    function addTagToScreen(name) {
-        $('#selectedTags').append("<div class='selectedTag'><span>" + name + "</span><a href='#' title='" + name + "'><img src='/static/img/remove.png' width='10' height='10'/></a></div>");
-        $("[title='" + name + "']").click(removeTagClickHandler);
-    }
-
-
-    function updateSelectedTagsHeader() {
-        if ($('.selectedTag').size() > 0 && $('#selectedTagsHeader').length == 0) {
-            $('#selectedTags').prepend("<span id='selectedTagsHeader'>Geselecteerde tags</span>");
-        }
-
-        if ($('.selectedTag').size() == 0 && $('#selectedTagsHeader').length > 0) {
-            $('#selectedTagsHeader').remove();
-        }
-    }
-
-    function removeTagClickHandler(event) {
-        event.preventDefault();
-
-        var selectedTagElement = $(this.parentNode);
-        var selectedTagName = selectedTagElement.children().filter(':first').text();
-
-        // remove the hidden field
-        $("[value='" + selectedTagName + "']").remove();
-        // Remove the tag
-        $(this.parentNode).remove();
-
-        updateSelectedTagsHeader();
-
-        if ($('.selectedTag').length < 5) {
-            $('#tagSelection').removeAttr('disabled');
-        }
-    }
-
     function tagSuggestionClickHandler(event) {
         var tagId = event.target.id;
         var tagName = $('#' + tagId).text();
         $('#tagSelection').val(tagName);
-        hideSuggestBox();
-    }
-
-    function hideSuggestBox() {
         $('#suggestBox').hide();
     }
+
 
 
 });
