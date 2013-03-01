@@ -23,6 +23,7 @@ public class BindableCourse {
     private List<String> tags = new ArrayList<String>();
     private String formattedPrice;
     private boolean certificate;
+    private String certificateName;
     private List<Long> times = new ArrayList<Long>();
     private List<String> dates = new ArrayList<String>();
     private List<Long> options = new ArrayList<Long>();
@@ -119,6 +120,14 @@ public class BindableCourse {
 
     public void setCertificate(boolean certificate) {
         this.certificate = certificate;
+    }
+
+    public String getCertificateName() {
+        return certificateName;
+    }
+
+    public void setCertificateName(String certificateName) {
+        this.certificateName = certificateName;
     }
 
     public String getCertificateText() {

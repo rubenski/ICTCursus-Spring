@@ -156,6 +156,10 @@
         </form:label>
         <fmt:message key="course.form.certificate.label" var="certificatelabel"/>
         <span class="inlineCheckBox"><form:checkbox path="certificate" label="${certificatelabel}"/></span>
+        <div id="certificate-name">
+            <span><spring:message code="course.form.certificatename.text"/></span>
+            <form:input path="certificateName" size="20"/>
+        </div>
     </div>
 
     <%-- certificate / diploma description --%>

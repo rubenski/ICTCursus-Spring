@@ -26,6 +26,7 @@ public class Course implements DomainObject {
     private Calendar lastIndexed;
     private Category category;
     private boolean certificate;
+    private String certificateName;
     private Set<Tag> tags = new HashSet<Tag>();
     private Set<Experience> experiences = new HashSet<Experience>();
     private Set<CourseDate> dates = new HashSet<CourseDate>();
@@ -168,6 +169,14 @@ public class Course implements DomainObject {
 
     public void setCertificate(boolean certificate) {
         this.certificate = certificate;
+    }
+
+    public String getCertificateName() {
+        return certificateName;
+    }
+
+    public void setCertificateName(String certificateName) {
+        this.certificateName = certificateName;
     }
 
     public String getCertificateText() {

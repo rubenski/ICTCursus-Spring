@@ -11,6 +11,23 @@ $(document).ready(function() {
         $('#tagSelection').keydown(tagSelectionKeyHandler);
     })();
 
+    /**
+     *
+     */
+    (function() {
+        $("input[name='certificate']").click(function() {
+            var checked = $("input[name='certificate']").attr('checked');
+            if (checked == 'checked') {
+                $("#certificate-name").css('display', 'block');
+            } else {
+                $("#certificate-name").css('display', 'none');
+            }
+        });
+    })();
+
+    /**
+     * Add tags to the screen on page load
+     */
     (function() {
         var regex = new RegExp("^[a-zA-Z0-9#@ -]{2,20}$");
         var errorContainer = $('#tagError');
@@ -21,12 +38,16 @@ $(document).ready(function() {
         addButton.click(function(event) {
             event.preventDefault();
             if (testValue(regex, inputField.val(), errorContainer)) {
-                addValueAsHiddenField('tags', inputField, inputField.val(),selectionTable, addButton, limitNumberOfTags);
+                addValueAsHiddenField('tags', inputField, inputField.val(), selectionTable, addButton, limitNumberOfTags);
                 reloadTags();
             }
         });
     })();
 
+
+    /**
+     * Add dates to the screen on page load
+     */
     (function() {
         var regex = new RegExp("^[0-9]{2}-[0-9]{2}-[0-9]{4}$");
         var errorContainer = $('#dateError');
@@ -37,7 +58,7 @@ $(document).ready(function() {
         addButton.click(function(event) {
             event.preventDefault();
             if (testValue(regex, inputField.val(), errorContainer)) {
-                addValueAsHiddenField('dates', inputField, inputField.val(),selectionTable, addButton, limitNumberOfDates);
+                addValueAsHiddenField('dates', inputField, inputField.val(), selectionTable, addButton, limitNumberOfDates);
                 reloadDates();
             }
         });
@@ -47,7 +68,7 @@ $(document).ready(function() {
     /**
      *  Reload dates onload
      */
-    (function(){
+    (function() {
         reloadDates();
     })();
 
@@ -55,7 +76,7 @@ $(document).ready(function() {
     /**
      * Reload tags
      */
-    (function(){
+    (function() {
         reloadTags();
     })();
 
@@ -99,14 +120,14 @@ $(document).ready(function() {
      *
      * Reload tags
      */
-    function reloadTags(){
+    function reloadTags() {
 
         var selectionTable = $('#selectedTags table');
         var inputField = $('#tagSelection');
         var addButton = $('#addTag');
 
-        var tags= [];
-        $("input[name='tags']").each(function(){
+        var tags = [];
+        $("input[name='tags']").each(function() {
             tags.push($(this).val());
             // Remove the value row from the screen. Rows will be sorted and re-added in the next step
             $("tr#" + createIdValue($(this).val())).remove();
@@ -193,7 +214,7 @@ $(document).ready(function() {
      *
      * Creates an id value
      */
-    function createIdValue(value){
+    function createIdValue(value) {
         return value.toLowerCase().replace(" ", "_");
     }
 
@@ -346,7 +367,6 @@ $(document).ready(function() {
         $('#tagSelection').val(tagName);
         $('#suggestBox').hide();
     }
-
 
 
 });
