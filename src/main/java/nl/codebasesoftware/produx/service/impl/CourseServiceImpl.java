@@ -1,7 +1,10 @@
 package nl.codebasesoftware.produx.service.impl;
 
 import nl.codebasesoftware.produx.dao.*;
-import nl.codebasesoftware.produx.domain.*;
+import nl.codebasesoftware.produx.domain.Category;
+import nl.codebasesoftware.produx.domain.Company;
+import nl.codebasesoftware.produx.domain.Course;
+import nl.codebasesoftware.produx.domain.Time;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
 import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.service.SystemPropertyService;
@@ -9,15 +12,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * User: rvanloen
@@ -107,96 +108,6 @@ public class CourseServiceImpl implements CourseService {
         return indexableCourses;
     }
 
-
-    private void applyBindableCourseToCourse(BindableCourse bindableCourse, Course course) {
-
-        // Get the category
-        Category category = categoryDao.find(bindableCourse.getCategory());
-
-        // Get the company
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserProfile userProfile = (UserProfile) authentication.getPrincipal();
-        Company company = userProfile.getCompany();
-
-        // Get the regions
-        Set<Region> newRegions = new HashSet<Region>();
-        if (bindableCourse.getRegions() != null) {
-            for (Long id : bindableCourse.getRegions()) {
-                Region region = regionDao.find(id);
-                newRegions.add(region);
-            }
-        }
-        course.setRegions(newRegions);
-
-        // Get the course times
-        if (bindableCourse.getTimes() != null) {
-            Set<Time> newTimes = new HashSet<Time>();
-            for (Long timeId : bindableCourse.getTimes()) {
-                newTimes.add(courseDao.getCourseTime(timeId));
-            }
-            course.setTimes(newTimes);
-        }
-
-        // Get course options
-        if (bindableCourse.getOptions() != null) {
-            Set<CourseOption> options = new HashSet<CourseOption>();
-            for (Long optionId : bindableCourse.getOptions()) {
-                CourseOption courseOption = optionDao.find(optionId);
-                options.add(courseOption);
-            }
-            course.setOptions(options);
-        }
-
-        // Get course dates
-        if (bindableCourse.getDates() != null) {
-            Set<CourseDate> dates = new HashSet<CourseDate>();
-            for (String dateString : bindableCourse.getDates()) {
-                Calendar cal = Calendar.getInstance();
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-                Date date = null;
-                try {
-                    date = sdf.parse(dateString);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                cal.setTime(date);
-
-                CourseDate courseDate = new CourseDate();
-                courseDate.setStartDate(cal);
-                dates.add(courseDate);
-            }
-            course.replaceDates(dates);
-        }
-
-       // Get tags
-        if (bindableCourse.getTags() != null) {
-            Set<Tag> newTags = new HashSet<Tag>();
-            for (String tagName : bindableCourse.getTags()) {
-                Tag tag = tagDao.findByName(tagName);
-                if (tag == null) {
-                    tag = new Tag();
-                    tag.setName(tagName);
-                    tagDao.persist(tag);
-                }
-                newTags.add(tag);
-            }
-            course.setTags(newTags);
-        }
-
-
-        course.setId(bindableCourse.getId());
-        course.setCategory(category);
-        course.setShortDescription(bindableCourse.getShortDescription());
-        course.setCompany(company);
-        course.setDuration(bindableCourse.getDuration());
-        course.setLastUpdated(Calendar.getInstance());
-        course.setName(bindableCourse.getName());
-        course.setPrice(bindableCourse.getPriceAsLong());
-        course.setLongDescription(bindableCourse.getLongDescription());
-        course.setCertificate(bindableCourse.isCertificate());
-        course.setCertificateText(bindableCourse.getCertificateText());
-        course.setCertificateName(bindableCourse.getCertificateName());
-    }
 
 
 }

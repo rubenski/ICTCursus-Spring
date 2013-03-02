@@ -24,6 +24,7 @@
     <div class="default-block logo">
         <form:label path="logoFileName"><spring:message code="company.form.logo"/></form:label>
         <a href="#" class="lightbox"><spring:message code="company.upload.logo"/></a>
+
         <div id="companyLogo"></div>
     </div>
     <div class="default-block">
@@ -81,5 +82,24 @@
     </div>
 
 </form:form>
+
+<div id="lightbox" style="display: none;"></div>
+
+<div id="lightbox-panel">
+    <form:form method="post" id="uploadForm" enctype="multipart/form-data" action="/manage/logo/upload" modelAttribute="bindableFileUpload">
+        <div class="default-block">
+            <form:label path="fileData"><spring:message code="company.upload.logo"/></form:label>
+            <form:input type="file" path="fileData"/>
+            <form:errors path="fileData" cssClass="form-error"/>
+        </div>
+        <div class="default-block">
+            <input type="submit" value="upload" class="subbutton"/>
+        </div>
+    </form:form>
+
+    <p align="center">
+        <a id="close-panel" href="#">Sluiten</a>
+    </p>
+</div>
 
 

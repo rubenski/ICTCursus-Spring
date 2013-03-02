@@ -3,6 +3,7 @@ package nl.codebasesoftware.produx.controller;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.support.Country;
 import nl.codebasesoftware.produx.formdata.BindableCompany;
+import nl.codebasesoftware.produx.formdata.BindableFileUpload;
 import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.validator.CompanyFormValidator;
 import org.apache.log4j.Logger;
@@ -46,6 +47,9 @@ public class CompanyController {
     public String getCompanyForm(Model model, Locale locale) {
 
         Company company = companyService.getCurrentlyLoggedInCompany();
+
+
+        model.addAttribute("bindableFileUpload", new BindableFileUpload());
         model.addAttribute("countries", getCountries(locale));
         model.addAttribute("bindableCompany", company.toBindableCompany());
         model.addAttribute("mainContent", "forms/companyform");

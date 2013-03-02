@@ -23,7 +23,7 @@ $(document).ready(function() {
     /**
      * Check whether to show or hide the certificate name on page load
      */
-    (function(){
+    (function() {
         showCertificateName();
     })();
 
@@ -31,13 +31,16 @@ $(document).ready(function() {
      * Checks whether to show or hide the certificate name field
      */
     function showCertificateName() {
-        if (document.getElementById("certificate-checkbox").checked) {
-            $("#certificate-name").css('display', 'block');
-        } else {
-            $("#certificate-name input").val("");
-            $("#certificate-name").css('display', 'none');
+        if (document.getElementById("certificate-checkbox")) {
+            if (document.getElementById("certificate-checkbox").checked) {
+                $("#certificate-name").css('display', 'block');
+            } else {
+                $("#certificate-name input").val("");
+                $("#certificate-name").css('display', 'none');
+            }
         }
-    };
+    }
+
 
     /**
      * Add tags to the screen on page load

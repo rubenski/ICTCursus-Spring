@@ -135,7 +135,6 @@ public class BindableCourseToCourse implements Converter<BindableCourse, Course>
         course.setPrice(bindableCourse.getPriceAsLong());
         course.setLongDescription(bindableCourse.getLongDescription());
         course.setCertificate(bindableCourse.isCertificate());
-        course.setCertificateText(bindableCourse.getCertificateText());
         course.setCertificateName(bindableCourse.getCertificateName());
 
         return course;

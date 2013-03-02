@@ -18,7 +18,6 @@ public class Course implements DomainObject {
     private String name;
     private String shortDescription;
     private String longDescription;
-    private String certificateText;
     private String duration;
     private Long price;
     private Company company;
@@ -177,14 +176,6 @@ public class Course implements DomainObject {
 
     public void setCertificateName(String certificateName) {
         this.certificateName = certificateName;
-    }
-
-    public String getCertificateText() {
-        return certificateText;
-    }
-
-    public void setCertificateText(String certificateText) {
-        this.certificateText = certificateText;
     }
 
     // CascadeType.ALL results in unsaved dates being automatically saved

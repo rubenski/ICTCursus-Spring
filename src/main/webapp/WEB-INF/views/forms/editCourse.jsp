@@ -101,7 +101,7 @@
     <div class="default-block">
         <form:label path="dates"><spring:message code="course.form.dates"/></form:label>
         <input autocomplete="off" size="40" id="dateSelection"/>
-        <a href="#" id="addDateButton"><spring:message code="course.form.buttontext.add"/></a>
+        <a href="#" id="addDateButton" class="subbutton"><spring:message code="course.form.buttontext.add"/></a>
 
         <div id="selectedDates" class="selectionContainer">
             <table></table>
@@ -125,7 +125,7 @@
             <span><spring:message code="course.form.tags.helptext"/></span>
         </form:label>
         <input autocomplete="off" size="40" id="tagSelection"/>
-        <a href="#" id="addTag"><spring:message code="course.form.buttontext.add"/></a>
+        <a href="#" id="addTag" class="subbutton"><spring:message code="course.form.buttontext.add"/></a>
 
         <div id="selectedTags" class="selectionContainer">
             <table></table>
@@ -158,19 +158,10 @@
         <span class="inlineCheckBox"><form:checkbox id="certificate-checkbox" path="certificate" label="${certificatelabel}"/></span>
         <div id="certificate-name">
             <span><spring:message code="course.form.certificatename.text"/></span>
-            <form:input path="certificateName" size="20"/>
+            <form:input path="certificateName" size="40"/>
         </div>
     </div>
 
-    <%-- certificate / diploma description --%>
-    <div class="default-block">
-        <form:label path="certificateText">
-            <spring:message code="course.form.certificatetext"/>
-            <span><spring:message code="course.form.certificatehelptext"/></span>
-        </form:label>
-        <form:textarea rows="3" path="certificateText" cssErrorClass="form-input-error" cols="100"/>
-        <form:errors path="certificateText" cssClass="form-error"/>
-    </div>
 
     <%-- submit button --%>
     <div class="default-block">

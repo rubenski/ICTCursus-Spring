@@ -2,7 +2,7 @@ package nl.codebasesoftware.produx.controller;
 
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Logo;
-import nl.codebasesoftware.produx.formdata.BindableLogoUpload;
+import nl.codebasesoftware.produx.formdata.BindableFileUpload;
 import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.util.ImageUtil;
 import nl.codebasesoftware.produx.util.Properties;
@@ -43,12 +43,12 @@ public class LogoController {
 
     @RequestMapping(value = "/manage/logo/upload", method = RequestMethod.GET)
     public String getUploadForm(Model model) {
-        model.addAttribute("bindableFileUpload", new BindableLogoUpload());
+        model.addAttribute("bindableFileUpload", new BindableFileUpload());
         return "forms/logoUpload";
     }
 
     @RequestMapping(value = "/manage/logo/upload", method = RequestMethod.POST)
-    public String createOrUpdateLogo(@ModelAttribute("bindableFileUpload") BindableLogoUpload bindableFileUpload, BindingResult result, Model model) {
+    public String createOrUpdateLogo(@ModelAttribute("bindableFileUpload") BindableFileUpload bindableFileUpload, BindingResult result, Model model) {
 
         Company company = companyService.getCurrentlyLoggedInCompany();
 
@@ -78,7 +78,7 @@ public class LogoController {
         return "forms/logoUpload";
     }
 
-    private boolean scaleAndSave(Logo logo, BindableLogoUpload logoUpload, int maxLength) {
+    private boolean scaleAndSave(Logo logo, BindableFileUpload logoUpload, int maxLength) {
         BufferedImage bufferedImage = null;
         try {
             bufferedImage = ImageUtil.scaleImage(logoUpload.getFileData().getInputStream(), maxLength);
@@ -89,27 +89,43 @@ public class LogoController {
     }
 
     @RequestMapping(value = "/logo/{companyId}")
-    public @ResponseBody LogoJsonData getLogo(@PathVariable("companyId") Long companyId) {
+    public
+    @ResponseBody
+    LogoJsonData getLogo(@PathVariable("companyId") Long companyId) {
 
         Company company = companyService.findById(companyId);
 
-        if(company == null){
+        if (company == null) {
             return null;
         }
 
         String logoDir = properties.getProperty("logo.uploaddir");
-        String logoPath = String.format("%s%s", logoDir, company.getLogo().getFullName());
+        String fileNameLengthString = properties.getProperty("logo.filename.length");
+
+        Integer fileNameLength = null;
+        try{
+            fileNameLength = Integer.parseInt(fileNameLengthString);
+        }catch(NumberFormatException e){
+            throw new IllegalArgumentException("Could not get file name length. Did you properly set logo.filename.length in environment.properties?");
+        }
+
+
+
+        String fileName = company.getLogo() == null ? SecurityUtil.randomAlphaNumericString(fileNameLength) : company.getLogo().getFileName();
+
+        String logoPath = String.format("%s%s", logoDir, fileName);
         String base64EncodedImage = ImageUtil.encodeBase64(new File(logoPath));
 
-        if(base64EncodedImage == null){
+        if (base64EncodedImage == null) {
             return null;
         }
+
 
         return new LogoJsonData(base64EncodedImage, company.getLogo().getDataTypeString());
     }
 
 
-    private Logo createLogoFromForm(BindableLogoUpload bindableFileUpload, Company company) {
+    private Logo createLogoFromForm(BindableFileUpload bindableFileUpload, Company company) {
 
         String uploadDir = properties.getProperty("logo.uploaddir");
         String type = bindableFileUpload.getFileData().getContentType();

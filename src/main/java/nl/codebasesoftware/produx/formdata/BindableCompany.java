@@ -136,4 +136,6 @@ public class BindableCompany implements Serializable {
     public void setLogoFileExtension(String logoFileExtension) {
         this.logoFileExtension = logoFileExtension;
     }
+
+
 }

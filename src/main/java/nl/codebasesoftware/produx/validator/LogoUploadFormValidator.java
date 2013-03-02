@@ -1,7 +1,7 @@
 package nl.codebasesoftware.produx.validator;
 
 
-import nl.codebasesoftware.produx.formdata.BindableLogoUpload;
+import nl.codebasesoftware.produx.formdata.BindableFileUpload;
 import nl.codebasesoftware.produx.util.Properties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,7 +21,7 @@ public class LogoUploadFormValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return aClass.isAssignableFrom(BindableLogoUpload.class);
+        return aClass.isAssignableFrom(BindableFileUpload.class);
     }
 
     @Autowired
@@ -31,7 +31,7 @@ public class LogoUploadFormValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        BindableLogoUpload bindableLogoUpload = (BindableLogoUpload) target;
+        BindableFileUpload bindableLogoUpload = (BindableFileUpload) target;
         String maxKBsString = properties.getProperty("logo.maxkbs");
 
         int maxKBs = Integer.parseInt(maxKBsString);

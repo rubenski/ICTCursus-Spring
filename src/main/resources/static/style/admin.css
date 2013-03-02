@@ -171,7 +171,7 @@
     background-color: #1e90ff;
 }
 
-a#addTag, a#addDateButton {
+.default-block a.subbutton {
     padding: 5px 8px 5px 8px;
     background-color: #0b0271;
     color: white;
@@ -179,7 +179,7 @@ a#addTag, a#addDateButton {
     text-decoration: none;
 }
 
-a#addTag.disabled-button, a#addDateButton.disabled-button {
+a.subbutton.disabled-button {
     background-color: #d0d0d0;
     pointer-events: none;
     cursor: default;
@@ -230,6 +230,43 @@ a#addTag.disabled-button, a#addDateButton.disabled-button {
 
 #tinymce {
     padding:  7px;
+}
+
+/* Lightbox background */
+#lightbox
+{
+    display: none;
+    background-color: transparent;
+    background-color: rgba(0,0,0,0.70);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,endColorstr=#99000000);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,endColorstr=#99000000)";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: 10000;
+}
+
+/* Lightbox panel with some content */
+#lightbox-panel
+{
+    display: none;
+    position: fixed;
+    top: 100px;
+    left: 50%;
+    margin-left: -200px;
+    width: 300px;
+    background: #14481c;
+    color: #fff;
+    background-position: bottom left;
+    background-repeat: repeat-x;
+    padding: 10px 15px 10px 15px;
+    border: 2px solid #CCCCCC;
+    z-index: 10001;
+    border: 2px solid;
+    border-radius: 6px;
+    -moz-border-radius: 6px; /* Old Firefox */
 }
 
 
