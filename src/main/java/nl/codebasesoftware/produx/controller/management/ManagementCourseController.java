@@ -85,7 +85,7 @@ public class ManagementCourseController {
         validator.validate(bindableCourse, result);
 
         if (!result.hasErrors()) {
-            Course course = courseService.insert(bindableCourse);
+            Course course = courseService.saveOrUpdate(bindableCourse);
             return "redirect:/manage/course/" + course.getId();
         }
 
@@ -94,14 +94,6 @@ public class ManagementCourseController {
         return "managementMain";
     }
 
-    /*
-    @RequestMapping(value = "/dates/{id}", method = RequestMethod.GET)
-    public @ResponseBody List<String> getDates(@PathVariable("id") Long id) {
-        List<String> dates = courseService.getDates(id);
-        return dates;
-    }
-    */
-
     @RequestMapping(value = "{id}", method = RequestMethod.POST)
     public String updateCourse(@ModelAttribute("bindableCourse") BindableCourse bindableCourse, BindingResult result, Model model) {
         validator.validate(bindableCourse, result);
@@ -109,7 +101,7 @@ public class ManagementCourseController {
         String courseValid = "false";
 
         if (!result.hasErrors()) {
-            courseService.update(bindableCourse);
+            courseService.saveOrUpdate(bindableCourse);
             courseValid = "true";
         }
 

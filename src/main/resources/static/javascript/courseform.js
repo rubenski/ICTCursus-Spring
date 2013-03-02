@@ -12,18 +12,32 @@ $(document).ready(function() {
     })();
 
     /**
-     *
+     * Check whether to show or hide the certificate name when the certificate checkbox is clicked
      */
     (function() {
-        $("input[name='certificate']").click(function() {
-            var checked = $("input[name='certificate']").attr('checked');
-            if (checked == 'checked') {
-                $("#certificate-name").css('display', 'block');
-            } else {
-                $("#certificate-name").css('display', 'none');
-            }
+        $("#certificate-checkbox").click(function() {
+            showCertificateName();
         });
     })();
+
+    /**
+     * Check whether to show or hide the certificate name on page load
+     */
+    (function(){
+        showCertificateName();
+    })();
+
+    /**
+     * Checks whether to show or hide the certificate name field
+     */
+    function showCertificateName() {
+        if (document.getElementById("certificate-checkbox").checked) {
+            $("#certificate-name").css('display', 'block');
+        } else {
+            $("#certificate-name input").val("");
+            $("#certificate-name").css('display', 'none');
+        }
+    };
 
     /**
      * Add tags to the screen on page load

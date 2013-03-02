@@ -1,114 +1,55 @@
-package nl.codebasesoftware.produx.service.impl;
+package nl.codebasesoftware.produx.util.conversion;
 
 import nl.codebasesoftware.produx.dao.*;
 import nl.codebasesoftware.produx.domain.*;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
-import nl.codebasesoftware.produx.service.CourseService;
-import nl.codebasesoftware.produx.service.SystemPropertyService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * User: rvanloen
- * Date: 15-9-12
- * Time: 17:39
+ * Date: 1-3-13
+ * Time: 23:05
  */
-@Service
-public class CourseServiceImpl implements CourseService {
+@Component
+public class BindableCourseToCourse implements Converter<BindableCourse, Course> {
 
-
-    private CourseDao courseDao;
     private CategoryDao categoryDao;
     private RegionDao regionDao;
-    private TagDao tagDao;
-    private SystemPropertyService systemPropertyService;
+    private CourseDao courseDao;
     private CourseOptionDao optionDao;
-    private ConversionService conversionService;
-
-    private Logger LOG = LoggerFactory.getLogger(CourseServiceImpl.class);
+    private TagDao tagDao;
 
     @Autowired
-    public CourseServiceImpl(CourseDao courseDao, CategoryDao categoryDao, RegionDao regionDao, TagDao tagDao,
-                             SystemPropertyService systemPropertyService, CourseOptionDao optionDao, ConversionService conversionService) {
-        this.courseDao = courseDao;
+    public BindableCourseToCourse(CategoryDao categoryDao, RegionDao regionDao, CourseDao courseDao, CourseOptionDao optionDao, TagDao tagDao) {
+
         this.categoryDao = categoryDao;
         this.regionDao = regionDao;
-        this.tagDao = tagDao;
-        this.systemPropertyService = systemPropertyService;
+        this.courseDao = courseDao;
         this.optionDao = optionDao;
-        this.conversionService = conversionService;
-    }
-
-
-    @Override
-    @Transactional
-    public List<Category> findFirstLevelCategories() {
-        return courseDao.findFirstLevelCategories();
+        this.tagDao = tagDao;
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public List<Course> findCourses(Long categoryId) {
-        return courseDao.findCourses(categoryId);
-    }
+    public Course convert(BindableCourse bindableCourse) {
 
-    @Override
-    @Transactional
-    public List<Course> findByCompany(Company company) {
-        return courseDao.findCourses(company);
-    }
+        Course course = null;
 
-    @Override
-    @Transactional
-    public List<Course> findBasic(List<Long> ids) {
-        return courseDao.findBasic(ids);
-    }
-
-    @Override
-    public List<Time> findCourseTimes() {
-        return courseDao.findCourseTimes();
-    }
-
-    @Override
-    public Course findFull(Long id) {
-        return courseDao.findFull(id);
-    }
-
-    @Override
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-    public Course saveOrUpdate(BindableCourse bindableCourse) {
-        Course course = conversionService.convert(bindableCourse, Course.class);
-        courseDao.persist(course);
-        return course;
-    }
-
-    @Override
-    @Transactional
-    public List<Course> findIndexableCourses() {
-        Calendar calendar = systemPropertyService.lastSolrUpdateDate();
-        List<Long> indexableCourseIds = courseDao.findIndexableCourseIds(calendar);
-        List<Course> indexableCourses = new ArrayList<Course>();
-        for (Long indexableCourseId : indexableCourseIds) {
-            Course course = courseDao.findFull(indexableCourseId);
-            indexableCourses.add(course);
+        if (bindableCourse.getId() != null) {
+            course = courseDao.findFull(bindableCourse.getId());
+        } else {
+            course = new Course();
         }
-
-        return indexableCourses;
-    }
-
-
-    private void applyBindableCourseToCourse(BindableCourse bindableCourse, Course course) {
 
         // Get the category
         Category category = categoryDao.find(bindableCourse.getCategory());
@@ -168,7 +109,7 @@ public class CourseServiceImpl implements CourseService {
             course.replaceDates(dates);
         }
 
-       // Get tags
+        // Get tags
         if (bindableCourse.getTags() != null) {
             Set<Tag> newTags = new HashSet<Tag>();
             for (String tagName : bindableCourse.getTags()) {
@@ -196,7 +137,7 @@ public class CourseServiceImpl implements CourseService {
         course.setCertificate(bindableCourse.isCertificate());
         course.setCertificateText(bindableCourse.getCertificateText());
         course.setCertificateName(bindableCourse.getCertificateName());
+
+        return course;
     }
-
-
 }

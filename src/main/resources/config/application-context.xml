@@ -96,6 +96,7 @@
             <set>
                 <bean class="nl.codebasesoftware.produx.util.conversion.CourseToSolrInputDocument"/>
                 <bean class="nl.codebasesoftware.produx.util.conversion.CourseToBindableCourse"/>
+                <bean class="nl.codebasesoftware.produx.util.conversion.BindableCourseToCourse"/>
             </set>
         </property>
     </bean>
