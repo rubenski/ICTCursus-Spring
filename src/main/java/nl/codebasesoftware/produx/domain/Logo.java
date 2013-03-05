@@ -58,13 +58,13 @@ public class Logo {
     }
 
     @Transient
-    public String getFullName(){
+    public String getFullFileName(){
         return String.format("%s.%s", fileName, fileExtension);
     }
 
     @Transient
     public String getFullPath(){
-        return String.format("%s%s", directoryPath, getFullName());
+        return String.format("%s%s", directoryPath, getFullFileName());
     }
 
     @Transient

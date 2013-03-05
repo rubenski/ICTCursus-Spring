@@ -1,7 +1,6 @@
 package nl.codebasesoftware.produx.domain;
 
 import javax.persistence.*;
-import java.util.Set;
 
 /**
  * User: rvanloen
@@ -14,13 +13,10 @@ public class ArticlePage implements DomainObject {
     private Long id;
     private String body;
     private String title;
-    private String publicationDate;
     private String description;
     private String keywords;
-    private ArticlePage parentPage;
     private Integer position;
-    private Set<ArticlePage> childPages;
-    private Set<Comment> comments;
+    private Article article;
 
 
     @Override
@@ -58,35 +54,6 @@ public class ArticlePage implements DomainObject {
         this.keywords = keywords;
     }
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_page_id")
-    public Set<ArticlePage> getChildPages() {
-        return childPages;
-    }
-
-    public void setChildPages(Set<ArticlePage> childPages) {
-        this.childPages = childPages;
-    }
-
-    @ManyToOne
-    public ArticlePage getParentPage() {
-        return parentPage;
-    }
-
-    public void setParentPage(ArticlePage parentPage) {
-        this.parentPage = parentPage;
-    }
-
-
-    @OneToMany(mappedBy = "course", orphanRemoval = true, cascade = { javax.persistence.CascadeType.ALL}, fetch = FetchType.LAZY)
-    public Set<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(Set<Comment> comments) {
-        this.comments = comments;
-    }
-
     public Integer getPosition() {
         return position;
     }
@@ -95,19 +62,21 @@ public class ArticlePage implements DomainObject {
         this.position = position;
     }
 
-    public String getPublicationDate() {
-        return publicationDate;
-    }
-
-    public void setPublicationDate(String publicationDate) {
-        this.publicationDate = publicationDate;
-    }
-
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "article_id", nullable = false)
+    public Article getArticle() {
+        return article;
+    }
+
+    public void setArticle(Article article) {
+        this.article = article;
     }
 }

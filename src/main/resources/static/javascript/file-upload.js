@@ -1,37 +1,64 @@
 $(document).ready(function() {
 
-    $('a.lightbox').click(function(e) {
-        e.preventDefault();
-        showUploadPanel();
+        $('a.lightbox').click(function(e) {
+            e.preventDefault();
+            showUploadPanel();
+        });
 
-    });
+        $('a#close-panel').click(function(e) {
+            e.preventDefault();
+            removeUploadPanel();
+        });
 
-    function showUploadPanel() {
-        $("#lightbox, #lightbox-panel").fadeIn(300);
-        $("#loginFormError").css('display', 'none');
+        (function() {
+            updateLogo();
+        })();
+
+        /**
+         * Get contents of hidden iframe after upload form submission and either show
+         * an error or remove the form and reload the logo though Ajax.
+         */
+        (function() {
+
+            $("#upload-result-frame").load(function() {
+                var frameContent = $("#upload-result-frame").contents().find("body").text();
+                if (frameContent.trim().length > 0) {
+                    alert(frameContent);
+                } else {
+                    $("#lightbox").fadeOut(200);
+                    $("#lightbox-panel").fadeOut(200);
+                    updateLogo();
+                }
+            });
+        })();
+
+
+        function updateLogo() {
+            var companyId = $("#id").val();
+            $("#companyLogoImg").remove();
+            $.get("/logo/" + companyId, function(logoJsonData) {
+                    if (logoJsonData) {
+                        $("<img/>")
+                            .attr('src', 'data:image/png;base64,' + logoJsonData.base64String)
+                            .attr('id', 'companyLogoImg')
+                            .appendTo($('#companyLogo'));
+                    }
+                }
+            )
+        }
+
+
+        function showUploadPanel() {
+            $("#lightbox, #lightbox-panel").fadeIn(300);
+            $("#loginFormError").css('display', 'none');
+        }
+
+        function removeUploadPanel() {
+            $("#lightbox, #lightbox-panel").fadeOut(200);
+        }
+
+
     }
 
-    $('body').bind('replaceLogo', function(event) {
-        $('#lightbox').remove();
-        $('#companyLogoImg').remove();
-        $('#overlay').remove();
-
-        $.get("/company/getcurrent", function(company) {
-
-            $.get("/logo/" + company.id, function(logoJsonData) {
-
-                if (logoJsonData) {
-                    $("<img/>")
-                        .attr('src', 'data:' + logoJsonData.dataTypeString + ';base64,' + logoJsonData.base64EncodedData)
-                        .attr('id', 'companyLogoImg')
-                        .appendTo($('#companyLogo'));
-                }
-
-            });
-        });
-    });
-
-    $('#companyLogo').trigger('replaceLogo');
-
-});
+);
 

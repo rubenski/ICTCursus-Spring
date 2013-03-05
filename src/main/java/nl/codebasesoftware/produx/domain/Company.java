@@ -27,6 +27,7 @@ public class Company implements DomainObject {
     private String country;
     private Set<Course> courses = new HashSet<Course>();
     private Logo logo;
+    private Set<UserProfile> users;
 
     @Override
     @Id
@@ -145,6 +146,15 @@ public class Company implements DomainObject {
 
     public void setLogo(Logo logo) {
         this.logo = logo;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
+    public Set<UserProfile> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<UserProfile> users) {
+        this.users = users;
     }
 
     @Transient

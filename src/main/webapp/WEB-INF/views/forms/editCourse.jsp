@@ -165,7 +165,7 @@
 
     <%-- submit button --%>
     <div class="default-block">
-        <input type="submit" value="Opslaan"/>
+        <input type="submit" class="submitbutton" value="Opslaan"/>
     </div>
 
 

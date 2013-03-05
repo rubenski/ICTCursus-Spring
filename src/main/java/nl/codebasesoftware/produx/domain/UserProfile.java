@@ -20,6 +20,7 @@ public class UserProfile implements DomainObject, UserDetails {
     private String phone;
     private Company company;
     private Set<Role> roles;
+    private Set<Article> articles;
 
     @Transient
     private final String PERMISSION_PREFIX = "ROLE_PERM_";
@@ -102,6 +103,15 @@ public class UserProfile implements DomainObject, UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
+    public Set<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(Set<Article> articles) {
+        this.articles = articles;
     }
 
     /**

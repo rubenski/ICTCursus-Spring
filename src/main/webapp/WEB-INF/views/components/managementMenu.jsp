@@ -6,6 +6,7 @@
         <li><a href="/manage/home"><spring:message code="management.home.linktext"/></a></li>
         <li><a href="/manage/company"><spring:message code="management.profile.linktext"/></a></li>
         <li><a href="/manage/requests"><spring:message code="management.requests.linktext"/></a></li>
+        <li><a href="/manage/articles"><spring:message code="management.articles.linktext"/></a></li>
     </ul>
 </div>
 

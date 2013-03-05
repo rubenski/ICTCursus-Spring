@@ -78,7 +78,7 @@
 
 
     <div class="default-block">
-        <input type="submit" value="Verzenden"/>
+        <input type="submit" class="submitbutton" value="Verzenden"/>
     </div>
 
 </form:form>
@@ -86,14 +86,13 @@
 <div id="lightbox" style="display: none;"></div>
 
 <div id="lightbox-panel">
-    <form:form method="post" id="uploadForm" enctype="multipart/form-data" action="/manage/logo/upload" modelAttribute="bindableFileUpload">
+    <form:form method="post" target="upload-result" id="uploadForm" enctype="multipart/form-data" action="/manage/logo/upload" modelAttribute="bindableFileUpload">
         <div class="default-block">
             <form:label path="fileData"><spring:message code="company.upload.logo"/></form:label>
             <form:input type="file" path="fileData"/>
             <form:errors path="fileData" cssClass="form-error"/>
-        </div>
-        <div class="default-block">
-            <input type="submit" value="upload" class="subbutton"/>
+            <br/><br/>
+            <input type="submit" value="upload" class="subbutton" id="uploadbutton"/>
         </div>
     </form:form>
 
@@ -102,4 +101,7 @@
     </p>
 </div>
 
+<iframe name="upload-result" id="upload-result-frame">
+
+</iframe>
 

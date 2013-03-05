@@ -4,25 +4,38 @@ INSERT INTO `px_company` (`id`, `address`, chamber_of_commerce_number, `city`, `
 (2, 'Breestraat 22', '12345', 'Leiden', 'NL', 'bree@example.com', 'Produx Bree corp', '0612345678', '328729837', '1056PH');
 
 -- role
-INSERT INTO `px_role` (`id`, `name`) VALUES('1','COMPANY');
-INSERT INTO `px_role` (`id`, `name`) VALUES('2','ANONYMOUS');
-INSERT INTO `px_role` (`id`, `name`) VALUES('3','ADMIN');
+INSERT INTO `px_role` (`id`, `name`) VALUES('1','COMPANY_COMPANY_PROFILE_ADMIN');
+INSERT INTO `px_role` (`id`, `name`) VALUES('2','COMPANY_ARTICLES_ADMIN');
+INSERT INTO `px_role` (`id`, `name`) VALUES('3','COMPANY_COURSE_ADMIN');
+INSERT INTO `px_role` (`id`, `name`) VALUES('4','SYS_ADMIN');
 
 -- right
-INSERT INTO `px_right` (`id`, `name`) VALUES('1','access_management_screens');
-INSERT INTO `px_right` (`id`, `name`) VALUES('2','access_admin_screens');
+INSERT INTO `px_right` (`id`, `name`) VALUES('1','access_admin_screens');
+INSERT INTO `px_right` (`id`, `name`) VALUES('2','access_sysadmin_screens');
+INSERT INTO `px_right` (`id`, `name`) VALUES('3','edit_company_profile');
+INSERT INTO `px_right` (`id`, `name`) VALUES('4','edit_company_courses');
+INSERT INTO `px_right` (`id`, `name`) VALUES('5','edit_company_articles');
+INSERT INTO `px_right` (`id`, `name`) VALUES('6','edit_everything');
 
 -- role2right
 INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('1','1');
+INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('1','3');
+INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('2','1');
+INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('2','5');
 INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('3','1');
-INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('3','2');
+INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('3','4');
+INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('4','2');
+INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('4','6');
 
 -- userprofile
-INSERT INTO `px_userprofile` (`id`, `email`, `first_name`, `last_name`, `password_hash`, `phone`, `company_id`) VALUES('1','rubenski@gmail.com','Ruben','van Loen','3fc393d1c2afa6bf41a3dc44b29aace238d885cc',NULL,'1');
-
+INSERT INTO `px_userprofile` (`id`, `email`, `first_name`, `last_name`, `password_hash`, `phone`, `company_id`) VALUES(1,'rubenski@gmail.com','Ruben','van Loen','3fc393d1c2afa6bf41a3dc44b29aace238d885cc',NULL,1);
+INSERT INTO `px_userprofile` (`id`, `email`, `first_name`, `last_name`, `password_hash`, `phone`, `company_id`) VALUES(2,'admin@example.com','Jan','Jansen','3fc393d1c2afa6bf41a3dc44b29aace238d885cc',NULL,2);
 
 -- userprofile2role
-INSERT INTO `px_userprofile2role` (`userprofile_id`, `role_id`) VALUES('1','1');
+INSERT INTO `px_userprofile2role` (`userprofile_id`, `role_id`) VALUES(1,1);
+INSERT INTO `px_userprofile2role` (`userprofile_id`, `role_id`) VALUES(1,2);
+INSERT INTO `px_userprofile2role` (`userprofile_id`, `role_id`) VALUES(1,3);
+INSERT INTO `px_userprofile2role` (`userprofile_id`, `role_id`) VALUES(2,4);
 
 -- category
 INSERT INTO `px_category` (`id`, `name`, `url_title`, `parent_id`) VALUES

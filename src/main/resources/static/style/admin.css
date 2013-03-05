@@ -38,7 +38,6 @@
     text-decoration: underline;
 }
 
-
 #wrapper #middle #main-content .course-list-item {
     width: 500px;
     display: block;
@@ -137,21 +136,19 @@
     border: 1px solid red;
 }
 
-.default-block input[type="submit"] {
+.default-block .submitbutton {
     padding: 6px;
     font-size: 18px;
     color: #ffffff;
-    background: -moz-linear-gradient(top,  rgba(41,154,11,0.63) 0%, rgba(41,154,11,1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(41,154,11,0.63)), color-stop(100%,rgba(41,154,11,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  rgba(41,154,11,0.63) 0%,rgba(41,154,11,1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  rgba(41,154,11,0.63) 0%,rgba(41,154,11,1) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  rgba(41,154,11,0.63) 0%,rgba(41,154,11,1) 100%); /* IE10+ */
-    background: linear-gradient(to bottom,  rgba(41,154,11,0.63) 0%,rgba(41,154,11,1) 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a1299a0b', endColorstr='#299a0b',GradientType=0 ); /* IE6-9 */
+    background: -moz-linear-gradient(top, rgba(41, 154, 11, 0.63) 0%, rgba(41, 154, 11, 1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(41, 154, 11, 0.63)), color-stop(100%, rgba(41, 154, 11, 1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(41, 154, 11, 0.63) 0%, rgba(41, 154, 11, 1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(41, 154, 11, 0.63) 0%, rgba(41, 154, 11, 1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(41, 154, 11, 0.63) 0%, rgba(41, 154, 11, 1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(41, 154, 11, 0.63) 0%, rgba(41, 154, 11, 1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#a1299a0b', endColorstr = '#299a0b', GradientType = 0); /* IE6-9 */
 
 }
-
-
 
 #suggestBox {
     background-color: #fff;
@@ -171,7 +168,7 @@
     background-color: #1e90ff;
 }
 
-.default-block a.subbutton {
+.default-block a.subbutton, .default-block input.subbutton {
     padding: 5px 8px 5px 8px;
     background-color: #0b0271;
     color: white;
@@ -189,20 +186,19 @@ a.subbutton.disabled-button {
     display: none;
 }
 
-
 .selectionContainer table {
     width: 250px;
-    margin:  12px 0px 0px 0px;
-    padding:  0;
+    margin: 12px 0px 0px 0px;
+    padding: 0;
     background-color: #f4f2f2;
 }
 
 .selectionContainer table td {
-    margin:  0;
-    padding:  0;
+    margin: 0;
+    padding: 0;
 }
 
-#overlay{
+#overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -212,7 +208,7 @@ a.subbutton.disabled-button {
 
 #lightbox {
     position: absolute;
-    padding:  25px;
+    padding: 25px;
     background-color: white;
     width: 450px;
     height: 180px;
@@ -229,16 +225,15 @@ a.subbutton.disabled-button {
 }
 
 #tinymce {
-    padding:  7px;
+    padding: 7px;
 }
 
 /* Lightbox background */
-#lightbox
-{
+#lightbox {
     display: none;
     background-color: transparent;
-    background-color: rgba(0,0,0,0.70);
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,endColorstr=#99000000);
+    background-color: rgba(0, 0, 0, 0.70);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = #99000000, endColorstr = #99000000);
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,endColorstr=#99000000)";
     position: absolute;
     top: 0px;
@@ -249,24 +244,23 @@ a.subbutton.disabled-button {
 }
 
 /* Lightbox panel with some content */
-#lightbox-panel
-{
+#lightbox-panel {
     display: none;
     position: fixed;
     top: 100px;
     left: 50%;
     margin-left: -200px;
     width: 300px;
-    background: #14481c;
-    color: #fff;
-    background-position: bottom left;
-    background-repeat: repeat-x;
+    background: #ccc repeat-x bottom left;
     padding: 10px 15px 10px 15px;
     border: 2px solid #CCCCCC;
     z-index: 10001;
-    border: 2px solid;
     border-radius: 6px;
     -moz-border-radius: 6px; /* Old Firefox */
+}
+
+#upload-result-frame {
+    display: none;
 }
 
 
