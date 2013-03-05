@@ -20,7 +20,7 @@
     <c:if test="${uploaded == 1}">
         <span id="uploaded"/>
     </c:if>
-    <form:form method="post" id="uploadForm" enctype="multipart/form-data" action="/manage/logo/upload" modelAttribute="bindableFileUpload">
+    <form:form method="post" id="uploadForm" enctype="multipart/form-data" action="/admin/logo/upload" modelAttribute="bindableFileUpload">
         <div class="default-block">
             <form:label path="fileData"><spring:message code="company.upload.logo"/></form:label>
             <form:input type="file" path="fileData"/>

@@ -8,10 +8,10 @@ import org.springframework.stereotype.Controller;
  * Time: 23:24
  */
 @Controller
-public class ManagementArticleController {
+public class AdminArticleController {
 
 
-    public ManagementArticleController(){
+    public AdminArticleController(){
 
     }
 }

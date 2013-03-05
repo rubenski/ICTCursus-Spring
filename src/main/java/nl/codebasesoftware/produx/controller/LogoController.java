@@ -46,14 +46,7 @@ public class LogoController {
         this.messageSource = messageSource;
     }
 
-    /*
-    @RequestMapping(value = "/manage/logo/upload", method = RequestMethod.GET)
-    public String getUploadForm(Model model) {
-        model.addAttribute("bindableFileUpload", new BindableFileUpload());
-        return "forms/logoUpload";
-    }         */
-
-    @RequestMapping(value = "/manage/logo/upload", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/logo/upload", method = RequestMethod.POST)
     public String createOrUpdateLogo(@ModelAttribute("bindableFileUpload") BindableFileUpload bindableFileUpload, BindingResult result, Model model, Locale locale) {
 
         Company company = companyService.getCurrentlyLoggedInCompany();

@@ -20,8 +20,8 @@ import java.util.List;
  * Time: 21:16
  */
 @Controller
-@RequestMapping(value = "/manage/course/")
-public class ManagementCourseController {
+@RequestMapping(value = "/admin/course/")
+public class AdminCourseController {
 
     private CourseService courseService;
     private RegionService regionService;
@@ -32,13 +32,13 @@ public class ManagementCourseController {
     private OptionService optionService;
 
     @Autowired
-    public ManagementCourseController(CourseService courseService,
-                                      RegionService regionService,
-                                      CategoryService categoryService,
-                                      CourseFormValidator validator,
-                                      CompanyService companyService,
-                                      ConversionService conversionService,
-                                      OptionService optionService) {
+    public AdminCourseController(CourseService courseService,
+                                 RegionService regionService,
+                                 CategoryService categoryService,
+                                 CourseFormValidator validator,
+                                 CompanyService companyService,
+                                 ConversionService conversionService,
+                                 OptionService optionService) {
         this.courseService = courseService;
         this.regionService = regionService;
         this.categoryService = categoryService;
@@ -64,7 +64,7 @@ public class ManagementCourseController {
         model.addAttribute("bindableCourse", conversionService.convert(course, BindableCourse.class));
         addDataToModel(model);
 
-        return "managementMain";
+        return "adminMain";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
@@ -76,7 +76,7 @@ public class ManagementCourseController {
         model.addAttribute("mainContent", "forms/editCourse");
         addDataToModel(model);
 
-        return "managementMain";
+        return "adminMain";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
@@ -86,12 +86,12 @@ public class ManagementCourseController {
 
         if (!result.hasErrors()) {
             Course course = courseService.saveOrUpdate(bindableCourse);
-            return "redirect:/manage/course/" + course.getId();
+            return "redirect:/admin/course/" + course.getId();
         }
 
         addDataToModel(model);
         model.addAttribute("mainContent", "forms/editCourse");
-        return "managementMain";
+        return "adminMain";
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.POST)
@@ -108,7 +108,7 @@ public class ManagementCourseController {
         model.addAttribute("mainContent", "forms/editCourse");
         model.addAttribute("courseValid", courseValid);
         addDataToModel(model);
-        return "managementMain";
+        return "adminMain";
 
     }
 

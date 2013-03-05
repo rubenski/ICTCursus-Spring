@@ -43,7 +43,7 @@ public class CompanyController {
         this.validator = validator;
     }
 
-    @RequestMapping(value= "/manage/company", method = RequestMethod.GET)
+    @RequestMapping(value= "/admin/company", method = RequestMethod.GET)
     public String getCompanyForm(Model model, Locale locale) {
 
         Company company = companyService.getCurrentlyLoggedInCompany();
@@ -54,10 +54,10 @@ public class CompanyController {
         model.addAttribute("bindableCompany", company.toBindableCompany());
         model.addAttribute("mainContent", "forms/companyform");
 
-        return "managementMain";
+        return "adminMain";
     }
 
-    @RequestMapping(value= "/manage/company", method = RequestMethod.POST)
+    @RequestMapping(value= "/admin/company", method = RequestMethod.POST)
     public String update(@ModelAttribute("bindableCompany") BindableCompany bindableCompany, BindingResult result, Model model, Locale locale) {
 
         validator.validate(bindableCompany, result);
@@ -73,7 +73,7 @@ public class CompanyController {
         model.addAttribute("courseValid", courseValid);
         model.addAttribute("mainContent", "forms/companyform");
 
-        return "managementMain";
+        return "adminMain";
     }
 
     @RequestMapping(value="/company/getcurrent", method = RequestMethod.GET)
