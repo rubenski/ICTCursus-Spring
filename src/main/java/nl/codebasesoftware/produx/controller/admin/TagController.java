@@ -1,4 +1,4 @@
-package nl.codebasesoftware.produx.controller.management;
+package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.Tag;
 import nl.codebasesoftware.produx.domain.dto.TagDTO;

@@ -15,4 +15,5 @@ public interface UserProfileService {
     List<UserProfile> findAll();
     void removeUserProfile(String username);
     void update(UserProfile profile);
+    List<UserProfile> findByCompany(long companyId);
 }

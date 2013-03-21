@@ -39,12 +39,12 @@
                 <jsp:include page="components/adminMenu.jsp"/>
             </div>
             <div id="main-content">
-                    ${mainMessage}
+                <jsp:include page="components/adminHeader.jsp"/>
+                ${mainMessage}
                 <jsp:include page="${mainContent}.jsp"/>
             </div>
         </sec:authorize>
     </div>
-
 </div>
 </body>
 </html>

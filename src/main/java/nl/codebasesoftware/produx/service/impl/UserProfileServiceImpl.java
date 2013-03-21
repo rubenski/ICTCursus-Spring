@@ -51,6 +51,12 @@ public class UserProfileServiceImpl implements UserProfileService {
         return userProfileDao.findByEmail(email);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<UserProfile> findByCompany(long companyId){
+        return userProfileDao.findByCompany(companyId);
+    }
+
 
     @Override
     @Transactional

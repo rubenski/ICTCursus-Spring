@@ -1,18 +1,12 @@
-package nl.codebasesoftware.produx.controller.management;
+package nl.codebasesoftware.produx.controller.admin;
 
-import nl.codebasesoftware.produx.domain.Company;
-import nl.codebasesoftware.produx.domain.Course;
-import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import java.util.List;
 
 
 /**
@@ -35,14 +29,8 @@ public class AdminHomeController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String get(Model model) {
+
         model.addAttribute("mainContent", "content/adminHome");
-
-        UserProfile userProfile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Company company = companyService.findByUserProfile(userProfile);
-        List<Course> courses = courseService.findByCompany(company);
-        model.addAttribute("courses", courses);
-        model.addAttribute("numberOfCourses", courses.size());
-
         return "adminMain";
     }
 }

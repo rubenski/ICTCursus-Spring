@@ -12,11 +12,11 @@
     <div id="data-entry-form">
 
         <div class="form-entry">
-            <label><spring:message code="login.form.label.email"/></label>
+            <label><spring:message code="user.genericlabel.email"/></label>
             <input type='text' name='j_username' value=''>
         </div>
         <div class="form-entry">
-            <label><spring:message code="login.form.label.password"/></label>
+            <label><spring:message code="user.genericlabel.password"/></label>
             <input type='password' name='j_password'/>
         </div>
         <div class="form-entry">

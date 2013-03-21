@@ -1,4 +1,4 @@
-package nl.codebasesoftware.produx.controller.management;
+package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.*;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
@@ -7,6 +7,7 @@ import nl.codebasesoftware.produx.service.*;
 import nl.codebasesoftware.produx.validator.CourseFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,7 +21,7 @@ import java.util.List;
  * Time: 21:16
  */
 @Controller
-@RequestMapping(value = "/admin/course/")
+@RequestMapping(value = "/admin/course")
 public class AdminCourseController {
 
     private CourseService courseService;
@@ -46,6 +47,19 @@ public class AdminCourseController {
         this.companyService = companyService;
         this.conversionService = conversionService;
         this.optionService = optionService;
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public String get(Model model){
+        model.addAttribute("mainContent", "content/adminCourses");
+
+        UserProfile userProfile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Company company = companyService.findByUserProfile(userProfile);
+        List<Course> courses = courseService.findByCompany(company);
+        model.addAttribute("courses", courses);
+        model.addAttribute("numberOfCourses", courses.size());
+
+        return "adminMain";
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)

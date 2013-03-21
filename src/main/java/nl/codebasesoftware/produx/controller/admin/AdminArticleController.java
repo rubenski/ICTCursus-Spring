@@ -1,4 +1,4 @@
-package nl.codebasesoftware.produx.controller.management;
+package nl.codebasesoftware.produx.controller.admin;
 
 import org.springframework.stereotype.Controller;
 

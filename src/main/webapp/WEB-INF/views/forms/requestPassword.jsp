@@ -10,7 +10,7 @@
 <form:form method="post" commandName="forgotPassword">
     <div id="data-entry-form">
         <div class="form-entry">
-            <form:label path="email"><spring:message code="login.form.label.email"/></form:label>
+            <form:label path="email"><spring:message code="user.genericlabel.email"/></form:label>
             <form:input path="email" cssClass="form-input" cssErrorClass="form-input-error"/>
             <form:errors path="email" cssClass="form-error" />
         </div>
