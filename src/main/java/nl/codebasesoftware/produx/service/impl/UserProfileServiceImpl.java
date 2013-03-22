@@ -27,24 +27,6 @@ public class UserProfileServiceImpl implements UserProfileService {
         this.companyDao = companyDao;
     }
 
-
-
-    @Override
-    public UserProfile findById(Long id) {
-        return userProfileDao.find(id);
-    }
-
-    @Override
-    public List<UserProfile> findAll() {
-        return userProfileDao.findAll();
-    }
-
-    @Override
-    @Transactional(readOnly = false)
-    public void removeUserProfile(String username) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
-
     @Override
     @Transactional(readOnly = true)
     public UserProfile findByEmail(String email) {
@@ -53,9 +35,10 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<UserProfile> findByCompany(long companyId){
+    public List<UserProfile> findByCompany(long companyId) {
         return userProfileDao.findByCompany(companyId);
     }
+
 
 
     @Override
@@ -67,7 +50,6 @@ public class UserProfileServiceImpl implements UserProfileService {
         persistentProfile.setFirstName(profile.getFirstName());
         persistentProfile.setLastName(profile.getLastName());
         persistentProfile.setPhone(profile.getPhone());
-        // persistentProfile.setRoles(profile.getRoles());
         userProfileDao.persist(persistentProfile);
     }
 }

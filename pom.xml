@@ -233,6 +233,12 @@
             <version>4.0.0</version>
         </dependency>
 
+        <!-- guava, for easier validation -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>14.0</version>
+        </dependency>
 
 
     </dependencies>
@@ -347,7 +353,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <scanIntervalSeconds>120</scanIntervalSeconds>
+                    <!-- <scanIntervalSeconds>120</scanIntervalSeconds> -->
                     <stopKey>foo</stopKey>
                     <stopPort>9999</stopPort>
 

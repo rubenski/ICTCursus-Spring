@@ -2,16 +2,12 @@ package nl.codebasesoftware.produx.dao.jpa;
 
 import nl.codebasesoftware.produx.dao.CourseDao;
 import nl.codebasesoftware.produx.domain.*;
-import nl.codebasesoftware.produx.service.helpers.CourseFilter;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * User: rvanloen
@@ -29,27 +25,6 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
     public List<Category> findFirstLevelCategories() {
         Query query = entityManager.createQuery("select distinct c from Category c left join fetch c.children ch where c.parent is null order by c.name");
         return query.getResultList();
-    }
-
-    @Override
-    public List<Course> findCourses(CourseFilter filter) {
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Course> criteriaQuery = criteriaBuilder.createQuery(Course.class);
-        Root<Course> root = criteriaQuery.from(Course.class);
-        List<Predicate> predicateList = new ArrayList<Predicate>();
-
-        if (!filter.getCategories().isEmpty()) {
-            Predicate predicate = root.get(Course_.category).in(filter.getCategories());
-            predicateList.add(predicate);
-        }
-
-        Predicate[] predicates = new Predicate[predicateList.size()];
-        predicateList.toArray(predicates);
-
-        criteriaQuery.where(predicates);
-        TypedQuery<Course> typedQuery = entityManager.createQuery(criteriaQuery);
-
-        return typedQuery.getResultList();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package nl.codebasesoftware.produx.util.conversion;
+package nl.codebasesoftware.produx.conversion;
 
 import nl.codebasesoftware.produx.domain.Course;
 import org.apache.solr.common.SolrInputDocument;

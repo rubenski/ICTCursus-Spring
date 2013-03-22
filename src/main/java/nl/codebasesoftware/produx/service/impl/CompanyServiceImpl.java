@@ -6,7 +6,7 @@ import nl.codebasesoftware.produx.domain.Logo;
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.formdata.BindableCompany;
 import nl.codebasesoftware.produx.service.CompanyService;
-import nl.codebasesoftware.produx.service.helpers.UserHelper;
+import nl.codebasesoftware.produx.service.support.CurrentUser;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,7 +46,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     @Transactional
     public Company getCurrentlyLoggedInCompany() {
-        UserProfile user = UserHelper.getCurrentlyLoggedInUser();
+        UserProfile user = CurrentUser.get();
         Company company = user.getCompany();
         Company mergedCompany = companyDao.merge(company);
         return mergedCompany;

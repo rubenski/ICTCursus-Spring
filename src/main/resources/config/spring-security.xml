@@ -15,7 +15,7 @@
 
     <global-method-security pre-post-annotations="enabled"/>
 
-    <beans:bean id="produxAuthenticationProvider" class="nl.codebasesoftware.produx.authentication.ProduxAuthenticationProvider"/>
+    <beans:bean id="produxAuthenticationProvider" class="nl.codebasesoftware.produx.spring.authentication.ProduxAuthenticationProvider"/>
 
     <security:authentication-manager>
         <security:authentication-provider ref="produxAuthenticationProvider"/>

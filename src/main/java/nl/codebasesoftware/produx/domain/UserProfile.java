@@ -1,6 +1,6 @@
 package nl.codebasesoftware.produx.domain;
 
-import nl.codebasesoftware.produx.authentication.ProduxAuthority;
+import nl.codebasesoftware.produx.spring.authentication.ProduxAuthority;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -21,9 +21,11 @@ public class UserProfile implements DomainObject, UserDetails {
     private Company company;
     private Set<Role> roles;
     private Set<Article> articles;
+    private boolean enabled;
 
     @Transient
     private final String PERMISSION_PREFIX = "ROLE_PERM_";
+
 
     @Override
     @Id
@@ -114,6 +116,10 @@ public class UserProfile implements DomainObject, UserDetails {
         this.articles = articles;
     }
 
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     /**
      * Methods from interface UserDetails
      */
@@ -156,8 +162,9 @@ public class UserProfile implements DomainObject, UserDetails {
     }
 
     @Override
-    @Transient
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
+
+
 }

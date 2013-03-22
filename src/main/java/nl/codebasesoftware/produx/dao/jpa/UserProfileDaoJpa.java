@@ -41,4 +41,6 @@ public class UserProfileDaoJpa extends GenericDaoJpa<UserProfile> implements Use
         log.debug("query end");
         return resultList;
     }
+
+
 }

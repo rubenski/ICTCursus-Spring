@@ -43,6 +43,7 @@
         <form:errors path="email" cssClass="form-error"/>
     </div>
 
+    <%-- submit --%>
     <div class="default-block">
         <div class="form-entry">
             <input type="submit" value="Verzenden"/>
