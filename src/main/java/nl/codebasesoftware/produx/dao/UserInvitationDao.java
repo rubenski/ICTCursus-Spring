@@ -9,4 +9,6 @@ import nl.codebasesoftware.produx.domain.UserInvitation;
  */
 public interface UserInvitationDao extends GenericDao<UserInvitation> {
     UserInvitation findByEmail(String email);
+
+    UserInvitation findByCode(String code);
 }

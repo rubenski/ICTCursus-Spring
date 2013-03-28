@@ -1,0 +1,23 @@
+#* @vtlvariable name="invitation" type="nl.codebasesoftware.produx.domain.UserInvitation" *#
+
+<html>
+<body>
+<p>
+    Beste ${invitation.firstName} ${invitation.lastName},
+    <br><br>
+    ${invitation.invitedBy.firstName} ${invitation.invitedBy.lastName} heeft een account voor u aangemaakt op ictcursus.nl.
+    Volg onderstaande link om uw account te activeren.
+    <br><br>
+    <a href="${activationLink}">Activeer uw account</a>.
+    <br>
+    <br>
+    Hartelijke groeten,
+    <br>
+    <br>
+    ICTCursus.nl
+    <br>
+    <br>
+</p>
+</body>
+
+</html>

@@ -1,5 +1,7 @@
 package nl.codebasesoftware.produx.util;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Map;
 
 /**
@@ -7,16 +9,19 @@ import java.util.Map;
  * Date: 8-11-12
  * Time: 0:26
  */
+
 public class Properties {
 
-    Map<String, String> properties;
+    Map<String, String> propertyMap;
 
-    public void setProperties(Map properties) {
-        this.properties = properties;
+    public Properties() {}
+
+    public void setPropertyMap(Map propertyMap) {
+        this.propertyMap = propertyMap;
     }
 
     public String getProperty(String key) {
-        String value =  properties.get(key);
+        String value =  propertyMap.get(key);
         return value;
     }
 }

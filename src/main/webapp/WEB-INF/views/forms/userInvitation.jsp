@@ -34,6 +34,18 @@
         <form:errors path="lastName" cssClass="form-error"/>
     </div>
 
+    <%-- access rights --%>
+    <div class="default-block">
+        <form:label path="roles">
+            <spring:message code="user.genericlabel.access"/>
+            <span><spring:message code="user.invitation.roles.helptext"/></span>
+        </form:label>
+        <c:forEach items="${companyRoles}" var="role">
+            <span class="inlineCheckBox"><form:checkbox path="roles" value="${role.id}" label="${role.displayName}"/></span>
+        </c:forEach>
+        <form:errors path="roles" cssClass="form-error"/>
+    </div>
+
     <%-- email --%>
     <div class="default-block">
         <form:label path="email">

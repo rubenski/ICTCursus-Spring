@@ -12,8 +12,12 @@ import java.util.Set;
 public class Role implements DomainObject {
 
     private Long id;
-    private String name;
     private Set<Right> rights;
+    private String systemName;
+    private String displayName;
+    private boolean companyAdminRole;
+
+
 
     @Override
     @Id
@@ -27,16 +31,21 @@ public class Role implements DomainObject {
     }
 
     @Column(nullable = false)
-    public String getName() {
-        return name;
+    public String getDisplayName() {
+        return displayName;
     }
 
-    private void setName(String name) {
-        this.name = name;
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
-    public void setName(Roles role){
-        this.name = role.toString();
+    @Column(nullable = false)
+    public String getSystemName() {
+        return systemName;
+    }
+
+    public void setSystemName(String systemName) {
+        this.systemName = systemName;
     }
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -46,6 +55,14 @@ public class Role implements DomainObject {
 
     public void setRights(Set<Right> rights) {
         this.rights = rights;
+    }
+
+    public boolean isCompanyAdminRole() {
+        return companyAdminRole;
+    }
+
+    public void setCompanyAdminRole(boolean companyAdminRole) {
+        this.companyAdminRole = companyAdminRole;
     }
 
     @Transient

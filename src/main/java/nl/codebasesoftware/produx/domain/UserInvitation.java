@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.domain;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * User: rvanloen
@@ -16,6 +17,8 @@ public class UserInvitation implements DomainObject {
     private String securityCode;
     private String email;
     private Company company;
+    private UserProfile invitedBy;
+    private Set<Role> roles;
 
     @Override
     @Id
@@ -71,5 +74,23 @@ public class UserInvitation implements DomainObject {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    public UserProfile getInvitedBy() {
+        return invitedBy;
+    }
+
+    public void setInvitedBy(UserProfile invitedBy) {
+        this.invitedBy = invitedBy;
+    }
+
+    @ManyToMany (fetch = FetchType.EAGER)
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

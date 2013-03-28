@@ -5,6 +5,7 @@ import nl.codebasesoftware.produx.dao.UserInvitationDao;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.UserInvitation;
 import nl.codebasesoftware.produx.formdata.BindableUserInvitation;
+import nl.codebasesoftware.produx.service.support.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -36,11 +37,13 @@ public class BindableUserInvitationToUserInvitation implements Converter<Bindabl
 
         Company company = companyDao.find(bindableInvitation.getCompanyId());
 
+
         invitation.setCompany(company);
         invitation.setSecurityCode(bindableInvitation.getSecurityCode());
         invitation.setFirstName(bindableInvitation.getFirstName());
-        invitation.setLastName(bindableInvitation.getFirstName());
+        invitation.setLastName(bindableInvitation.getLastName());
         invitation.setEmail(bindableInvitation.getEmail());
+        invitation.setInvitedBy(CurrentUser.get());
 
         return invitation;
     }

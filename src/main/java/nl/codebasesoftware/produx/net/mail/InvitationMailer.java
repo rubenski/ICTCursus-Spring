@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.net.mail;
 
-import nl.codebasesoftware.produx.domain.UserProfile;
+
+import nl.codebasesoftware.produx.domain.UserInvitation;
 import nl.codebasesoftware.produx.util.Properties;
 import nl.codebasesoftware.produx.util.TextProperties;
 import org.apache.velocity.app.VelocityEngine;
@@ -16,14 +17,14 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+
 /**
  * User: rvanloen
- * Date: 7-11-12
- * Time: 17:50
+ * Date: 27-3-13
+ * Time: 11:41
  */
-
 @Component
-public class PasswordMailer {
+public class InvitationMailer {
 
     @Resource
     private VelocityEngine velocityEngine;
@@ -32,33 +33,47 @@ public class PasswordMailer {
     @Resource
     private Properties properties;
 
-    public void sendPasswordEmail(final UserProfile userProfile, final String password, Locale locale) {
+    private final static int DEFAULT_PORT = 80;
+
+    public void sendInvitationEmail(final UserInvitation invitation, Locale locale) {
+
 
         final String fromEmail = properties.getProperty("email.from.address");
         final String host = properties.getProperty("site.host");
         final String port = properties.getProperty("site.port");
         final String protocol = properties.getProperty("site.protocol");
-        final String subject = TextProperties.getTextProperty("password.request.mail.subject", locale.getLanguage());
+        final String subject = TextProperties.getTextProperty("invitation.email.subject", locale.getLanguage());
         final String senderName = TextProperties.getTextProperty("mail.standard.sendername", locale.getLanguage());
+
 
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
             public void prepare(MimeMessage mimeMessage) throws Exception {
                 MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
-                message.setTo(userProfile.getEmail());
+                message.setTo(invitation.getEmail());
                 message.setSubject(subject);
                 message.setFrom(fromEmail, senderName);
                 Map model = new HashMap();
 
-                model.put("userProfile", userProfile);
-                model.put("password", password);
-                model.put("protocol", protocol);
-                model.put("host", host);
-                model.put("port", port);
+                String activationLink = createLink(invitation, protocol, host, port);
 
-                String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/velocity/password-request.vm", model);
+                model.put("activationUrl", activationLink);
+                model.put("invitation", invitation);
+
+                String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/velocity/user-invitation.vm", model);
                 message.setText(text, true);
             }
         };
         mailSender.send(preparator);
     }
+
+    private String createLink(UserInvitation invitation, String protocol, String host, String port){
+        String portInUrl = "";
+        if(Integer.parseInt(port) != DEFAULT_PORT){
+            portInUrl = String.format(":%s", port);
+        }
+        return String.format("%s://%s%s/activate/%s", protocol, host, portInUrl, invitation.getSecurityCode());
+    }
+
+
+
 }

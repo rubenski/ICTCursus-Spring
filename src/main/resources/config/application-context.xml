@@ -72,12 +72,13 @@
     </bean>
 
     <!-- Gather properties from environment.properties -->
-    <bean id="properties" class="nl.codebasesoftware.produx.util.Properties">
-        <property name="properties">
+    <bean id="systemProperties" class="nl.codebasesoftware.produx.util.Properties">
+        <property name="propertyMap">
             <map>
                 <entry key="email.from.address" value="${email.from.address}"/>
                 <entry key="site.host" value="${site.host}"/>
                 <entry key="site.port" value="${site.port}"/>
+                <entry key="*site.protocol" value="${site.protocol}"/>
                 <entry key="logo.uploaddir" value="${logo.uploaddir}"/>
                 <entry key="logo.widthheight" value="${logo.widthheight}"/>
                 <entry key="logo.maxkbs" value="${logo.maxkbs}"/>

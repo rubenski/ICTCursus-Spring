@@ -20,4 +20,10 @@ public class UserInvitationDaoJpa extends GenericDaoJpa<UserInvitation> implemen
     public UserInvitation findByEmail(String email) {
         return getSingleResult(entityManager.createQuery("from UserInvitation ui where ui.email = :email").setParameter("email", email));
     }
+
+    @Override
+    public UserInvitation findByCode(String code) {
+        return getSingleResult(entityManager.createQuery("from UserInvitation ui where ui.securityCode = :code").setParameter("code", code));
+    }
+
 }

@@ -1,6 +1,8 @@
 package nl.codebasesoftware.produx.formdata;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User: rvanloen
@@ -14,6 +16,7 @@ public class BindableUserInvitation implements Serializable {
     private String lastName;
     private String email;
     private String securityCode;
+    private List<Long> roles = new ArrayList<Long>();
 
     public BindableUserInvitation() {
     }
@@ -56,5 +59,13 @@ public class BindableUserInvitation implements Serializable {
 
     public void setSecurityCode(String securityCode) {
         this.securityCode = securityCode;
+    }
+
+    public List<Long> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Long> roles) {
+        this.roles = roles;
     }
 }

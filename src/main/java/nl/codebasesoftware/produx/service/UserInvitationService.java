@@ -1,5 +1,6 @@
 package nl.codebasesoftware.produx.service;
 
+import nl.codebasesoftware.produx.domain.UserInvitation;
 import nl.codebasesoftware.produx.formdata.BindableUserInvitation;
 
 /**
@@ -10,4 +11,5 @@ import nl.codebasesoftware.produx.formdata.BindableUserInvitation;
 
 public interface UserInvitationService {
     void inviteUserForCurrentCompany(BindableUserInvitation invitation);
+    UserInvitation findBySecurityCode(String code);
 }

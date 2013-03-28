@@ -4,6 +4,7 @@ import nl.codebasesoftware.produx.dao.UserInvitationDao;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.UserInvitation;
 import nl.codebasesoftware.produx.formdata.BindableUserInvitation;
+import nl.codebasesoftware.produx.net.mail.InvitationMailer;
 import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.service.UserInvitationService;
 import nl.codebasesoftware.produx.util.Properties;
@@ -12,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.util.Locale;
 
 /**
  * User: rvanloen
@@ -24,25 +28,37 @@ public class UserInvitationServiceImpl implements UserInvitationService {
     private UserInvitationDao userInvitationDao;
     private ConversionService conversionService;
     private CompanyService companyService;
-    private Properties properties;
+    private InvitationMailer invitationMailer;
+
+    @Resource
+    Properties properties;
 
     @Autowired
     public UserInvitationServiceImpl(UserInvitationDao userInvitationDao, ConversionService conversionService,
-                                     CompanyService companyService, Properties properties) {
+                                     CompanyService companyService, InvitationMailer invitationMailer) {
         this.userInvitationDao = userInvitationDao;
         this.conversionService = conversionService;
         this.companyService = companyService;
-        this.properties = properties;
+        this.invitationMailer = invitationMailer;
     }
 
     @Override
     @Transactional
     public void inviteUserForCurrentCompany(BindableUserInvitation bindableInvitation) {
+        Locale locale = Locale.getDefault();
         setSecurityCode(bindableInvitation);
         setCompanyId(bindableInvitation);
         UserInvitation userInvitation = conversionService.convert(bindableInvitation, UserInvitation.class);
         userInvitationDao.persist(userInvitation);
+        invitationMailer.sendInvitationEmail(userInvitation, locale);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public UserInvitation findBySecurityCode(String code){
+        return userInvitationDao.findByCode(code);
+    }
+
 
     private void setCompanyId(BindableUserInvitation userInvitation) {
         Company currentlyLoggedInCompany = companyService.getCurrentlyLoggedInCompany();

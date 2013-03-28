@@ -1,7 +1,6 @@
 package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.formdata.BindableUserInvitation;
-import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.service.UserInvitationService;
 import nl.codebasesoftware.produx.validator.UserInvitationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,17 +25,14 @@ public class AdminInvitationController {
     private MessageSource messageSource;
     private UserInvitationService userInvitationService;
     private UserInvitationValidator userInvitationValidator;
-    private CompanyService companyService;
 
     @Autowired
     public AdminInvitationController(MessageSource messageSource,
                                      UserInvitationService userInvitationService,
-                                     UserInvitationValidator userInvitationValidator,
-                                     CompanyService companyService) {
+                                     UserInvitationValidator userInvitationValidator) {
         this.messageSource = messageSource;
         this.userInvitationService = userInvitationService;
         this.userInvitationValidator = userInvitationValidator;
-        this.companyService = companyService;
     }
 
     @RequestMapping(value = "/admin/users/invite", method = RequestMethod.POST)
@@ -56,7 +52,6 @@ public class AdminInvitationController {
 
         return "adminMain";
     }
-
 
 
     @RequestMapping(value = "/admin/users/invite", method = RequestMethod.GET)
