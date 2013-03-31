@@ -29,4 +29,16 @@ public class ProduxValidator {
         Matcher m = p.matcher(name);
         return m.matches();
     }
+
+    public static boolean isValidPassword(String password){
+        Pattern p = Pattern.compile("^.*(?=.{8,15})(?=.*\\d)(?=.*[a-zA-Z]).*$");
+        Matcher m = p.matcher(password);
+        return m.matches();
+    }
+
+    public static boolean isValidPhoneNumber(String phone){
+        Pattern p = Pattern.compile("[0-9 +-]{10,14}");
+        Matcher m = p.matcher(phone);
+        return m.matches();
+    }
 }

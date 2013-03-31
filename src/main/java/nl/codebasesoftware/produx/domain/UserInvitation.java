@@ -19,6 +19,7 @@ public class UserInvitation implements DomainObject {
     private Company company;
     private UserProfile invitedBy;
     private Set<Role> roles;
+    private boolean activated;
 
     @Override
     @Id
@@ -85,12 +86,21 @@ public class UserInvitation implements DomainObject {
         this.invitedBy = invitedBy;
     }
 
-    @ManyToMany (fetch = FetchType.EAGER)
+    @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public Set<Role> getRoles() {
         return roles;
     }
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    @Column(nullable = false)
+    public boolean isActivated() {
+        return activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
     }
 }

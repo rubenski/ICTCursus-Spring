@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
 import javax.annotation.Resource;
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.HashMap;
 import java.util.Locale;
@@ -35,7 +36,7 @@ public class InvitationMailer {
 
     private final static int DEFAULT_PORT = 80;
 
-    public void sendInvitationEmail(final UserInvitation invitation, Locale locale) {
+    public void sendInvitationEmail(final UserInvitation invitation, Locale locale) throws MessagingException {
 
 
         final String fromEmail = properties.getProperty("email.from.address");
@@ -71,7 +72,7 @@ public class InvitationMailer {
         if(Integer.parseInt(port) != DEFAULT_PORT){
             portInUrl = String.format(":%s", port);
         }
-        return String.format("%s://%s%s/activate/%s", protocol, host, portInUrl, invitation.getSecurityCode());
+        return String.format("%s://%s%s/users/activate/%s", protocol, host, portInUrl, invitation.getSecurityCode());
     }
 
 

@@ -110,10 +110,25 @@
     font-size: 12px;
 }
 
+.default-block span.blockCheckBox  {
+    padding-top: 5px;
+    display: block;
+}
+
+.default-block span.blockCheckBox label {
+    display: inline;
+    font-weight: normal;
+    font-size: 12px;
+}
+
 .default-block label span {
     display: block;
     font-size: 11px;
     font-weight: normal;
+}
+
+.default-block ul li {
+    list-style-type: none;
 }
 
 .default-block div.option-category strong {

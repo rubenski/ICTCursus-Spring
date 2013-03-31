@@ -13,19 +13,32 @@
     padding: 10px 0px 5px 0px;
 }
 
-#wrapper #search{
+#wrapper #search {
     text-align: center;
     background-color: #eef6f8;
-    padding:  10px;
+    padding: 10px;
 }
 
 #wrapper #middle #menu {
     padding-top: 15px;
 }
 
+#wrapper #middle #menu li {
+    padding: 5px 0px 0px 0px;
+}
 
-#wrapper #middle #menu li{
-    padding:  5px 0px 0px 0px;
+#wrapper #main-content form div.default-block {
+    padding: 12px 0px 0px 0px;
+}
+
+#wrapper #main-content form div.default-block label {
+    font-weight: bold;
+    display: block;
+    padding-bottom: 4px;
+}
+
+#wrapper #main-content form div.default-block input[disabled='disabled'] {
+    background-color: #f0f2ed;
 }
 
 

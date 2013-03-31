@@ -33,5 +33,9 @@ public class UserInvitationValidator implements Validator {
         if(!ProduxValidator.isValidEmail(userInvitation.getEmail())){
             errors.rejectValue("email", "error.email.invalid");
         }
+
+        if(userInvitation.getRoles() == null || userInvitation.getRoles().size() == 0){
+            errors.rejectValue("roles", "error.userinvitation.zeroroles");
+        }
     }
 }

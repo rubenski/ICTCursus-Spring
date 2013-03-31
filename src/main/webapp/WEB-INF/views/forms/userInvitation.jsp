@@ -5,17 +5,6 @@
 
 <form:form method="post" modelAttribute="userInvitation" id="userInvitationForm">
 
-
-    <%-- error / success feedback --%>
-    <c:if test="${courseValid != ''}">
-        <c:if test="${courseValid == 'true'}">
-            <div id="validMessage" class="default-block"><spring:message code="course.form.valid"/></div>
-        </c:if>
-        <c:if test="${courseValid == 'false'}">
-            <div id="invalidMessage" class="default-block"><spring:message code="course.form.invalid"/></div>
-        </c:if>
-    </c:if>
-
     <%-- first name --%>
     <div class="default-block">
         <form:label path="firstName">
@@ -41,7 +30,7 @@
             <span><spring:message code="user.invitation.roles.helptext"/></span>
         </form:label>
         <c:forEach items="${companyRoles}" var="role">
-            <span class="inlineCheckBox"><form:checkbox path="roles" value="${role.id}" label="${role.displayName}"/></span>
+            <span class="blockCheckBox"><form:checkbox path="roles" value="${role.id}" label="${role.displayName}"/></span><br/>
         </c:forEach>
         <form:errors path="roles" cssClass="form-error"/>
     </div>
@@ -58,7 +47,7 @@
     <%-- submit --%>
     <div class="default-block">
         <div class="form-entry">
-            <input type="submit" value="Verzenden"/>
+            <input type="submit" value="Volgende"/>
         </div>
     </div>
 

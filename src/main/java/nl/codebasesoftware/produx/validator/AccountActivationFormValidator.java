@@ -1,6 +1,5 @@
 package nl.codebasesoftware.produx.validator;
 
-import nl.codebasesoftware.produx.formdata.BindableUsenamePassword;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 

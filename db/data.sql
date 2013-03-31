@@ -6,12 +6,12 @@ INSERT INTO `px_company` (`id`, `address`, chamber_of_commerce_number, `city`, `
 
 
 -- role
-INSERT INTO `px_role` (`id`, `system_name`, `display_name`, `company_admin_role`) VALUES('1','COMPANY_PROFILE_ADMIN', 'Toegang tot bedrijfsprofiel', 1);
-INSERT INTO `px_role` (`id`, `system_name`, `display_name`, `company_admin_role`) VALUES('2','COMPANY_ARTICLES_ADMIN', 'Toegang tot artikelen', 1);
-INSERT INTO `px_role` (`id`, `system_name`, `display_name`, `company_admin_role`) VALUES('3','COMPANY_COURSE_ADMIN', 'Toegang tot cursussen', 1);
-INSERT INTO `px_role` (`id`, `system_name`, `display_name`, `company_admin_role`) VALUES('4','COMPANY_REQUESTS_ADMIN', 'Toegang tot aanvragen', 1);
-INSERT INTO `px_role` (`id`, `system_name`, `display_name`, `company_admin_role`) VALUES('5','SYS_ADMIN', 'Systeem admin', 0);
-INSERT INTO `px_role` (`id`, `system_name`, `display_name`, `company_admin_role`) VALUES('6','COMPANY_USERS_ADMIN', 'Toegang tot gebruikersbeheer', 1);
+INSERT INTO `px_role` (`id`, `system_name`, `display_name`, `company_admin_role`, `list_rank`) VALUES('1','COMPANY_PROFILE_ADMIN', 'Toegang tot bedrijfsprofiel', 1, 1);
+INSERT INTO `px_role` (`id`, `system_name`, `display_name`, `company_admin_role`, `list_rank`) VALUES('2','COMPANY_ARTICLES_ADMIN', 'Toegang tot artikelen', 1, 4);
+INSERT INTO `px_role` (`id`, `system_name`, `display_name`, `company_admin_role`, `list_rank`) VALUES('3','COMPANY_COURSE_ADMIN', 'Toegang tot cursussen', 1, 2);
+INSERT INTO `px_role` (`id`, `system_name`, `display_name`, `company_admin_role`, `list_rank`) VALUES('4','COMPANY_REQUESTS_ADMIN', 'Toegang tot aanvragen', 1, 3);
+INSERT INTO `px_role` (`id`, `system_name`, `display_name`, `company_admin_role`, `list_rank`) VALUES('5','SYS_ADMIN', 'Systeem admin', 0, NULL);
+INSERT INTO `px_role` (`id`, `system_name`, `display_name`, `company_admin_role`, `list_rank`) VALUES('6','COMPANY_USERS_ADMIN', 'Toegang tot gebruikersbeheer', 1, 5);
 
 -- right
 INSERT INTO `px_right` (`id`, `name`) VALUES('1','access_admin_screens');
