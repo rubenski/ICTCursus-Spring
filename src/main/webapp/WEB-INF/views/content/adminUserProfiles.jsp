@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="default-block">
 
@@ -48,15 +49,32 @@
             <table cellpadding="4" width="600">
                 <tr>
                     <th><spring:message code="user.genericlabel.name"/></th>
-                    <th><spring:message code="user.accountstatus"/></th>
+                    <th><spring:message code="invitation.used"/></th>
+                    <th><spring:message code="generic.message.date"/></th>
+                    <th><spring:message code="invitation.revoke"/></th>
                 </tr>
                 <c:forEach items="${invitations}" var="invitation">
                     <tr>
                         <td>
-                            <a href="/admin/invitations/${invitation.id}">${invitation.fullNameFormal}</a>
+                            ${invitation.fullNameFormal}
                         </td>
                         <td>
-
+                            <c:choose>
+                                <c:when test="${invitation.activated}">
+                                    <spring:message code="generic.message.yes"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <spring:message code="generic.message.no"/>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td>
+                            <fmt:formatDate value="${invitation.creationDate}" type="date" pattern="dd-MM-yyyy"/>
+                        </td>
+                        <td>
+                            <c:if test="${!invitation.activated}">
+                                <a href="/admin/users/invite/revoke/${invitation.id}"><spring:message code="invitation.revoke"/></a>
+                            </c:if>
                         </td>
                     </tr>
                 </c:forEach>
@@ -70,5 +88,6 @@
 </div>
 <div class="default-block">
     <h2><spring:message code="user.invite"/></h2>
+
     <div><a href="/admin/users/invite"><spring:message code="user.invite.linktext"/></a></div>
 </div>

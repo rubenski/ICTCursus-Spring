@@ -53,6 +53,7 @@ public class BindableUserInvitationToUserInvitation implements Converter<Bindabl
         invitation.setEmail(bindableInvitation.getEmail());
         invitation.setInvitedBy(CurrentUser.get());
         invitation.setPreposition(bindableInvitation.getPreposition());
+        invitation.setActivated(bindableInvitation.isActivated());
 
         return invitation;
     }

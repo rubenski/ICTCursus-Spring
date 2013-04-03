@@ -55,6 +55,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     @Transactional
     public List<Category> findFirstLevelCategories() {
+
         return courseDao.findFirstLevelCategories();
     }
 

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -77,6 +78,8 @@ public class AdminUserProfileController {
 
         UserProfile userProfile = userProfileService.findById(id);
         String headerStartText = messageSource.getMessage("user.edit.header.start", new Object[]{}, locale);
+        String active = messageSource.getMessage("generic.message.active", new Object[]{}, locale);
+        String inactive = messageSource.getMessage("generic.message.inactive", new Object[]{}, locale);
         String headerText = String.format("%s %s", headerStartText, userProfile.getFullNameInformal());
 
         if (userProfile == null) {
@@ -85,12 +88,35 @@ public class AdminUserProfileController {
 
         BindableUserProfile bindableUserProfile = conversionService.convert(userProfile, BindableUserProfile.class);
 
+        List<ProfileStatus> statuses = new ArrayList<ProfileStatus>();
+        statuses.add(new ProfileStatus(0, inactive));
+        statuses.add(new ProfileStatus(1, active));
+
+        model.addAttribute("statuses", statuses);
         model.addAttribute("assignableRoles", rolesAndRightService.findUserAssignableRoles());
         model.addAttribute("rolesEditable", 1);
         model.addAttribute("headerText", headerText);
         model.addAttribute("mainContent", "forms/userprofile");
         model.addAttribute("userProfile", bindableUserProfile);
         return "adminMain";
+    }
+
+    private static class ProfileStatus {
+        private int status;
+        private String name;
+
+        private ProfileStatus(int status, String name) {
+            this.name = name;
+            this.status = status;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getStatus() {
+            return status;
+        }
     }
 
 

@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.domain;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -20,6 +21,7 @@ public class UserInvitation implements DomainObject {
     private Company company;
     private UserProfile invitedBy;
     private Set<Role> roles;
+    private Date creationDate;
     private boolean activated;
 
     @Override
@@ -112,6 +114,15 @@ public class UserInvitation implements DomainObject {
 
     public void setActivated(boolean activated) {
         this.activated = activated;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     @Transient

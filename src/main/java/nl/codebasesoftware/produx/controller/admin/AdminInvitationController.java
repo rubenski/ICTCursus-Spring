@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -85,6 +86,13 @@ public class AdminInvitationController {
         return "adminMain";
     }
 
+    @RequestMapping(value = "/admin/users/invite/revoke/{id}")
+    public String revokeInvitation(@PathVariable("id") Long invitationdId, Model model) {
+
+        userInvitationService.removeInvitation(invitationdId);
+
+        return "redirect:/admin/users";
+    }
 
 
     private void setInvitationData(Model model) {

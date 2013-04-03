@@ -23,6 +23,7 @@ public class UserProfileToBindableUserProfile implements Converter<UserProfile, 
         profile.setPreposition(userProfile.getPreposition());
         profile.setRoles(userProfile.getRoleIds());
         profile.setPreposition(userProfile.getPreposition());
+        profile.setEnabled(userProfile.isEnabled());
         return profile;
     }
 }

@@ -30,7 +30,8 @@ public class UserInvitationDaoJpa extends GenericDaoJpa<UserInvitation> implemen
 
     @Override
     public List<UserInvitation> findByInviter(long inviterProfileId) {
-        return entityManager.createQuery("from UserInvitation ui where ui.invitedBy.id = :inviterId")
+        return entityManager.createQuery("from UserInvitation ui where ui.invitedBy.id = :inviterId order by ui.creationDate")
                 .setParameter("inviterId", inviterProfileId).getResultList();
     }
+
 }

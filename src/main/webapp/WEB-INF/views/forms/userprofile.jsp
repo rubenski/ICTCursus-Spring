@@ -70,6 +70,13 @@
     </div>
 
     <div class="default-block">
+        <form:label path="enabled"><spring:message code="generic.message.status"/></form:label>
+        <form:select path="enabled" cssClass="form-input" cssErrorClass="form-input-error">
+            <form:options items="${statuses}" itemValue="status" itemLabel="name"/>
+        </form:select>
+    </div>
+
+    <div class="default-block">
         <input type="submit" class="submitbutton" value="Verzenden"/>
     </div>
 

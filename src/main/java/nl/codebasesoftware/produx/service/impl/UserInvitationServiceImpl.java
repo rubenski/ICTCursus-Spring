@@ -13,6 +13,7 @@ import nl.codebasesoftware.produx.formdata.BindableUserProfile;
 import nl.codebasesoftware.produx.net.mail.InvitationMailer;
 import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.service.UserInvitationService;
+import nl.codebasesoftware.produx.service.support.CurrentUser;
 import nl.codebasesoftware.produx.util.Properties;
 import nl.codebasesoftware.produx.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 
 /**
  * User: rvanloen
@@ -69,34 +67,48 @@ public class UserInvitationServiceImpl implements UserInvitationService {
         setSecurityCode(bindableInvitation);
         setCompanyId(bindableInvitation);
         UserInvitation userInvitation = conversionService.convert(bindableInvitation, UserInvitation.class);
+        userInvitation.setCreationDate(Calendar.getInstance().getTime());
         userInvitationDao.persist(userInvitation);
 
         try {
             invitationMailer.sendInvitationEmail(userInvitation, locale);
         } catch (MessagingException e) {
-            throw new ProduxServiceException(messageSource.getMessage("mail.send.error",new Object[]{}, locale));
+            throw new ProduxServiceException(messageSource.getMessage("mail.send.error", new Object[]{}, locale));
         }
     }
 
     @Override
     @Transactional(readOnly = true)
-    public UserInvitation findBySecurityCode(String code){
+    public UserInvitation findBySecurityCode(String code) {
         return userInvitationDao.findByCode(code);
     }
 
     @Override
-    @Transactional
-    public List<UserInvitation> findByInviter(long inviterProfileId){
+    @Transactional(readOnly = true)
+    public List<UserInvitation> findByInviter(long inviterProfileId) {
         return userInvitationDao.findByInviter(inviterProfileId);
     }
 
     @Transactional(readOnly = true)
-    public UserInvitation findByEmail(String email){
+    public UserInvitation findByEmail(String email) {
         return userInvitationDao.findByEmail(email);
     }
 
+    @Transactional(readOnly = false)
+    public void removeInvitation(long invitationId) {
+        UserInvitation invitation = userInvitationDao.find(invitationId);
+        UserProfile currentUser = CurrentUser.get();
+
+        // Someone is trying to remove an invitation that is not his/hers or that has already been activated
+        if (invitation == null || !currentUser.equals(invitation.getInvitedBy()) || invitation.isActivated()) {
+            return;
+        }
+
+        userInvitationDao.delete(invitation);
+    }
+
     @Transactional
-    public UserProfile activateProfile(BindableUserProfile profile){
+    public UserProfile activateProfile(BindableUserProfile profile) {
         UserProfile userProfile = conversionService.convert(profile, UserProfile.class);
         UserInvitation invitation = userInvitationDao.findByEmail(profile.getEmail());
         transferRoles(invitation, userProfile);
@@ -115,7 +127,7 @@ public class UserInvitationServiceImpl implements UserInvitationService {
     // Somehow doing it directly by calling the setRoles method of the profile
     // with the getRoles method of the invitation as its argument
     // creates a "found shared references to a collection" exception. Not sure why.
-    private void transferRoles(UserInvitation invitation, UserProfile profile){
+    private void transferRoles(UserInvitation invitation, UserProfile profile) {
         Set<Role> roles = new HashSet<Role>();
         for (Role role : invitation.getRoles()) {
             Role persistedRole = rolesAndRightsDao.find(role.getId());

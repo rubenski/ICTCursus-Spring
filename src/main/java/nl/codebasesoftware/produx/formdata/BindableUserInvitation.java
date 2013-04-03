@@ -18,7 +18,10 @@ public class BindableUserInvitation implements Serializable {
     private String email;
     private String securityCode;
     private List<Long> roles = new ArrayList<Long>();
+    private boolean activated;
+
     private boolean confirmationScreen;
+
 
     public BindableUserInvitation() {
     }
@@ -77,6 +80,14 @@ public class BindableUserInvitation implements Serializable {
 
     public void setRoles(List<Long> roles) {
         this.roles = roles;
+    }
+
+    public boolean isActivated() {
+        return activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
     }
 
     public boolean isConfirmationScreen() {

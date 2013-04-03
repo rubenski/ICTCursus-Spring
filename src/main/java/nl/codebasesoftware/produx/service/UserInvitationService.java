@@ -20,5 +20,5 @@ public interface UserInvitationService {
     UserInvitation findByEmail(String email);
     UserProfile activateProfile(BindableUserProfile profile);
     List<UserInvitation> findByInviter(long inviterProfileId);
-
+    void removeInvitation(long invitationId);
 }

@@ -21,6 +21,7 @@ public class BindableUserProfile {
     private boolean emailEditable;
     private Long companyId;
     private List<Long> roles = new ArrayList<Long>();
+    private boolean enabled;
 
     public String getEmail() {
         return email;
@@ -108,5 +109,13 @@ public class BindableUserProfile {
 
     public void setRoles(List<Long> roles) {
         this.roles = roles;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

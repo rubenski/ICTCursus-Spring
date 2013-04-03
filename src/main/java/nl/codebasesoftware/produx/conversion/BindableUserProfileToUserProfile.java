@@ -38,6 +38,7 @@ public class BindableUserProfileToUserProfile implements Converter<BindableUserP
         profile.setEnabled(true);
         profile.setPhone(bindableUserProfile.getPhone());
         profile.setPreposition(bindableUserProfile.getPreposition());
+        profile.setEnabled(bindableUserProfile.isEnabled());
 
         return profile;
 
