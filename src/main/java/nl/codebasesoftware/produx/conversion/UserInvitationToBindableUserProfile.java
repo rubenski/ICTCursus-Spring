@@ -22,6 +22,8 @@ public class UserInvitationToBindableUserProfile implements Converter<UserInvita
         userProfile.setFirstName(invitation.getFirstName());
         userProfile.setLastName(invitation.getLastName());
         userProfile.setEmailEditable(false);
+        userProfile.setCompanyId(invitation.getCompany().getId());
+        userProfile.setPreposition(invitation.getPreposition());
         return userProfile;
     }
 }

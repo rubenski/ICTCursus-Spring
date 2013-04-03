@@ -10,7 +10,8 @@ import java.util.List;
  * Time: 18:56
  */
 public interface RolesAndRightsDao extends GenericDao<Role> {
-    List<Role> findCompanyRoles();
 
     List<Role> findByIds(List<Long> roleIds);
+
+    List<Role> findUserAssignableRoles();
 }

@@ -39,6 +39,12 @@ public class UserProfileServiceImpl implements UserProfileService {
         return userProfileDao.findByCompany(companyId);
     }
 
+    @Override
+    @Transactional
+    public UserProfile findById(long id){
+        return userProfileDao.find(id);
+    }
+
 
 
     @Override

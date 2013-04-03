@@ -5,6 +5,7 @@ import nl.codebasesoftware.produx.domain.Role;
 import nl.codebasesoftware.produx.service.RolesAndRightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,12 +25,15 @@ public class RolesAndRightsServiceImpl implements RolesAndRightService {
     }
 
     @Override
-    public List<Role> findCompanyRoles() {
-        return rolesAndRightsDao.findCompanyRoles();
+    @Transactional(readOnly = true)
+    public List<Role> findUserAssignableRoles(){
+        return rolesAndRightsDao.findUserAssignableRoles();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Role> findByIds(List<Long> roleIds) {
         return rolesAndRightsDao.findByIds(roleIds);
     }
+
 }

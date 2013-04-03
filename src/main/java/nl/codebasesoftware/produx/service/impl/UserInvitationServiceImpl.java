@@ -1,8 +1,10 @@
 package nl.codebasesoftware.produx.service.impl;
 
+import nl.codebasesoftware.produx.dao.RolesAndRightsDao;
 import nl.codebasesoftware.produx.dao.UserInvitationDao;
 import nl.codebasesoftware.produx.dao.UserProfileDao;
 import nl.codebasesoftware.produx.domain.Company;
+import nl.codebasesoftware.produx.domain.Role;
 import nl.codebasesoftware.produx.domain.UserInvitation;
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
@@ -21,7 +23,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 /**
  * User: rvanloen
@@ -37,6 +42,7 @@ public class UserInvitationServiceImpl implements UserInvitationService {
     private InvitationMailer invitationMailer;
     private MessageSource messageSource;
     private UserProfileDao userProfileDao;
+    private RolesAndRightsDao rolesAndRightsDao;
 
     @Resource
     Properties properties;
@@ -45,13 +51,15 @@ public class UserInvitationServiceImpl implements UserInvitationService {
     public UserInvitationServiceImpl(UserInvitationDao userInvitationDao, ConversionService conversionService,
                                      CompanyService companyService, InvitationMailer invitationMailer,
                                      MessageSource messageSource,
-                                     UserProfileDao userProfileDao) {
+                                     UserProfileDao userProfileDao,
+                                     RolesAndRightsDao rolesAndRightsDao) {
         this.userInvitationDao = userInvitationDao;
         this.conversionService = conversionService;
         this.companyService = companyService;
         this.invitationMailer = invitationMailer;
         this.messageSource = messageSource;
         this.userProfileDao = userProfileDao;
+        this.rolesAndRightsDao = rolesAndRightsDao;
     }
 
     @Override
@@ -76,6 +84,12 @@ public class UserInvitationServiceImpl implements UserInvitationService {
         return userInvitationDao.findByCode(code);
     }
 
+    @Override
+    @Transactional
+    public List<UserInvitation> findByInviter(long inviterProfileId){
+        return userInvitationDao.findByInviter(inviterProfileId);
+    }
+
     @Transactional(readOnly = true)
     public UserInvitation findByEmail(String email){
         return userInvitationDao.findByEmail(email);
@@ -85,7 +99,8 @@ public class UserInvitationServiceImpl implements UserInvitationService {
     public UserProfile activateProfile(BindableUserProfile profile){
         UserProfile userProfile = conversionService.convert(profile, UserProfile.class);
         UserInvitation invitation = userInvitationDao.findByEmail(profile.getEmail());
-        userProfile.setRoles(invitation.getRoles());
+        transferRoles(invitation, userProfile);
+
         userProfileDao.persist(userProfile);
 
         invitation.setActivated(true);
@@ -93,6 +108,20 @@ public class UserInvitationServiceImpl implements UserInvitationService {
         userInvitationDao.persist(invitation);
 
         return userProfile;
+    }
+
+
+    // This method transfers assigned roles from the invitation to the userprofile.
+    // Somehow doing it directly by calling the setRoles method of the profile
+    // with the getRoles method of the invitation as its argument
+    // creates a "found shared references to a collection" exception. Not sure why.
+    private void transferRoles(UserInvitation invitation, UserProfile profile){
+        Set<Role> roles = new HashSet<Role>();
+        for (Role role : invitation.getRoles()) {
+            Role persistedRole = rolesAndRightsDao.find(role.getId());
+            roles.add(persistedRole);
+        }
+        profile.setRoles(roles);
     }
 
 

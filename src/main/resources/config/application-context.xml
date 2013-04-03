@@ -103,6 +103,7 @@
                 <bean class="nl.codebasesoftware.produx.conversion.BindableUserInvitationToUserInvitation"/>
                 <bean class="nl.codebasesoftware.produx.conversion.UserInvitationToBindableUserProfile"/>
                 <bean class="nl.codebasesoftware.produx.conversion.BindableUserProfileToUserProfile"/>
+                <bean class="nl.codebasesoftware.produx.conversion.UserProfileToBindableUserProfile"/>
             </set>
         </property>
     </bean>

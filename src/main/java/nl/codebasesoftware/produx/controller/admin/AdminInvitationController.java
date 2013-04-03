@@ -88,7 +88,7 @@ public class AdminInvitationController {
 
 
     private void setInvitationData(Model model) {
-        model.addAttribute("companyRoles", rolesAndRightService.findCompanyRoles());
+        model.addAttribute("companyRoles", rolesAndRightService.findUserAssignableRoles());
         model.addAttribute("mainContent", "forms/userInvitation");
     }
 

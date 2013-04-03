@@ -19,12 +19,12 @@ public class RolesAndRightsDaoJpa extends GenericDaoJpa<Role> implements RolesAn
     }
 
     @Override
-    public List<Role> findCompanyRoles() {
-        return entityManager.createQuery("from Role r where r.companyAdminRole = true order by r.listRank").getResultList();
+    public List<Role> findByIds(List<Long> roleIds) {
+        return entityManager.createQuery("from Role r where r.id in (:ids)").setParameter("ids", roleIds).getResultList();
     }
 
     @Override
-    public List<Role> findByIds(List<Long> roleIds) {
-        return entityManager.createQuery("from Role r where r.id in (:ids)").setParameter("ids", roleIds).getResultList();
+    public List<Role> findUserAssignableRoles() {
+        return entityManager.createQuery("from Role r where r.userAssignable = true").getResultList();
     }
 }

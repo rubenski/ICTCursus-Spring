@@ -14,6 +14,15 @@
         <form:errors path="firstName" cssClass="form-error"/>
     </div>
 
+    <%-- preposition --%>
+    <div class="default-block">
+        <form:label path="preposition">
+            <spring:message code="user.genericlabel.preposition"/>
+        </form:label>
+        <form:input path="preposition" cssErrorClass="form-input-error"/>
+        <form:errors path="preposition" cssClass="form-error"/>
+    </div>
+
     <%-- last name --%>
     <div class="default-block">
         <form:label path="lastName">

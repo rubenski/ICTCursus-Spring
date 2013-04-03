@@ -4,6 +4,8 @@ import nl.codebasesoftware.produx.dao.UserInvitationDao;
 import nl.codebasesoftware.produx.domain.UserInvitation;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * User: rvanloen
  * Date: 21-3-13
@@ -26,4 +28,9 @@ public class UserInvitationDaoJpa extends GenericDaoJpa<UserInvitation> implemen
         return getSingleResult(entityManager.createQuery("from UserInvitation ui where ui.securityCode = :code").setParameter("code", code));
     }
 
+    @Override
+    public List<UserInvitation> findByInviter(long inviterProfileId) {
+        return entityManager.createQuery("from UserInvitation ui where ui.invitedBy.id = :inviterId")
+                .setParameter("inviterId", inviterProfileId).getResultList();
+    }
 }

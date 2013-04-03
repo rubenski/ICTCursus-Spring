@@ -26,7 +26,7 @@ public class UserProfileValidator implements Validator {
             errors.rejectValue("firstName", "error.user.firstName");
         }
 
-        if(!ProduxValidator.isValidFirstName(userProfile.getLastName())){
+        if(!ProduxValidator.isValidLastName(userProfile.getLastName())){
             errors.rejectValue("lastName", "error.user.lastName");
         }
 
@@ -34,12 +34,16 @@ public class UserProfileValidator implements Validator {
             errors.rejectValue("password1", "error.user.password");
         }
 
-        if(userProfile.getPassword1().equals(userProfile.getPassword2())){
+        if(!userProfile.getPassword1().equals(userProfile.getPassword2())){
             errors.rejectValue("password2", "error.user.password.nomatch");
         }
 
-        if(ProduxValidator.isValidPhoneNumber(userProfile.getPhone())){
+        if(!ProduxValidator.isValidPhoneNumber(userProfile.getPhone())){
             errors.rejectValue("phone", "error.user.phone");
+        }
+
+        if(!ProduxValidator.isValidPreposition(userProfile.getPreposition())){
+            errors.rejectValue("preposition", "error.user.preposition");
         }
 
     }

@@ -13,4 +13,5 @@ public interface UserProfileService {
     UserProfile findByEmail(String email);
     void update(UserProfile profile);
     List<UserProfile> findByCompany(long companyId);
+    UserProfile findById(long id);
 }

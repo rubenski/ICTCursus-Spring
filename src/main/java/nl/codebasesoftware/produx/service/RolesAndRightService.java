@@ -10,7 +10,7 @@ import java.util.List;
  * Time: 18:54
  */
 public interface RolesAndRightService {
-    List<Role> findCompanyRoles();
+
     List<Role> findByIds(List<Long> roleIds);
-    List<Role> getDefaultRoles();
+    List<Role> findUserAssignableRoles();
 }

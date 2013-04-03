@@ -21,4 +21,8 @@
             <li><a href="/admin/users"><spring:message code="admin.sections.users"/></a></li>
         </sec:authorize>
     </ul>
+    <br>
+    <ul>
+        <li><a href="<c:url value="/admin/logout" />">Uitloggen</a></li>
+    </ul>
 </div>

@@ -5,9 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class UserProfile implements DomainObject, UserDetails {
@@ -16,6 +14,7 @@ public class UserProfile implements DomainObject, UserDetails {
     private String email;
     private String passwordHash;
     private String firstName;
+    private String preposition;
     private String lastName;
     private String phone;
     private Company company;
@@ -71,6 +70,14 @@ public class UserProfile implements DomainObject, UserDetails {
         this.firstName = firstName;
     }
 
+    public String getPreposition() {
+        return preposition;
+    }
+
+    public void setPreposition(String preposition) {
+        this.preposition = preposition;
+    }
+
     @Column(nullable = false)
     public String getLastName() {
         return lastName;
@@ -98,7 +105,9 @@ public class UserProfile implements DomainObject, UserDetails {
         this.company = company;
     }
 
-    @ManyToMany (fetch = FetchType.EAGER)
+    // Note: CascadeType.ALL does not remove orphans from the database on a many-to-many relationship, unfortunately
+    // http://stackoverflow.com/questions/3055407/how-do-i-delete-orphan-entities-using-hibernate-and-jpa-on-a-many-to-many-relati
+    @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public Set<Role> getRoles() {
         return roles;
     }
@@ -107,7 +116,7 @@ public class UserProfile implements DomainObject, UserDetails {
         this.roles = roles;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
+    @OneToMany(fetch = FetchType.LAZY)
     public Set<Article> getArticles() {
         return articles;
     }
@@ -165,6 +174,26 @@ public class UserProfile implements DomainObject, UserDetails {
     public boolean isEnabled() {
         return enabled;
     }
+
+    @Transient
+    public String getFullNameFormal(){
+        return preposition != null ? String.format("%s, %s  %s", lastName, firstName, preposition) : String.format("%s, %s", lastName, firstName);
+    }
+
+    @Transient
+    public String getFullNameInformal(){
+        return preposition != null ? String.format("%s %s %s", firstName, preposition, lastName) : String.format("%s %s", firstName, lastName);
+    }
+
+    @Transient
+    public List<Long> getRoleIds(){
+        List<Long> ids = new ArrayList<Long>();
+        for (Role role : roles) {
+            ids.add(role.getId());
+        }
+        return ids;
+    }
+
 
 
 }

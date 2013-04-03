@@ -11,10 +11,11 @@
 <form:form method="post" modelAttribute="userProfile">
 
     <form:hidden path="companyId"/>
+    <form:hidden path="email"/>
 
     <div class="default-block">
         <form:label path="email"><spring:message code="user.genericlabel.email"/></form:label>
-        <form:input path="email" cssClass="form-input" cssErrorClass="form-input-error" size="60" maxlength="60" disabled="true"/>
+        <input cssClass="form-input" cssErrorClass="form-input-error" size="60" maxlength="60" disabled="true" value="${userProfile.email}"/>
         <form:errors path="email" cssClass="form-error"/>
     </div>
 
@@ -22,6 +23,12 @@
         <form:label path="firstName"><spring:message code="user.genericlabel.firstname"/></form:label>
         <form:input path="firstName" cssClass="form-input" cssErrorClass="form-input-error" size="60" maxlength="60"/>
         <form:errors path="firstName" cssClass="form-error"/>
+    </div>
+
+    <div class="default-block">
+        <form:label path="preposition"><spring:message code="user.genericlabel.preposition"/></form:label>
+        <form:input path="preposition" cssClass="form-input" cssErrorClass="form-input-error" size="60" maxlength="60"/>
+        <form:errors path="preposition" cssClass="form-error"/>
     </div>
 
     <div class="default-block">
@@ -35,6 +42,20 @@
         <form:input path="phone" cssClass="form-input" cssErrorClass="form-input-error" size="60" maxlength="60"/>
         <form:errors path="phone" cssClass="form-error"/>
     </div>
+
+    <c:if test="${rolesEditable == 1}">
+        <div class="default-block">
+            <form:label path="roles">
+                <spring:message code="user.genericlabel.access"/>
+                <span><spring:message code="user.invitation.roles.helptext"/></span>
+            </form:label>
+            <c:forEach items="${assignableRoles}" var="role">
+                <span class="blockCheckBox"><form:checkbox path="roles" value="${role.id}" label="${role.displayName}" /></span><br/>
+            </c:forEach>
+            <form:errors path="roles" cssClass="form-error"/>
+        </div>
+    </c:if>
+
 
     <div class="default-block">
         <form:label path="password1"><spring:message code="user.genericlabel.password"/></form:label>

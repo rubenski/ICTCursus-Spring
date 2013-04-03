@@ -39,6 +39,18 @@ public class ProduxValidator {
     public static boolean isValidPhoneNumber(String phone){
         Pattern p = Pattern.compile("[0-9 +-]{10,14}");
         Matcher m = p.matcher(phone);
+        boolean matches = m.matches();
+        return matches;
+    }
+
+    public static boolean isValidPreposition(String preposition){
+
+        if(preposition == null || preposition == ""){
+            return true;
+        }
+
+        Pattern p = Pattern.compile("[A-Za-z' -]{1,10}");
+        Matcher m = p.matcher(preposition);
         return m.matches();
     }
 }

@@ -43,8 +43,6 @@ public class AccountActivationController {
     @RequestMapping(value = "/users/activate/{securityCode}", method = RequestMethod.GET)
     public String activateAccountForm(@PathVariable("securityCode") String securityCode, Model model) {
 
-
-
         UserInvitation userInvitation = userInvitationService.findBySecurityCode(securityCode);
         UserProfile existingProfile = userProfileService.findByEmail(userInvitation.getEmail());
 
@@ -75,10 +73,14 @@ public class AccountActivationController {
 
         if(!result.hasErrors()){
             userInvitationService.activateProfile(profile);
+            model.addAttribute("activationSucceeded", 1);
+        } else {
+            model.addAttribute("activationSucceeded", 0);
         }
 
-        model.addAttribute("userProfile", profile);
         model.addAttribute("mainContent", "forms/activateAccount");
+        model.addAttribute("userProfile", profile);
+
 
         return "main";
     }

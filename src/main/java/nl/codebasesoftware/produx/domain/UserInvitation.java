@@ -13,6 +13,7 @@ public class UserInvitation implements DomainObject {
 
     private Long id;
     private String firstName;
+    private String preposition;
     private String lastName;
     private String securityCode;
     private String email;
@@ -50,6 +51,15 @@ public class UserInvitation implements DomainObject {
         this.securityCode = securityCode;
     }
 
+    @Column(nullable = true)
+    public String getPreposition() {
+        return preposition;
+    }
+
+    public void setPreposition(String preposition) {
+        this.preposition = preposition;
+    }
+
     @Column(nullable = false)
     public String getLastName() {
         return lastName;
@@ -68,7 +78,7 @@ public class UserInvitation implements DomainObject {
         this.email = email;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     public Company getCompany() {
         return company;
     }
@@ -102,5 +112,10 @@ public class UserInvitation implements DomainObject {
 
     public void setActivated(boolean activated) {
         this.activated = activated;
+    }
+
+    @Transient
+    public String getFullNameFormal(){
+        return preposition != null ? String.format("%s, %s  %s", lastName, firstName, preposition) : String.format("%s, %s", lastName, firstName);
     }
 }

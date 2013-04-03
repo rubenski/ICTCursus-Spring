@@ -1,13 +1,9 @@
 package nl.codebasesoftware.produx.conversion;
 
-import nl.codebasesoftware.produx.dao.CompanyDao;
 import nl.codebasesoftware.produx.domain.Company;
-import nl.codebasesoftware.produx.domain.UserInvitation;
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.formdata.BindableUserProfile;
 import nl.codebasesoftware.produx.service.CompanyService;
-import nl.codebasesoftware.produx.service.RolesAndRightService;
-import nl.codebasesoftware.produx.service.UserInvitationService;
 import nl.codebasesoftware.produx.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
@@ -41,6 +37,7 @@ public class BindableUserProfileToUserProfile implements Converter<BindableUserP
         profile.setPasswordHash(SecurityUtil.createPasswordHash(bindableUserProfile.getPassword1()));
         profile.setEnabled(true);
         profile.setPhone(bindableUserProfile.getPhone());
+        profile.setPreposition(bindableUserProfile.getPreposition());
 
         return profile;
 

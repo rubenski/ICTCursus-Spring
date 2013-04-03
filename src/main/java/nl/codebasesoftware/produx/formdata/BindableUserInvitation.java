@@ -13,6 +13,7 @@ public class BindableUserInvitation implements Serializable {
 
     private Long companyId;
     private String firstName;
+    private String preposition;
     private String lastName;
     private String email;
     private String securityCode;
@@ -46,6 +47,14 @@ public class BindableUserInvitation implements Serializable {
         this.firstName = firstName;
     }
 
+    public String getPreposition() {
+        return preposition;
+    }
+
+    public void setPreposition(String preposition) {
+        this.preposition = preposition;
+    }
+
     public String getLastName() {
         return lastName;
     }
@@ -77,4 +86,5 @@ public class BindableUserInvitation implements Serializable {
     public void setConfirmationScreen(boolean confirmationScreen) {
         this.confirmationScreen = confirmationScreen;
     }
+
 }

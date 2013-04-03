@@ -1,5 +1,8 @@
 package nl.codebasesoftware.produx.formdata;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * User: rvanloen
  * Date: 28-3-13
@@ -13,9 +16,11 @@ public class BindableUserProfile {
     private String password2;
     private String phone;
     private String firstName;
+    private String preposition;
     private String lastName;
     private boolean emailEditable;
     private Long companyId;
+    private List<Long> roles = new ArrayList<Long>();
 
     public String getEmail() {
         return email;
@@ -39,6 +44,14 @@ public class BindableUserProfile {
 
     public void setInvitationId(Long invitationId) {
         this.invitationId = invitationId;
+    }
+
+    public String getPreposition() {
+        return preposition;
+    }
+
+    public void setPreposition(String preposition) {
+        this.preposition = preposition;
     }
 
     public String getLastName() {
@@ -87,5 +100,13 @@ public class BindableUserProfile {
 
     public void setCompanyId(Long companyId) {
         this.companyId = companyId;
+    }
+
+    public List<Long> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Long> roles) {
+        this.roles = roles;
     }
 }

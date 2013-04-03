@@ -16,6 +16,7 @@ public class Role implements DomainObject {
     private String systemName;
     private String displayName;
     private boolean companyAdminRole;
+    private boolean userAssignable;
     private int listRank;
 
 
@@ -73,6 +74,14 @@ public class Role implements DomainObject {
 
     public void setListRank(int listRank) {
         this.listRank = listRank;
+    }
+
+    public boolean isUserAssignable() {
+        return userAssignable;
+    }
+
+    public void setUserAssignable(boolean userAssignable) {
+        this.userAssignable = userAssignable;
     }
 
     @Transient

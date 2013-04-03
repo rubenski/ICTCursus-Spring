@@ -4,14 +4,24 @@
     min-height: 200px;
     height: auto !important;
     height: 200px;
-    background-color: #a6a5a5;
+    background-color: #9e9d9d;
+}
+
+#wrapper #middle .default-block table {
+    padding:  5px 0px 15px 0px;
 }
 
 #wrapper #middle .default-block table th {
-    font-size: 20px;
+    font-size: 14px;
     text-align: left;
     padding: 7px;
-    font-weight: normal;
+    font-weight: bold;
+    color: #fcfbfb;
+    background-color: #9e9d9d;
+}
+
+#wrapper #middle .default-block table tr {
+    background-color: #fbfbfa;
 }
 
 #wrapper #middle .default-block table td {
@@ -95,6 +105,12 @@
 
 .default-block h1 {
     font-size: 20px;
+}
+
+.default-block h2 {
+    font-size: 18px;
+    padding:  4px 0px 7px 0px;
+    font-weight: normal;
 }
 
 .default-block label {
