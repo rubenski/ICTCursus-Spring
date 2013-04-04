@@ -5,6 +5,7 @@
 
 <div class="default-block">
     <ul>
+        <li><a href="/admin">Home</a></li>
         <sec:authorize access="hasRole('ROLE_PERM_edit_company_courses') or hasRole('ROLE_PERM_edit_everything')">
             <li><a href="/admin/course"><spring:message code="admin.sections.courses"/></a></li>
         </sec:authorize>
@@ -20,6 +21,13 @@
         <sec:authorize access="hasRole('ROLE_PERM_edit_company_users') or hasRole('ROLE_PERM_edit_everything')">
             <li><a href="/admin/users"><spring:message code="admin.sections.users"/></a></li>
         </sec:authorize>
+        <sec:authorize access="hasRole('ROLE_PERM_edit_company_users') or hasRole('ROLE_PERM_edit_everything')">
+            <li><a href="/admin/invitations"><spring:message code="admin.sections.invitations"/></a></li>
+        </sec:authorize>
+    </ul>
+    <br>
+    <ul>
+        <li><a href="<c:url value="/admin/myprofile" />">Mijn profiel</a></li>
     </ul>
     <br>
     <ul>

@@ -12,12 +12,12 @@
 }
 
 #wrapper #middle .default-block table th {
-    font-size: 14px;
+    font-size: 13px;
     text-align: left;
     padding: 7px;
     font-weight: bold;
-    color: #fcfbfb;
-    background-color: #9e9d9d;
+    color: #fffefe;
+    background-color: #00ccff;
 }
 
 #wrapper #middle .default-block table tr {
@@ -117,6 +117,10 @@
     display: block;
     padding-bottom: 7px;
     font-size: 18px;
+}
+
+.default-block a {
+    color: #007395;
 }
 
 .default-block .inlineCheckBox label {

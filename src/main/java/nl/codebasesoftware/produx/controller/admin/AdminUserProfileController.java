@@ -45,7 +45,7 @@ public class AdminUserProfileController {
                                       MessageSource messageSource,
                                       ConversionService conversionService,
                                       RolesAndRightService rolesAndRightService,
-                                        UserInvitationService invitationService) {
+                                      UserInvitationService invitationService) {
         this.userProfileService = userProfileService;
         this.companyService = companyService;
         this.messageSource = messageSource;
@@ -60,12 +60,9 @@ public class AdminUserProfileController {
         String headerText = messageSource.getMessage("admin.sections.users", new Object[]{}, locale);
         Company loggedInCompany = companyService.getCurrentlyLoggedInCompany();
         List<UserProfile> profiles = userProfileService.findByCompany(loggedInCompany.getId());
-        List<UserInvitation> invitations = invitationService.findByInviter(CurrentUser.get().getId());
 
-        model.addAttribute("numberOfInvitations", invitations.size());
         model.addAttribute("numberOfOtherUsers", profiles.size());
         model.addAttribute("profiles", profiles);
-        model.addAttribute("invitations", invitations);
         model.addAttribute("headerText", headerText);
         model.addAttribute("mainContent", "content/adminUserProfiles");
 
@@ -89,8 +86,8 @@ public class AdminUserProfileController {
         BindableUserProfile bindableUserProfile = conversionService.convert(userProfile, BindableUserProfile.class);
 
         List<ProfileStatus> statuses = new ArrayList<ProfileStatus>();
-        statuses.add(new ProfileStatus(0, inactive));
-        statuses.add(new ProfileStatus(1, active));
+        statuses.add(new ProfileStatus(false, inactive));
+        statuses.add(new ProfileStatus(true, active));
 
         model.addAttribute("statuses", statuses);
         model.addAttribute("assignableRoles", rolesAndRightService.findUserAssignableRoles());
@@ -101,21 +98,23 @@ public class AdminUserProfileController {
         return "adminMain";
     }
 
+
+
     private static class ProfileStatus {
-        private int status;
+        private boolean enabled;
         private String name;
 
-        private ProfileStatus(int status, String name) {
+        private ProfileStatus(boolean enabled, String name) {
             this.name = name;
-            this.status = status;
+            this.enabled = enabled;
+        }
+
+        public boolean isEnabled() {
+            return enabled;
         }
 
         public String getName() {
             return name;
-        }
-
-        public int getStatus() {
-            return status;
         }
     }
 

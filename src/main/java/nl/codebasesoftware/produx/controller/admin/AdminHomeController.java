@@ -1,7 +1,5 @@
 package nl.codebasesoftware.produx.controller.admin;
 
-import nl.codebasesoftware.produx.service.CompanyService;
-import nl.codebasesoftware.produx.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,16 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Time: 11:48
  */
 @Controller
-@RequestMapping(value = "/admin/home")
+@RequestMapping(value = "/admin")
 public class AdminHomeController {
 
-    private CompanyService companyService;
-    private CourseService courseService;
 
-    @Autowired
-    public AdminHomeController(CompanyService companyService, CourseService courseService) {
-        this.companyService = companyService;
-        this.courseService = courseService;
+    public AdminHomeController() {
+
     }
 
     @RequestMapping(method = RequestMethod.GET)

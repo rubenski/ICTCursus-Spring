@@ -1,10 +1,12 @@
 package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.Role;
+import nl.codebasesoftware.produx.domain.UserInvitation;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.formdata.BindableUserInvitation;
 import nl.codebasesoftware.produx.service.RolesAndRightService;
 import nl.codebasesoftware.produx.service.UserInvitationService;
+import nl.codebasesoftware.produx.service.support.CurrentUser;
 import nl.codebasesoftware.produx.validator.UserInvitationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -33,6 +35,8 @@ public class AdminInvitationController {
     private UserInvitationValidator userInvitationValidator;
     private RolesAndRightService rolesAndRightService;
 
+
+
     @Autowired
     public AdminInvitationController(MessageSource messageSource,
                                      UserInvitationService userInvitationService,
@@ -44,7 +48,21 @@ public class AdminInvitationController {
         this.rolesAndRightService = rolesAndRightService;
     }
 
-    @RequestMapping(value = "/admin/users/invite", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/invitations", method = RequestMethod.GET)
+    public String getInvitations(Model model, Locale locale){
+        String headerText = messageSource.getMessage("admin.sections.invitations", new Object[]{}, locale);
+
+        List<UserInvitation> invitations = userInvitationService.findByInviter(CurrentUser.get().getId());
+
+        model.addAttribute("numberOfInvitations", invitations.size());
+        model.addAttribute("invitations", invitations);
+        model.addAttribute("headerText", headerText);
+        model.addAttribute("mainContent", "content/adminUserInvitations");
+
+        return "adminMain";
+    }
+
+    @RequestMapping(value = "/admin/invitations/invite", method = RequestMethod.POST)
     public String processForm(@ModelAttribute("userInvitation") BindableUserInvitation userInvitation, Model model, Locale locale,
                               BindingResult result, HttpServletRequest request) {
 
@@ -78,7 +96,7 @@ public class AdminInvitationController {
         return "adminMain";
     }
 
-    @RequestMapping(value = "/admin/users/invite", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/invitations/invite", method = RequestMethod.GET)
     public String createUserForm(Model model, Locale locale) {
         setInvitationData(model);
         setHeader(model, locale);
@@ -86,7 +104,7 @@ public class AdminInvitationController {
         return "adminMain";
     }
 
-    @RequestMapping(value = "/admin/users/invite/revoke/{id}")
+    @RequestMapping(value = "/admin/invitations/revoke/{id}")
     public String revokeInvitation(@PathVariable("id") Long invitationdId, Model model) {
 
         userInvitationService.removeInvitation(invitationdId);

@@ -12,7 +12,7 @@
         <security:logout logout-url="/admin/logout" logout-success-url="/" invalidate-session="true"/>
 
 
-        <form-login login-page="/login" default-target-url="/admin/home" authentication-failure-url="/login?error=true" />
+        <form-login login-page="/login" default-target-url="/admin" authentication-failure-url="/login?error=true" />
     </http>
 
     <global-method-security pre-post-annotations="enabled"/>

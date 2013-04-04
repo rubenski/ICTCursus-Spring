@@ -56,25 +56,14 @@
         </div>
     </c:if>
 
-
-    <div class="default-block">
-        <form:label path="password1"><spring:message code="user.genericlabel.password"/></form:label>
-        <form:password path="password1" cssClass="form-input" cssErrorClass="form-input-error" size="60" maxlength="60"/>
-        <form:errors path="password1" cssClass="form-error"/>
-    </div>
-
-    <div class="default-block">
-        <form:label path="password2"><spring:message code="user.genericlabel.password.repeat"/></form:label>
-        <form:password path="password2" cssClass="form-input" cssErrorClass="form-input-error" size="60" maxlength="60"/>
-        <form:errors path="password2" cssClass="form-error"/>
-    </div>
-
-    <div class="default-block">
-        <form:label path="enabled"><spring:message code="generic.message.status"/></form:label>
-        <form:select path="enabled" cssClass="form-input" cssErrorClass="form-input-error">
-            <form:options items="${statuses}" itemValue="status" itemLabel="name"/>
-        </form:select>
-    </div>
+    <c:if test="${rolesEditable == 1}">
+        <div class="default-block">
+            <form:label path="enabled"><spring:message code="generic.message.status"/></form:label>
+            <form:select path="enabled" cssClass="form-input" cssErrorClass="form-input-error">
+                <form:options items="${statuses}" itemValue="enabled" itemLabel="name"/>
+            </form:select>
+        </div>
+    </c:if>
 
     <div class="default-block">
         <input type="submit" class="submitbutton" value="Verzenden"/>
