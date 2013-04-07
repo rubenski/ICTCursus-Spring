@@ -119,15 +119,15 @@ public class AdminCourseController {
     public String updateCourse(@ModelAttribute("bindableCourse") BindableCourse bindableCourse, BindingResult result, Model model, Locale locale) {
         validator.validate(bindableCourse, result);
 
-        String courseValid = "false";
+        String valid = "false";
 
         if (!result.hasErrors()) {
             courseService.saveOrUpdate(bindableCourse);
-            courseValid = "true";
+            valid = "true";
         }
 
         model.addAttribute("mainContent", "forms/editCourse");
-        model.addAttribute("courseValid", courseValid);
+        model.addAttribute("valid", valid);
         addDataToModel(model, locale);
         return "adminMain";
 

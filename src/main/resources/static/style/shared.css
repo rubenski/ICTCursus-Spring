@@ -55,8 +55,3 @@ textarea:focus, input:focus, select:focus {
     outline:  none;
 }
 
-.error {
-    display: block;
-    color: red;
-    padding: 10px 10px 10px 0px;
-}

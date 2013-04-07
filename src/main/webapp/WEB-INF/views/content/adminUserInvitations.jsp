@@ -11,14 +11,18 @@
             <table cellpadding="4" width="600">
                 <tr>
                     <th><spring:message code="user.genericlabel.name"/></th>
+                    <th><spring:message code="user.genericlabel.email"/></th>
                     <th><spring:message code="invitation.used"/></th>
                     <th><spring:message code="generic.message.date"/></th>
-                    <th><spring:message code="invitation.revoke"/></th>
+
                 </tr>
                 <c:forEach items="${invitations}" var="invitation">
                     <tr>
                         <td>
-                            ${invitation.fullNameFormal}
+                                ${invitation.fullNameFormal}
+                        </td>
+                        <td>
+                                ${invitation.email}
                         </td>
                         <td>
                             <c:choose>
@@ -34,9 +38,7 @@
                             <fmt:formatDate value="${invitation.creationDate}" type="date" pattern="dd-MM-yyyy"/>
                         </td>
                         <td>
-                            <c:if test="${!invitation.activated}">
-                                <a href="/admin/invitations/revoke/${invitation.id}"><spring:message code="invitation.revoke"/></a>
-                            </c:if>
+                            <a href="/admin/invitations/revoke/${invitation.id}"><spring:message code="generic.message.remove"/></a>
                         </td>
                     </tr>
                 </c:forEach>

@@ -5,6 +5,8 @@
 
 <form:form method="post" modelAttribute="userInvitation" id="userInvitationForm">
 
+    <jsp:include page="submitmessage.jsp"/>
+
     <%-- first name --%>
     <div class="default-block">
         <form:label path="firstName">

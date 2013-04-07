@@ -2,12 +2,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
+
 <div class="default-block">
-    <a href="/admin/course/add">Cursus toevoegen</a>
-</div>
-<div class="default-block">
-<c:choose>
-    <c:when test="${numberOfCourses > 0}">
+    <h2><spring:message code="admin.your.courses"/></h2>
+    <c:choose>
+        <c:when test="${numberOfCourses > 0}">
 
             <table cellpadding="4" width="600">
                 <tr>
@@ -26,10 +25,14 @@
                 </c:forEach>
             </table>
 
-    </c:when>
-    <c:otherwise>
-        <spring:message code="management.home.nocourses.message"/>
-    </c:otherwise>
-</c:choose>
+        </c:when>
+        <c:otherwise>
+            <spring:message code="management.home.nocourses.message"/>
+        </c:otherwise>
+    </c:choose>
+</div>
+<div class="default-block">
+    <h2><spring:message code="admin.add.course"/></h2>
+    <a href="/admin/course/add"><spring:message code="admin.add.course.linktext"/></a>
 </div>
 

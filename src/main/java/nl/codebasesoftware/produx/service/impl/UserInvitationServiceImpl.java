@@ -8,8 +8,8 @@ import nl.codebasesoftware.produx.domain.Role;
 import nl.codebasesoftware.produx.domain.UserInvitation;
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
+import nl.codebasesoftware.produx.formdata.AccountActivationFormData;
 import nl.codebasesoftware.produx.formdata.BindableUserInvitation;
-import nl.codebasesoftware.produx.formdata.BindableUserProfile;
 import nl.codebasesoftware.produx.net.mail.InvitationMailer;
 import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.service.UserInvitationService;
@@ -61,7 +61,7 @@ public class UserInvitationServiceImpl implements UserInvitationService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = false)
     public void inviteUserForCurrentCompany(BindableUserInvitation bindableInvitation) throws ProduxServiceException {
         Locale locale = Locale.getDefault();
         setSecurityCode(bindableInvitation);
@@ -100,22 +100,43 @@ public class UserInvitationServiceImpl implements UserInvitationService {
         UserProfile currentUser = CurrentUser.get();
 
         // Someone is trying to remove an invitation that is not his/hers or that has already been activated
-        if (invitation == null || !currentUser.equals(invitation.getInvitedBy()) || invitation.isActivated()) {
+        if (invitation == null || !currentUser.equals(invitation.getInvitedBy())) {
             return;
         }
 
         userInvitationDao.delete(invitation);
     }
 
-    @Transactional
-    public UserProfile activateProfile(BindableUserProfile profile) {
-        UserProfile userProfile = conversionService.convert(profile, UserProfile.class);
-        UserInvitation invitation = userInvitationDao.findByEmail(profile.getEmail());
-        transferRoles(invitation, userProfile);
+     private Long companyId;
+    private Long invitationId;
+    private String email;
+    private String firstName;
+    private String preposition;
+    private String lastName;
+    private String phone;
 
+    @Transactional(readOnly = false)
+    public UserProfile activateProfile(AccountActivationFormData activationData) {
+        UserProfile userProfile = new UserProfile();
+        Company company = companyService.findById(activationData.getCompanyId());
+
+        userProfile.setCompany(company);
+        userProfile.setEmail(activationData.getEmail());
+        userProfile.setEnabled(true);
+        userProfile.setFirstName(activationData.getFirstName());
+        userProfile.setPreposition(activationData.getPreposition());
+        userProfile.setLastName(activationData.getLastName());
+        userProfile.setPhone(activationData.getPhone());
+        userProfile.setPasswordHash(SecurityUtil.createPasswordHash(activationData.getPassword1()));
+
+        // Set invitation to activated
+        UserInvitation invitation = userInvitationDao.findByEmail(activationData.getEmail());
+        invitation.setActivated(true);
+
+        // Transfer roles from invitation to user profile
+        transferRoles(invitation, userProfile);
         userProfileDao.persist(userProfile);
 
-        invitation.setActivated(true);
 
         userInvitationDao.persist(invitation);
 

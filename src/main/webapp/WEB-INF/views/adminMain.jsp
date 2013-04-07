@@ -12,7 +12,9 @@
     <script type="text/javascript" src="/static/libs/jquery-ui-1.10.1.custom/js/jquery-ui-1.10.1.custom.min.js"></script>
     <script type="text/javascript" src="/static/libs/jquery-ui-1.10.1.custom/js/datepicker-lang/jquery.ui.datepicker-nl.js"></script>
     <script type="text/javascript" src="/static/javascript/courseform.js"></script>
-    <script type="text/javascript" src="/static/javascript/file-upload.js"></script>
+    <c:if test="${companyform}">
+        <script type="text/javascript" src="/static/javascript/file-upload.js"></script>
+    </c:if>
     <script type="text/javascript" src="/static/javascript/tiny_mce/tiny_mce.js"></script>
 
     <script type="text/javascript">

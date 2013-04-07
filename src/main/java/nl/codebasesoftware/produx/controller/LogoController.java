@@ -1,14 +1,9 @@
 package nl.codebasesoftware.produx.controller;
 
-import nl.codebasesoftware.produx.domain.Company;
-import nl.codebasesoftware.produx.domain.Logo;
-import nl.codebasesoftware.produx.domain.dto.LogoDTO;
 import nl.codebasesoftware.produx.formdata.BindableFileUpload;
 import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.util.ImageUtil;
 import nl.codebasesoftware.produx.util.Properties;
-import nl.codebasesoftware.produx.util.SecurityUtil;
-import nl.codebasesoftware.produx.util.support.ImageType;
 import nl.codebasesoftware.produx.validator.LogoUploadFormValidator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +12,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Locale;
 
@@ -49,24 +48,25 @@ public class LogoController {
     @RequestMapping(value = "/admin/logo/upload", method = RequestMethod.POST)
     public String createOrUpdateLogo(@ModelAttribute("bindableFileUpload") BindableFileUpload bindableFileUpload, BindingResult result, Model model, Locale locale) {
 
-        Company company = companyService.getCurrentlyLoggedInCompany();
 
         validator.validate(bindableFileUpload, result);
 
         String error = "";
         if (!result.hasErrors()) {
 
-            String logoWidthHeight = properties.getProperty("logo.widthheight");
-            int widthAndHeight = Integer.parseInt(logoWidthHeight);
-            Logo logo = null;
-            logo = createLogoFromForm(bindableFileUpload, company);
+            String maxLengthString = properties.getProperty("logo.widthheight");
+            int maxLength = Integer.parseInt(maxLengthString);
 
-            boolean success = scaleAndSave(logo, bindableFileUpload, widthAndHeight);
-
-            if (success) {
-                // update image name in company entity
-                companyService.setLogo(logo, company.getId());
+            byte[] bytes = null;
+            CommonsMultipartFile fileData = bindableFileUpload.getFileData();
+            try {
+                bytes = ImageUtil.resize(fileData.getInputStream(), maxLength);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+
+            companyService.updateLogo(bytes);
+
 
         } else {
             FieldError fieldError = result.getFieldError("fileData");
@@ -81,48 +81,29 @@ public class LogoController {
 
     }
 
-    private boolean scaleAndSave(Logo logo, BindableFileUpload logoUpload, int maxLength) {
-        BufferedImage bufferedImage = null;
+    @RequestMapping(value = "/logo/{imageName}")
+    public void getLogo(@PathVariable("imageName") String imageName, HttpServletResponse response) {
+
+        response.setContentType("image/png");
+
+        byte[] logo = companyService.getLogo(idFromImageName(imageName));
+        ServletOutputStream outputStream = null;
+
         try {
-            bufferedImage = ImageUtil.scaleImage(logoUpload.getFileData().getInputStream(), maxLength);
+            outputStream = response.getOutputStream();
+            outputStream.write(logo);
+            outputStream.flush();
+            outputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return ImageUtil.saveImage(bufferedImage, logo.getFullPath());
     }
 
-    @RequestMapping(value = "/logo/{companyId}")
-    public @ResponseBody LogoDTO getLogo(@PathVariable("companyId") Long companyId) {
-
-        Company company = companyService.findById(companyId);
-
-        if (company == null) {
-            return null;
-        }
-
-        String logoDir = properties.getProperty("logo.uploaddir");
-        String fileNameLengthString = properties.getProperty("logo.filename.length");
-
-        Integer fileNameLength = null;
-        try {
-            fileNameLength = Integer.parseInt(fileNameLengthString);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Could not get file name length. Did you properly set logo.filename.length in environment.properties?");
-        }
-
-        String fileName = company.getLogo() == null ? SecurityUtil.randomAlphaNumericString(fileNameLength) : company.getLogo().getFullFileName();
-
-        String logoPath = String.format("%s%s", logoDir, fileName);
-        String base64EncodedImage = ImageUtil.encodeBase64(new File(logoPath));
-
-        if (base64EncodedImage == null) {
-            return null;
-        }
-
-        return new LogoDTO(base64EncodedImage);
+    private Long idFromImageName(String imageName) {
+        return Long.parseLong(imageName.split("-")[0]);
     }
 
-
+    /*
     private Logo createLogoFromForm(BindableFileUpload bindableFileUpload, Company company) {
 
         String uploadDir = properties.getProperty("logo.uploaddir");
@@ -153,7 +134,7 @@ public class LogoController {
         logo.setDirectoryPath(uploadDir);
 
         return logo;
-    }
+    } */
 
 
 }

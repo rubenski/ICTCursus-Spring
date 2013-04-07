@@ -36,7 +36,6 @@ public class AdminInvitationController {
     private RolesAndRightService rolesAndRightService;
 
 
-
     @Autowired
     public AdminInvitationController(MessageSource messageSource,
                                      UserInvitationService userInvitationService,
@@ -49,7 +48,7 @@ public class AdminInvitationController {
     }
 
     @RequestMapping(value = "/admin/invitations", method = RequestMethod.GET)
-    public String getInvitations(Model model, Locale locale){
+    public String getInvitations(Model model, Locale locale) {
         String headerText = messageSource.getMessage("admin.sections.invitations", new Object[]{}, locale);
 
         List<UserInvitation> invitations = userInvitationService.findByInviter(CurrentUser.get().getId());
@@ -89,10 +88,10 @@ public class AdminInvitationController {
                 } catch (ProduxServiceException e) {
                     e.printStackTrace();
                 }
-                return "redirect:/admin/users";
+                return "redirect:/admin/invitations";
             }
         }
-
+        model.addAttribute("valid", "false");
         return "adminMain";
     }
 
@@ -109,7 +108,7 @@ public class AdminInvitationController {
 
         userInvitationService.removeInvitation(invitationdId);
 
-        return "redirect:/admin/users";
+        return "redirect:/admin/invitations";
     }
 
 

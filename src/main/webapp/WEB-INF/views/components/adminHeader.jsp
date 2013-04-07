@@ -1,4 +1,4 @@
-<div class="default-block">
+<div class="default-block header">
     <h1>${headerText}</h1>
     <span>
         ${headerDescription}

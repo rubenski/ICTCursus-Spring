@@ -44,6 +44,14 @@
     padding-top: 4px;
 }
 
+.error {
+    display: block;
+    color: red;
+    padding: 10px 10px 10px 0px;
+    font-weight: bold;
+}
+
+
 #wrapper #main-content form div.default-block input[disabled='true'] {
     background-color: #f0f2ed;
 }

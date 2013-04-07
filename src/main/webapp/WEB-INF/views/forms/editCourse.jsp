@@ -6,6 +6,9 @@
 
 <form:form method="post" modelAttribute="bindableCourse" id="courseForm">
 
+    <%-- error / success feedback --%>
+    <jsp:include page="submitmessage.jsp"/>
+
     <%-- Add hidden tag fields --%>
     <c:forEach items="${bindableCourse.tags}" var="tag">
         <input type="hidden" name="tags" value="${tag}"/>
@@ -18,16 +21,6 @@
 
     <%-- a hidden id --%>
     <form:hidden path="id"/>
-
-    <%-- error / success feedback --%>
-    <c:if test="${courseValid != ''}">
-        <c:if test="${courseValid == 'true'}">
-            <div id="validMessage" class="default-block"><spring:message code="course.form.valid"/></div>
-        </c:if>
-        <c:if test="${courseValid == 'false'}">
-            <div id="invalidMessage" class="default-block"><spring:message code="course.form.invalid"/></div>
-        </c:if>
-    </c:if>
 
     <%-- name --%>
     <div class="default-block">
@@ -165,7 +158,7 @@
 
     <%-- submit button --%>
     <div class="default-block">
-        <input type="submit" class="submitbutton" value="Opslaan"/>
+        <input type="submit" class="submitbutton" value="<spring:message code="generic.message.save"/>"/>
     </div>
 
 

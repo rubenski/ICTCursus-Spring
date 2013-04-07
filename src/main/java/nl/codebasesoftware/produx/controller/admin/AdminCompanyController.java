@@ -1,4 +1,4 @@
-package nl.codebasesoftware.produx.controller;
+package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.support.Country;
@@ -6,7 +6,6 @@ import nl.codebasesoftware.produx.formdata.BindableCompany;
 import nl.codebasesoftware.produx.formdata.BindableFileUpload;
 import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.validator.CompanyFormValidator;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -28,16 +27,14 @@ import java.util.Locale;
  * Time: 22:07
  */
 @Controller
-public class CompanyController {
+public class AdminCompanyController {
 
     private CompanyService companyService;
     private MessageSource messageSource;
     private CompanyFormValidator validator;
 
-    private Logger LOG = Logger.getLogger(CompanyController.class);
-
     @Autowired
-    public CompanyController(CompanyService companyService, MessageSource messageSource, CompanyFormValidator validator) {
+    public AdminCompanyController(CompanyService companyService, MessageSource messageSource, CompanyFormValidator validator) {
         this.companyService = companyService;
         this.messageSource = messageSource;
         this.validator = validator;
@@ -48,30 +45,35 @@ public class CompanyController {
 
         Company company = companyService.getCurrentlyLoggedInCompany();
 
-
+        model.addAttribute("headerText", messageSource.getMessage("admin.sections.companyprofile", new Object[]{}, locale));
         model.addAttribute("bindableFileUpload", new BindableFileUpload());
         model.addAttribute("countries", getCountries(locale));
         model.addAttribute("bindableCompany", company.toBindableCompany());
         model.addAttribute("mainContent", "forms/companyform");
+        model.addAttribute("companyform", true);
 
         return "adminMain";
     }
 
     @RequestMapping(value= "/admin/company", method = RequestMethod.POST)
-    public String update(@ModelAttribute("bindableCompany") BindableCompany bindableCompany, BindingResult result, Model model, Locale locale) {
+    public String updateCompany(@ModelAttribute("bindableCompany") BindableCompany bindableCompany, BindingResult result, Model model, Locale locale) {
 
         validator.validate(bindableCompany, result);
-        String courseValid = "false";
+        String valid = "false";
 
         if (!result.hasErrors()) {
             companyService.update(bindableCompany);
-            courseValid = "true";
+            valid = "true";
         }
 
+
+        model.addAttribute("headerText", messageSource.getMessage("admin.sections.companyprofile", new Object[]{}, locale));
+        model.addAttribute("bindableFileUpload", new BindableFileUpload());
         model.addAttribute("countries", getCountries(locale));
         model.addAttribute("bindableCompany", bindableCompany);
-        model.addAttribute("courseValid", courseValid);
+        model.addAttribute("valid", valid);
         model.addAttribute("mainContent", "forms/companyform");
+        model.addAttribute("companyform", 1);
 
         return "adminMain";
     }

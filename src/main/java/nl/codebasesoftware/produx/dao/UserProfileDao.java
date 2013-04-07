@@ -9,5 +9,5 @@ public interface UserProfileDao extends GenericDao<UserProfile> {
 
 	public UserProfile findByEmail(String email) throws EntityNotFoundException;
 
-    List<UserProfile> findByCompany(long companyId);
+    List<UserProfile> findOthersInCompany(long companyId, UserProfile exludeProfile);
 }

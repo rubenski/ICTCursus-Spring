@@ -35,7 +35,7 @@ public class UserInvitationValidator implements Validator {
         }
 
         if(userInvitation.getRoles() == null || userInvitation.getRoles().size() == 0){
-            errors.rejectValue("roles", "error.userinvitation.zeroroles");
+            errors.rejectValue("roles", "error.user.zeroroles");
         }
 
         if(!ProduxValidator.isValidPreposition(userInvitation.getPreposition())){

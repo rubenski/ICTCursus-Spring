@@ -26,7 +26,7 @@ public class Company implements DomainObject {
     private String city;
     private String country;
     private Set<Course> courses = new HashSet<Course>();
-    private Logo logo;
+    private byte[] logo;
     private Set<UserProfile> users;
 
     @Override
@@ -76,7 +76,7 @@ public class Company implements DomainObject {
         this.country = country;
     }
 
-    @OneToMany (mappedBy = "company", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
     public Set<Course> getCourses() {
         return courses;
     }
@@ -139,12 +139,12 @@ public class Company implements DomainObject {
         this.zipCode = zipCode;
     }
 
-    @Embedded
-    public Logo getLogo() {
+    @Lob
+    public byte[] getLogo() {
         return logo;
     }
 
-    public void setLogo(Logo logo) {
+    public void setLogo(byte[] logo) {
         this.logo = logo;
     }
 
@@ -173,12 +173,6 @@ public class Company implements DomainObject {
         bindableCompany.setVatNumber(vatNumber);
         bindableCompany.setZipCode(zipCode);
 
-        if (logo != null) {
-            bindableCompany.setLogoFileExtension(logo.getFileExtension());
-            bindableCompany.setLogoFileName(logo.getFileName());
-            bindableCompany.setLogoFileType(logo.getDataTypeString());
-        }
-
         return bindableCompany;
     }
 
@@ -187,5 +181,20 @@ public class Company implements DomainObject {
         return logo != null;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        Company company = (Company) o;
+
+        if (!id.equals(company.id)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }

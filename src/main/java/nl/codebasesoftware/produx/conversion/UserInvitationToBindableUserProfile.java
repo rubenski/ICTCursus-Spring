@@ -1,7 +1,7 @@
 package nl.codebasesoftware.produx.conversion;
 
 import nl.codebasesoftware.produx.domain.UserInvitation;
-import nl.codebasesoftware.produx.formdata.BindableUserProfile;
+import nl.codebasesoftware.produx.formdata.OtherUserProfileFormData;
 import org.springframework.core.convert.converter.Converter;
 
 
@@ -11,19 +11,13 @@ import org.springframework.core.convert.converter.Converter;
  * Date: 30-3-13
  * Time: 19:27
  */
-public class UserInvitationToBindableUserProfile implements Converter<UserInvitation, BindableUserProfile> {
+public class UserInvitationToBindableUserProfile implements Converter<UserInvitation, OtherUserProfileFormData> {
 
 
     @Override
-    public BindableUserProfile convert(UserInvitation invitation) {
-        BindableUserProfile userProfile = new BindableUserProfile();
-        userProfile.setEmail(invitation.getEmail());
-        userProfile.setInvitationId(invitation.getId());
-        userProfile.setFirstName(invitation.getFirstName());
-        userProfile.setLastName(invitation.getLastName());
-        userProfile.setEmailEditable(false);
-        userProfile.setCompanyId(invitation.getCompany().getId());
-        userProfile.setPreposition(invitation.getPreposition());
+    public OtherUserProfileFormData convert(UserInvitation invitation) {
+        OtherUserProfileFormData userProfile = new OtherUserProfileFormData();
+        // TODO: fix this
         return userProfile;
     }
 }

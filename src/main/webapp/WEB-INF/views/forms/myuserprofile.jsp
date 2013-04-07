@@ -8,14 +8,18 @@
     <c:set var="disabled" value="disabled"/>
 </c:if>
 
-<form:form method="post" modelAttribute="userProfile">
+<form:form method="post" modelAttribute="myUserProfile">
+
+    <%-- error / success feedback --%>
+    <jsp:include page="submitmessage.jsp"/>
 
     <form:hidden path="companyId"/>
     <form:hidden path="email"/>
+    <form:hidden path="id"/>
 
     <div class="default-block">
         <form:label path="email"><spring:message code="user.genericlabel.email"/></form:label>
-        <input cssClass="form-input" cssErrorClass="form-input-error" size="60" maxlength="60" disabled="true" value="${userProfile.email}"/>
+        <input cssClass="form-input" cssErrorClass="form-input-error" size="60" maxlength="60" disabled="true" value="${myUserProfile.email}"/>
         <form:errors path="email" cssClass="form-error"/>
     </div>
 
@@ -43,30 +47,9 @@
         <form:errors path="phone" cssClass="form-error"/>
     </div>
 
-    <c:if test="${rolesEditable == 1}">
-        <div class="default-block">
-            <form:label path="roles">
-                <spring:message code="user.genericlabel.access"/>
-                <span><spring:message code="user.invitation.roles.helptext"/></span>
-            </form:label>
-            <c:forEach items="${assignableRoles}" var="role">
-                <span class="blockCheckBox"><form:checkbox path="roles" value="${role.id}" label="${role.displayName}" /></span><br/>
-            </c:forEach>
-            <form:errors path="roles" cssClass="form-error"/>
-        </div>
-    </c:if>
-
-    <c:if test="${rolesEditable == 1}">
-        <div class="default-block">
-            <form:label path="enabled"><spring:message code="generic.message.status"/></form:label>
-            <form:select path="enabled" cssClass="form-input" cssErrorClass="form-input-error">
-                <form:options items="${statuses}" itemValue="enabled" itemLabel="name"/>
-            </form:select>
-        </div>
-    </c:if>
 
     <div class="default-block">
-        <input type="submit" class="submitbutton" value="Verzenden"/>
+        <input type="submit" class="submitbutton" value="<spring:message code="generic.message.save"/>"/>
     </div>
 
 </form:form>

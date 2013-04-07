@@ -36,15 +36,18 @@ $(document).ready(function() {
         function updateLogo() {
             var companyId = $("#id").val();
             $("#companyLogoImg").remove();
-            $.get("/logo/" + companyId, function(logoJsonData) {
-                    if (logoJsonData) {
-                        $("<img/>")
-                            .attr('src', 'data:image/png;base64,' + logoJsonData.base64String)
-                            .attr('id', 'companyLogoImg')
-                            .appendTo($('#companyLogo'));
+            var logoUrl = "/logo/" + companyId + "-cursusbedrijf.png";
+            $.ajax(logoUrl,
+                {
+                    statusCode: {
+                        200: function() {
+                            $("<img/>")
+                                .attr('src', logoUrl)
+                                .attr('id', 'companyLogoImg')
+                                .appendTo($('#companyLogo'));
+                        }
                     }
-                }
-            )
+                });
         }
 
 

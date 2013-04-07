@@ -41,6 +41,45 @@ public class ImageUtil {
 
     }
 
+    public static byte[] resize(InputStream imageData, int maxLength) {
+
+        BufferedImage source = null;
+        try {
+            source = ImageIO.read(imageData);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        ImageDimensions dimensions = getScaledImageDimensions(source, maxLength);
+
+        BufferedImage bicubic = new BufferedImage(dimensions.getWidth(), dimensions.getHeight(), source.getType());
+        Graphics2D bg = bicubic.createGraphics();
+        bg.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        float sx = (float) dimensions.getWidth() / source.getWidth();
+        float sy = (float) dimensions.getHeight() / source.getHeight();
+        bg.scale(sx, sy);
+        bg.drawImage(source, 0, 0, null);
+        bg.dispose();
+
+        return toBytes(bicubic);
+    }
+
+    private static byte[] toBytes(BufferedImage bufferedImage) {
+        byte[] imageBytes = null;
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(bufferedImage, "png", baos);
+            baos.flush();
+            imageBytes = baos.toByteArray();
+            baos.close();
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
+        return imageBytes;
+    }
+
+    /*
     public static BufferedImage scaleImage(InputStream imageData, int maxLength) {
 
         BufferedImage bufferedImage = null;
@@ -60,7 +99,7 @@ public class ImageUtil {
         g.dispose();
 
         return resizedImage;
-    }
+    }   */
 
     public static boolean saveImage(BufferedImage image, String filePath) {
 
@@ -76,7 +115,7 @@ public class ImageUtil {
 
     public static String encodeBase64(File file) {
 
-        if(!file.exists()){
+        if (!file.exists()) {
             return null;
         }
 
@@ -105,7 +144,7 @@ public class ImageUtil {
             e.printStackTrace();
         }
 
-         return base.encodeToString(baos.toByteArray());
+        return base.encodeToString(baos.toByteArray());
     }
 
 }

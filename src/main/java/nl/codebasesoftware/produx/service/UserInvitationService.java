@@ -3,8 +3,9 @@ package nl.codebasesoftware.produx.service;
 import nl.codebasesoftware.produx.domain.UserInvitation;
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
+import nl.codebasesoftware.produx.formdata.AccountActivationFormData;
 import nl.codebasesoftware.produx.formdata.BindableUserInvitation;
-import nl.codebasesoftware.produx.formdata.BindableUserProfile;
+import nl.codebasesoftware.produx.formdata.OtherUserProfileFormData;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface UserInvitationService {
     void inviteUserForCurrentCompany(BindableUserInvitation invitation) throws ProduxServiceException;
     UserInvitation findBySecurityCode(String code);
     UserInvitation findByEmail(String email);
-    UserProfile activateProfile(BindableUserProfile profile);
+    UserProfile activateProfile(AccountActivationFormData profile);
     List<UserInvitation> findByInviter(long inviterProfileId);
     void removeInvitation(long invitationId);
 }

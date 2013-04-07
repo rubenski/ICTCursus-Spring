@@ -16,5 +16,6 @@ public interface CompanyService {
     Company getCurrentlyLoggedInCompany();
     Company findById(Long companyId);
     void setLogo(Logo logo, Long companyId);
-
+    void updateLogo(byte[] bytes);
+    byte[] getLogo(Long companyId);
 }

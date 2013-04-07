@@ -37,10 +37,9 @@ public class BindableUserInvitationToUserInvitation implements Converter<Bindabl
     @Override
     public UserInvitation convert(BindableUserInvitation bindableInvitation) {
 
-        UserInvitation invitation = userInvitationDao.findByEmail(bindableInvitation.getEmail());
-        if (invitation == null) {
-            invitation = new UserInvitation();
-        }
+
+        UserInvitation invitation = new UserInvitation();
+
 
         Company company = companyDao.find(bindableInvitation.getCompanyId());
         List<Role> roles = rolesAndRightService.findByIds(bindableInvitation.getRoles());

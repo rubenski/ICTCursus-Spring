@@ -48,8 +48,7 @@ public class CompanyServiceImpl implements CompanyService {
     public Company getCurrentlyLoggedInCompany() {
         UserProfile user = CurrentUser.get();
         Company company = user.getCompany();
-        Company mergedCompany = companyDao.merge(company);
-        return mergedCompany;
+        return companyDao.find(company.getId());
     }
 
     private void bindableCompanyToCompany(BindableCompany bindableCompany, Company company){
@@ -63,14 +62,30 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    @Transactional
+    @Transactional (readOnly = true)
     public void setLogo(Logo logo, Long companyId) {
         companyDao.setLogo(logo, companyId);
     }
 
     @Override
+    @Transactional (readOnly = true)
     public Company findById(Long companyId) {
         return companyDao.find(companyId);
+    }
+
+    @Override
+    @Transactional (readOnly = false)
+    public void updateLogo(byte[] bytes) {
+        Company company = getCurrentlyLoggedInCompany();
+        company.setLogo(bytes);
+        companyDao.persist(company);
+    }
+
+    @Override
+    @Transactional (readOnly = true)
+    public byte[] getLogo(Long companyId) {
+        Company company = companyDao.find(companyId);
+        return company.getLogo();
     }
 }
 

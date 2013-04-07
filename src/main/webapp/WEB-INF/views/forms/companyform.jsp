@@ -7,14 +7,7 @@
     <form:hidden path="id"/>
 
     <%-- error / success feedback --%>
-    <c:if test="${courseValid != ''}">
-        <c:if test="${courseValid == 'true'}">
-            <div id="validMessage" class="default-block"><spring:message code="course.form.valid"/></div>
-        </c:if>
-        <c:if test="${courseValid == 'false'}">
-            <div id="invalidMessage" class="default-block"><spring:message code="course.form.invalid"/></div>
-        </c:if>
-    </c:if>
+    <jsp:include page="submitmessage.jsp"/>
 
     <div class="default-block">
         <form:label path="name"><spring:message code="company.form.name"/></form:label>
@@ -78,7 +71,7 @@
 
 
     <div class="default-block">
-        <input type="submit" class="submitbutton" value="Verzenden"/>
+        <input type="submit" class="submitbutton" value="<spring:message code="generic.message.save"/>"/>
     </div>
 
 </form:form>

@@ -33,10 +33,11 @@ public class UserProfileDaoJpa extends GenericDaoJpa<UserProfile> implements Use
     }
 
     @Override
-    public List<UserProfile> findByCompany(long companyId) {
+    public List<UserProfile> findOthersInCompany(long companyId, UserProfile exludeProfile) {
         log.debug("query start");
-        Query query = entityManager.createQuery("from UserProfile up where up.company.id = :companyId");
+        Query query = entityManager.createQuery("from UserProfile up where up.company.id = :companyId and up != :excludeProfile");
         query.setParameter("companyId", companyId);
+        query.setParameter("excludeProfile", exludeProfile);
         List resultList = query.getResultList();
         log.debug("query end");
         return resultList;

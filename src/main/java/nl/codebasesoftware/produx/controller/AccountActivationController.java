@@ -2,12 +2,12 @@ package nl.codebasesoftware.produx.controller;
 
 import nl.codebasesoftware.produx.domain.UserInvitation;
 import nl.codebasesoftware.produx.domain.UserProfile;
-import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
-import nl.codebasesoftware.produx.formdata.BindableUserProfile;
+import nl.codebasesoftware.produx.formdata.AccountActivationFormData;
 import nl.codebasesoftware.produx.service.UserInvitationService;
 import nl.codebasesoftware.produx.service.UserProfileService;
-import nl.codebasesoftware.produx.validator.UserProfileValidator;
+import nl.codebasesoftware.produx.validator.AccountActivationFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.Locale;
 
 /**
  * User: rvanloen
@@ -27,62 +29,78 @@ public class AccountActivationController {
 
     private UserInvitationService userInvitationService;
     private ConversionService conversionService;
-    private UserProfileValidator userProfileValidator;
+    private AccountActivationFormValidator formValidator;
     private UserProfileService userProfileService;
+    private MessageSource messageSource;
 
     @Autowired
     public AccountActivationController(UserInvitationService userInvitationService, ConversionService conversionService,
-                                       UserProfileValidator userProfileValidator, UserProfileService userProfileService) {
+                                       AccountActivationFormValidator formValidator,
+                                       UserProfileService userProfileService,
+                                       MessageSource messageSource) {
         this.userInvitationService = userInvitationService;
         this.conversionService = conversionService;
-        this.userProfileValidator = userProfileValidator;
+        this.formValidator = formValidator;
         this.userProfileService = userProfileService;
+        this.messageSource = messageSource;
     }
 
 
     @RequestMapping(value = "/users/activate/{securityCode}", method = RequestMethod.GET)
-    public String activateAccountForm(@PathVariable("securityCode") String securityCode, Model model) {
+    public String activateAccountForm(@PathVariable("securityCode") String securityCode, Model model, Locale locale) {
 
         UserInvitation userInvitation = userInvitationService.findBySecurityCode(securityCode);
-        UserProfile existingProfile = userProfileService.findByEmail(userInvitation.getEmail());
 
-        String accountForEmailExists = "0";
+        String failureMessage = "";
 
         if (userInvitation == null) {
-            throw new ResourceNotFoundException();
+            failureMessage = messageSource.getMessage("userinvitation.doesntexist", new Object[]{}, locale);
+        } else if (userInvitation.isActivated()) {
+            failureMessage = messageSource.getMessage("account.already.activated", new Object[]{}, locale);
+        } else {
+            UserProfile existingProfile = userProfileService.findByEmail(userInvitation.getEmail());
+            if (existingProfile != null) {
+                failureMessage = messageSource.getMessage("account.already.exists", new Object[]{}, locale);
+            }
         }
 
-        if (userInvitation.isActivated() || existingProfile != null) {
-            accountForEmailExists = "1";
-        }
+        AccountActivationFormData accountActivationFormData = conversionService.convert(userInvitation, AccountActivationFormData.class);
 
-        BindableUserProfile userProfile = conversionService.convert(userInvitation, BindableUserProfile.class);
-
-        model.addAttribute("userProfile", userProfile);
-        model.addAttribute("accountForEmailExists", accountForEmailExists);
+        model.addAttribute("failureMessage", failureMessage);
+        model.addAttribute("accountActivationFormData", accountActivationFormData);
         model.addAttribute("mainContent", "forms/activateAccount");
 
         return "main";
     }
 
     @RequestMapping(value = "/users/activate/{securityCode}", method = RequestMethod.POST)
-    public String submitAccountActivation(@ModelAttribute("userProfile") BindableUserProfile profile,
+    public String submitAccountActivation(@ModelAttribute("accountActivationFormData") AccountActivationFormData accountActivationFormData,
                                           BindingResult result, Model model) {
 
-        userProfileValidator.validate(profile, result);
+        boolean valid = false;
+        formValidator.validate(accountActivationFormData, result);
 
-        if(!result.hasErrors()){
-            userInvitationService.activateProfile(profile);
-            model.addAttribute("activationSucceeded", 1);
-        } else {
-            model.addAttribute("activationSucceeded", 0);
+        if (!result.hasErrors()) {
+            valid = true;
+            // Check if the user profile exists for if someone resubmitted the request by pressing F5
+            UserProfile profile = userProfileService.findByEmail(accountActivationFormData.getEmail());
+            if (profile == null) {
+                profile = userInvitationService.activateProfile(accountActivationFormData);
+            }
+
+            model.addAttribute("userProfile", profile);
+            model.addAttribute("mainContent", "content/activationresult");
+            return "main";
         }
 
+        model.addAttribute("failureMessage", "");
+        model.addAttribute("submitted", true);
+        model.addAttribute("valid", valid);
         model.addAttribute("mainContent", "forms/activateAccount");
-        model.addAttribute("userProfile", profile);
-
+        model.addAttribute("accountActivationFormData", accountActivationFormData);
 
         return "main";
     }
+
 
 }

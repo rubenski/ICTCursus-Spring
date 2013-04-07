@@ -6,6 +6,7 @@
 <form:form method="post" modelAttribute="invitation" id="userActivationConformationForm">
 
     <form:hidden path="firstName"/>
+    <form:hidden path="preposition"/>
     <form:hidden path="lastName"/>
     <form:hidden path="email"/>
     <form:hidden path="roles"/>
@@ -18,6 +19,14 @@
             <spring:message code="user.genericlabel.firstname"/>
         </form:label>
             ${invitation.firstName}
+    </div>
+
+    <%-- preposition --%>
+    <div class="default-block">
+        <form:label path="preposition">
+            <spring:message code="user.genericlabel.preposition"/>
+        </form:label>
+            ${invitation.preposition}
     </div>
 
     <%-- last name --%>
