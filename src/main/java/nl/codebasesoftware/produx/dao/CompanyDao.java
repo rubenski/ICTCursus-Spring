@@ -1,7 +1,7 @@
 package nl.codebasesoftware.produx.dao;
 
+import nl.codebasesoftware.produx.domain.Article;
 import nl.codebasesoftware.produx.domain.Company;
-import nl.codebasesoftware.produx.domain.Logo;
 
 /**
  * User: rvanloen
@@ -10,6 +10,5 @@ import nl.codebasesoftware.produx.domain.Logo;
  */
 public interface CompanyDao extends GenericDao<Company> {
 
-    void setLogo(Logo logo,  Long companyId);
-
+    Company findByArticle(Article article);
 }

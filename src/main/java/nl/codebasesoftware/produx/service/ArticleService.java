@@ -1,6 +1,8 @@
 package nl.codebasesoftware.produx.service;
 
+import nl.codebasesoftware.produx.domain.Article;
 import nl.codebasesoftware.produx.domain.ArticlePage;
+import nl.codebasesoftware.produx.formdata.AddArticleFormData;
 
 import java.util.List;
 
@@ -10,5 +12,8 @@ import java.util.List;
  * Time: 23:26
  */
 public interface ArticleService {
-    List<ArticlePage> findByCompany(long companyId);
+    List<Article> findByCompany(long companyId);
+    Article addArticle(AddArticleFormData formData, long authorProfileId);
+    Article findById(long id);
+    List<ArticlePage> findPages(Article article);
 }

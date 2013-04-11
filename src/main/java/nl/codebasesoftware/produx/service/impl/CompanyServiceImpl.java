@@ -1,8 +1,8 @@
 package nl.codebasesoftware.produx.service.impl;
 
 import nl.codebasesoftware.produx.dao.CompanyDao;
+import nl.codebasesoftware.produx.domain.Article;
 import nl.codebasesoftware.produx.domain.Company;
-import nl.codebasesoftware.produx.domain.Logo;
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.formdata.BindableCompany;
 import nl.codebasesoftware.produx.service.CompanyService;
@@ -36,7 +36,13 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
+    public Company findByArticle(Article article){
+        return companyDao.findByArticle(article);
+    }
+
+    @Override
+    @Transactional (readOnly = false)
     public void update(BindableCompany bindableCompany) {
         Company company = getCurrentlyLoggedInCompany();
         bindableCompanyToCompany(bindableCompany, company);
@@ -44,7 +50,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    @Transactional
+    @Transactional (readOnly = false)
     public Company getCurrentlyLoggedInCompany() {
         UserProfile user = CurrentUser.get();
         Company company = user.getCompany();
@@ -61,11 +67,6 @@ public class CompanyServiceImpl implements CompanyService {
         }
     }
 
-    @Override
-    @Transactional (readOnly = true)
-    public void setLogo(Logo logo, Long companyId) {
-        companyDao.setLogo(logo, companyId);
-    }
 
     @Override
     @Transactional (readOnly = true)

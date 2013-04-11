@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.domain;
 
 import javax.persistence.*;
+import java.util.Calendar;
 import java.util.Set;
 
 /**
@@ -14,10 +15,11 @@ public class Article implements DomainObject {
     private Long id;
     private String teaser;
     private String title;
-    private Set<ArticlePage> articlePages;
-    private String publicationDate;
+    private Set<ArticlePage> pages;
+    private Calendar creationDate;
+    private Calendar firstPublicationDate;
+    private boolean published;
     private UserProfile author;
-
 
     @Override
     @Id
@@ -32,13 +34,15 @@ public class Article implements DomainObject {
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "article")
     public Set<ArticlePage> getArticlePages() {
-        return articlePages;
+        return pages;
     }
 
-    public void setArticlePages(Set<ArticlePage> articlePages) {
-        this.articlePages = articlePages;
+    public void setArticlePages(Set<ArticlePage> pages) {
+        this.pages = pages;
     }
 
+    @Lob
+    @Column(nullable = false)
     public String getTeaser() {
         return teaser;
     }
@@ -55,15 +59,34 @@ public class Article implements DomainObject {
         this.title = title;
     }
 
-    public String getPublicationDate() {
-        return publicationDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    public Calendar getCreationDate() {
+        return creationDate;
     }
 
-    public void setPublicationDate(String publicationDate) {
-        this.publicationDate = publicationDate;
+    public void setCreationDate(Calendar creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    public Calendar getFirstPublicationDate() {
+        return firstPublicationDate;
+    }
+
+    public void setFirstPublicationDate(Calendar firstPublicationDate) {
+        this.firstPublicationDate = firstPublicationDate;
+    }
+
+    public boolean isPublished() {
+        return published;
+    }
+
+    public void setPublished(boolean published) {
+        this.published = published;
     }
 
     @ManyToOne (fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false, name = "userprofile_id")
     public UserProfile getAuthor() {
         return author;
     }

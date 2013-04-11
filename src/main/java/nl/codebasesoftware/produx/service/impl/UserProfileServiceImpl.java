@@ -7,6 +7,7 @@ import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.formdata.BindableMyUserProfile;
 import nl.codebasesoftware.produx.formdata.OtherUserProfileFormData;
 import nl.codebasesoftware.produx.service.UserProfileService;
+import nl.codebasesoftware.produx.service.support.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
@@ -85,5 +86,10 @@ public class UserProfileServiceImpl implements UserProfileService {
         userProfile.setRoles(new HashSet<Role>(newRoles));
         userProfile.setEnabled(profile.isEnabled());
         userProfileDao.merge(userProfile);
+    }
+
+    @Override
+    public UserProfile findCurrentUser() {
+        return userProfileDao.find(CurrentUser.get().getId());
     }
 }

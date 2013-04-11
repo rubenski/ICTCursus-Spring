@@ -116,7 +116,7 @@ public class UserProfile implements DomainObject, UserDetails {
         this.roles = roles;
     }
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
     public Set<Article> getArticles() {
         return articles;
     }

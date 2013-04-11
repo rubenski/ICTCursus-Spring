@@ -240,6 +240,11 @@
             <version>14.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+        </dependency>
 
     </dependencies>
 
@@ -271,28 +276,28 @@
                     <compilerArgument>-proc:none</compilerArgument>
                 </configuration>
             </plugin>
-             <!--
-            <plugin>
-                <groupId>org.bsc.maven</groupId>
-                <artifactId>maven-processor-plugin</artifactId>
+            <!--
+           <plugin>
+               <groupId>org.bsc.maven</groupId>
+               <artifactId>maven-processor-plugin</artifactId>
 
-                <executions>
+               <executions>
 
-                    <execution>
+                   <execution>
 
-                        <id>process</id>
-                        <goals>
-                            <goal>process</goal>
-                        </goals>
-                        <phase>generate-sources</phase>
-                        <configuration>
+                       <id>process</id>
+                       <goals>
+                           <goal>process</goal>
+                       </goals>
+                       <phase>generate-sources</phase>
+                       <configuration>
 
-                            <outputDirectory>target/metamodel</outputDirectory>
+                           <outputDirectory>target/metamodel</outputDirectory>
 
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin> -->
+                       </configuration>
+                   </execution>
+               </executions>
+           </plugin> -->
 
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>

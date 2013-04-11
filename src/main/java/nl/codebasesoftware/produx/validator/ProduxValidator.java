@@ -53,4 +53,27 @@ public class ProduxValidator {
         Matcher m = p.matcher(preposition);
         return m.matches();
     }
+
+    public static boolean isValidArticleTitle(String articleTitle){
+        if(articleTitle == null || articleTitle == ""){
+            return false;
+        }
+        Pattern p = Pattern.compile("[A-Za-z0-9'!*{}\\[\\]&\"'?,\\.></ -]{8,50}");
+        Matcher m = p.matcher(articleTitle);
+        return  m.matches();
+    }
+
+    public static boolean isArticleTeaserLongEnough(String articleTeaser){
+        return articleTeaser == null ? false : articleTeaser.length() > 150;
+    }
+
+
+    public static boolean isArticleTeaserValid(String articleTeaser){
+        if(articleTeaser == null || articleTeaser == ""){
+            throw new IllegalArgumentException("Please first test if the article teaser is long enough");
+        }
+        Pattern p = Pattern.compile("[A-Za-z0-9'!*{}\\[\\]&\"'?,\\.></ -]{150,500}");
+        Matcher m = p.matcher(articleTeaser);
+        return  m.matches();
+    }
 }
