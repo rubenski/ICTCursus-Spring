@@ -10,6 +10,8 @@ import java.util.regex.Pattern;
  */
 public class ProduxValidator {
 
+    private static final String NORMAL_TEXT_PATTERN = "[A-Za-z0-9'!@#*;{}()\\[\\]&\"'?,\\.></ -]";
+
     public static boolean isValidEmail(String email){
         Pattern p = Pattern.compile("([a-zA-Z0-9!#$%&'*+-/=?^_`{}][a-zA-Z0-9!#$%&'*+-/=?^_`{}]{2,50}\\.?)+@([0-9a-zA-Z]+[-\\.]?)+\\.([a-zA-Z]{2,4}[\\.]?)+");
         Matcher m = p.matcher(email);
@@ -58,7 +60,7 @@ public class ProduxValidator {
         if(articleTitle == null || articleTitle == ""){
             return false;
         }
-        Pattern p = Pattern.compile("[A-Za-z0-9'!*{}\\[\\]&\"'?,\\.></ -]{8,50}");
+        Pattern p = Pattern.compile(String.format("%s{8,50}", NORMAL_TEXT_PATTERN));
         Matcher m = p.matcher(articleTitle);
         return  m.matches();
     }
@@ -72,8 +74,35 @@ public class ProduxValidator {
         if(articleTeaser == null || articleTeaser == ""){
             throw new IllegalArgumentException("Please first test if the article teaser is long enough");
         }
-        Pattern p = Pattern.compile("[A-Za-z0-9'!*{}\\[\\]&\"'?,\\.></ -]{150,500}");
+        Pattern p = Pattern.compile(String.format("%s{150,500}", NORMAL_TEXT_PATTERN));
         Matcher m = p.matcher(articleTeaser);
+        return  m.matches();
+    }
+
+    public static boolean isValidMetaKeywords(String keywords){
+        if(keywords == null){
+            return false;
+        }
+        Pattern p = Pattern.compile("[A-Za-z0-9, -.']{10,60}");
+        Matcher m = p.matcher(keywords);
+        return  m.matches();
+    }
+
+    public static boolean isValidMetaDescription(String description){
+        if(description == null){
+            return false;
+        }
+        Pattern p = Pattern.compile(String.format("%s{50,200}", NORMAL_TEXT_PATTERN));
+        Matcher m = p.matcher(description);
+        return  m.matches();
+    }
+
+    public static boolean isValidSuggestionText(String description) {
+        if(description == null){
+            return false;
+        }
+        Pattern p = Pattern.compile(String.format("%s{30,500}", NORMAL_TEXT_PATTERN));
+        Matcher m = p.matcher(description);
         return  m.matches();
     }
 }

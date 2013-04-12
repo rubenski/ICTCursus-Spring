@@ -25,9 +25,12 @@
     </div>
 
     <div class="default-block">
-        <form:label path="published"><spring:message code="article.form.articleStatusheader"/></form:label>
+        <form:label path="published">
+            <spring:message code="article.form.articleStatusheader"/>
+            <span><spring:message code="article.form.articleStatusheader.helptext"/></span>
+        </form:label>
         <spring:message code="admin.articles.published" var="label"/>
-        <span class="inlineCheckBox"><form:checkbox path="published" label="${label}"/></span>
+        <span class="inlineCheckBox"><form:checkbox disabled="${publishingDisabled}" path="published" label="${label}" /></span>
         <form:errors path="published" cssClass="form-error"/>
     </div>
 
@@ -42,7 +45,7 @@
                     <c:forEach items="${pages}" var="page">
                         <tr>
                             <td>
-                                <a href="/admin/articles/${id}/${page.id}">${page.title}</a>
+                                <a href="/admin/articles/page/${page.id}">${page.title}</a>
                             </td>
                         </tr>
                     </c:forEach>
@@ -54,7 +57,7 @@
                 </c:otherwise>
             </c:choose>
         </table>
-        <a href="/admin/articles/${id}/pages/add"><spring:message code="admin.article.add.page"/></a>
+        <a href="/admin/article/${id}/pages/add"><spring:message code="admin.article.add.page"/></a>
 
     </div>
 

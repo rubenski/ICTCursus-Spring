@@ -12,18 +12,19 @@
                 <tr>
                     <th><spring:message code="generic.message.title"/></th>
                     <th><spring:message code="generic.message.author"/></th>
-                    <th><spring:message code="admin.articles.published"/></th>
+                    <th><spring:message code="admin.articles.firstpublished"/></th>
+
                 </tr>
-                <c:forEach items="${articel}" var="article">
+                <c:forEach items="${articles}" var="article">
                     <tr>
                         <td>
-                            <a href="/admin/article/${article.id}">${article.title}</a>
+                            <a href="/admin/articles/edit/${article.id}">${article.title}</a>
                         </td>
                         <td>
-                             {article.author.fullNameFormal}
+                             ${article.author.fullNameFormal}
                         </td>
                         <td>
-                             <fmt:formatDate value="${article.publicationDate}" type="date" pattern="dd-MM-yyyy"/>
+                             <fmt:formatDate value="${article.firstPublicationDate}" type="date" pattern="dd-MM-yyyy"/>
                         </td>
                     </tr>
                 </c:forEach>
@@ -35,7 +36,8 @@
         </c:otherwise>
     </c:choose>
 </div>
+
 <div class="default-block">
-    <h2><spring:message code="admin.add.article"/></h2>
-    <a href="/admin/articles/add"><spring:message code="admin.add.article"/></a>
+    <h2><spring:message code="admin.articles.suggest"/></h2>
+    <a href="/admin/articles/suggest"><spring:message code="admin.articles.suggest"/></a>
 </div>

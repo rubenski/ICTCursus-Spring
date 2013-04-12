@@ -105,6 +105,7 @@
                 <bean class="nl.codebasesoftware.produx.conversion.UserProfileToBindableUserProfile"/>
                 <bean class="nl.codebasesoftware.produx.conversion.UserProfileToBindableMyUserProfile"/>
                 <bean class="nl.codebasesoftware.produx.conversion.UserInvitationToAccountActivationFormData"/>
+                <bean class="nl.codebasesoftware.produx.conversion.ArticlePageToArticlePageFormData"/>
             </set>
         </property>
     </bean>

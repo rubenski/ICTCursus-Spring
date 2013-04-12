@@ -64,7 +64,9 @@
         <form:errors path="chamberOfCommerceNumber" cssClass="form-error"/>
     </div>
     <div class="default-block">
-        <form:label path="description"><spring:message code="company.form.description"/></form:label>
+        <form:label path="description">
+            <spring:message code="company.form.profile"/>
+        </form:label>
         <form:textarea rows="12" path="description" cssErrorClass="form-input-error" cols="100"/>
         <form:errors path="description" cssClass="form-error"/>
     </div>

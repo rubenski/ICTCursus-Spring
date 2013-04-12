@@ -30,6 +30,8 @@ public class ArticlePage implements DomainObject {
         this.id = id;
     }
 
+    @Lob
+    @Column(nullable = false)
     public String getBody() {
         return body;
     }

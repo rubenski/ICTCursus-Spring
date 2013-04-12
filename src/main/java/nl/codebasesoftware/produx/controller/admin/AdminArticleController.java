@@ -96,11 +96,13 @@ public class AdminArticleController {
         editArticleFormData.setTeaser(article.getTeaser());
         editArticleFormData.setTitle(article.getTitle());
 
+        model.addAttribute("publishingDisabled", pages.size() == 0 ? "true" : "false");
         model.addAttribute("numberOfPages", pages.size());
         model.addAttribute("pages", pages);
         model.addAttribute("headerText", messageSource.getMessage("admin.articles.header.editarticle", new Object[]{}, locale));
         model.addAttribute("editArticleFormData", editArticleFormData);
         model.addAttribute("mainContent", "forms/editarticle");
+
         return "adminMain";
     }
 

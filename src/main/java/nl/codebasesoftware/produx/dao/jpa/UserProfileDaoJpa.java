@@ -43,5 +43,17 @@ public class UserProfileDaoJpa extends GenericDaoJpa<UserProfile> implements Use
         return resultList;
     }
 
+    @Override
+    public UserProfile findAuthorByArticle(long articleId) {
+        return (UserProfile) entityManager.createQuery("from UserProfile u inner join fetch u.articles a where a.id = :id")
+                .setParameter("id", articleId)
+                .getSingleResult();
+    }
 
+    @Override
+    public UserProfile findAuthorByPage(long pageId) {
+        return (UserProfile) entityManager.createQuery("from UserProfile u inner join fetch u.articles a inner join fetch a.articlePages ap where ap.id = :id")
+                .setParameter("id", pageId)
+                .getSingleResult();
+    }
 }

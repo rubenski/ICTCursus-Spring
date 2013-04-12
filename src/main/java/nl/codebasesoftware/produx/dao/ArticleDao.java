@@ -14,4 +14,5 @@ public interface ArticleDao extends GenericDao<Article> {
     List<Article> findByCompany(long companyId);
 
     List<ArticlePage> findPages(Article article);
+
 }

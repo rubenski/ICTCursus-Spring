@@ -89,7 +89,20 @@ public class UserProfileServiceImpl implements UserProfileService {
     }
 
     @Override
+    @Transactional (readOnly = true)
     public UserProfile findCurrentUser() {
         return userProfileDao.find(CurrentUser.get().getId());
+    }
+
+    @Override
+    @Transactional (readOnly = true)
+    public UserProfile findAuthorByArticle(long articleId){
+        return userProfileDao.findAuthorByArticle(articleId);
+    }
+
+    @Override
+    @Transactional (readOnly = true)
+    public UserProfile findAuthorByPage(long pageId){
+        return userProfileDao.findAuthorByPage(pageId);
     }
 }

@@ -21,7 +21,7 @@ public class ArticleDaoJpa extends GenericDaoJpa<Article> implements ArticleDao 
 
     @Override
     public List<Article> findByCompany(long companyId) {
-        String query = "from Article a inner join a.author author where author.company.id = :companyId";
+        String query = "from Article a inner join fetch a.author author where author.company.id = :companyId";
         return entityManager.createQuery(query).setParameter("companyId", companyId).getResultList();
     }
 
@@ -29,4 +29,6 @@ public class ArticleDaoJpa extends GenericDaoJpa<Article> implements ArticleDao 
     public List<ArticlePage> findPages(Article article) {
         return entityManager.createQuery("from ArticlePage ap where ap.article = :article").setParameter("article", article).getResultList();
     }
+
+
 }
