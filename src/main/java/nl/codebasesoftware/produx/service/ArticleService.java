@@ -4,6 +4,7 @@ import nl.codebasesoftware.produx.domain.Article;
 import nl.codebasesoftware.produx.domain.ArticlePage;
 import nl.codebasesoftware.produx.formdata.AddArticleFormData;
 import nl.codebasesoftware.produx.formdata.ArticlePageFormData;
+import nl.codebasesoftware.produx.formdata.EditArticleFormData;
 
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface ArticleService {
     List<ArticlePage> findPages(Article article);
     void saveArticlePage(ArticlePageFormData formData, long articleId);
     ArticlePage findPage(long pageId);
+    void updateArticle(EditArticleFormData formData);
+    void removePage(Long pageId);
 }

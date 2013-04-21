@@ -8,6 +8,7 @@
 <form:form method="post" modelAttribute="articleFormData">
 
     <form:hidden path="id"/>
+    <form:hidden path="suggestionId"/>
 
     <%-- error / success feedback --%>
     <jsp:include page="submitmessage.jsp"/>

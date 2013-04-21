@@ -77,8 +77,13 @@ public class AdminPageController {
 
         ArticlePage page = articleService.findPage(pageId);
 
+        if(page == null){
+            throw new ResourceNotFoundException();
+        }
+
         ArticlePageFormData formData = conversionService.convert(page, ArticlePageFormData.class);
         setHeaderText(locale, model);
+        model.addAttribute("articlePage", true);
         model.addAttribute("articlePageFormData", formData);
         model.addAttribute("mainContent", "forms/articlepage");
         return "adminMain";
@@ -89,6 +94,11 @@ public class AdminPageController {
     @RequestMapping(value = "/admin/articles/page/{pageId}", method = RequestMethod.POST)
     public String savePage(@ModelAttribute("articlePageFormData") ArticlePageFormData formData, @PathVariable("pageId") Long pageId, Model model,
                            BindingResult result, Locale locale) {
+
+        if(formData.getRemove() == 1){
+            articleService.removePage(formData.getId());
+            return String.format("redirect:/admin/articles/edit/%s", formData.getArticleId());
+        }
 
         String valid = "false";
 

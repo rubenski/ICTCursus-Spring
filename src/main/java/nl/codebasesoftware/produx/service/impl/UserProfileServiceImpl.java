@@ -63,7 +63,7 @@ public class UserProfileServiceImpl implements UserProfileService {
         profile.setFirstName(myBindableUserProfile.getFirstName());
         profile.setPhone(myBindableUserProfile.getPhone());
         profile.setPreposition(myBindableUserProfile.getPreposition());
-        userProfileDao.merge(profile);
+        userProfileDao.persist(profile);
     }
 
     @Override
@@ -86,12 +86,6 @@ public class UserProfileServiceImpl implements UserProfileService {
         userProfile.setRoles(new HashSet<Role>(newRoles));
         userProfile.setEnabled(profile.isEnabled());
         userProfileDao.merge(userProfile);
-    }
-
-    @Override
-    @Transactional (readOnly = true)
-    public UserProfile findCurrentUser() {
-        return userProfileDao.find(CurrentUser.get().getId());
     }
 
     @Override

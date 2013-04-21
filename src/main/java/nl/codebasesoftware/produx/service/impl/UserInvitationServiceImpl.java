@@ -164,7 +164,7 @@ public class UserInvitationServiceImpl implements UserInvitationService {
     }
 
     private void setSecurityCode(BindableUserInvitation invitation) {
-        String property = properties.getProperty("invitation.security.code.length");
+        String property = properties.getProperty("security.code.length");
         int codeLength = Integer.parseInt(property);
         invitation.setSecurityCode(SecurityUtil.randomAlphaNumericString(codeLength));
     }

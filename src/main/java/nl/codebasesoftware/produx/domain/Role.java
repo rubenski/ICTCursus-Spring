@@ -1,5 +1,7 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.domain.support.RoleName;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -13,11 +15,11 @@ public class Role implements DomainObject {
 
     private Long id;
     private Set<Right> rights;
-    private String systemName;
+    private RoleName systemName;
     private String displayName;
     private boolean companyAdminRole;
     private boolean userAssignable;
-    private int listRank;
+    private Integer listRank;
 
 
 
@@ -42,11 +44,12 @@ public class Role implements DomainObject {
     }
 
     @Column(nullable = false)
-    public String getSystemName() {
+    @Enumerated(EnumType.STRING)
+    public RoleName getSystemName() {
         return systemName;
     }
 
-    public void setSystemName(String systemName) {
+    public void setSystemName(RoleName systemName) {
         this.systemName = systemName;
     }
 
@@ -68,11 +71,11 @@ public class Role implements DomainObject {
     }
 
     @Column(nullable = true)
-    public int getListRank() {
+    public Integer getListRank() {
         return listRank;
     }
 
-    public void setListRank(int listRank) {
+    public void setListRank(Integer listRank) {
         this.listRank = listRank;
     }
 

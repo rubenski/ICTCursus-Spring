@@ -1,6 +1,9 @@
 package nl.codebasesoftware.produx.dao;
 
 import nl.codebasesoftware.produx.domain.ArticleSuggestion;
+import nl.codebasesoftware.produx.domain.UserProfile;
+
+import java.util.List;
 
 /**
  * User: rvanloen
@@ -9,4 +12,6 @@ import nl.codebasesoftware.produx.domain.ArticleSuggestion;
  */
 public interface ArticleSuggestionDao extends GenericDao<ArticleSuggestion>  {
 
+
+    List<ArticleSuggestion> findForUser(UserProfile user);
 }

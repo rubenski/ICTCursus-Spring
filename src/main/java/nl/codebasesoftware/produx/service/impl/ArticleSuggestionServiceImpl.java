@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * User: rvanloen
  * Date: 12-4-13
@@ -36,6 +38,12 @@ public class ArticleSuggestionServiceImpl implements ArticleSuggestionService {
     @Transactional(readOnly = true)
     public ArticleSuggestion findById(long id) {
         return articleSuggestionDao.find(id);
+    }
+
+    @Override
+    @Transactional (readOnly = true)
+    public List<ArticleSuggestion> findForUser(UserProfile user){
+        return articleSuggestionDao.findForUser(user);
     }
 
     @Override

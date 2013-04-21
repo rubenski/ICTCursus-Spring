@@ -15,6 +15,12 @@
     <c:if test="${companyform}">
         <script type="text/javascript" src="/static/javascript/file-upload.js"></script>
     </c:if>
+    <c:if test="${articleform}">
+        <script type="text/javascript" src="/static/javascript/article.js"></script>
+    </c:if>
+    <c:if test="${articlePage}">
+        <script type="text/javascript" src="/static/javascript/articlepage.js"></script>
+    </c:if>
     <script type="text/javascript" src="/static/javascript/tiny_mce/tiny_mce.js"></script>
 
     <script type="text/javascript">
@@ -32,17 +38,17 @@
 </head>
 <body>
 <div id="wrapper">
-    <div id="header">
-        <jsp:include page="components/header.jsp"/>
-    </div>
+
+    <jsp:include page="components/header.jsp"/>
+
     <div id="middle">
-        <sec:authorize access="hasRole('ROLE_PERM_access_admin_screens')">
+        <sec:authorize access="hasRole('ROLE_PERM_access_admin_screens') or hasRole('ROLE_PERM_edit_everything')">
             <div id="left">
                 <jsp:include page="components/adminMenu.jsp"/>
             </div>
             <div id="main-content">
                 <jsp:include page="components/adminHeader.jsp"/>
-                ${mainMessage}
+                    ${mainMessage}
                 <jsp:include page="${mainContent}.jsp"/>
             </div>
         </sec:authorize>

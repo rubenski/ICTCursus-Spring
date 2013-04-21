@@ -2,11 +2,14 @@ package nl.codebasesoftware.produx.service.impl;
 
 import nl.codebasesoftware.produx.dao.ArticleDao;
 import nl.codebasesoftware.produx.dao.ArticlePageDao;
+import nl.codebasesoftware.produx.dao.ArticleSuggestionDao;
 import nl.codebasesoftware.produx.domain.Article;
 import nl.codebasesoftware.produx.domain.ArticlePage;
+import nl.codebasesoftware.produx.domain.ArticleSuggestion;
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.formdata.AddArticleFormData;
 import nl.codebasesoftware.produx.formdata.ArticlePageFormData;
+import nl.codebasesoftware.produx.formdata.EditArticleFormData;
 import nl.codebasesoftware.produx.service.ArticleService;
 import nl.codebasesoftware.produx.service.UserProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +30,15 @@ public class ArticleServiceImpl implements ArticleService {
     private ArticleDao articleDao;
     private UserProfileService userProfileService;
     private ArticlePageDao articlePageDao;
+    private ArticleSuggestionDao articleSuggestionDao;
 
     @Autowired
-    public ArticleServiceImpl(ArticleDao articleDao, UserProfileService userProfileService, ArticlePageDao articlePageDao) {
+    public ArticleServiceImpl(ArticleDao articleDao, UserProfileService userProfileService,
+                              ArticlePageDao articlePageDao, ArticleSuggestionDao articleSuggestionDao) {
         this.articleDao = articleDao;
         this.userProfileService = userProfileService;
         this.articlePageDao = articlePageDao;
+        this.articleSuggestionDao = articleSuggestionDao;
     }
 
     @Override
@@ -44,7 +50,11 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional(readOnly = false)
     public Article addArticle(AddArticleFormData formData, long authorProfileId) {
+
+        // Get the author and tie it to the article later
         UserProfile author = userProfileService.findById(authorProfileId);
+        // Get the suggestion on which this article is based so we can add the article to the suggestion later
+        ArticleSuggestion suggestion = articleSuggestionDao.find(formData.getSuggestionId());
 
         if (author == null) {
             throw new IllegalArgumentException("No author found for id");
@@ -57,6 +67,11 @@ public class ArticleServiceImpl implements ArticleService {
         article.setTitle(formData.getTitle());
         article.setPublished(false);
         articleDao.persist(article);
+
+        suggestion.setArticle(article);
+
+        articleSuggestionDao.persist(suggestion);
+
         return article;
     }
 
@@ -73,13 +88,13 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    @Transactional (readOnly = false)
+    @Transactional(readOnly = false)
     public void saveArticlePage(ArticlePageFormData formData, long articleId) {
 
         ArticlePage articlePage = null;
         Article article = articleDao.find(articleId);
 
-        if(formData.getId() != null){
+        if (formData.getId() != null) {
             articlePage = articlePageDao.find(formData.getId());
         } else {
             articlePage = new ArticlePage();
@@ -97,8 +112,44 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    @Transactional (readOnly = true)
+    @Transactional(readOnly = true)
     public ArticlePage findPage(long pageId) {
         return articlePageDao.find(pageId);
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public void updateArticle(EditArticleFormData formData) {
+        Article article = articleDao.find(formData.getId());
+
+        for (String s : formData.getPageOrder()) {
+            String[] elements = s.split("-");
+            String position = elements[0];
+            String pageId = elements[1];
+
+            long i = Long.parseLong(pageId);
+            int pos = Integer.parseInt(position);
+            ArticlePage articlePage = articlePageDao.find(i);
+            articlePage.setPosition(pos);
+            articlePageDao.persist(articlePage);
+        }
+
+        article.setTeaser(formData.getTeaser());
+        article.setTitle(formData.getTitle());
+        article.setPublished(formData.isPublished());
+
+        // If the article if published for the first time, set the 'first publication date'
+        if(article.getFirstPublicationDate() == null && formData.isPublished()){
+            article.setFirstPublicationDate(Calendar.getInstance());
+        }
+
+
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public void removePage(Long pageId) {
+        ArticlePage page = articlePageDao.find(pageId);
+        articlePageDao.delete(page);
     }
 }

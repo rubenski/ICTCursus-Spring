@@ -81,10 +81,8 @@ public class CompanyFormValidator implements Validator {
             errors.rejectValue("vatNumber", "errors.company.vatnumber");
         }
 
-        String cocnRegex = "[0-9A-Za-z]{8,20}";
-        Pattern cocnPattern = Pattern.compile(cocnRegex);
-        matcher = cocnPattern.matcher(bindableCompany.getChamberOfCommerceNumber());
-        if(!matcher.matches()){
+
+        if(!ProduxValidator.isValidTradeNumber(bindableCompany.getChamberOfCommerceNumber())){
             errors.rejectValue("chamberOfCommerceNumber", "errors.company.chamberofcommercenumber");
         }
     }

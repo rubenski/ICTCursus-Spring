@@ -1,6 +1,8 @@
 package nl.codebasesoftware.produx.controller.admin;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.domain.support.RoleName;
+import nl.codebasesoftware.produx.service.support.CurrentUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,12 @@ public class AdminHomeController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String get(Model model) {
+
+        UserProfile profile = CurrentUser.get();
+
+        if(profile.hasRole(RoleName.SYS_ADMIN)){
+            return "redirect:/admin/sys/";
+        }
 
         model.addAttribute("mainContent", "content/adminHome");
         return "adminMain";

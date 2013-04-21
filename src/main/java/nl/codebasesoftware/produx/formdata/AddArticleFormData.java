@@ -8,6 +8,7 @@ package nl.codebasesoftware.produx.formdata;
 public class AddArticleFormData {
 
     private Long id;
+    private Long suggestionId;
     private String teaser;
     private String title;
     private boolean published;
@@ -18,6 +19,14 @@ public class AddArticleFormData {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getSuggestionId() {
+        return suggestionId;
+    }
+
+    public void setSuggestionId(Long suggestionId) {
+        this.suggestionId = suggestionId;
     }
 
     public boolean isPublished() {

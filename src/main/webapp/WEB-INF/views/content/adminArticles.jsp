@@ -21,10 +21,10 @@
                             <a href="/admin/articles/edit/${article.id}">${article.title}</a>
                         </td>
                         <td>
-                             ${article.author.fullNameFormal}
+                                ${article.author.fullNameFormal}
                         </td>
                         <td>
-                             <fmt:formatDate value="${article.firstPublicationDate}" type="date" pattern="dd-MM-yyyy"/>
+                            <fmt:formatDate value="${article.firstPublicationDate.time}" type="date" pattern="dd-MM-yyyy"/>
                         </td>
                     </tr>
                 </c:forEach>
@@ -36,6 +36,43 @@
         </c:otherwise>
     </c:choose>
 </div>
+
+<div class="default-block">
+    <h2><spring:message code="admin.your.article.suggestions"/></h2>
+    <c:choose>
+        <c:when test="${numberOfSuggestions > 0}">
+
+            <table cellpadding="4" width="600">
+                <tr>
+                    <th><spring:message code="article.suggestion.title"/></th>
+                    <th><spring:message code="generic.message.status"/></th>
+                </tr>
+                <c:forEach items="${suggestions}" var="suggestion">
+                    <tr>
+                        <td>
+                                ${suggestion.suggestedTitle}
+                        </td>
+                        <td>
+                            <c:choose>
+                                <c:when test="suggestion.approved">
+                                    <a href="/admin/articles/suggested/add/${suggestion.id}"><spring:message code="article.create"/></a>
+                                </c:when>
+                                <c:otherwise>
+                                    <spring:message code="article.suggestion.underreview"/>
+                                </c:otherwise>
+                            </c:choose>
+
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </c:when>
+        <c:otherwise>
+            <spring:message code="admin.articles.nosuggestions"/>
+        </c:otherwise>
+    </c:choose>
+</div>
+
 
 <div class="default-block">
     <h2><spring:message code="admin.articles.suggest"/></h2>

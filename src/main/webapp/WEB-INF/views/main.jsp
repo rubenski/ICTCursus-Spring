@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!doctype html>
@@ -12,9 +12,9 @@
 </head>
 <body>
 <div id="wrapper">
-    <div id="header">
-        <jsp:include page="components/header.jsp"/>
-    </div>
+
+    <jsp:include page="components/header.jsp"/>
+
     <div id="search">
         <jsp:include page="components/search.jsp"/>
     </div>

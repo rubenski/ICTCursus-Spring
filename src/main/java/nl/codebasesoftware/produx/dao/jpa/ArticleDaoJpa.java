@@ -27,7 +27,8 @@ public class ArticleDaoJpa extends GenericDaoJpa<Article> implements ArticleDao 
 
     @Override
     public List<ArticlePage> findPages(Article article) {
-        return entityManager.createQuery("from ArticlePage ap where ap.article = :article").setParameter("article", article).getResultList();
+        return entityManager.createQuery("from ArticlePage ap where ap.article = :article order by ap.position")
+                .setParameter("article", article).getResultList();
     }
 
 

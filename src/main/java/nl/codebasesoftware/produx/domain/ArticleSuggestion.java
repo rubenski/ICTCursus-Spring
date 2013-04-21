@@ -15,6 +15,7 @@ public class ArticleSuggestion implements DomainObject {
     private String suggestionText;
     private Article article;
     private UserProfile suggester;
+    private boolean approved;
 
 
     @Override
@@ -47,7 +48,7 @@ public class ArticleSuggestion implements DomainObject {
         this.suggestionText = suggestionText;
     }
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="article_id", nullable = true)
     public Article getArticle() {
         return article;
@@ -65,5 +66,13 @@ public class ArticleSuggestion implements DomainObject {
 
     public void setSuggester(UserProfile suggester) {
         this.suggester = suggester;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
     }
 }

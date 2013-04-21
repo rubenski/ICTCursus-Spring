@@ -1,7 +1,10 @@
 package nl.codebasesoftware.produx.service;
 
 import nl.codebasesoftware.produx.domain.ArticleSuggestion;
+import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.formdata.ArticleSuggestionFormData;
+
+import java.util.List;
 
 /**
  * User: rvanloen
@@ -12,5 +15,6 @@ public interface ArticleSuggestionService {
 
     ArticleSuggestion findById(long id);
     ArticleSuggestion save(ArticleSuggestionFormData formData);
+    List<ArticleSuggestion> findForUser(UserProfile user);
 
 }

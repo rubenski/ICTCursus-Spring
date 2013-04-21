@@ -303,5 +303,10 @@ a.subbutton.disabled-button {
     display: none;
 }
 
+.pageup, .pagedown {
+    font-size: 22px;
+    text-decoration: none;
+}
+
 
 

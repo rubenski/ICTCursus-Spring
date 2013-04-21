@@ -18,7 +18,6 @@ public interface UserProfileService {
     UserProfile findById(long id);
     void update(UserProfile profile);
     void update(OtherUserProfileFormData profile);
-    UserProfile findCurrentUser();
     UserProfile findAuthorByArticle(long articleId);
     UserProfile findAuthorByPage(long pageId);
 }

@@ -8,6 +8,7 @@
 <form:form method="post" modelAttribute="articlePageFormData">
 
     <form:hidden path="articleId"/>
+    <form:hidden path="id"/>
 
     <%-- error / success feedback --%>
     <jsp:include page="submitmessage.jsp"/>
@@ -44,6 +45,8 @@
 
     <div class="default-block">
         <input type="submit" class="submitbutton" value="<spring:message code="generic.message.save"/>"/>
+        &nbsp;&nbsp;
+        <input type="submit" name="remove" class="submitbutton" value="<spring:message code="generic.message.remove"/>"/>
     </div>
 
 </form:form>

@@ -52,10 +52,7 @@ public class AdminArticleSuggestionController {
     public String send(@ModelAttribute("adrticleSuggestionFormData") ArticleSuggestionFormData formData,
                        Model model, Locale locale, BindingResult result){
 
-
         formValidator.validate(formData, result);
-
-
 
         if(!result.hasErrors()){
             ArticleSuggestion suggestion = articleSuggestionService.save(formData);
@@ -74,7 +71,7 @@ public class AdminArticleSuggestionController {
     public String success(@PathVariable("id") Long id, Model model, Locale locale){
 
         ArticleSuggestion suggestion = articleSuggestionService.findById(id);
-
+        setHeader(model, locale);
         if(suggestion == null || !suggestion.getSuggester().equals(CurrentUser.get())){
             throw new ResourceNotFoundException();
         }

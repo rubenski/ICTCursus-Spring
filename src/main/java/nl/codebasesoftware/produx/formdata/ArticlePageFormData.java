@@ -14,6 +14,7 @@ public class ArticlePageFormData {
     private String metaKeywords;
     private String metaDescription;
     private int position;
+    private int remove;
 
     public Long getId() {
         return id;
@@ -69,5 +70,13 @@ public class ArticlePageFormData {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getRemove() {
+        return remove;
+    }
+
+    public void setRemove(int remove) {
+        this.remove = remove;
     }
 }

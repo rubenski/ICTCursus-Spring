@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
  * Time: 9:59
  */
 @Component
-public class AddArticleFormValidator implements Validator {
+public class ArticleFormValidator implements Validator {
     @Override
     public boolean supports(Class<?> aClass) {
-        return aClass.isAssignableFrom(AddArticleFormValidator.class);
+        return aClass.isAssignableFrom(ArticleFormValidator.class);
     }
 
     @Override

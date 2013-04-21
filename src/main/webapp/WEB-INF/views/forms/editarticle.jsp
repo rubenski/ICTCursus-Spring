@@ -14,13 +14,13 @@
 
     <div class="default-block">
         <form:label path="title"><spring:message code="article.form.title"/></form:label>
-        <form:input path="title" cssClass="form-input" cssErrorClass="form-input-error" size="60" maxlength="60"/>
+        <form:input path="title" cssClass="form-input" cssErrorClass="form-input-error" size="60" maxlength="100"/>
         <form:errors path="title" cssClass="form-error"/>
     </div>
 
     <div class="default-block">
         <form:label path="teaser"><spring:message code="article.form.teaser"/></form:label>
-        <form:textarea cols="75" rows="4" path="teaser" cssClass="form-input" cssErrorClass="form-input-error" size="60" maxlength="60"/>
+        <form:textarea cols="75" rows="4" path="teaser" cssClass="form-input" cssErrorClass="form-input-error" size="60" maxlength="250"/>
         <form:errors path="teaser" cssClass="form-error"/>
     </div>
 
@@ -30,22 +30,29 @@
             <span><spring:message code="article.form.articleStatusheader.helptext"/></span>
         </form:label>
         <spring:message code="admin.articles.published" var="label"/>
-        <span class="inlineCheckBox"><form:checkbox disabled="${publishingDisabled}" path="published" label="${label}" /></span>
+        <span class="inlineCheckBox"><form:checkbox disabled="${publishingDisabled}" path="published" label="${label}"/></span>
         <form:errors path="published" cssClass="form-error"/>
     </div>
 
     <div class="default-block">
         <form:label path="pages"><spring:message code="article.form.pages"/></form:label>
-        <table cellpadding="4" width="600">
+        <table cellpadding="4" width="600" id="pagetable">
             <tr>
-                <th><spring:message code="admin.articles.pages"/></th>
+                <th><spring:message code="generic.message.title"/></th>
+                <th colspan="2"><spring:message code="article.page.position"/></th>
             </tr>
             <c:choose>
                 <c:when test="${numberOfPages > 0}">
-                    <c:forEach items="${pages}" var="page">
-                        <tr>
+                    <c:forEach items="${pages}" var="page" varStatus="status">
+                        <tr class="pagerow" id="${page.id}">
                             <td>
                                 <a href="/admin/articles/page/${page.id}">${page.title}</a>
+                            </td>
+                            <td>
+                                <a href="#" class="pageup" title="<spring:message code="page.moveup"/> id="${page.id}">&#8679;</a>
+                            </td>
+                            <td class="downer">
+                                <a href="#" class="pagedown" title="<spring:message code="page.movedown"/>" id="${page.id}">&#8681;</a>
                             </td>
                         </tr>
                     </c:forEach>

@@ -18,12 +18,12 @@ import java.util.List;
  * Time: 14:45
  */
 @Controller
-public class TagController {
+public class AdminTagController {
 
     private TagService tagService;
 
     @Autowired
-    public TagController(TagService tagService) {
+    public AdminTagController(TagService tagService) {
         this.tagService = tagService;
     }
 

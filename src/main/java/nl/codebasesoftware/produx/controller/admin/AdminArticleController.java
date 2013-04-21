@@ -2,15 +2,16 @@ package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.Article;
 import nl.codebasesoftware.produx.domain.ArticlePage;
+import nl.codebasesoftware.produx.domain.ArticleSuggestion;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.formdata.AddArticleFormData;
 import nl.codebasesoftware.produx.formdata.EditArticleFormData;
 import nl.codebasesoftware.produx.service.ArticleService;
+import nl.codebasesoftware.produx.service.ArticleSuggestionService;
 import nl.codebasesoftware.produx.service.CompanyService;
-import nl.codebasesoftware.produx.service.UserProfileService;
 import nl.codebasesoftware.produx.service.support.CurrentUser;
-import nl.codebasesoftware.produx.validator.AddArticleFormValidator;
+import nl.codebasesoftware.produx.validator.ArticleFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -36,27 +37,33 @@ public class AdminArticleController {
     private ArticleService articleService;
     private CompanyService companyService;
     private MessageSource messageSource;
-    private AddArticleFormValidator addArticleValidator;
-    private UserProfileService userProfileService;
+    private ArticleFormValidator articleValidator;
+    private ArticleSuggestionService articleSuggestionService;
+
 
     @Autowired
     public AdminArticleController(ArticleService articleService,
                                   CompanyService companyService,
                                   MessageSource messageSource,
-                                  AddArticleFormValidator addArticleValidator,
-                                  UserProfileService userProfileService) {
+                                  ArticleFormValidator articleValidator,
+                                  ArticleSuggestionService articleSuggestionService) {
         this.articleService = articleService;
         this.companyService = companyService;
         this.messageSource = messageSource;
-        this.addArticleValidator = addArticleValidator;
-        this.userProfileService = userProfileService;
+        this.articleValidator = articleValidator;
+        this.articleSuggestionService = articleSuggestionService;
     }
 
 
     @RequestMapping(value = "/admin/articles", method = RequestMethod.GET)
     public String companyArticles(Model model, Locale locale) {
+
         Company company = companyService.getCurrentlyLoggedInCompany();
         List<Article> articles = articleService.findByCompany(company.getId());
+        List<ArticleSuggestion> suggestions = articleSuggestionService.findForUser(CurrentUser.get());
+
+        model.addAttribute("numberOfSuggestions", suggestions.size());
+        model.addAttribute("suggestions", suggestions);
         model.addAttribute("articles", articles);
         model.addAttribute("numberOfArticles", articles.size());
         model.addAttribute("mainContent", "content/adminArticles");
@@ -64,19 +71,46 @@ public class AdminArticleController {
         return "adminMain";
     }
 
-    @RequestMapping(value = "/admin/articles/add", method = RequestMethod.GET)
-    public String addArticleForm(Model model, Locale locale) {
-        model.addAttribute("articleFormData", new AddArticleFormData());
+    @RequestMapping(value = "/admin/articles/suggested/add/{suggestionId}", method = RequestMethod.GET)
+    public String addArticleForm(@PathVariable("suggestionId") Long suggestiondId, Model model, Locale locale) {
+        ArticleSuggestion suggestion = articleSuggestionService.findById(suggestiondId);
+
+        if (suggestion == null || !suggestion.getSuggester().equals(CurrentUser.get())) {
+            throw new ResourceNotFoundException();
+        }
+
+        AddArticleFormData data = new AddArticleFormData();
+        data.setSuggestionId(suggestion.getId());
+        model.addAttribute("articleFormData", data);
         model.addAttribute("mainContent", "forms/addarticle");
         model.addAttribute("headerText", messageSource.getMessage("admin.articles.header.newarticle", new Object[]{}, locale));
         return "adminMain";
     }
 
+    @RequestMapping(value = "/admin/articles/edit/{id}", method = RequestMethod.POST)
+    public String saveArticle(@ModelAttribute("editArticleFormData") EditArticleFormData formData,
+                              Model model, BindingResult result, Locale locale) {
+
+        String valid = "false";
+        articleValidator.validate(formData, result);
+
+        if(!result.hasErrors()){
+            valid = "true";
+            articleService.updateArticle(formData);
+        }
+
+        setPageData(model, formData.getId(), formData, locale);
+        model.addAttribute("valid", valid);
+
+        return "adminMain";
+    }
+
     @RequestMapping(value = "/admin/articles/edit/{id}", method = RequestMethod.GET)
-    public String editArticle(@PathVariable("id") Long id, Model model, Locale locale){
+    public String editArticle(@PathVariable("id") Long id, Model model, Locale locale) {
+
         Article article = articleService.findById(id);
 
-        if(article == null){
+        if (article == null) {
             throw new ResourceNotFoundException();
         }
 
@@ -84,11 +118,9 @@ public class AdminArticleController {
         Company authorCompany = companyService.findByArticle(article);
 
         // Security
-        if(!authorCompany.equals(currentCompany)){
+        if (!authorCompany.equals(currentCompany)) {
             throw new ResourceNotFoundException();
         }
-
-        List<ArticlePage> pages = articleService.findPages(article);
 
         EditArticleFormData editArticleFormData = new EditArticleFormData();
         editArticleFormData.setPublished(article.isPublished());
@@ -96,20 +128,27 @@ public class AdminArticleController {
         editArticleFormData.setTeaser(article.getTeaser());
         editArticleFormData.setTitle(article.getTitle());
 
-        model.addAttribute("publishingDisabled", pages.size() == 0 ? "true" : "false");
-        model.addAttribute("numberOfPages", pages.size());
-        model.addAttribute("pages", pages);
-        model.addAttribute("headerText", messageSource.getMessage("admin.articles.header.editarticle", new Object[]{}, locale));
-        model.addAttribute("editArticleFormData", editArticleFormData);
-        model.addAttribute("mainContent", "forms/editarticle");
+        setPageData(model, id, editArticleFormData, locale);
 
         return "adminMain";
     }
 
-    @RequestMapping(value = "/admin/articles/add", method = RequestMethod.POST)
+    private void setPageData(Model model, long articleId, EditArticleFormData formData, Locale locale){
+        Article article = articleService.findById(articleId);
+        List<ArticlePage> pages = articleService.findPages(article);
+        model.addAttribute("editArticleFormData", formData);
+        model.addAttribute("mainContent", "forms/editarticle");
+        model.addAttribute("numberOfPages", pages.size());
+        model.addAttribute("pages", pages);
+        model.addAttribute("articleform", true);
+        model.addAttribute("publishingDisabled", pages.size() == 0 ? "true" : "false");
+        model.addAttribute("headerText", messageSource.getMessage("admin.articles.header.editarticle", new Object[]{}, locale));
+    }
+
+    @RequestMapping(value = "/admin/articles/suggested/add/{suggestionId}", method = RequestMethod.POST)
     public String addArticle(@ModelAttribute("articleFormData") AddArticleFormData formData, BindingResult result, Model model, Locale locale) {
 
-        addArticleValidator.validate(formData, result);
+        articleValidator.validate(formData, result);
 
         if (!result.hasErrors()) {
             Article article = articleService.addArticle(formData, CurrentUser.get().getId());

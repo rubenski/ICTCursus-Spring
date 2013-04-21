@@ -27,6 +27,14 @@
     padding: 5px 0px 0px 0px;
 }
 
+#wrapper #main-content h1 {
+    padding: 10px 0px 7px 0px;
+}
+
+#wrapper #main-content h2 {
+    padding-top: 20px;
+}
+
 #wrapper #main-content form div.default-block {
     padding: 12px 0px 0px 0px;
 }
@@ -48,6 +56,11 @@
     display: block;
     color: red;
     padding: 10px 10px 10px 0px;
+    font-weight: bold;
+}
+
+#wrapper #middle #main-content #invalidMessage {
+    color: red;
     font-weight: bold;
 }
 

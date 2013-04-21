@@ -12,42 +12,46 @@ public class ProduxValidator {
 
     private static final String NORMAL_TEXT_PATTERN = "[A-Za-z0-9'!@#*;{}()\\[\\]&\"'?,\\.></ -]";
 
-    public static boolean isValidEmail(String email){
+    public static boolean isValidEmail(String email) {
         Pattern p = Pattern.compile("([a-zA-Z0-9!#$%&'*+-/=?^_`{}][a-zA-Z0-9!#$%&'*+-/=?^_`{}]{2,50}\\.?)+@([0-9a-zA-Z]+[-\\.]?)+\\.([a-zA-Z]{2,4}[\\.]?)+");
         Matcher m = p.matcher(email);
         return m.matches();
     }
 
-    public static boolean isValidFirstName(String firstName){
+    public static boolean isValidFirstName(String firstName) {
         return isValidName(firstName);
     }
 
-    public static boolean isValidLastName(String lastName){
+    public static boolean isValidLastName(String lastName) {
         return isValidName(lastName);
     }
 
-    private static boolean isValidName(String name){
+    private static boolean isValidName(String name) {
         Pattern p = Pattern.compile("[a-zA-Z ']{2,20}");
         Matcher m = p.matcher(name);
         return m.matches();
     }
 
-    public static boolean isValidPassword(String password){
+    public static boolean isValidPassword(String password) {
         Pattern p = Pattern.compile("^.*(?=.{8,15})(?=.*\\d)(?=.*[a-zA-Z]).*$");
         Matcher m = p.matcher(password);
         return m.matches();
     }
 
-    public static boolean isValidPhoneNumber(String phone){
+    public static boolean isValidPhoneNumber(String phone) {
         Pattern p = Pattern.compile("[0-9 +-]{10,14}");
         Matcher m = p.matcher(phone);
         boolean matches = m.matches();
         return matches;
     }
 
-    public static boolean isValidPreposition(String preposition){
+    public static boolean isValidCompanyName(String companyName) {
+        return isValidNormalText(companyName, 2, 50);
+    }
 
-        if(preposition == null || preposition == ""){
+    public static boolean isValidPreposition(String preposition) {
+
+        if (preposition == null || preposition == "") {
             return true;
         }
 
@@ -56,53 +60,47 @@ public class ProduxValidator {
         return m.matches();
     }
 
-    public static boolean isValidArticleTitle(String articleTitle){
-        if(articleTitle == null || articleTitle == ""){
-            return false;
-        }
-        Pattern p = Pattern.compile(String.format("%s{8,50}", NORMAL_TEXT_PATTERN));
-        Matcher m = p.matcher(articleTitle);
-        return  m.matches();
+    public static boolean isValidArticleTitle(String articleTitle) {
+        return isValidNormalText(articleTitle, 8, 50);
     }
 
-    public static boolean isArticleTeaserLongEnough(String articleTeaser){
+    public static boolean isArticleTeaserLongEnough(String articleTeaser) {
         return articleTeaser == null ? false : articleTeaser.length() > 150;
     }
 
-
-    public static boolean isArticleTeaserValid(String articleTeaser){
-        if(articleTeaser == null || articleTeaser == ""){
-            throw new IllegalArgumentException("Please first test if the article teaser is long enough");
-        }
-        Pattern p = Pattern.compile(String.format("%s{150,500}", NORMAL_TEXT_PATTERN));
-        Matcher m = p.matcher(articleTeaser);
-        return  m.matches();
+    public static boolean isArticleTeaserValid(String articleTeaser) {
+        return isValidNormalText(articleTeaser, 150, 500);
     }
 
-    public static boolean isValidMetaKeywords(String keywords){
-        if(keywords == null){
+    public static boolean isValidMetaKeywords(String keywords) {
+        if (keywords == null) {
             return false;
         }
         Pattern p = Pattern.compile("[A-Za-z0-9, -.']{10,60}");
         Matcher m = p.matcher(keywords);
-        return  m.matches();
+        return m.matches();
     }
 
-    public static boolean isValidMetaDescription(String description){
-        if(description == null){
-            return false;
-        }
-        Pattern p = Pattern.compile(String.format("%s{50,200}", NORMAL_TEXT_PATTERN));
-        Matcher m = p.matcher(description);
-        return  m.matches();
+    public static boolean isValidMetaDescription(String description) {
+        return isValidNormalText(description, 50, 200);
     }
 
-    public static boolean isValidSuggestionText(String description) {
-        if(description == null){
+    public static boolean isValidSuggestionText(String suggestionText) {
+        return isValidNormalText(suggestionText, 30, 500);
+    }
+
+    public static boolean isValidTradeNumber(String tradeNumber){
+        Pattern p = Pattern.compile("[0-9]{8}");
+        Matcher m = p.matcher(tradeNumber);
+        return m.matches();
+    }
+
+    private static boolean isValidNormalText(String text, int min, int max) {
+        if (text == null) {
             return false;
         }
-        Pattern p = Pattern.compile(String.format("%s{30,500}", NORMAL_TEXT_PATTERN));
-        Matcher m = p.matcher(description);
-        return  m.matches();
+        Pattern p = Pattern.compile(String.format("%s{%d,%d}", NORMAL_TEXT_PATTERN, min, max));
+        Matcher m = p.matcher(text);
+        return m.matches();
     }
 }

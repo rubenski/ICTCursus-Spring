@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.domain.support.RoleName;
 import nl.codebasesoftware.produx.formdata.BindableMyUserProfile;
 import nl.codebasesoftware.produx.service.UserProfileService;
 import nl.codebasesoftware.produx.service.support.CurrentUser;
@@ -39,9 +40,9 @@ public class AdminMyUserProfileController {
         this.myUserProfileValidator = myUserProfileValidator;
     }
 
-    @RequestMapping(value = "/admin/myprofile", method = RequestMethod.GET)
+    @RequestMapping(value = {"/admin/myprofile", "/admin/sys/myprofile"}, method = RequestMethod.GET)
     public String myProfileForm(Model model, Locale locale){
-        UserProfile userProfile = CurrentUser.get();
+        UserProfile userProfile = userProfileService.findById(CurrentUser.get().getId());
         String headerText = messageSource.getMessage("user.edit.myprofile", new Object[]{}, locale);
 
         BindableMyUserProfile bindableMyUserProfile = conversionService.convert(userProfile, BindableMyUserProfile.class);
@@ -52,13 +53,13 @@ public class AdminMyUserProfileController {
         model.addAttribute("mainContent", "forms/myuserprofile");
         model.addAttribute("myUserProfile", bindableMyUserProfile);
 
-        return "adminMain";
+        return userProfile.hasRole(RoleName.SYS_ADMIN) ? "sysAdminMain" : "adminMain";
     }
 
-    @RequestMapping(value = "/admin/myprofile", method = RequestMethod.POST)
+    @RequestMapping(value = {"/admin/myprofile", "/admin/sys/myprofile"}, method = RequestMethod.POST)
     public String submitMyProfileForm(@ModelAttribute("myUserProfile")BindableMyUserProfile profile, BindingResult result,
                                       Model model, Locale locale){
-
+        UserProfile userProfile = userProfileService.findById(profile.getId());
         String headerText = messageSource.getMessage("user.edit.myprofile", new Object[]{}, locale);
         String valid = "false";
         myUserProfileValidator.validate(profile, result);
@@ -73,6 +74,6 @@ public class AdminMyUserProfileController {
         model.addAttribute("mainContent", "forms/myuserprofile");
         model.addAttribute("myUserProfile", profile);
 
-        return "adminMain";
+        return userProfile.hasRole(RoleName.SYS_ADMIN) ? "sysAdminMain" : "adminMain";
     }
 }

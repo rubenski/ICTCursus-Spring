@@ -1,5 +1,6 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.domain.support.RoleName;
 import nl.codebasesoftware.produx.spring.authentication.ProduxAuthority;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -192,6 +193,16 @@ public class UserProfile implements DomainObject, UserDetails {
             ids.add(role.getId());
         }
         return ids;
+    }
+
+    @Transient
+    public boolean hasRole(RoleName roleName){
+        for (Role role : roles) {
+            if(roleName.equals(role.getSystemName())){
+                return true;
+            }
+        }
+        return false;
     }
 
 

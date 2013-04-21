@@ -11,18 +11,18 @@
 <form name='f' action="<c:url value='j_spring_security_check' />" method='POST'>
     <div id="data-entry-form">
 
-        <div class="form-entry">
+        <div class="default-block">
             <label><spring:message code="user.genericlabel.email"/></label>
             <input type='text' name='j_username' value=''>
         </div>
-        <div class="form-entry">
+        <div class="default-block">
             <label><spring:message code="user.genericlabel.password"/></label>
             <input type='password' name='j_password'/>
         </div>
-        <div class="form-entry">
+        <div class="default-block">
             <input type="submit" value="Verzenden"/>
         </div>
-        <div class="form-entry">
+        <div class="default-block">
             <a href="/login/requestpassword"><spring:message code="login.form.label.forgotpassword"/></a>
         </div>
     </div>
