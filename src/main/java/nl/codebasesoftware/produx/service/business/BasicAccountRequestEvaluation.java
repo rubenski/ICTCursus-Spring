@@ -12,7 +12,14 @@ import java.util.List;
  * User: rvanloen
  * Date: 24-4-13
  * Time: 21:45
+ *
+ *
  */
+
+
+// TODO: This is a weird object, because it doesn't properly represent an account request's state after it has been granted. When a request
+// is turend into a company and userprofile the boolean fields are representing the current situation, instead of the situation when the
+// request was still uunevaluated
 public class BasicAccountRequestEvaluation {
 
     private AccountRequest request;

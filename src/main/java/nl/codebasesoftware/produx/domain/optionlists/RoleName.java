@@ -1,4 +1,4 @@
-package nl.codebasesoftware.produx.domain.support;
+package nl.codebasesoftware.produx.domain.optionlists;
 
 /**
  * User: rvanloen
@@ -11,5 +11,6 @@ public enum RoleName {
     COMPANY_COURSE_ADMIN,
     COMPANY_REQUESTS_ADMIN,
     COMPANY_USERS_ADMIN,
+    COMPANY_SETTINGS_ADMIN,
     SYS_ADMIN
 }

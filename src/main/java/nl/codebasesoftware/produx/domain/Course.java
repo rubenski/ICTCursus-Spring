@@ -32,6 +32,7 @@ public class Course implements DomainObject {
     private Set<Time> times = new HashSet<Time>();
     private Set<CourseOption> options = new HashSet<CourseOption>();
     private Set<Region> regions = new HashSet<Region>();
+    private boolean published = true;
 
 
     public Course() {
@@ -212,6 +213,14 @@ public class Course implements DomainObject {
 
     public void setOptions(Set<CourseOption> options) {
         this.options = options;
+    }
+
+    public boolean isPublished() {
+        return published;
+    }
+
+    public void setPublished(boolean published) {
+        this.published = published;
     }
 
     @Transient

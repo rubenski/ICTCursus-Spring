@@ -137,4 +137,15 @@ public class ProduxValidator {
         Matcher matcher = zipCodePattern.matcher(zip);
         return  matcher.matches();
     }
+
+    public static boolean isValidBudgetTriggerAmount(String budgetTriggerAmount) {
+        Pattern p = Pattern.compile("[1-9]{1}[0-9]{1,3}");
+        Matcher matcher = p.matcher(budgetTriggerAmount.toString());
+        boolean match = matcher.matches();
+        if(!match){
+            return false;
+        }
+
+        return Integer.parseInt(budgetTriggerAmount) >= 10;
+    }
 }

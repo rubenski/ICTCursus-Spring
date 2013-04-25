@@ -24,6 +24,9 @@
         <sec:authorize access="hasRole('ROLE_PERM_edit_company_users') or hasRole('ROLE_PERM_edit_everything')">
             <li><a href="/admin/invitations"><spring:message code="admin.sections.invitations"/></a></li>
         </sec:authorize>
+        <sec:authorize access="hasRole('ROLE_PERM_edit_company_settings') or hasRole('ROLE_PERM_edit_everything')">
+            <li><a href="/admin/settings"><spring:message code="admin.sections.settings"/></a></li>
+        </sec:authorize>
     </ul>
     <br>
     <ul>

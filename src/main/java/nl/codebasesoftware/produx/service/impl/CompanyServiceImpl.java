@@ -4,6 +4,7 @@ import nl.codebasesoftware.produx.dao.CompanyDao;
 import nl.codebasesoftware.produx.domain.Article;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.formdata.CompanySettingsFormData;
 import nl.codebasesoftware.produx.formdata.BindableCompany;
 import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.service.support.CurrentUser;
@@ -50,11 +51,32 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    @Transactional (readOnly = false)
+    @Transactional (readOnly = true)
     public Company getCurrentlyLoggedInCompany() {
         UserProfile user = CurrentUser.get();
         Company company = user.getCompany();
         return companyDao.find(company.getId());
+    }
+
+    @Override
+    @Transactional (readOnly = true)
+    public CompanySettingsFormData getCompanySettingsForCurrentCompany(){
+        Company company = getCurrentlyLoggedInCompany();
+        CompanySettingsFormData dto = new CompanySettingsFormData();
+        dto.setCourseRequestEmailAddress(company.getCourseRequestEmailAddress());
+        dto.setAllCoursesDeactivated(company.isAllCoursesDeactivated());
+        dto.setBudgetTriggerAmount(company.getBudgetTriggerAmount().toString());
+        dto.setCompanyId(company.getId());
+        return dto;
+    }
+
+    @Override
+    @Transactional (readOnly = false)
+    public void saveSettings(CompanySettingsFormData settingsDto) {
+        Company company = getCurrentlyLoggedInCompany();
+        company.setAllCoursesDeactivated(settingsDto.isAllCoursesDeactivated());
+        company.setBudgetTriggerAmount(Integer.parseInt(settingsDto.getBudgetTriggerAmount()));
+        company.setCourseRequestEmailAddress(settingsDto.getCourseRequestEmailAddress());
     }
 
     private void bindableCompanyToCompany(BindableCompany bindableCompany, Company company){

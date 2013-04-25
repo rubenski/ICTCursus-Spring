@@ -1,6 +1,6 @@
 package nl.codebasesoftware.produx.domain;
 
-import nl.codebasesoftware.produx.domain.support.RoleName;
+import nl.codebasesoftware.produx.domain.optionlists.RoleName;
 
 import javax.persistence.*;
 import java.util.Set;

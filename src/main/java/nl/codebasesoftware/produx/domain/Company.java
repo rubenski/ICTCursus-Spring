@@ -28,6 +28,9 @@ public class Company implements DomainObject {
     private Set<Course> courses = new HashSet<Course>();
     private byte[] logo;
     private Set<UserProfile> users;
+    private Integer budgetTriggerAmount;
+    private String courseRequestEmailAddress;
+    private boolean allCoursesDeactivated;
 
     @Override
     @Id
@@ -155,6 +158,30 @@ public class Company implements DomainObject {
 
     public void setUsers(Set<UserProfile> users) {
         this.users = users;
+    }
+
+    public Integer getBudgetTriggerAmount() {
+        return budgetTriggerAmount;
+    }
+
+    public void setBudgetTriggerAmount(Integer budgetTriggerAmount) {
+        this.budgetTriggerAmount = budgetTriggerAmount;
+    }
+
+    public String getCourseRequestEmailAddress() {
+        return courseRequestEmailAddress;
+    }
+
+    public void setCourseRequestEmailAddress(String courseRequestEmailAddress) {
+        this.courseRequestEmailAddress = courseRequestEmailAddress;
+    }
+
+    public boolean isAllCoursesDeactivated() {
+        return allCoursesDeactivated;
+    }
+
+    public void setAllCoursesDeactivated(boolean allCoursesDeactivated) {
+        this.allCoursesDeactivated = allCoursesDeactivated;
     }
 
     @Transient
