@@ -107,6 +107,7 @@
                 <bean class="nl.codebasesoftware.produx.conversion.UserInvitationToAccountActivationFormData"/>
                 <bean class="nl.codebasesoftware.produx.conversion.ArticlePageToArticlePageFormData"/>
                 <bean class="nl.codebasesoftware.produx.conversion.AccountRequestFormDataToAccountRequest"/>
+                <bean class="nl.codebasesoftware.produx.conversion.AccountRequestToAccountRequestFormData"/>
             </set>
         </property>
     </bean>

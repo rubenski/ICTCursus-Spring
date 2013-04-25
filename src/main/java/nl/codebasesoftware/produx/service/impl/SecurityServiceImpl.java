@@ -29,4 +29,9 @@ public class SecurityServiceImpl implements SecurityService {
         int actualLength = Integer.parseInt(passwordLengthString);
         return SecurityUtil.randomAlphaNumericString(actualLength);
     }
+
+    @Override
+    public String getHash(String text){
+        return SecurityUtil.createShaHash(text);
+    }
 }

@@ -103,4 +103,38 @@ public class ProduxValidator {
         Matcher m = p.matcher(text);
         return m.matches();
     }
+
+    public static boolean isValidAddrress(String address) {
+        if (address == null) {
+            return false;
+        }
+        Pattern p = Pattern.compile("[A-Za-z0-9, -.']{3,50}");
+        Matcher m = p.matcher(address);
+        return m.matches();
+    }
+
+    public static boolean isValidCity(String city) {
+        if (city == null) {
+            return false;
+        }
+        Pattern p = Pattern.compile("[A-Za-z, -.']{3,50}");
+        Matcher m = p.matcher(city);
+        return m.matches();
+    }
+
+    public static boolean isValidVatNumber(String vatNumber) {
+        if (vatNumber == null) {
+            return false;
+        }
+        Pattern p = Pattern.compile("[0-9A-Za-z\\. ]{10,20}");
+        Matcher m = p.matcher(vatNumber);
+        return m.matches();
+    }
+
+    public static boolean isValidZipCode(String zip) {
+        String zipCodeRegex = "[0-9]{4}[A-Za-z]{0,2}";
+        Pattern zipCodePattern = Pattern.compile(zipCodeRegex);
+        Matcher matcher = zipCodePattern.matcher(zip);
+        return  matcher.matches();
+    }
 }

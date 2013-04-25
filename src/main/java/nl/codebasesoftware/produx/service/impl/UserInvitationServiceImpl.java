@@ -107,14 +107,6 @@ public class UserInvitationServiceImpl implements UserInvitationService {
         userInvitationDao.delete(invitation);
     }
 
-     private Long companyId;
-    private Long invitationId;
-    private String email;
-    private String firstName;
-    private String preposition;
-    private String lastName;
-    private String phone;
-
     @Transactional(readOnly = false)
     public UserProfile activateProfile(AccountActivationFormData activationData) {
         UserProfile userProfile = new UserProfile();
@@ -127,7 +119,7 @@ public class UserInvitationServiceImpl implements UserInvitationService {
         userProfile.setPreposition(activationData.getPreposition());
         userProfile.setLastName(activationData.getLastName());
         userProfile.setPhone(activationData.getPhone());
-        userProfile.setPasswordHash(SecurityUtil.createPasswordHash(activationData.getPassword1()));
+        userProfile.setPasswordHash(SecurityUtil.createShaHash(activationData.getPassword1()));
 
         // Set invitation to activated
         UserInvitation invitation = userInvitationDao.findByEmail(activationData.getEmail());

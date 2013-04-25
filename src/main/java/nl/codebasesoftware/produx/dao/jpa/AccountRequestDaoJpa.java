@@ -21,6 +21,15 @@ public class AccountRequestDaoJpa extends GenericDaoJpa<AccountRequest> implemen
 
     @Override
     public List<AccountRequest> findNonEvaluated() {
-        return entityManager.createQuery("from AccountRequest ar where ar.evaluated = :evaluated").setParameter("evaluated", false).getResultList();
+        return findRequests(false);
+    }
+
+    @Override
+    public List<AccountRequest> findEvaluated() {
+        return findRequests(true);
+    }
+
+    private List<AccountRequest> findRequests(boolean evaluated){
+         return entityManager.createQuery("from AccountRequest ar where ar.evaluated = :evaluated").setParameter("evaluated", evaluated).getResultList();
     }
 }

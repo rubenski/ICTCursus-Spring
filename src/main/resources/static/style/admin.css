@@ -8,7 +8,7 @@
 }
 
 #wrapper #middle .default-block table {
-    padding:  5px 0px 15px 0px;
+    padding: 5px 0px 15px 0px;
 }
 
 #wrapper #middle .default-block table th {
@@ -18,6 +18,12 @@
     font-weight: bold;
     color: #444;
     background-color: #f5f2f2;
+}
+
+#wrapper #middle .default-block table th.subheader {
+    background-color: white;
+    text-decoration: underline;
+
 }
 
 #wrapper #middle .default-block table tr {
@@ -114,7 +120,7 @@
 
 .default-block h2 {
     font-size: 18px;
-    padding:  4px 0px 7px 0px;
+    padding: 4px 0px 7px 0px;
     font-weight: normal;
 }
 
@@ -139,7 +145,7 @@
     font-size: 12px;
 }
 
-.default-block span.blockCheckBox  {
+.default-block span.blockCheckBox {
     padding-top: 5px;
     display: block;
 }
@@ -307,6 +313,27 @@ a.subbutton.disabled-button {
     font-size: 22px;
     text-decoration: none;
 }
+
+.right-aligned {
+    text-align: right;
+}
+
+.rejectmessage input[type='submit'] {
+    margin-top: 3px;
+}
+
+.emptycell {
+    background-color: #d4d0d0;
+}
+
+.error {
+    color: red;
+}
+
+.hidden {
+    display:none;
+}
+
 
 
 

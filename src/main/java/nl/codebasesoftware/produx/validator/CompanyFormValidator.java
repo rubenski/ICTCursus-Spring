@@ -41,11 +41,7 @@ public class CompanyFormValidator implements Validator {
             errors.rejectValue("address", "errors.company.address");
         }
 
-        // NB: This regex validates both Dutch and Belgian zip codes
-        String zipCodeRegex = "[0-9]{4}[A-Za-z]{0,2}";
-        Pattern zipCodePattern = Pattern.compile(zipCodeRegex);
-        matcher = zipCodePattern.matcher(bindableCompany.getZipCode());
-        if(!matcher.matches()){
+        if(!ProduxValidator.isValidZipCode(bindableCompany.getZipCode())){
             errors.rejectValue("zipCode", "errors.company.zipcode");
         }
 
@@ -74,10 +70,7 @@ public class CompanyFormValidator implements Validator {
             errors.rejectValue("phone", "errors.company.phone");
         }
 
-        String vatRegex = "[0-9A-Za-z]{10,20}";
-        Pattern vatPattern = Pattern.compile(vatRegex);
-        matcher = vatPattern.matcher(bindableCompany.getVatNumber());
-        if(!matcher.matches()){
+        if(!ProduxValidator.isValidVatNumber(bindableCompany.getVatNumber())){
             errors.rejectValue("vatNumber", "errors.company.vatnumber");
         }
 

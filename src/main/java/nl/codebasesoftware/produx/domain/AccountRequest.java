@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.domain;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -12,18 +13,27 @@ import java.util.Calendar;
 public class AccountRequest implements DomainObject {
 
     private Long id;
+
+    private String companyAddress;
+    private String companyCity;
+    private String country;
+    private String companyEmail;
+    private String companyPhone;
+    private String companyZipCode;
+    private String tradeNumber;
+    private String vatNumber;
+
     private String firstName;
     private String preposition;
     private String lastName;
     private String email;
     private String phone;
     private String companyName;
-    private String tradeNumber;
-    private String message;
-    private String securityCode;
+    private String userMessage;
     private Calendar requestDate;
     private boolean evaluated;
     private Boolean granted;
+    private String adminMessage;
 
     @Override
     @Id
@@ -54,6 +64,14 @@ public class AccountRequest implements DomainObject {
         this.email = email;
     }
 
+    public String getVatNumber() {
+        return vatNumber;
+    }
+
+    public void setVatNumber(String vatNumber) {
+        this.vatNumber = vatNumber;
+    }
+
     @Column(nullable = false)
     public String getFirstName() {
         return firstName;
@@ -81,12 +99,12 @@ public class AccountRequest implements DomainObject {
     }
 
     @Lob
-    public String getMessage() {
-        return message;
+    public String getUserMessage() {
+        return userMessage;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setUserMessage(String userMessage) {
+        this.userMessage = userMessage;
     }
 
     @Column(nullable = false)
@@ -108,15 +126,6 @@ public class AccountRequest implements DomainObject {
     }
 
     @Column(nullable = false)
-    public String getSecurityCode() {
-        return securityCode;
-    }
-
-    public void setSecurityCode(String securityCode) {
-        this.securityCode = securityCode;
-    }
-
-    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     public Calendar getRequestDate() {
         return requestDate;
@@ -135,6 +144,51 @@ public class AccountRequest implements DomainObject {
         this.evaluated = evaluated;
     }
 
+    @Column(nullable = false)
+    public String getCompanyAddress() {
+        return companyAddress;
+    }
+
+    public void setCompanyAddress(String companyAddress) {
+        this.companyAddress = companyAddress;
+    }
+
+    @Column(nullable = false)
+    public String getCompanyCity() {
+        return companyCity;
+    }
+
+    public void setCompanyCity(String companyCity) {
+        this.companyCity = companyCity;
+    }
+
+    @Column(nullable = false)
+    public String getCompanyEmail() {
+        return companyEmail;
+    }
+
+    public void setCompanyEmail(String companyEmail) {
+        this.companyEmail = companyEmail;
+    }
+
+    @Column(nullable = false)
+    public String getCompanyPhone() {
+        return companyPhone;
+    }
+
+    public void setCompanyPhone(String companyPhone) {
+        this.companyPhone = companyPhone;
+    }
+
+    @Column(nullable = false)
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     @Column(nullable = true)
     public Boolean isGranted() {
         return granted;
@@ -144,8 +198,48 @@ public class AccountRequest implements DomainObject {
         this.granted = granted;
     }
 
+    public String getCompanyZipCode() {
+        return companyZipCode;
+    }
+
+    public void setCompanyZipCode(String companyZipCode) {
+        this.companyZipCode = companyZipCode;
+    }
+
+    @Lob
+    public String getAdminMessage() {
+        return adminMessage;
+    }
+
+    public void setAdminMessage(String adminMessage) {
+        this.adminMessage = adminMessage;
+    }
+
     @Transient
     public String getFullNameFormal(){
         return preposition != null ? String.format("%s, %s  %s", lastName, firstName, preposition) : String.format("%s, %s", lastName, firstName);
+    }
+
+    @Transient
+    public String getFullNameInformal(){
+        return preposition != null ? String.format("%s %s %s", firstName, preposition, lastName) : String.format("%s %s", firstName, lastName);
+    }
+
+    @Transient
+    public void reject(String rejectMessage){
+        this.granted = false;
+        this.evaluated = true;
+        this.adminMessage = rejectMessage;
+    }
+
+    @Transient
+    public void grant(){
+        granted = true;
+        evaluated = true;
+    }
+
+    @Transient
+    public String getFormattedDate(){
+        return new SimpleDateFormat("dd-MM-yyyy").format(requestDate.getTime());
     }
 }

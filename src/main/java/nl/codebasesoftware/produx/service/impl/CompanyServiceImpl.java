@@ -88,6 +88,8 @@ public class CompanyServiceImpl implements CompanyService {
         Company company = companyDao.find(companyId);
         return company.getLogo();
     }
+
+
 }
 
 

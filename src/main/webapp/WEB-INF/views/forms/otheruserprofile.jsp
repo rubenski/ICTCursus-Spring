@@ -19,7 +19,7 @@
 
     <div class="default-block">
         <form:label path="email"><spring:message code="user.genericlabel.email"/></form:label>
-        <input cssClass="form-input" cssErrorClass="form-input-error" size="60" maxlength="60" disabled="true" value="${otherUserProfile.email}"/>
+        <input cssClass="form-input" cssErrorClass="form-input-error" size="50" maxlength="60" disabled="true" value="${otherUserProfile.email}"/>
         <form:errors path="email" cssClass="form-error"/>
     </div>
 

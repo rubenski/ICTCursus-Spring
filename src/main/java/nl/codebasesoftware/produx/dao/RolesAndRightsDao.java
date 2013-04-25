@@ -14,4 +14,6 @@ public interface RolesAndRightsDao extends GenericDao<Role> {
     List<Role> findByIds(List<Long> roleIds);
 
     List<Role> findUserAssignableRoles();
+
+    List<Role> findCompanyAdminRoles();
 }

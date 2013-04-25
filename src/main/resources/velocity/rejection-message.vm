@@ -1,0 +1,27 @@
+#* @vtlvariable name="request" type="nl.codebasesoftware.produx.domain.AccountRequest" *#
+
+
+<html>
+<body>
+
+
+<p>
+    Geachte ${request.fullNameInformal},
+    <br><br>
+    Op ${request.formattedDate} heeft u een account-aanvraag bij ICTCursus.nl gedaan. Helaas is uw aanvraag niet gehonoreerd.
+    <br><br>
+    #if( $request.adminMessage != '' )
+        ${request.adminMessage}
+    #end
+    <br>
+    <br>
+    Met vriendelijke groeten,
+    <br>
+    <br>
+    ICTCursus.nl
+    <br>
+    <br>
+</p>
+</body>
+
+</html>

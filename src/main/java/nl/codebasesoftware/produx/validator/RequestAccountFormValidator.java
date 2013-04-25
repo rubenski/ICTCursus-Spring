@@ -25,6 +25,26 @@ public class RequestAccountFormValidator implements Validator {
     public void validate(Object target, Errors errors) {
         AccountRequestFormData request = (AccountRequestFormData) target;
 
+        if(!ProduxValidator.isValidAddrress(request.getCompanyAddress())){
+            errors.rejectValue("companyAddress", "errors.company.address");
+        }
+
+        if(!ProduxValidator.isValidCity(request.getCompanyCity())){
+            errors.rejectValue("companyCity", "errors.company.city");
+        }
+
+        if(request.getCountry().equals("-1")){
+            errors.rejectValue("country", "errors.company.country");
+        }
+
+        if(!ProduxValidator.isValidEmail(request.getCompanyEmail())){
+            errors.rejectValue("companyEmail", "error.email.invalid");
+        }
+
+        if(!ProduxValidator.isValidPhoneNumber(request.getCompanyPhone())){
+            errors.rejectValue("companyPhone", "error.user.phone");
+        }
+
         if(!ProduxValidator.isValidFirstName(request.getFirstName())){
             errors.rejectValue("firstName", "error.user.firstName");
         }
@@ -51,6 +71,14 @@ public class RequestAccountFormValidator implements Validator {
 
         if(!ProduxValidator.isValidTradeNumber(request.getTradeNumber())){
             errors.rejectValue("tradeNumber", "errors.company.chamberofcommercenumber");
+        }
+
+        if(!ProduxValidator.isValidZipCode(request.getCompanyZipCode())){
+            errors.rejectValue("companyZipCode", "errors.company.zipcode");
+        }
+
+        if(!ProduxValidator.isValidVatNumber(request.getVatNumber())){
+            errors.rejectValue("vatNumber", "errors.company.vatnumber");
         }
 
     }

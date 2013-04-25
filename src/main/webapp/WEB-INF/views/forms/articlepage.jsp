@@ -15,13 +15,13 @@
 
     <div class="default-block">
         <form:label path="title"><spring:message code="generic.message.title"/></form:label>
-        <form:input path="title" cssClass="form-input" cssErrorClass="form-input-error" size="60" maxlength="60"/>
+        <form:input path="title" cssClass="form-input" cssErrorClass="form-input-error" size="50" maxlength="60"/>
         <form:errors path="title" cssClass="form-error"/>
     </div>
 
     <div class="default-block">
         <form:label path="text"><spring:message code="articlepage.form.text.label"/></form:label>
-        <form:textarea cols="75" rows="30" path="text" cssClass="richtext" cssErrorClass="form-input-error" size="60" maxlength="6000"/>
+        <form:textarea cols="75" rows="30" path="text" cssClass="richtext" cssErrorClass="form-input-error" size="50" maxlength="6000"/>
         <form:errors path="text" cssClass="form-error"/>
     </div>
 
@@ -30,7 +30,7 @@
             <spring:message code="articlepage.form.meta.keywords"/>
             <span><spring:message code="page.metakeywords.helptext"/></span>
         </form:label>
-        <form:textarea cols="75" rows="1" path="metaKeywords" cssClass="form-input" cssErrorClass="form-input-error" size="60" maxlength="60"/>
+        <form:textarea cols="75" rows="1" path="metaKeywords" cssClass="form-input" cssErrorClass="form-input-error" size="50" maxlength="60"/>
         <form:errors path="metaKeywords" cssClass="form-error"/>
     </div>
 
@@ -39,7 +39,7 @@
             <spring:message code="articlepage.form.meta.description"/>
             <span><spring code="page.metadescription.helptext"/></span>
         </form:label>
-        <form:textarea cols="75" rows="3" path="metaDescription" cssClass="form-input" cssErrorClass="form-input-error" size="60" maxlength="200"/>
+        <form:textarea cols="75" rows="3" path="metaDescription" cssClass="form-input" cssErrorClass="form-input-error" size="50" maxlength="200"/>
         <form:errors path="metaDescription" cssClass="form-error"/>
     </div>
 

@@ -27,4 +27,9 @@ public class RolesAndRightsDaoJpa extends GenericDaoJpa<Role> implements RolesAn
     public List<Role> findUserAssignableRoles() {
         return entityManager.createQuery("from Role r where r.userAssignable = true").getResultList();
     }
+
+    @Override
+    public List<Role> findCompanyAdminRoles() {
+        return entityManager.createQuery("from Role r where r.companyAdminRole = :value").setParameter("value", true).getResultList();
+    }
 }

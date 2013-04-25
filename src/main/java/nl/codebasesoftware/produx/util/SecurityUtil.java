@@ -10,7 +10,7 @@ import org.apache.commons.codec.digest.DigestUtils;
  */
 public class SecurityUtil {
 
-    public static String createPasswordHash(String password){
+    public static String createShaHash(String password){
         return DigestUtils.shaHex(password);
     }
 

@@ -15,13 +15,13 @@
 
     <div class="default-block">
         <form:label path="title"><spring:message code="article.form.title"/></form:label>
-        <form:input path="title" cssClass="form-input" cssErrorClass="form-input-error" size="60" maxlength="60"/>
+        <form:input path="title" cssClass="form-input" cssErrorClass="form-input-error" size="50" maxlength="60"/>
         <form:errors path="title" cssClass="form-error"/>
     </div>
 
     <div class="default-block">
         <form:label path="teaser"><spring:message code="article.form.teaser"/></form:label>
-        <form:textarea cols="75" rows="4" path="teaser" cssClass="form-input" cssErrorClass="form-input-error" size="60" maxlength="500"/>
+        <form:textarea cols="75" rows="4" path="teaser" cssClass="form-input" cssErrorClass="form-input-error" size="50" maxlength="500"/>
         <form:errors path="teaser" cssClass="form-error"/>
     </div>
 

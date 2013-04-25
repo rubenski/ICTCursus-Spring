@@ -12,7 +12,7 @@
 
     <div class="default-block">
         <form:label path="name"><spring:message code="company.form.name"/></form:label>
-        <form:input path="name" cssClass="form-input" cssErrorClass="form-input-error" size="60" maxlength="60"/>
+        <form:input path="name" cssClass="form-input" cssErrorClass="form-input-error" size="50" maxlength="60"/>
         <form:errors path="name" cssClass="form-error"/>
     </div>
     <div class="default-block logo">
@@ -23,7 +23,7 @@
     </div>
     <div class="default-block">
         <form:label path="address"><spring:message code="company.form.address"/></form:label>
-        <form:input path="address" cssClass="form-input" cssErrorClass="form-input-error" size="60" maxlength="60"/>
+        <form:input path="address" cssClass="form-input" cssErrorClass="form-input-error" size="50" maxlength="60"/>
         <form:errors path="address" cssClass="form-error"/>
     </div>
     <div class="default-block">

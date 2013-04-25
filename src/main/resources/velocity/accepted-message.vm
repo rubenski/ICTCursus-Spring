@@ -1,0 +1,33 @@
+#* @vtlvariable name="request" type="nl.codebasesoftware.produx.domain.AccountRequest" *#
+
+
+<html>
+<body>
+
+
+<p>
+    Geachte ${request.fullNameInformal},
+    <br><br>
+    Op ${request.formattedDate} heeft u een account aangevraagd bij ICTCursus.nl. Uw aanvraag is gehonoreerd en uw account is klaar voor gebruik.
+    <br><br>
+    #if( $request.adminMessage != '' )
+        ${request.adminMessage}
+    #end
+    <br>
+    <br>
+    U kunt vanaf nu <a href="${protocol}://${host}:${port}/login">inloggen</a> met de volgende gegevens:
+    <br>
+    <br>
+    <b>Email: ${request.email}</b><br>
+    <b>Wachtwoord: ${generatedPassword}</b><br>
+    <br>
+    Met vriendelijke groeten,
+    <br>
+    <br>
+    ICTCursus.nl
+    <br>
+    <br>
+</p>
+</body>
+
+</html>

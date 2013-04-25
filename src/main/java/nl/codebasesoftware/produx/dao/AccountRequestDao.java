@@ -11,4 +11,6 @@ import java.util.List;
  */
 public interface AccountRequestDao extends GenericDao<AccountRequest>{
     List<AccountRequest> findNonEvaluated();
+
+    List<AccountRequest> findEvaluated();
 }

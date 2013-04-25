@@ -11,7 +11,7 @@
 
     <div class="default-block">
         <form:label path="title"><spring:message code="article.suggestion.title"/></form:label>
-        <form:input path="title" cssClass="form-input" cssErrorClass="form-input-error" size="60" maxlength="60"/>
+        <form:input path="title" cssClass="form-input" cssErrorClass="form-input-error" size="50" maxlength="60"/>
         <form:errors path="title" cssClass="form-error"/>
     </div>
 

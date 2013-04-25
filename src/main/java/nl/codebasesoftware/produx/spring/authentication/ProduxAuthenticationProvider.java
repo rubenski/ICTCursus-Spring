@@ -39,7 +39,7 @@ public class ProduxAuthenticationProvider implements AuthenticationProvider {
             throw new UsernameNotFoundException(String.format("Invalid credentials", authentication.getPrincipal()));
         }
 
-        String suppliedPasswordHash = SecurityUtil.createPasswordHash(authentication.getCredentials().toString());
+        String suppliedPasswordHash = SecurityUtil.createShaHash(authentication.getCredentials().toString());
 
         if(!profile.getPasswordHash().equals(suppliedPasswordHash)){
             throw new BadCredentialsException("Invalid credentials");

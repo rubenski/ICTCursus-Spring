@@ -21,7 +21,7 @@ public class Company implements DomainObject {
     private String zipCode;
     private String description;
     private String vatNumber;
-    private String chamberOfCommerceNumber;
+    private String tradeNumber;
     private String phone;
     private String city;
     private String country;
@@ -49,13 +49,13 @@ public class Company implements DomainObject {
         this.address = address;
     }
 
-    @Column(nullable = false)
-    public String getChamberOfCommerceNumber() {
-        return chamberOfCommerceNumber;
+    @Column(nullable = false, unique = true)
+    public String getTradeNumber() {
+        return tradeNumber;
     }
 
-    public void setChamberOfCommerceNumber(String chamberOfCommerceNumber) {
-        this.chamberOfCommerceNumber = chamberOfCommerceNumber;
+    public void setTradeNumber(String tradeNumber) {
+        this.tradeNumber = tradeNumber;
     }
 
     @Column(nullable = false)
@@ -94,7 +94,7 @@ public class Company implements DomainObject {
         this.description = description;
     }
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     public String getEmail() {
         return email;
     }
@@ -103,7 +103,7 @@ public class Company implements DomainObject {
         this.email = email;
     }
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     public String getName() {
         return name;
     }
@@ -112,7 +112,7 @@ public class Company implements DomainObject {
         this.name = name;
     }
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     public String getPhone() {
         return phone;
     }
@@ -121,7 +121,7 @@ public class Company implements DomainObject {
         this.phone = phone;
     }
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     public String getVatNumber() {
         return vatNumber;
     }
@@ -162,7 +162,7 @@ public class Company implements DomainObject {
         BindableCompany bindableCompany = new BindableCompany();
 
         bindableCompany.setAddress(address);
-        bindableCompany.setChamberOfCommerceNumber(chamberOfCommerceNumber);
+        bindableCompany.setChamberOfCommerceNumber(tradeNumber);
         bindableCompany.setCity(city);
         bindableCompany.setCountry(country);
         bindableCompany.setDescription(description);

@@ -5,7 +5,6 @@ import nl.codebasesoftware.produx.formdata.BindableForgotPassword;
 import nl.codebasesoftware.produx.net.mail.PasswordMailer;
 import nl.codebasesoftware.produx.service.SecurityService;
 import nl.codebasesoftware.produx.service.UserProfileService;
-import nl.codebasesoftware.produx.util.Properties;
 import nl.codebasesoftware.produx.util.SecurityUtil;
 import nl.codebasesoftware.produx.validator.RequestPasswordFormValidator;
 import org.springframework.beans.BeansException;
@@ -75,7 +74,7 @@ public class RequestPasswordController implements ApplicationContextAware {
     }
 
     private void updatePassword(UserProfile profile, String randomPassword) {
-        String randomPasswordHash = SecurityUtil.createPasswordHash(randomPassword);
+        String randomPasswordHash = SecurityUtil.createShaHash(randomPassword);
 
         profile.setPasswordHash(randomPasswordHash);
         userProfileService.update(profile);

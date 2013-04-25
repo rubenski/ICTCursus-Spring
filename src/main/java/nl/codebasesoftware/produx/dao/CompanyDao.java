@@ -11,4 +11,5 @@ import nl.codebasesoftware.produx.domain.Company;
 public interface CompanyDao extends GenericDao<Company> {
 
     Company findByArticle(Article article);
+
 }

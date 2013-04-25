@@ -69,4 +69,17 @@
     background-color: #f0f2ed;
 }
 
+#wrapper #middle #main-content form div.left {
+
+    float: left;
+}
+
+#wrapper #middle #main-content form div.right {
+    float: right;
+}
+
+#wrapper #middle #main-content form div.formcontainer {
+    overflow:  auto;
+}
+
 

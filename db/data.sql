@@ -1,7 +1,7 @@
 -- company
-INSERT INTO `px_company` (`id`, `address`, chamber_of_commerce_number, `city`, `country`, `email`, `name`, `phone`, `vat_number`, `zip_code`) VALUES
-(1, 'Bedrijfsstraat 22', '12345', 'Leiden', 'NL', 'email@example.com', 'Produx default corp', '0612345678', '328729837', '1056PH'),
-(2, 'Breestraat 22', '12345', 'Leiden', 'NL', 'bree@example.com', 'Produx Bree corp', '0612345678', '328729837', '1056PH');
+INSERT INTO `px_company` (`id`, `address`, trade_number, `city`, `country`, `email`, `name`, `phone`, `vat_number`, `zip_code`) VALUES
+(1, 'Bedrijfsstraat 22', '212345', 'Leiden', 'NL', 'email@example.com', 'Produx default corp', '0612345674', '328729834', '1056PH'),
+(2, 'Breestraat 22', '123245', 'Leiden', 'NL', 'bree@example.com', 'Produx Bree corp', '0612445678', '328429837', '1056PH');
 
 
 

@@ -5,6 +5,7 @@ package nl.codebasesoftware.produx.formdata;
  * Date: 18-4-13
  * Time: 0:52
  */
+
 public class AccountRequestFormData {
 
     private Long id;
@@ -15,6 +16,8 @@ public class AccountRequestFormData {
     private String companyEmail;
     private String companyPhone;
     private String tradeNumber;
+    private String vatNumber;
+    private String companyZipCode;
 
     private String firstName;
     private String preposition;
@@ -45,6 +48,14 @@ public class AccountRequestFormData {
 
     public void setCompanyEmail(String companyEmail) {
         this.companyEmail = companyEmail;
+    }
+
+    public String getCompanyZipCode() {
+        return companyZipCode;
+    }
+
+    public void setCompanyZipCode(String companyZipCode) {
+        this.companyZipCode = companyZipCode;
     }
 
     public String getCompanyName() {
@@ -134,4 +145,18 @@ public class AccountRequestFormData {
     public void setTradeNumber(String tradeNumber) {
         this.tradeNumber = tradeNumber;
     }
+
+    public String getVatNumber() {
+        return vatNumber;
+    }
+
+    public void setVatNumber(String vatNumber) {
+        this.vatNumber = vatNumber;
+    }
+
+    public boolean isPersisted(){
+        return id != null;
+    }
+
+
 }
