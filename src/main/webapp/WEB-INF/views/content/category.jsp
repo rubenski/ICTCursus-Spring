@@ -2,16 +2,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <c:forEach items="${courses}" var="course">
-    <a href="${course.url}" class="courselink"><div class="course-list-item">
-        <div class="logo">
+    <a href="${course.url}" class="courselink">
+        <div class="course-list-item">
+            <div class="logo">
                 <img src="/static/img/logo/${course.company.logo}"/>
-        </div>
+            </div>
 
-        <div class="description">
-            <h2>${course.name}</h2>
-            <p>
-                ${course.shortDescription}
-            </p>
+            <div class="description">
+                <h2>${course.name}</h2>
+
+                <p>
+                    ${course.listDescription}
+                </p>
+            </div>
         </div>
-    </div></a>
+    </a>
 </c:forEach>

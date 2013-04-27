@@ -56,4 +56,11 @@ public class UserProfileDaoJpa extends GenericDaoJpa<UserProfile> implements Use
                 .setParameter("id", pageId)
                 .getSingleResult();
     }
+
+    @Override
+    public UserProfile findCourseLockingUser(long courseId) {
+        return getSingleResult(entityManager.createQuery("from UserProfile up where up.id = :id").setParameter("id", courseId));
+    }
+
+
 }

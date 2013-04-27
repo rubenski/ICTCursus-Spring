@@ -127,7 +127,7 @@ public class BindableCourseToCourse implements Converter<BindableCourse, Course>
 
         course.setId(bindableCourse.getId());
         course.setCategory(category);
-        course.setShortDescription(bindableCourse.getShortDescription());
+        course.setListDescription(bindableCourse.getShortDescription());
         course.setCompany(company);
         course.setDuration(bindableCourse.getDuration());
         course.setLastUpdated(Calendar.getInstance());
@@ -136,7 +136,7 @@ public class BindableCourseToCourse implements Converter<BindableCourse, Course>
         course.setLongDescription(bindableCourse.getLongDescription());
         course.setCertificate(bindableCourse.isCertificate());
         course.setCertificateName(bindableCourse.getCertificateName());
-
+        course.setPublished(bindableCourse.isPublished());
         return course;
     }
 }

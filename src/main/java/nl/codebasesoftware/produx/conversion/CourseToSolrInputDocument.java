@@ -19,7 +19,7 @@ public class CourseToSolrInputDocument implements Converter<Course, SolrInputDoc
         solrInputDocument.addField("id", course.getId());
         solrInputDocument.addField("name", course.getName());
         solrInputDocument.addField("longdescription", course.getLongDescription());
-        solrInputDocument.addField("shortdescription", course.getShortDescription());
+        solrInputDocument.addField("shortdescription", course.getListDescription());
         // TODO: remove certificateText field from schema.xml. This field had been removed
         solrInputDocument.addField("price", course.getPrice());
         solrInputDocument.addField("category", course.getCategory().getName());

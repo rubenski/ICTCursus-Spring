@@ -41,8 +41,6 @@ public class CategoryController {
 
         List<Course> courses = courseService.findCourses(category.getId());
 
-
-
         model.addAttribute("title", "Cursussen " + category.getName() + " - ICT Cursus");
         model.addAttribute("courses", courses);
         model.addAttribute("category", category);

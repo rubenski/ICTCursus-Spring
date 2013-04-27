@@ -27,13 +27,15 @@ public class CourseToBindableCourse implements Converter<Course, BindableCourse>
         bindableCourse.setName(course.getName());
         bindableCourse.setFormattedPrice(getFormattedPrice(course.getPrice()));
         bindableCourse.setRegions(getRegionIds(course));
-        bindableCourse.setShortDescription(course.getShortDescription());
+        bindableCourse.setShortDescription(course.getListDescription());
         bindableCourse.setCertificateName(course.getCertificateName());
         bindableCourse.setTags(course.getTagNames());
         bindableCourse.setCertificate(course.isCertificate());
         bindableCourse.setTimes(getTimeIds(course));
         bindableCourse.setDates(getCourseDates(course));
         bindableCourse.setOptions(getOptions(course));
+        bindableCourse.setPublished(course.isPublished());
+        bindableCourse.setPublishable(course.isPublishable());
         return bindableCourse;
     }
 

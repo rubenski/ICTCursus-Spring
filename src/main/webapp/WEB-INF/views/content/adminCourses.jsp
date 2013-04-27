@@ -19,7 +19,7 @@
                             <a href="/admin/course/${course.id}">${course.name}</a>
                         </td>
                         <td>
-                                ${fn:substring(course.shortDescription, 0, 50)}...
+
                         </td>
                     </tr>
                 </c:forEach>

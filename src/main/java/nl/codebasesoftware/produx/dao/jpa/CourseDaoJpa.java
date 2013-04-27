@@ -47,7 +47,7 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
 
     @Override
     public List<Course> findCourses(Long categoryId) {
-        Query queryGood = entityManager.createQuery("select c from Course c join fetch c.company where c.category.id = :categoryId");
+        Query queryGood = entityManager.createQuery("select c from Course c join fetch c.company comp join fetch c.category cat where c.category.id = :categoryId");
         queryGood.setParameter("categoryId", categoryId);
         return queryGood.getResultList();
     }
@@ -96,4 +96,6 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
         query.setParameter("id", id);
         return query.getResultList();
     }
+
+
 }

@@ -11,4 +11,5 @@ public interface UserProfileDao extends GenericDao<UserProfile> {
     List<UserProfile> findOthersInCompany(long companyId, UserProfile exludeProfile);
     UserProfile findAuthorByArticle(long articleId);
     UserProfile findAuthorByPage(long pageId);
+    UserProfile findCourseLockingUser(long courseId);
 }

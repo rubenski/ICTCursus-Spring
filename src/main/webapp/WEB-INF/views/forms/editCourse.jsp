@@ -22,6 +22,22 @@
     <%-- a hidden id --%>
     <form:hidden path="id"/>
 
+    <%-- published --%>
+    <div class="default-block">
+        <form:label path="published">
+            <spring:message code="course.form.published"/>
+            <span><spring:message code="course.form.published.helptext"/></span>
+        </form:label>
+
+        <c:if test="${!bindableCourse.publishable}">
+            <c:set var="disabled" value="true"/>
+            <spring:message code="course.form.cannotpublishtext" var="publishtext"/>
+        </c:if>
+        <span class="inlineCheckBox">
+            <form:checkbox path="published" label="gepubliceerd" disabled="${disabled}"/> ${publishtext}
+        </span>
+    </div>
+
     <%-- name --%>
     <div class="default-block">
         <form:label path="name">
@@ -51,7 +67,7 @@
     <%-- duration --%>
     <div class="default-block">
         <form:label path="duration">
-            <spring:message code="course.form.duration"/>
+            <spring:message code="course.field.duration"/>
             <span><spring:message code="course.form.duration.helptext"/></span>
         </form:label>
         <form:textarea rows="2" path="duration" cssErrorClass="form-input-error" cols="100"/>
@@ -73,7 +89,7 @@
 
     <%-- price (formatted) --%>
     <div class="default-block">
-        <form:label path="formattedPrice"><spring:message code="course.form.price"/></form:label>
+        <form:label path="formattedPrice"><spring:message code="course.field.price"/></form:label>
         <c:set var="localeCode" value="${pageContext.response.locale}"/>
         <form:input path="formattedPrice" cssErrorClass="form-input-error" size="10"/>
         <spring:message code="course.form.currencysymbol"/> <spring:message code="course.form.price.perperson"/>

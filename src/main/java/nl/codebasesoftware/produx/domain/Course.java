@@ -1,5 +1,6 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.service.business.CourseUrl;
 import org.springframework.beans.factory.annotation.Configurable;
 
 import javax.persistence.*;
@@ -16,13 +17,14 @@ public class Course implements DomainObject {
 
     private Long id;
     private String name;
-    private String shortDescription;
+    private String listDescription;
     private String longDescription;
     private String duration;
     private Long price;
     private Company company;
     private Calendar lastUpdated;
     private Calendar lastIndexed;
+    private Calendar firstPublished;
     private Category category;
     private boolean certificate;
     private String certificateName;
@@ -32,7 +34,7 @@ public class Course implements DomainObject {
     private Set<Time> times = new HashSet<Time>();
     private Set<CourseOption> options = new HashSet<CourseOption>();
     private Set<Region> regions = new HashSet<Region>();
-    private boolean published = true;
+    private boolean published;
 
 
     public Course() {
@@ -60,12 +62,12 @@ public class Course implements DomainObject {
 
     @Lob
     @Column(nullable = false)
-    public String getShortDescription() {
-        return shortDescription;
+    public String getListDescription() {
+        return listDescription;
     }
 
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
+    public void setListDescription(String listDescription) {
+        this.listDescription = listDescription;
     }
 
     @Lob
@@ -123,6 +125,15 @@ public class Course implements DomainObject {
 
     public void setLastUpdated(Calendar lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    public Calendar getFirstPublished() {
+        return firstPublished;
+    }
+
+    public void setFirstPublished(Calendar firstPublished) {
+        this.firstPublished = firstPublished;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -241,6 +252,11 @@ public class Course implements DomainObject {
     }
 
     @Transient
+    public String getUrl(){
+        return CourseUrl.createUrl(id, category.getName(), name);
+    }
+
+    @Transient
     public int hashCode() {
         return name.hashCode();
     }
@@ -254,4 +270,21 @@ public class Course implements DomainObject {
         return regionNames;
     }
 
+    @Transient
+    public boolean wasPreviouslyPublished(){
+        return firstPublished != null;
+    }
+
+    @Transient
+    public boolean isPublishable(){
+        if(name == null) return false;
+        if(listDescription == null) return false;
+        if(longDescription == null) return false;
+        if(duration == null) return false;
+        if(price == null) return false;
+        if(company == null) return false;
+        if(category == null) return false;
+        if(regions == null || regions.size() == 0) return false;
+        return true;
+    }
 }

@@ -7,7 +7,6 @@ import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.formdata.BindableMyUserProfile;
 import nl.codebasesoftware.produx.formdata.OtherUserProfileFormData;
 import nl.codebasesoftware.produx.service.UserProfileService;
-import nl.codebasesoftware.produx.service.support.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
@@ -99,4 +98,12 @@ public class UserProfileServiceImpl implements UserProfileService {
     public UserProfile findAuthorByPage(long pageId){
         return userProfileDao.findAuthorByPage(pageId);
     }
+
+
+    public String testing(){
+        UserProfile userProfile = userProfileDao.find(1L);
+        return userProfile.getFullNameInformal();
+    }
+
+
 }

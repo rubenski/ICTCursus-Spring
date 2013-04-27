@@ -106,7 +106,8 @@ public class AdminCourseController {
         validator.validate(bindableCourse, result);
 
         if (!result.hasErrors()) {
-            Course course = courseService.saveOrUpdate(bindableCourse);
+            Course course = courseService.save(bindableCourse);
+            bindableCourse.setPublishable(true);
             return "redirect:/admin/course/" + course.getId();
         }
 
@@ -122,7 +123,8 @@ public class AdminCourseController {
         String valid = "false";
 
         if (!result.hasErrors()) {
-            courseService.saveOrUpdate(bindableCourse);
+            courseService.save(bindableCourse);
+            bindableCourse.setPublishable(true);
             valid = "true";
         }
 
@@ -130,8 +132,9 @@ public class AdminCourseController {
         model.addAttribute("valid", valid);
         addDataToModel(model, locale);
         return "adminMain";
-
     }
+
+
 
     private void addDataToModel(Model model, Locale locale) {
         String headerText = messageSource.getMessage("admin.sections.courses", new Object[]{}, locale);

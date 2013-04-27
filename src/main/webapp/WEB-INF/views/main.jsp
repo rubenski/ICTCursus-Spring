@@ -1,7 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="nl" class="no-js">
 <head>
     <meta charset="utf-8"/>
@@ -11,27 +11,39 @@
     </title>
 </head>
 <body>
-<div id="wrapper">
 
-    <jsp:include page="components/header.jsp"/>
-
+<header id="site-header">
+    <div id="innerheader">
+        <a href="/"><span id="logo">ICTCursus</span></a>
+        <nav id="topnav">
+            <ul>
+                <li><a href="#">Voor cursusaanbieders</a></li>
+                <li><a href="/login">Inloggen</a></li>
+            </ul>
+        </nav>
+    </div>
     <div id="search">
-        <jsp:include page="components/search.jsp"/>
-    </div>
-    <div id="middle">
-        <div id="menu">
-            <jsp:include page="components/menu.jsp"/>
-        </div>
-        <div id="main-content">
-            ${mainMessage}
-            <jsp:include page="${mainContent}.jsp"/>
+        <div id="innersearch">
+            <jsp:include page="components/search.jsp"/>
         </div>
     </div>
-    <div id="footer">
-        <jsp:include page="components/footer.jsp"/>
+</header>
+
+
+<div id="main">
+    <div id="innermain">
+        <nav id="topics">
+            <jsp:include page="components/categorylisting.jsp"/>
+        </nav>
+
+        <jsp:include page="${mainContent}.jsp"/>
     </div>
 </div>
+
+<footer id="site-footer">
+    hallo
+</footer>
+
+
 </body>
 </html>
-
-

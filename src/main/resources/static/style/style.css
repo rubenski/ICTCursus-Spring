@@ -1,85 +1,122 @@
 @import url("shared.css");
 
-#wrapper #header {
-    background-color: #007395;
-    padding: 10px;
-    margin-bottom: 1px;
+@font-face {
+    font-family: BebasNeue;
+    src: url("/static/font/BebasNeue.otf") format("opentype");
 }
 
-#wrapper #header #logo {
-    font-size: 24px;
-    font-weight: bold;
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: 0.80em;
+    font-family: Arial;
+}
+
+#site-header {
+    width: 100%;
+    background-image: url('/static/img/topbg.gif');
+    background-repeat: repeat-x;
+    padding: 25px 0px 0px 0px;
+}
+
+#innerheader, #innersearch, #innermain {
+    width: 1000px;
+    margin: 0 auto;
+    position: relative;
+}
+
+#site-header #innerheader #logo {
+    font-family: BebasNeue;
+    font-size: 4em;
+    display: inline;
     color: white;
-    padding: 10px 0px 5px 0px;
+    text-shadow: 2px 2px #333;
 }
 
-#wrapper #search {
+#site-header #innerheader a {
+    text-decoration: none;
+}
+
+#site-header #innerheader ul {
+    display: inline;
+    margin-left: 15px;
+}
+
+#site-header #innerheader ul li {
+    display: inline;
+    margin-right: 12px;
+}
+
+#site-header #innerheader #topnav {
+    position: absolute;
+    bottom: 8px;
+    right: 0px;
+}
+
+#site-header #innerheader #topnav a {
+    text-decoration: none;
+    color: white;
+}
+
+#topnav, #logo {
+    display: inline;
+}
+
+#site-header #search {
+    background-color: #000;
+}
+
+#site-header #search #innersearch {
     text-align: center;
-    background-color: #eef6f8;
-    padding: 10px;
+    padding: 20px 0px 20px 0px;
 }
 
-#wrapper #middle #menu {
-    padding-top: 15px;
+#main {
+    background-color: #eaeaea;
+    padding: 50px 0px 50px 0px;
 }
 
-#wrapper #middle #menu li {
-    padding: 5px 0px 0px 0px;
+#main #innermain {
+    overflow: auto;
 }
 
-#wrapper #main-content h1 {
-    padding: 10px 0px 7px 0px;
+#main #innermain ul li {
+    background: url('/static/img/list-bullet.gif') no-repeat left;
+    list-style-type: none;
+    padding: 2px 0px 2px 18px;
 }
 
-#wrapper #main-content h2 {
-    padding-top: 20px;
+#main #innermain ul li li {
+    background: url('/static/img/list-bullet.gif') no-repeat left;
+    list-style-type: none;
+    padding: 2px 0px 2px 18px;
 }
 
-#wrapper #main-content form div.default-block {
-    padding: 12px 0px 0px 0px;
+#main a {
+    color: #ee4141;
+    text-decoration: none;
 }
 
-#wrapper #main-content form div.default-block label {
-    font-weight: bold;
-    display: block;
-    padding-bottom: 4px;
-    font-size: 13px;
-}
-
-#wrapper #main-content form div.default-block span.form-error {
-    display: block;
-    color: red;
-    padding-top: 4px;
-}
-
-.error {
-    display: block;
-    color: red;
-    padding: 10px 10px 10px 0px;
-    font-weight: bold;
-}
-
-#wrapper #middle #main-content #invalidMessage {
-    color: red;
-    font-weight: bold;
-}
-
-
-#wrapper #main-content form div.default-block input[disabled='true'] {
-    background-color: #f0f2ed;
-}
-
-#wrapper #middle #main-content form div.left {
-
+#main #innermain #categories {
     float: left;
 }
 
-#wrapper #middle #main-content form div.right {
-    float: right;
+#main #topics h2 {
+    padding-bottom: 10px;
+    font-size: 1.8em;
 }
 
-#wrapper #middle #main-content form div.formcontainer {
-    overflow:  auto;
+#site-footer {
+    width: 100%;
+    background-color: #555555;
 }
+
+
+
+
+
 
 

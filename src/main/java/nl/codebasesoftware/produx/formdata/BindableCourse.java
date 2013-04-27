@@ -3,6 +3,7 @@ package nl.codebasesoftware.produx.formdata;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -27,6 +28,9 @@ public class BindableCourse {
     private List<Long> times = new ArrayList<Long>();
     private List<String> dates = new ArrayList<String>();
     private List<Long> options = new ArrayList<Long>();
+    private Calendar firstPublished;
+    private boolean published;
+    private boolean publishable;
 
 
     public String getDuration() {
@@ -160,5 +164,29 @@ public class BindableCourse {
 
     public void setOptions(List<Long> options) {
         this.options = options;
+    }
+
+    public Calendar getFirstPublished() {
+        return firstPublished;
+    }
+
+    public void setFirstPublished(Calendar firstPublished) {
+        this.firstPublished = firstPublished;
+    }
+
+    public boolean isPublished() {
+        return published;
+    }
+
+    public void setPublished(boolean published) {
+        this.published = published;
+    }
+
+    public boolean isPublishable() {
+        return publishable;
+    }
+
+    public void setPublishable(boolean publishable) {
+        this.publishable = publishable;
     }
 }
