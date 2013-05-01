@@ -53,38 +53,45 @@ public class CourseServiceImpl implements CourseService {
 
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Category> findFirstLevelCategories() {
-
         return courseDao.findFirstLevelCategories();
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(readOnly = true)
     public List<Course> findCourses(Long categoryId) {
         return courseDao.findCourses(categoryId);
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Course> findByCompany(Company company) {
         return courseDao.findCourses(company);
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Course> findBasic(List<Long> ids) {
         return courseDao.findBasic(ids);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Time> findCourseTimes() {
         return courseDao.findCourseTimes();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Course findFull(Long id) {
         return courseDao.findFull(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Course> findAll() {
+        return courseDao.findAll();
     }
 
     @Override
@@ -100,7 +107,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Course> findIndexableCourses() {
         Calendar calendar = systemPropertyService.lastSolrUpdateDate();
         List<Long> indexableCourseIds = courseDao.findIndexableCourseIds(calendar);

@@ -23,7 +23,6 @@ import java.util.Locale;
  * Time: 21:16
  */
 @Controller
-@RequestMapping(value = "/admin/course")
 public class AdminCourseController {
 
     private CourseService courseService;
@@ -54,23 +53,25 @@ public class AdminCourseController {
         this.messageSource = messageSource;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String get(Model model, Locale locale){
-
+    @RequestMapping(value = "/admin/courses", method = RequestMethod.GET)
+    public String get(Model model, Locale locale) {
         UserProfile userProfile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Company company = companyService.findByUserProfile(userProfile);
         List<Course> courses = courseService.findByCompany(company);
-        String headerText = messageSource.getMessage("admin.sections.courses", new Object[]{}, locale);
-
-        model.addAttribute("courses", courses);
-        model.addAttribute("numberOfCourses", courses.size());
         model.addAttribute("mainContent", "content/adminCourses");
-        model.addAttribute("headerText", headerText);
-
+        setCoursesScreenData(model, locale, courses);
         return "adminMain";
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/sys/courses", method = RequestMethod.GET)
+    public String showSysadminCourses(Model model, Locale locale) {
+        List<Course> courses = courseService.findAll();
+        model.addAttribute("mainContent", "content/sysAdminCourses");
+        setCoursesScreenData(model, locale, courses);
+        return "sysAdminMain";
+    }
+
+    @RequestMapping(value = "/admin/course/{id}", method = RequestMethod.GET)
     public String getCourseForm(@PathVariable("id") Long id, Model model, Locale locale) {
 
         Company loggedInCompany = companyService.getCurrentlyLoggedInCompany();
@@ -86,6 +87,15 @@ public class AdminCourseController {
         model.addAttribute("bindableCourse", conversionService.convert(course, BindableCourse.class));
         addDataToModel(model, locale);
 
+        return "adminMain";
+    }
+
+    @RequestMapping(value = "/admin/sys/course/{id}", method = RequestMethod.GET)
+    public String getSysAdminCourseForm(@PathVariable("id") Long id, Model model, Locale locale) {
+        model.addAttribute("mainContent", "forms/editCourse");
+        Course course = courseService.findFull(id);
+        model.addAttribute("bindableCourse", conversionService.convert(course, BindableCourse.class));
+        addDataToModel(model, locale);
         return "adminMain";
     }
 
@@ -116,7 +126,7 @@ public class AdminCourseController {
         return "adminMain";
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.POST)
+    @RequestMapping(value = {"/admin/sys/course/{id}", "/admin/course/{id}"}, method = RequestMethod.POST)
     public String updateCourse(@ModelAttribute("bindableCourse") BindableCourse bindableCourse, BindingResult result, Model model, Locale locale) {
         validator.validate(bindableCourse, result);
 
@@ -135,7 +145,6 @@ public class AdminCourseController {
     }
 
 
-
     private void addDataToModel(Model model, Locale locale) {
         String headerText = messageSource.getMessage("admin.sections.courses", new Object[]{}, locale);
         List<Category> categories = categoryService.findAll();
@@ -146,6 +155,13 @@ public class AdminCourseController {
         model.addAttribute("allRegions", allRegions);
         model.addAttribute("categories", categories);
         model.addAttribute("optionCategories", optionCategories);
+        model.addAttribute("headerText", headerText);
+    }
+
+    private void setCoursesScreenData(Model model, Locale locale, List<Course> courses) {
+        String headerText = messageSource.getMessage("admin.sections.courses", new Object[]{}, locale);
+        model.addAttribute("courses", courses);
+        model.addAttribute("numberOfCourses", courses.size());
         model.addAttribute("headerText", headerText);
     }
 

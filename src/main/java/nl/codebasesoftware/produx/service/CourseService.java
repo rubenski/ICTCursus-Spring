@@ -19,5 +19,6 @@ public interface CourseService {
     List<Course> findIndexableCourses();
     List<Course> findBasic(List<Long> ids);
     List<Time> findCourseTimes();
+    List<Course> findAll();
 
 }
