@@ -103,6 +103,8 @@ public class CourseServiceImpl implements CourseService {
             course.setFirstPublished(Calendar.getInstance());
         }
 
+        courseDao.persist(course);
+
         return course;
     }
 

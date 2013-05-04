@@ -4,15 +4,20 @@ import nl.codebasesoftware.produx.dao.CompanyDao;
 import nl.codebasesoftware.produx.domain.Article;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.formdata.BindableFileUpload;
 import nl.codebasesoftware.produx.formdata.CompanySettingsFormData;
 import nl.codebasesoftware.produx.formdata.BindableCompany;
 import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.service.support.CurrentUser;
+import nl.codebasesoftware.produx.util.ImageUtil;
+import nl.codebasesoftware.produx.util.Properties;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 /**
@@ -24,10 +29,12 @@ import java.lang.reflect.InvocationTargetException;
 public class CompanyServiceImpl implements CompanyService {
 
     private CompanyDao companyDao;
+    private Properties properties;
 
     @Autowired
-    public CompanyServiceImpl(CompanyDao companyDao) {
+    public CompanyServiceImpl(CompanyDao companyDao, Properties properties) {
         this.companyDao = companyDao;
+        this.properties = properties;
     }
 
     @Override
@@ -38,12 +45,12 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     @Transactional(readOnly = true)
-    public Company findByArticle(Article article){
+    public Company findByArticle(Article article) {
         return companyDao.findByArticle(article);
     }
 
     @Override
-    @Transactional (readOnly = false)
+    @Transactional(readOnly = false)
     public void update(BindableCompany bindableCompany) {
         Company company = getCurrentlyLoggedInCompany();
         bindableCompanyToCompany(bindableCompany, company);
@@ -51,7 +58,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    @Transactional (readOnly = true)
+    @Transactional(readOnly = true)
     public Company getCurrentlyLoggedInCompany() {
         UserProfile user = CurrentUser.get();
         Company company = user.getCompany();
@@ -59,8 +66,8 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    @Transactional (readOnly = true)
-    public CompanySettingsFormData getCompanySettingsForCurrentCompany(){
+    @Transactional(readOnly = true)
+    public CompanySettingsFormData getCompanySettingsForCurrentCompany() {
         Company company = getCurrentlyLoggedInCompany();
         CompanySettingsFormData dto = new CompanySettingsFormData();
         dto.setCourseRequestEmailAddress(company.getCourseRequestEmailAddress());
@@ -71,7 +78,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    @Transactional (readOnly = false)
+    @Transactional(readOnly = false)
     public void saveSettings(CompanySettingsFormData settingsDto) {
         Company company = getCurrentlyLoggedInCompany();
         company.setAllCoursesDeactivated(settingsDto.isAllCoursesDeactivated());
@@ -79,7 +86,7 @@ public class CompanyServiceImpl implements CompanyService {
         company.setCourseRequestEmailAddress(settingsDto.getCourseRequestEmailAddress());
     }
 
-    private void bindableCompanyToCompany(BindableCompany bindableCompany, Company company){
+    private void bindableCompanyToCompany(BindableCompany bindableCompany, Company company) {
         try {
             BeanUtils.copyProperties(company, bindableCompany);
         } catch (IllegalAccessException e) {
@@ -91,26 +98,36 @@ public class CompanyServiceImpl implements CompanyService {
 
 
     @Override
-    @Transactional (readOnly = true)
+    @Transactional(readOnly = true)
     public Company findById(Long companyId) {
         return companyDao.find(companyId);
     }
 
+
     @Override
-    @Transactional (readOnly = false)
-    public void updateLogo(byte[] bytes) {
+    @Transactional(readOnly = false)
+    public void updateLogo(BindableFileUpload bindableFileUpload) {
+
+        String normalLengthString = properties.getProperty("logo.normal.widthheight");
+        String smallLengthString = properties.getProperty("logo.small.widthheight");
+        int normalLength = Integer.parseInt(normalLengthString);
+        int smallLength = Integer.parseInt(smallLengthString);
+
+        byte[] normalImageBytes = null;
+        byte[] smallImageBytes = null;
+
+        CommonsMultipartFile fileData = bindableFileUpload.getFileData();
+        try {
+            normalImageBytes = ImageUtil.resize(fileData.getInputStream(), normalLength);
+            smallImageBytes = ImageUtil.resize(fileData.getInputStream(), smallLength);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         Company company = getCurrentlyLoggedInCompany();
-        company.setLogo(bytes);
-        companyDao.persist(company);
+        company.setNormalLogo(normalImageBytes);
+        company.setSmallLogo(smallImageBytes);
     }
-
-    @Override
-    @Transactional (readOnly = true)
-    public byte[] getLogo(Long companyId) {
-        Company company = companyDao.find(companyId);
-        return company.getLogo();
-    }
-
 
 }
 

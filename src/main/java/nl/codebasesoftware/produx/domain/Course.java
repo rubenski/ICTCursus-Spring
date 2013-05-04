@@ -35,6 +35,7 @@ public class Course implements DomainObject {
     private Set<CourseOption> options = new HashSet<CourseOption>();
     private Set<Region> regions = new HashSet<Region>();
     private boolean published;
+    private Set<HighlightedCourseOnCategory> highlightedOnCategories = new HashSet<HighlightedCourseOnCategory>();
 
 
     public Course() {
@@ -232,6 +233,15 @@ public class Course implements DomainObject {
 
     public void setPublished(boolean published) {
         this.published = published;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", orphanRemoval = true)
+    public Set<HighlightedCourseOnCategory> getHighlightedOnCategories() {
+        return highlightedOnCategories;
+    }
+
+    public void setHighlightedOnCategories(Set<HighlightedCourseOnCategory> highlightedOnCategories) {
+        this.highlightedOnCategories = highlightedOnCategories;
     }
 
     @Transient

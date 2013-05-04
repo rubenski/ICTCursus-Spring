@@ -13,6 +13,7 @@ INSERT INTO `px_role` (`id`, `system_name`, `display_name`, `company_admin_role`
 INSERT INTO `px_role` (`id`, `system_name`, `display_name`, `company_admin_role`, `list_rank`, `user_assignable`) VALUES('5','SYS_ADMIN', 'Systeem admin', 0, NULL, 0);
 INSERT INTO `px_role` (`id`, `system_name`, `display_name`, `company_admin_role`, `list_rank`, `user_assignable`) VALUES('6','COMPANY_USERS_ADMIN', 'Toegang tot gebruikersbeheer', 1, 5, 0);
 INSERT INTO `px_role` (`id`, `system_name`, `display_name`, `company_admin_role`, `list_rank`, `user_assignable`) VALUES('7','COMPANY_SETTINGS_ADMIN', 'Toegang tot bedrijfsinstellingen', 1, 6, 0);
+INSERT INTO `px_role` (`id`, `system_name`, `display_name`, `company_admin_role`, `list_rank`, `user_assignable`) VALUES('8','COMPANY_ADVERTISING_ADMIN', 'Toegang tot advertentiemogelijkheden', 1, 7, 0);
 
 -- right
 INSERT INTO `px_right` (`id`, `name`) VALUES('1','access_admin_screens');
@@ -24,6 +25,7 @@ INSERT INTO `px_right` (`id`, `name`) VALUES('6','edit_company_requests');
 INSERT INTO `px_right` (`id`, `name`) VALUES('7','edit_everything');
 INSERT INTO `px_right` (`id`, `name`) VALUES('8','edit_company_users');
 INSERT INTO `px_right` (`id`, `name`) VALUES('9','edit_company_settings');
+INSERT INTO `px_right` (`id`, `name`) VALUES('10','edit_company_advertisements');
 
 -- role2right
 INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('1','1');
@@ -40,6 +42,8 @@ INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('6','8');
 INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('6','1');
 INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('7','9');
 INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('7','1');
+INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('8','10');
+INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('5','10');
 
 -- userprofile
 INSERT INTO `px_userprofile` (`id`, `email`, `first_name`, `last_name`, `password_hash`, `phone`, `company_id`) VALUES(1,'rubenski@gmail.com','Ruben','van Loen','3fc393d1c2afa6bf41a3dc44b29aace238d885cc',NULL,1);
@@ -52,6 +56,7 @@ INSERT INTO `px_userprofile2role` (`userprofile_id`, `role_id`) VALUES(1,3);
 INSERT INTO `px_userprofile2role` (`userprofile_id`, `role_id`) VALUES(1,4);
 INSERT INTO `px_userprofile2role` (`userprofile_id`, `role_id`) VALUES(1,6);
 INSERT INTO `px_userprofile2role` (`userprofile_id`, `role_id`) VALUES(1,7);
+INSERT INTO `px_userprofile2role` (`userprofile_id`, `role_id`) VALUES(1,8);
 INSERT INTO `px_userprofile2role` (`userprofile_id`, `role_id`) VALUES(2,5);
 
 -- category
@@ -68,7 +73,7 @@ INSERT INTO `px_category` (`id`, `name`, `url_title`, `parent_id`) VALUES
 (10, 'Business Intelligence', 'business-intelligence', NULL);
 
 -- course
-INSERT INTO `px_course` (`id`, `duration`, `last_updated`, `name`, `price`, `short_description`, `long_description`, `category_id`, `company_id`, `certificate`) VALUES
+INSERT INTO `px_course` (`id`, `duration`, `last_updated`, `name`, `price`, `list_description`, `long_description`, `category_id`, `company_id`, `certificate`) VALUES
 (1, 'Deze cursus duurt drie dagen', '2012-09-27 14:22:33', 'Cursus Excel', 72500, 'korte omschrijving', 'lange omschrijving', 2, 1, 1),
 (2, 'Deze cursus duurt vier dagen', '2012-09-27 14:22:33', 'Cursus Office algemeen', 72500, 'korte omschrijving', 'lange omschrijving', 1, 1, 0),
 (3, 'Deze cursus duurt vijf dagen', '2012-09-27 14:22:33', 'Cursus Word', 82000, 'korte omschrijving', 'lange omschrijving', 3, 1, 0);

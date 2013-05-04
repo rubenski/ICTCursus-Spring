@@ -12,7 +12,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Locale;
@@ -72,7 +76,13 @@ public class AdminCourseController {
     }
 
     @RequestMapping(value = "/admin/course/{id}", method = RequestMethod.GET)
-    public String getCourseForm(@PathVariable("id") Long id, Model model, Locale locale) {
+    public String getCourseForm(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes, Locale locale) {
+
+        String isValidNewCourse = (String) redirectAttributes.getFlashAttributes().get("valid");
+        if(isValidNewCourse != null && isValidNewCourse.equals("true")){
+            model.addAttribute("valid", isValidNewCourse);
+        }
+
 
         Company loggedInCompany = companyService.getCurrentlyLoggedInCompany();
         List<Course> companyCourses = courseService.findByCompany(loggedInCompany);
@@ -99,7 +109,7 @@ public class AdminCourseController {
         return "adminMain";
     }
 
-    @RequestMapping(value = "add", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/course/add", method = RequestMethod.GET)
     public String newCourse(Model model, Locale locale) {
 
         BindableCourse bindableCourse = new BindableCourse();
@@ -110,14 +120,16 @@ public class AdminCourseController {
         return "adminMain";
     }
 
-    @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String addCourse(@ModelAttribute("bindableCourse") BindableCourse bindableCourse, BindingResult result, Model model, Locale locale) {
+    @RequestMapping(value = "/admin/course/add", method = RequestMethod.POST)
+    public String addCourse(@ModelAttribute("bindableCourse") BindableCourse bindableCourse, BindingResult result,
+                            RedirectAttributes redirectAttributes, Model model, Locale locale) {
 
         validator.validate(bindableCourse, result);
 
         if (!result.hasErrors()) {
             Course course = courseService.save(bindableCourse);
             bindableCourse.setPublishable(true);
+            redirectAttributes.addFlashAttribute("valid", "true");
             return "redirect:/admin/course/" + course.getId();
         }
 

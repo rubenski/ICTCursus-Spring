@@ -7,7 +7,7 @@
     <ul>
         <li><a href="/admin">Home</a></li>
         <sec:authorize access="hasRole('ROLE_PERM_edit_company_courses') or hasRole('ROLE_PERM_edit_everything')">
-            <li><a href="/admin/course"><spring:message code="admin.sections.courses"/></a></li>
+            <li><a href="/admin/courses"><spring:message code="admin.sections.courses"/></a></li>
         </sec:authorize>
         <sec:authorize access="hasRole('ROLE_PERM_edit_company_profile') or hasRole('ROLE_PERM_edit_everything')">
             <li><a href="/admin/company"><spring:message code="admin.sections.profile"/></a></li>

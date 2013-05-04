@@ -19,7 +19,7 @@ body {
     width: 100%;
     background-image: url('/static/img/topbg.gif');
     background-repeat: repeat-x;
-    padding: 25px 0px 0px 0px;
+    padding: 10px 0px 0px 0px;
 }
 
 #innerheader, #innersearch, #innermain {
@@ -30,7 +30,7 @@ body {
 
 #site-header #innerheader #logo {
     font-family: BebasNeue;
-    font-size: 4em;
+    font-size: 3em;
     display: inline;
     color: white;
     text-shadow: 2px 2px #333;
@@ -71,12 +71,12 @@ body {
 
 #site-header #search #innersearch {
     text-align: center;
-    padding: 20px 0px 20px 0px;
+    padding: 10px 0px 10px 0px;
 }
 
 #main {
     background-color: #eaeaea;
-    padding: 50px 0px 50px 0px;
+    padding: 30px 0px 50px 0px;
 }
 
 #main #innermain {
@@ -100,13 +100,24 @@ body {
     text-decoration: none;
 }
 
-#main #innermain #categories {
+#main #innermain #topics {
     float: left;
+    width: 200px;
+}
+
+#main #innermain #maincontent {
+    float: left;
+    width: 550px;
+}
+
+#main #innermain #maincontent h1 {
+    padding-bottom: 15px;
+    font-size: 1.5em;
 }
 
 #main #topics h2 {
-    padding-bottom: 10px;
-    font-size: 1.8em;
+    padding-bottom: 15px;
+    font-size: 1.3em;
 }
 
 #site-footer {
@@ -114,6 +125,45 @@ body {
     background-color: #555555;
 }
 
+.course-list-item {
+    overflow:  auto;
+    padding: 10px;
+    border: 1px solid #b4b4b4;
+    position: relative;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #fffaec;
+    background-image:  url('/static/img/courselistingbg.gif');
+    background-repeat: repeat-x;
+    background-position: top left;
+    margin-bottom: 5px;
+}
+
+.course-list-item h2 {
+    padding-bottom: 4px;
+    font-size: 1.3em;
+}
+
+.course-list-item .description {
+    float: left;
+    width: 450px;
+    padding-right: 10px;
+}
+
+.course-list-item .logo img {
+    position:absolute;
+    top:0;
+    bottom:0;
+    margin:auto;
+    right: 10px;
+}
+
+#advertising-overlay-link-container {
+    text-align: right;
+    padding:  0px 0px 5px 0px;
+}
 
 
 

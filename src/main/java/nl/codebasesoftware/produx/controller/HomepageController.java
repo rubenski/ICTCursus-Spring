@@ -1,15 +1,11 @@
 package nl.codebasesoftware.produx.controller;
 
-import nl.codebasesoftware.produx.domain.Category;
-import nl.codebasesoftware.produx.service.CourseService;
-import nl.codebasesoftware.produx.util.SessionData;
+import nl.codebasesoftware.produx.service.PageBlockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import java.util.List;
 
 /**
  * User: rvanloen
@@ -20,23 +16,19 @@ import java.util.List;
 @RequestMapping("/")
 public class HomepageController {
 
-    private CourseService courseService;
-    private SessionData sessionData;
+
+    private PageBlockService pageBlockService;
 
     @Autowired
-    public HomepageController(CourseService courseService, SessionData sessionData) {
-        this.courseService = courseService;
-        this.sessionData = sessionData;
+    public HomepageController(PageBlockService pageBlockService) {
+        this.pageBlockService = pageBlockService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String setup(Model model){
-        List<Category> firstLevelCategories = courseService.findFirstLevelCategories();
-
-
-
+    public String show(Model model) {
+        pageBlockService.setCourseCategoriesInLeftColumn(model);
+        pageBlockService.setAuthentication(model);
         model.addAttribute("title", "ICT Cursus - cursussen en trainingen in de IT");
-        model.addAttribute("categories", firstLevelCategories);
         model.addAttribute("mainContent", "content/home");
         return "main";
     }

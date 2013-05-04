@@ -36,7 +36,7 @@ $(document).ready(function() {
         function updateLogo() {
             var companyId = $("#id").val();
             $("#companyLogoImg").remove();
-            var logoUrl = "/logo/" + companyId + "-cursusbedrijf.png";
+            var logoUrl = "/logo/normal/" + companyId + "-cursusbedrijf.png";
             $.ajax(logoUrl,
                 {
                     statusCode: {

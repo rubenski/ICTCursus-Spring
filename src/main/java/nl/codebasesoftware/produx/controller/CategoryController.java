@@ -5,6 +5,7 @@ import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.service.CategoryService;
 import nl.codebasesoftware.produx.service.CourseService;
+import nl.codebasesoftware.produx.service.PageBlockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,19 +26,26 @@ public class CategoryController {
 
     private CourseService courseService;
     private CategoryService categoryService;
+    private PageBlockService pageBlockService;
 
     @Autowired
-    public CategoryController(CourseService courseService, CategoryService categoryService) {
+    public CategoryController(CourseService courseService, CategoryService categoryService, PageBlockService pageBlockService) {
         this.courseService = courseService;
         this.categoryService = categoryService;
+        this.pageBlockService = pageBlockService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public String setup(@PathVariable("categoryUrlName") String categoryUrlName, Model model){
+
         Category category = categoryService.findByName(categoryUrlName);
+
         if(category == null){
             throw new ResourceNotFoundException();
         }
+
+        pageBlockService.setCourseCategoriesInLeftColumn(model);
+        pageBlockService.setAuthentication(model);
 
         List<Course> courses = courseService.findCourses(category.getId());
 

@@ -11,7 +11,7 @@
     <script type="text/javascript" src="/static/javascript/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="/static/javascript/tiny_mce/tiny_mce.js"></script>
     <c:if test="${accountRequestsPage}">
-        <script type="text/javascript" src="/static/javascript/accountrequests.js"></script>
+        <script type="text/javascript" src="/static/javascript/sysadmin/accountrequests.js"></script>
     </c:if>
     <script type="text/javascript">
         tinyMCE.init({

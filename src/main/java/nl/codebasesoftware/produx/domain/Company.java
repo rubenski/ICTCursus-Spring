@@ -26,7 +26,8 @@ public class Company implements DomainObject {
     private String city;
     private String country;
     private Set<Course> courses = new HashSet<Course>();
-    private byte[] logo;
+    private byte[] normalLogo;
+    private byte[] smallLogo;
     private Set<UserProfile> users;
     private Integer budgetTriggerAmount;
     private String courseRequestEmailAddress;
@@ -143,12 +144,21 @@ public class Company implements DomainObject {
     }
 
     @Lob
-    public byte[] getLogo() {
-        return logo;
+    public byte[] getNormalLogo() {
+        return normalLogo;
     }
 
-    public void setLogo(byte[] logo) {
-        this.logo = logo;
+    public void setNormalLogo(byte[] normalLogo) {
+        this.normalLogo = normalLogo;
+    }
+
+    @Lob
+    public byte[] getSmallLogo() {
+        return smallLogo;
+    }
+
+    public void setSmallLogo(byte[] smallLogo) {
+        this.smallLogo = smallLogo;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
@@ -205,7 +215,7 @@ public class Company implements DomainObject {
 
     @Transient
     public boolean hasLogo() {
-        return logo != null;
+        return normalLogo != null;
     }
 
     @Override

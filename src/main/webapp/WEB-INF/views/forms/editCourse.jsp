@@ -2,6 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 
 <form:form method="post" modelAttribute="bindableCourse" id="courseForm">
@@ -21,6 +22,20 @@
 
     <%-- a hidden id --%>
     <form:hidden path="id"/>
+
+    <%-- superadmin section --%>
+    <sec:authorize access="hasRole('ROLE_PERM_access_sysadmin_screens')">
+        <div class="default-block">
+            <form:label path="highlightedOnCategories">
+                <spring:message code="course.form.highlightedoncategories"/>
+                <span><spring:message code="course.form.highlightedoncategories.helptext"/></span>
+            </form:label>
+            <c:forEach items="${categories}" var="category">
+                <span class="inlineCheckBox"><form:checkbox path="highlightedOnCategories" value="${category.id}" label="${category.name}"/></span><br/>
+            </c:forEach>
+            <form:errors path="highlightedOnCategories" cssClass="form-error"/>
+        </div>
+    </sec:authorize>
 
     <%-- published --%>
     <div class="default-block">
@@ -53,7 +68,7 @@
             <spring:message code="course.form.shortdescription"/>
             <span><spring:message code="course.form.shortdescription.helptext"/></span>
         </form:label>
-        <form:textarea rows="3" path="shortDescription" cssErrorClass="form-input-error" cols="100"/>
+        <form:textarea rows="3" path="shortDescription" cssErrorClass="form-input-error" cols="100" maxlength="220"/>
         <form:errors path="shortDescription" cssClass="form-error"/>
     </div>
 
@@ -165,6 +180,7 @@
         </form:label>
         <fmt:message key="course.form.certificate.label" var="certificatelabel"/>
         <span class="inlineCheckBox"><form:checkbox id="certificate-checkbox" path="certificate" label="${certificatelabel}"/></span>
+
         <div id="certificate-name">
             <span><spring:message code="course.form.certificatename.text"/></span>
             <form:input path="certificateName" size="40"/>
@@ -176,7 +192,6 @@
     <div class="default-block">
         <input type="submit" class="submitbutton" value="<spring:message code="generic.message.save"/>"/>
     </div>
-
 
 
 </form:form>

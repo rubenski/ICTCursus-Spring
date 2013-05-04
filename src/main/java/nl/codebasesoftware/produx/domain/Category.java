@@ -21,6 +21,7 @@ public class Category implements DomainObject, NameComparable {
     private Category parent;
     private String urlTitle;
     private List<Category> children;
+    private Set<HighlightedCourseOnCategory> highlightedCourses = new HashSet<HighlightedCourseOnCategory>();
 
     @Override
     @Id
@@ -34,7 +35,7 @@ public class Category implements DomainObject, NameComparable {
     }
 
     @Override
-    @Column(unique=true, nullable=false)
+    @Column(unique = true, nullable = false)
     public String getName() {
         return name;
     }
@@ -71,7 +72,7 @@ public class Category implements DomainObject, NameComparable {
         this.urlTitle = urlTitle;
     }
 
-    @OneToMany (fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     public List<Category> getChildren() {
         return children;
@@ -79,5 +80,14 @@ public class Category implements DomainObject, NameComparable {
 
     public void setChildren(List<Category> children) {
         this.children = children;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER,  mappedBy = "category", orphanRemoval = true)
+    public Set<HighlightedCourseOnCategory> getHighlightedCourses() {
+        return highlightedCourses;
+    }
+
+    public void setHighlightedCourses(Set<HighlightedCourseOnCategory> highlightedCourses) {
+        this.highlightedCourses = highlightedCourses;
     }
 }

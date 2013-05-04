@@ -1,11 +1,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <!DOCTYPE html>
 <html lang="nl" class="no-js">
 <head>
     <meta charset="utf-8"/>
     <link href="/static/style/style.css" rel="stylesheet">
+    <script type="text/javascript" src="/static/javascript/custom.js"></script>
     <title>
         <jsp:include page="components/title.jsp"/>
     </title>
@@ -18,7 +21,17 @@
         <nav id="topnav">
             <ul>
                 <li><a href="#">Voor cursusaanbieders</a></li>
-                <li><a href="/login">Inloggen</a></li>
+                <c:choose>
+                    <c:when test="${loggedIn}">
+                        <li><a href="/admin">Admin</a></li>
+                        <li>
+                            <a href="/logout"><spring:message code='generic.message.logout'/></a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="/login">Inloggen</a>
+                    </c:otherwise>
+                </c:choose>
             </ul>
         </nav>
     </div>
@@ -32,11 +45,10 @@
 
 <div id="main">
     <div id="innermain">
-        <nav id="topics">
-            <jsp:include page="components/categorylisting.jsp"/>
-        </nav>
-
-        <jsp:include page="${mainContent}.jsp"/>
+        <jsp:include page="${leftColumn}.jsp"/>
+        <div id="maincontent">
+            <jsp:include page="${mainContent}.jsp"/>
+        </div>
     </div>
 </div>
 
