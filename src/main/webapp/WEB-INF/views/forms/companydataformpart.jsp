@@ -3,13 +3,13 @@
 
 <div class="default-block">
     <form:label path="companyName"><spring:message code="company.form.name"/></form:label>
-    <form:input path="companyName" cssClass="form-input" cssErrorClass="form-input-error" size="50"/>
+    <form:input path="companyName" cssClass="form-input" cssErrorClass="form-input-error" size="40"/>
     <form:errors path="companyName" cssClass="form-error"/>
 </div>
 
 <div class="default-block">
     <form:label path="companyAddress"><spring:message code="company.form.address"/></form:label>
-    <form:input path="companyAddress" cssClass="form-input" cssErrorClass="form-input-error" size="50"/>
+    <form:input path="companyAddress" cssClass="form-input" cssErrorClass="form-input-error" size="40"/>
     <form:errors path="companyAddress" cssClass="form-error"/>
 </div>
 
@@ -21,7 +21,7 @@
 
 <div class="default-block">
     <form:label path="companyCity"><spring:message code="company.form.city"/></form:label>
-    <form:input path="companyCity" cssClass="form-input" cssErrorClass="form-input-error" size="50"/>
+    <form:input path="companyCity" cssClass="form-input" cssErrorClass="form-input-error" size="40"/>
     <form:errors path="companyCity" cssClass="form-error"/>
 </div>
 
@@ -36,24 +36,24 @@
 
 <div class="default-block">
     <form:label path="companyEmail"><spring:message code="company.form.email"/></form:label>
-    <form:input path="companyEmail" cssClass="form-input" cssErrorClass="form-input-error" size="50"/>
+    <form:input path="companyEmail" cssClass="form-input" cssErrorClass="form-input-error" size="40"/>
     <form:errors path="companyEmail" cssClass="form-error"/>
 </div>
 
 <div class="default-block">
     <form:label path="companyPhone"><spring:message code="company.form.phone"/></form:label>
-    <form:input path="companyPhone" cssClass="form-input" cssErrorClass="form-input-error" size="50"/>
+    <form:input path="companyPhone" cssClass="form-input" cssErrorClass="form-input-error" size="40"/>
     <form:errors path="companyPhone" cssClass="form-error"/>
 </div>
 
 <div class="default-block">
     <form:label path="tradeNumber"><spring:message code="company.form.chamberofcommercenumber"/></form:label>
-    <form:input path="tradeNumber" cssClass="form-input" cssErrorClass="form-input-error" size="50"/>
+    <form:input path="tradeNumber" cssClass="form-input" cssErrorClass="form-input-error" size="40"/>
     <form:errors path="tradeNumber" cssClass="form-error"/>
 </div>
 
 <div class="default-block">
     <form:label path="vatNumber"><spring:message code="company.form.vatnumber"/></form:label>
-    <form:input path="vatNumber" cssClass="form-input" cssErrorClass="form-input-error" size="50"/>
+    <form:input path="vatNumber" cssClass="form-input" cssErrorClass="form-input-error" size="40"/>
     <form:errors path="vatNumber" cssClass="form-error"/>
 </div>

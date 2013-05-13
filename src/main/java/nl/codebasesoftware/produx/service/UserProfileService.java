@@ -1,10 +1,12 @@
 package nl.codebasesoftware.produx.service;
 
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.domain.dto.ProfileStatus;
 import nl.codebasesoftware.produx.formdata.BindableMyUserProfile;
 import nl.codebasesoftware.produx.formdata.OtherUserProfileFormData;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * User: rvanloen
@@ -20,4 +22,8 @@ public interface UserProfileService {
     void update(OtherUserProfileFormData profile);
     UserProfile findAuthorByArticle(long articleId);
     UserProfile findAuthorByPage(long pageId);
+    List<UserProfile> findAll();
+    UserProfile findWithCompany(Long id);
+    List<ProfileStatus> getProfileStatuses(Locale locale);
+    void removeProfile(Long id);
 }

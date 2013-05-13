@@ -7,7 +7,11 @@
 <html lang="nl" class="no-js">
 <head>
     <meta charset="utf-8"/>
+    <link href="/static/style/shared.css" rel="stylesheet">
     <link href="/static/style/style.css" rel="stylesheet">
+
+    <script type="text/javascript" src="/static/javascript/jquery-1.8.3.min.js"></script>
+
     <script type="text/javascript" src="/static/javascript/custom.js"></script>
     <title>
         <jsp:include page="components/title.jsp"/>
@@ -25,7 +29,7 @@
                     <c:when test="${loggedIn}">
                         <li><a href="/admin">Admin</a></li>
                         <li>
-                            <a href="/logout"><spring:message code='generic.message.logout'/></a>
+                            <a href="/admin/logout"><spring:message code='generic.message.logout'/></a>
                         </li>
                     </c:when>
                     <c:otherwise>

@@ -29,7 +29,7 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
 
     @Override
     public List<Course> findBasic(List<Long> ids) {
-        if(ids == null || ids.size() == 0){
+        if (ids == null || ids.size() == 0) {
             return Collections.emptyList();
         }
         String hql = "from Course c join fetch c.category cat where c.id in (:ids)";
@@ -38,7 +38,7 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
         return query.getResultList();
     }
 
-    public List<Long> findIndexableCourseIds(Calendar lastIndexDate){
+    public List<Long> findIndexableCourseIds(Calendar lastIndexDate) {
         String hql = "select id from Course c where c.lastIndexed is NULL OR c.lastIndexed > :lastIndexDate";
         Query query = entityManager.createQuery(hql);
         query.setParameter("lastIndexDate", lastIndexDate);
@@ -89,13 +89,29 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
         return (Time) query.getSingleResult();
     }
 
+    /*
     @Override
     public List<CourseDate> findDates(Long id) {
         String hql = "from CourseDate cd where cd.course.id = :id order by cd.startDate";
         Query query = entityManager.createQuery(hql);
         query.setParameter("id", id);
         return query.getResultList();
+    }*/
+
+    @Override
+    public List<Course> findHighlightedCoursesForCompanyAndCategory(Long companyId, Long categoryId) {
+        return entityManager.createQuery("from Course c inner join fetch c.highlightedOnCategories hc " +
+                "where c.category.id = :categoryId and c.company.id = :companyId and hc.category.id = :categoryId")
+                .setParameter("categoryId", categoryId)
+                .setParameter("companyId", companyId)
+                .getResultList();
     }
 
-
+    @Override
+    public List<Course> findCoursesForCompanyAndCategory(Long companyId, Long categoryId) {
+        return entityManager.createQuery("from Course c where c.category.id = :categoryId and c.company.id = :companyId")
+                .setParameter("categoryId", categoryId)
+                .setParameter("companyId", companyId)
+                .getResultList();
+    }
 }

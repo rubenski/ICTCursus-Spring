@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.service;
 
 import nl.codebasesoftware.produx.domain.Category;
+import nl.codebasesoftware.produx.domain.support.DateRange;
 
 import java.util.List;
 
@@ -10,6 +11,9 @@ import java.util.List;
  * Time: 18:43
  */
 public interface CategoryService {
-    Category findByName(String name);
+    Category findByUrlTitle(String name);
     List<Category> findAll();
+    DateRange findDateRangeForHighlightStart(long categoryId);
+    DateRange findDateRangeForHighlightStart(Category category);
+    Category findById(Long categoryId);
 }

@@ -38,7 +38,7 @@ public class CategoryController {
     @RequestMapping(method = RequestMethod.GET)
     public String setup(@PathVariable("categoryUrlName") String categoryUrlName, Model model){
 
-        Category category = categoryService.findByName(categoryUrlName);
+        Category category = categoryService.findByUrlTitle(categoryUrlName);
 
         if(category == null){
             throw new ResourceNotFoundException();

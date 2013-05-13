@@ -62,5 +62,8 @@ public class UserProfileDaoJpa extends GenericDaoJpa<UserProfile> implements Use
         return getSingleResult(entityManager.createQuery("from UserProfile up where up.id = :id").setParameter("id", courseId));
     }
 
-
+    @Override
+    public UserProfile findWithCompany(Long id) {
+        return getSingleResult(entityManager.createQuery("from UserProfile up inner join fetch up.company c where up.id = :id").setParameter("id", id));
+    }
 }

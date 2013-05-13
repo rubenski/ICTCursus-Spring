@@ -1,5 +1,7 @@
 package nl.codebasesoftware.produx.formdata;
 
+import nl.codebasesoftware.produx.comparator.RankOrderable;
+
 /**
  * User: rvanloen
  * Date: 18-2-13

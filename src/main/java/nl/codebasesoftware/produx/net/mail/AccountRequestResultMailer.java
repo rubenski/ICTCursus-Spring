@@ -78,6 +78,10 @@ public class AccountRequestResultMailer {
 
                 model.put("request", request);
                 model.put("generatedPassword", generatedPassword);
+                model.put("protocol", protocol);
+                model.put("host", host);
+                model.put("port", port);
+
 
                 String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/velocity/accepted-message.vm", model);
                 message.setText(text, true);

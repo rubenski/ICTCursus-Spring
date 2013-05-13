@@ -20,5 +20,6 @@ public interface CourseService {
     List<Course> findBasic(List<Long> ids);
     List<Time> findCourseTimes();
     List<Course> findAll();
+    List<Course> findNonHighlightedCoursesForCompanyAndCategory(Company currentlyLoggedInCompany, Category category);
 
 }

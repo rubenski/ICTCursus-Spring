@@ -4,11 +4,6 @@ import nl.codebasesoftware.produx.dao.CategoryDao;
 import nl.codebasesoftware.produx.domain.Category;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import java.util.List;
 
 
@@ -26,7 +21,7 @@ public class CategoryDaoJpa extends GenericDaoJpa<Category> implements CategoryD
 
 
     @Override
-    public Category findByName(String name) {
+    public Category findByUrlTitle(String name) {
         return getSingleResult(entityManager.createQuery("from Category c where c.urlTitle = :name").setParameter("name", name));
     }
 
@@ -34,4 +29,6 @@ public class CategoryDaoJpa extends GenericDaoJpa<Category> implements CategoryD
     public List<Category> findSubCategories(Category category) {
         return entityManager.createQuery("from Category c where c.parent.id = :id").setParameter("id", category.getId()).getResultList();
     }
+
+
 }

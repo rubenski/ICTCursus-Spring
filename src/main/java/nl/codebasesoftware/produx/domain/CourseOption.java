@@ -1,7 +1,6 @@
 package nl.codebasesoftware.produx.domain;
 
 import nl.codebasesoftware.produx.formdata.BindableCourseOption;
-import nl.codebasesoftware.produx.formdata.RankOrderable;
 
 import javax.persistence.*;
 

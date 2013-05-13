@@ -31,7 +31,7 @@ public class BindableCourse {
     private Calendar firstPublished;
     private boolean published;
     private boolean publishable;
-    private List<Long> highlightedOnCategories = new ArrayList<Long>();
+
 
 
     public String getDuration() {
@@ -191,11 +191,4 @@ public class BindableCourse {
         this.publishable = publishable;
     }
 
-    public List<Long> getHighlightedOnCategories() {
-        return highlightedOnCategories;
-    }
-
-    public void setHighlightedOnCategories(List<Long> highlightedOnCategories) {
-        this.highlightedOnCategories = highlightedOnCategories;
-    }
 }

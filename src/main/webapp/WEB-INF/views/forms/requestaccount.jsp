@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <h1><spring:message code="user.request.account"/></h1>
-<spring:message code="explanation.request.account"/>
+<p><spring:message code="explanation.request.account"/></p>
 <form:form method="post" modelAttribute="accountRequestFormData">
 
     <jsp:include page="submitmessage.jsp"/>

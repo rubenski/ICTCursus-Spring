@@ -23,20 +23,6 @@
     <%-- a hidden id --%>
     <form:hidden path="id"/>
 
-    <%-- superadmin section --%>
-    <sec:authorize access="hasRole('ROLE_PERM_access_sysadmin_screens')">
-        <div class="default-block">
-            <form:label path="highlightedOnCategories">
-                <spring:message code="course.form.highlightedoncategories"/>
-                <span><spring:message code="course.form.highlightedoncategories.helptext"/></span>
-            </form:label>
-            <c:forEach items="${categories}" var="category">
-                <span class="inlineCheckBox"><form:checkbox path="highlightedOnCategories" value="${category.id}" label="${category.name}"/></span><br/>
-            </c:forEach>
-            <form:errors path="highlightedOnCategories" cssClass="form-error"/>
-        </div>
-    </sec:authorize>
-
     <%-- published --%>
     <div class="default-block">
         <form:label path="published">

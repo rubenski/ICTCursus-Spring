@@ -20,5 +20,6 @@ public interface CourseDao extends GenericDao<Course> {
     List<Course> findBasic(List<Long> id);
     List<Time> findCourseTimes();
     Time getCourseTime(long id);
-    List<CourseDate> findDates(Long id);
+    List<Course> findHighlightedCoursesForCompanyAndCategory(Long companyId, Long categoryId);
+    List<Course> findCoursesForCompanyAndCategory(Long companyId, Long categoryId);
 }

@@ -1,11 +1,13 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.comparator.HighlightedCoursesEndDataDescending;
 import nl.codebasesoftware.produx.comparator.NameComparable;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * User: rvanloen
@@ -21,7 +23,7 @@ public class Category implements DomainObject, NameComparable {
     private Category parent;
     private String urlTitle;
     private List<Category> children;
-    private Set<HighlightedCourseOnCategory> highlightedCourses = new HashSet<HighlightedCourseOnCategory>();
+    private Set<HighlightedCourseOnCategory> highlightedCourses = new TreeSet<HighlightedCourseOnCategory>(new HighlightedCoursesEndDataDescending());
 
     @Override
     @Id
@@ -89,5 +91,22 @@ public class Category implements DomainObject, NameComparable {
 
     public void setHighlightedCourses(Set<HighlightedCourseOnCategory> highlightedCourses) {
         this.highlightedCourses = highlightedCourses;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Category category = (Category) o;
+
+        if (id != null ? !id.equals(category.id) : category.id != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 }

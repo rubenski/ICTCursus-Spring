@@ -1,0 +1,177 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_STACK_OVERFLOW (0xc00000fd) at pc=0x6d9932b3, pid=11540, tid=9016
+#
+# JRE version: 6.0_22-b04
+# Java VM: Java HotSpot(TM) Client VM (17.1-b03 mixed mode windows-x86 )
+# Problematic frame:
+# V  [jvm.dll+0xf32b3]
+#
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x194fbc00):  JavaThread "qtp18767875-16" [_thread_in_vm, id=9016, stack(0x1c240000,0x1c290000)]
+
+siginfo: ExceptionCode=0xc00000fd, ExceptionInformation=0x00000001 0x1c28dc10 
+
+Registers:
+EAX=0x00002000, EBX=0x18b15918, ECX=0x1c28dc10, EDX=0x1c246038
+ESP=0x1c28fc1c, EBP=0x1c28fc78, ESI=0x00000002, EDI=0x1c28fc10
+EIP=0x6d9932b3, EFLAGS=0x00010202
+
+Top of Stack: (sp=0x1c28fc1c)
+0x1c28fc1c:   18b15928 194fbc00 6d993a51 18b15918
+0x1c28fc2c:   194fbc00 145d3ea0 145d1b48 1c28fc78
+0x1c28fc3c:   6d9f838a 18b1591c 18b15920 18b15924
+0x1c28fc4c:   18b15928 00000005 194fbc00 18b1591c
+0x1c28fc5c:   194fbc00 145d3ea0 194fbc00 194fbc00
+0x1c28fc6c:   1c28fdf0 0000000a 18b15918 1c28fcbc
+0x1c28fc7c:   6da26591 1c28fde8 0028fd14 1c28fd18
+0x1c28fc8c:   025ad270 18b15918 194fbc00 145d3ea0 
+
+Instructions: (pc=0x6d9932b3)
+0x6d9932a3:   3b c6 7c 1c e8 94 fd 08 00 0f af c6 8b cf 2b c8
+0x6d9932b3:   c7 01 00 00 00 00 a1 5c dd af 6d 46 3b f0 7e e4 
+
+
+Stack: [0x1c240000,0x1c290000],  sp=0x1c28fc1c,  free space=13f1c28f584k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0xf32b3]
+V  [jvm.dll+0x186591]
+V  [jvm.dll+0xf3c67]
+V  [jvm.dll+0xf3cdd]
+V  [jvm.dll+0x11da00]
+V  [jvm.dll+0x1e7004]
+V  [jvm.dll+0x185f3c]
+C  [msvcr71.dll+0x9565]
+C  [kernel32.dll+0x133aa]
+C  [ntdll.dll+0x39ef2]
+C  [ntdll.dll+0x39ec5]
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x1a1c6800 JavaThread "qtp18767875-18" [_thread_blocked, id=6364, stack(0x1c3b0000,0x1c400000)]
+  0x19c2c400 JavaThread "qtp18767875-17" [_thread_blocked, id=11456, stack(0x1c320000,0x1c370000)]
+=>0x194fbc00 JavaThread "qtp18767875-16" [_thread_in_vm, id=9016, stack(0x1c240000,0x1c290000)]
+  0x00708000 JavaThread "Abandoned connection cleanup thread" daemon [_thread_blocked, id=4148, stack(0x1c180000,0x1c1d0000)]
+  0x1a96ec00 JavaThread "HashSessionScavenger-0" daemon [_thread_blocked, id=12336, stack(0x1bdc0000,0x1be10000)]
+  0x18b59c00 JavaThread "Monitor Ctrl-Break" daemon [_thread_in_native, id=7384, stack(0x190d0000,0x19120000)]
+  0x18b1b000 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=13600, stack(0x18e70000,0x18ec0000)]
+  0x0071f000 JavaThread "CompilerThread0" daemon [_thread_blocked, id=13580, stack(0x18de0000,0x18e30000)]
+  0x00719c00 JavaThread "JDWP Command Reader" daemon [_thread_in_native, id=8920, stack(0x18d50000,0x18da0000)]
+  0x00713c00 JavaThread "JDWP Event Helper Thread" daemon [_thread_blocked, id=12468, stack(0x18ac0000,0x18b10000)]
+  0x00711000 JavaThread "JDWP Transport Listener: dt_socket" daemon [_thread_blocked, id=8240, stack(0x189d0000,0x18a20000)]
+  0x00707000 JavaThread "Attach Listener" daemon [_thread_blocked, id=14136, stack(0x188d0000,0x18920000)]
+  0x00704000 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=7180, stack(0x18840000,0x18890000)]
+  0x006d4c00 JavaThread "Finalizer" daemon [_thread_blocked, id=11604, stack(0x187b0000,0x18800000)]
+  0x006d3400 JavaThread "Reference Handler" daemon [_thread_blocked, id=1928, stack(0x18720000,0x18770000)]
+  0x001fac00 JavaThread "main" [_thread_blocked, id=4324, stack(0x00430000,0x00480000)]
+
+Other Threads:
+  0x006d0c00 VMThread [stack: 0x18690000,0x186e0000] [id=7100]
+  0x18b1e000 WatcherThread [stack: 0x18f00000,0x18f50000] [id=11916]
+
+VM state:synchronizing (normal execution)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x001f85b0] Threads_lock - owner thread: 0x006d0c00
+
+Heap
+ def new generation   total 15552K, used 2333K [0x045a0000, 0x05680000, 0x09af0000)
+  eden space 13824K,  16% used [0x045a0000, 0x047e7590, 0x05320000)
+  from space 1728K,   0% used [0x054d0000, 0x054d0000, 0x05680000)
+  to   space 1728K,   0% used [0x05320000, 0x05320000, 0x054d0000)
+ tenured generation   total 34512K, used 25119K [0x09af0000, 0x0bca4000, 0x145a0000)
+   the space 34512K,  72% used [0x09af0000, 0x0b377ec0, 0x0b378000, 0x0bca4000)
+ compacting perm gen  total 36440K, used 36438K [0x145a0000, 0x16936000, 0x185a0000)
+   the space 36440K,  99% used [0x145a0000, 0x169358b0, 0x16935a00, 0x16936000)
+No shared spaces configured.
+
+Dynamic libraries:
+0x00400000 - 0x00424000 	c:\program files (x86)\jetbrains\intellij idea 10.5.4\jre\jre\bin\java.exe
+0x77030000 - 0x771b0000 	C:\Windows\SysWOW64\ntdll.dll
+0x75b40000 - 0x75c50000 	C:\Windows\syswow64\kernel32.dll
+0x74d00000 - 0x74d47000 	C:\Windows\syswow64\KERNELBASE.dll
+0x75460000 - 0x75500000 	C:\Windows\syswow64\ADVAPI32.dll
+0x75390000 - 0x7543c000 	C:\Windows\syswow64\msvcrt.dll
+0x74f50000 - 0x74f69000 	C:\Windows\SysWOW64\sechost.dll
+0x75270000 - 0x75360000 	C:\Windows\syswow64\RPCRT4.dll
+0x74a90000 - 0x74af0000 	C:\Windows\syswow64\SspiCli.dll
+0x74a80000 - 0x74a8c000 	C:\Windows\syswow64\CRYPTBASE.dll
+0x7c340000 - 0x7c396000 	c:\program files (x86)\jetbrains\intellij idea 10.5.4\jre\jre\bin\msvcr71.dll
+0x6d8a0000 - 0x6db47000 	c:\program files (x86)\jetbrains\intellij idea 10.5.4\jre\jre\bin\client\jvm.dll
+0x75630000 - 0x75730000 	C:\Windows\syswow64\USER32.dll
+0x75d50000 - 0x75de0000 	C:\Windows\syswow64\GDI32.dll
+0x74af0000 - 0x74afa000 	C:\Windows\syswow64\LPK.dll
+0x75590000 - 0x7562d000 	C:\Windows\syswow64\USP10.dll
+0x6f630000 - 0x6f662000 	C:\Windows\system32\WINMM.dll
+0x74fc0000 - 0x75020000 	C:\Windows\system32\IMM32.DLL
+0x75a70000 - 0x75b3c000 	C:\Windows\syswow64\MSCTF.dll
+0x6d4c0000 - 0x6d50c000 	C:\Windows\system32\apphelp.dll
+0x6d850000 - 0x6d85c000 	c:\program files (x86)\jetbrains\intellij idea 10.5.4\jre\jre\bin\verify.dll
+0x6d3d0000 - 0x6d3ef000 	c:\program files (x86)\jetbrains\intellij idea 10.5.4\jre\jre\bin\java.dll
+0x6d330000 - 0x6d338000 	c:\program files (x86)\jetbrains\intellij idea 10.5.4\jre\jre\bin\hpi.dll
+0x77000000 - 0x77005000 	C:\Windows\syswow64\PSAPI.DLL
+0x6d420000 - 0x6d449000 	c:\program files (x86)\jetbrains\intellij idea 10.5.4\jre\jre\bin\jdwp.dll
+0x6d740000 - 0x6d746000 	c:\program files (x86)\jetbrains\intellij idea 10.5.4\jre\jre\bin\npt.dll
+0x6d890000 - 0x6d89f000 	c:\program files (x86)\jetbrains\intellij idea 10.5.4\jre\jre\bin\zip.dll
+0x6d2b0000 - 0x6d2b7000 	c:\program files (x86)\jetbrains\intellij idea 10.5.4\jre\jre\bin\dt_socket.dll
+0x74cc0000 - 0x74cf5000 	C:\Windows\syswow64\WS2_32.dll
+0x75730000 - 0x75736000 	C:\Windows\syswow64\NSI.dll
+0x737b0000 - 0x737ec000 	C:\Windows\system32\mswsock.dll
+0x74620000 - 0x74625000 	C:\Windows\System32\wshtcpip.dll
+0x00500000 - 0x00507000 	C:\Program Files (x86)\JetBrains\IntelliJ IDEA 10.5.4\bin\breakgen.dll
+0x6d6b0000 - 0x6d6c3000 	C:\Program Files (x86)\JetBrains\IntelliJ IDEA 10.5.4\jre\jre\bin\net.dll
+0x73750000 - 0x73756000 	C:\Windows\System32\wship6.dll
+0x6d6d0000 - 0x6d6d9000 	C:\Program Files (x86)\JetBrains\IntelliJ IDEA 10.5.4\jre\jre\bin\nio.dll
+0x70ad0000 - 0x70ae6000 	C:\Windows\system32\CRYPTSP.dll
+0x70a90000 - 0x70acb000 	C:\Windows\system32\rsaenh.dll
+0x6fc40000 - 0x6fc57000 	C:\Windows\system32\USERENV.dll
+0x6fc30000 - 0x6fc3b000 	C:\Windows\system32\profapi.dll
+0x70650000 - 0x70660000 	C:\Windows\system32\NLAapi.dll
+0x70640000 - 0x70650000 	C:\Windows\system32\napinsp.dll
+0x70320000 - 0x70332000 	C:\Windows\system32\pnrpnsp.dll
+0x702d0000 - 0x70314000 	C:\Windows\system32\DNSAPI.dll
+0x702c0000 - 0x702c8000 	C:\Windows\System32\winrnr.dll
+0x702b0000 - 0x702bd000 	C:\Windows\system32\wshbth.dll
+0x70280000 - 0x702a7000 	C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live\WLIDNSP.DLL
+0x75c50000 - 0x75ca7000 	C:\Windows\syswow64\SHLWAPI.dll
+0x6fd60000 - 0x6fd81000 	C:\Program Files (x86)\Bonjour\mdnsNSP.dll
+0x70840000 - 0x7085c000 	C:\Windows\system32\Iphlpapi.DLL
+0x70830000 - 0x70837000 	C:\Windows\system32\WINNSI.DLL
+0x70af0000 - 0x70af6000 	C:\Windows\system32\rasadhlp.dll
+0x70b00000 - 0x70b38000 	C:\Windows\System32\fwpuclnt.dll
+
+VM Arguments:
+jvm_args: -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=y -Dclassworlds.conf=C:\maven\bin\m2.conf -Dmaven.home=C:\maven -Didea.launcher.port=7532 -Didea.launcher.bin.path=C:\Program Files (x86)\JetBrains\IntelliJ IDEA 10.5.4\bin -Dfile.encoding=UTF-8 
+java_command: com.intellij.rt.execution.application.AppMain org.codehaus.classworlds.Launcher --no-plugin-registry --fail-fast --no-plugin-updates --strict-checksums --update-snapshots -f C:\PROJECTS\ICTCursus Spring\pom.xml org.mortbay.jetty:jetty-maven-plugin:8.0.0.M3:run
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=C:\Program Files (x86)\Java\jdk1.6.0_22
+PATH=C:\Program Files (x86)\JetBrains\IntelliJ IDEA 10.5.4\bin\..\.\bin;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\app\rvanloen\product\11.2.0\client_1\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;c:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\;c:\Program Files\Microsoft SQL Server\100\Tools\Binn\;c:\Program Files\Microsoft SQL Server\100\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\VSShell\Common7\IDE\;C:\Program Files (x86)\Microsoft SQL Server\100\DTS\Binn\;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files\SourceGear\Common\DiffMerge\;C:\Program Files (x86)\Java\jdk1.6.0_22\bin;C:\maven\bin;C:\Program Files (x86)\MySQL\MySQL Server 5.5\bin;C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\;C:\Program Files\TortoiseSVN\bin;C:\Program Files\TortoiseGit\bin;C:\Program Files (x86)\Google\Google Apps Sync\;C:\Program Files (x86)\Google\Google Apps Migration\;C:\Program Files (x86)\Git\cmd;c:\program files (x86)\jetbrains\intellij idea 10.5.4\jre\jre\bin
+USERNAME=rvanloen
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 42 Stepping 7, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 7 Build 7601 Service Pack 1
+
+CPU:total 8 (8 cores per cpu, 2 threads per core) family 6 model 42 stepping 7, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, ht
+
+Memory: 4k page, physical 8344472k(880576k free), swap 10834140k(5060k free)
+
+vm_info: Java HotSpot(TM) Client VM (17.1-b03) for windows-x86 JRE (1.6.0_22-b04), built on Sep 15 2010 00:56:36 by "java_re" with MS VC++ 7.1 (VS2003)
+
+time: Wed May 08 23:56:31 2013
+elapsed time: 25 seconds
+

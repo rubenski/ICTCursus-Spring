@@ -297,4 +297,6 @@ public class Course implements DomainObject {
         if(regions == null || regions.size() == 0) return false;
         return true;
     }
+
+
 }

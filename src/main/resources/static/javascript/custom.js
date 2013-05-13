@@ -1,13 +1,29 @@
 $(document).ready(function() {
 
-    $('#advertising-overlay-link').click(function(e) {
+    $('.lightbox-trigger').click(function(e) {
+
         e.preventDefault();
-        showAdvertisingOverlay();
+
+        var category = $(this).attr("id");
+
+        if ($('#lightbox').length == 0) {
+            $.ajax({
+                url: "/admin/highlightcourses/" + category,
+                cache: false
+            }).done(function(html) {
+                    $("body").append(html);
+                });
+        }
     });
 
-    function showAdvertisingOverlay() {
-        $("#lightbox, #lightbox-panel").fadeIn(300);
-        $("#loginFormError").css('display', 'none');
-    }
+    $("#close-panel").click(function() {
+        alert("test");
+        $('#lightbox').hide();
+    });
 
+    $("#formsubmit").click(function(e){
+        e.preventDefault();
+
+    });
 });
+

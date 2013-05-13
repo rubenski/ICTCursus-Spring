@@ -1,10 +1,7 @@
 package nl.codebasesoftware.produx.service.impl;
 
 import nl.codebasesoftware.produx.dao.*;
-import nl.codebasesoftware.produx.domain.Category;
-import nl.codebasesoftware.produx.domain.Company;
-import nl.codebasesoftware.produx.domain.Course;
-import nl.codebasesoftware.produx.domain.Time;
+import nl.codebasesoftware.produx.domain.*;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
 import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.service.SystemPropertyService;
@@ -99,7 +96,7 @@ public class CourseServiceImpl implements CourseService {
     public Course save(BindableCourse bindableCourse) {
         Course course = conversionService.convert(bindableCourse, Course.class);
 
-        if(bindableCourse.isPublished() && !course.wasPreviouslyPublished()){
+        if (bindableCourse.isPublished() && !course.wasPreviouslyPublished()) {
             course.setFirstPublished(Calendar.getInstance());
         }
 
@@ -122,6 +119,18 @@ public class CourseServiceImpl implements CourseService {
         return indexableCourses;
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<Course> findNonHighlightedCoursesForCompanyAndCategory(Company currentlyLoggedInCompany, Category category) {
+        List<Course> highLightedCourses = courseDao.findHighlightedCoursesForCompanyAndCategory(currentlyLoggedInCompany.getId(), category.getId());
+        List<Course> courses = courseDao.findCoursesForCompanyAndCategory(currentlyLoggedInCompany.getId(), category.getId());
+        List<Course> nonHighLighted = new ArrayList<Course>();
+
+        courses.removeAll(highLightedCourses);
+
+        return courses;
+
+    }
 
 
 }

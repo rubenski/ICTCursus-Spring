@@ -7,7 +7,7 @@
 
 <sec:authorize access="hasRole('ROLE_PERM_edit_company_advertisements')">
     <div id="advertising-overlay-link-container">
-        <a href="#" id="advertising-overlay-link"><spring:message code="category.yourcourse.here"/></a>
+        <a href="#" id="${category.id}" class="lightbox-trigger"><spring:message code="category.yourcourse.here"/></a>
     </div>
 </sec:authorize>
 

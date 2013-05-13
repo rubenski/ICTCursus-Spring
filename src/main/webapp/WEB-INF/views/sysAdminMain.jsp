@@ -13,6 +13,9 @@
     <c:if test="${accountRequestsPage}">
         <script type="text/javascript" src="/static/javascript/sysadmin/accountrequests.js"></script>
     </c:if>
+    <c:if test="${sysadminUserProfileForm}">
+        <script type="text/javascript" src="/static/javascript/sysadmin/sysadminUserProfileForm.js"></script>
+    </c:if>
     <script type="text/javascript">
         tinyMCE.init({
             mode : "specific_textareas",

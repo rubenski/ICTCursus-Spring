@@ -83,7 +83,7 @@
 
 <div id="lightbox" style="display: none;"></div>
 
-<div id="lightbox-panel">
+<div id="lightbox-panel" class="upload-lightbox">
     <form:form method="post" target="upload-result" id="uploadForm" enctype="multipart/form-data" action="/admin/logo/upload" modelAttribute="bindableFileUpload">
         <div class="default-block">
             <form:label path="fileData"><spring:message code="company.upload.logo"/></form:label>

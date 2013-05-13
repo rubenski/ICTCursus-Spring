@@ -1,5 +1,7 @@
 package nl.codebasesoftware.produx.formdata;
 
+import nl.codebasesoftware.produx.comparator.RankComparator;
+
 import java.util.Set;
 import java.util.TreeSet;
 

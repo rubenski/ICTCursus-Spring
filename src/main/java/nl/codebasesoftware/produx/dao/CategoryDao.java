@@ -11,6 +11,6 @@ import java.util.List;
  * Time: 18:45
  */
 public interface CategoryDao extends GenericDao<Category> {
-    Category findByName(String name);
+    Category findByUrlTitle(String name);
     List<Category> findSubCategories(Category category);
 }

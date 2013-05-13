@@ -3,6 +3,7 @@ package nl.codebasesoftware.produx.domain;
 import nl.codebasesoftware.produx.domain.optionlists.RoleName;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -20,8 +21,7 @@ public class Role implements DomainObject {
     private boolean companyAdminRole;
     private boolean userAssignable;
     private Integer listRank;
-
-
+    private Set<UserProfile> userProfiles = new HashSet<UserProfile>();
 
     @Override
     @Id
@@ -85,6 +85,15 @@ public class Role implements DomainObject {
 
     public void setUserAssignable(boolean userAssignable) {
         this.userAssignable = userAssignable;
+    }
+
+    @ManyToMany(mappedBy = "roles")
+    public Set<UserProfile> getUserProfiles() {
+        return userProfiles;
+    }
+
+    public void setUserProfiles(Set<UserProfile> userProfiles) {
+        this.userProfiles = userProfiles;
     }
 
     @Transient

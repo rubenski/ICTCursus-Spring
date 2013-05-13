@@ -108,7 +108,7 @@ public class UserProfile implements DomainObject, UserDetails {
 
     // Note: CascadeType.ALL does not remove orphans from the database on a many-to-many relationship, unfortunately
     // http://stackoverflow.com/questions/3055407/how-do-i-delete-orphan-entities-using-hibernate-and-jpa-on-a-many-to-many-relati
-    @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     public Set<Role> getRoles() {
         return roles;
     }
@@ -133,7 +133,6 @@ public class UserProfile implements DomainObject, UserDetails {
     /**
      * Methods from interface UserDetails
      */
-
     @Override
     @Transient
     public Collection<? extends GrantedAuthority> getAuthorities() {
