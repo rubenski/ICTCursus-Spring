@@ -267,6 +267,11 @@ public class Course implements DomainObject {
     }
 
     @Transient
+    public String getAdminUrl(){
+        return CourseUrl.createAdminUrl(id);
+    }
+
+    @Transient
     public int hashCode() {
         return name.hashCode();
     }

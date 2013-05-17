@@ -46,6 +46,7 @@ textarea, input, select {
     -khtml-border-radius: 4px;
     border-radius: 4px;
     font-family: arial;
+    font-size: 1.0em;
 }
 
 textarea, input, select {

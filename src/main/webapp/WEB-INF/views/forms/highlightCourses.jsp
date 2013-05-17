@@ -6,14 +6,33 @@
 <div id="lightbox">
     <div id="lightbox-panel" class="advertising-lightbox">
         <h1>${headerText}</h1>
+
         <p>
             <spring:message code="highlight.your.courses.explain"/>
         </p>
 
-        <iframe src="/admin/form/highlightcourses/${category.id}" width="700" height="400" frameBorder="0" scrolling="no"/>
+        <script language="JavaScript">
+            <!--
+            function autoResize(id) {
+                var newheight;
+                var newwidth;
+
+                if (document.getElementById) {
+                    newheight = document.getElementById(id).contentWindow.document.body.scrollHeight;
+                    newwidth = document.getElementById(id).contentWindow.document.body.scrollWidth;
+                }
+
+                document.getElementById(id).height = (newheight) + "px";
+                document.getElementById(id).width = (newwidth) + "px";
+            }
+            //-->
+        </script>
+
+        <iframe id="highlight-iframe" onLoad="autoResize('highlight-iframe');" src="/admin/form/highlightcourses/${category.id}" width="700" height="400"
+                frameBorder="0" scrolling="no"/>
 
         <p align="center">
-            <a id="close-panel" href="#">Sluiten</a>
+            <a onclick="javascript:closePanel()" href="#">Sluiten</a>
         </p>
     </div>
 </div>

@@ -1,12 +1,13 @@
 package nl.codebasesoftware.produx.service.impl;
 
 import nl.codebasesoftware.produx.dao.*;
-import nl.codebasesoftware.produx.domain.*;
+import nl.codebasesoftware.produx.domain.Category;
+import nl.codebasesoftware.produx.domain.Company;
+import nl.codebasesoftware.produx.domain.Course;
+import nl.codebasesoftware.produx.domain.Time;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
 import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.service.SystemPropertyService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
@@ -27,24 +28,13 @@ public class CourseServiceImpl implements CourseService {
 
 
     private CourseDao courseDao;
-    private CategoryDao categoryDao;
-    private RegionDao regionDao;
-    private TagDao tagDao;
     private SystemPropertyService systemPropertyService;
-    private CourseOptionDao optionDao;
     private ConversionService conversionService;
 
-    private Logger LOG = LoggerFactory.getLogger(CourseServiceImpl.class);
-
     @Autowired
-    public CourseServiceImpl(CourseDao courseDao, CategoryDao categoryDao, RegionDao regionDao, TagDao tagDao,
-                             SystemPropertyService systemPropertyService, CourseOptionDao optionDao, ConversionService conversionService) {
+    public CourseServiceImpl(CourseDao courseDao,  SystemPropertyService systemPropertyService, ConversionService conversionService) {
         this.courseDao = courseDao;
-        this.categoryDao = categoryDao;
-        this.regionDao = regionDao;
-        this.tagDao = tagDao;
         this.systemPropertyService = systemPropertyService;
-        this.optionDao = optionDao;
         this.conversionService = conversionService;
     }
 
@@ -59,6 +49,18 @@ public class CourseServiceImpl implements CourseService {
     @Transactional(readOnly = true)
     public List<Course> findCourses(Long categoryId) {
         return courseDao.findCourses(categoryId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Course> findCurrentlyHighlightedCourses(long categoryId) {
+        return courseDao.findCurrentlyHighlightedCourses(categoryId, Calendar.getInstance());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Course> findNonHighlightedCourses(long categoryId) {
+        return courseDao.findNonHighlightedCourses(categoryId, Calendar.getInstance());
     }
 
     @Override
@@ -122,14 +124,23 @@ public class CourseServiceImpl implements CourseService {
     @Override
     @Transactional(readOnly = true)
     public List<Course> findNonHighlightedCoursesForCompanyAndCategory(Company currentlyLoggedInCompany, Category category) {
-        List<Course> highLightedCourses = courseDao.findHighlightedCoursesForCompanyAndCategory(currentlyLoggedInCompany.getId(), category.getId());
+        List<Course> highLightedCourses = findCoursesForCompanyAndCategory(category.getId(), currentlyLoggedInCompany.getId());
         List<Course> courses = courseDao.findCoursesForCompanyAndCategory(currentlyLoggedInCompany.getId(), category.getId());
-        List<Course> nonHighLighted = new ArrayList<Course>();
-
         courses.removeAll(highLightedCourses);
 
         return courses;
+    }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<Course> findCoursesForCompanyAndCategory(long categoryId, long companyId){
+        return courseDao.findCoursesForCompanyAndCategory(categoryId, companyId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Course findById(Long courseId) {
+        return courseDao.find(courseId);
     }
 
 

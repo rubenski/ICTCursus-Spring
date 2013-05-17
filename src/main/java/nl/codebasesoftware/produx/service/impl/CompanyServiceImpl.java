@@ -61,6 +61,9 @@ public class CompanyServiceImpl implements CompanyService {
     @Transactional(readOnly = true)
     public Company getCurrentlyLoggedInCompany() {
         UserProfile user = CurrentUser.get();
+        if(user == null){
+            return null;
+        }
         Company company = user.getCompany();
         return companyDao.find(company.getId());
     }

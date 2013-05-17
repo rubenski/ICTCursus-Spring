@@ -3,6 +3,7 @@ package nl.codebasesoftware.produx.controller.admin;
 import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
+import nl.codebasesoftware.produx.domain.HighlightedCourseOnCategory;
 import nl.codebasesoftware.produx.domain.optionlists.NumberOfMonthsHighlighting;
 import nl.codebasesoftware.produx.domain.support.DateRange;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
@@ -53,6 +54,7 @@ public class AdminHighlightCoursesController {
         this.messageSource = messageSource;
         this.highlightedCourseFormValidator = highlightedCourseFormValidator;
         this.highlightedCourseService = highlightedCourseService;
+        this.companyService = companyService;
     }
 
     @RequestMapping(value = "/admin/highlightcourses/{category}", method = RequestMethod.GET)
@@ -73,11 +75,9 @@ public class AdminHighlightCoursesController {
         return "forms/highlightCourses";
     }
 
-    @RequestMapping(value = "/admin/form/highlightcourses/{categoryId}")
+    @RequestMapping(value = "/admin/form/highlightcourses/{categoryId}", method = RequestMethod.GET)
     public String showHighlightCoursesForm(@PathVariable("categoryId") Long categoryId, Model model, Locale locale) {
-
         setFormData(model, locale, categoryId, new HighlightCourseFormData());
-
         return "forms/highlightCoursesForm";
     }
 
@@ -102,6 +102,10 @@ public class AdminHighlightCoursesController {
             }
 
             highlightedCourseService.addHighlightedCourse(courseId, categoryId, startDate, numberOfMonths);
+
+            model.addAttribute("highlightCourseRequest", highlightCourseFormData);
+
+            return "forms/highlightCoursesFormResult";
         }
 
         setFormData(model, locale, categoryId, highlightCourseFormData);
@@ -111,25 +115,28 @@ public class AdminHighlightCoursesController {
     private void setFormData(Model model, Locale locale, Long categoryId, HighlightCourseFormData formData) {
 
         Category category = categoryService.findById(categoryId);
+        Company currentlyLoggedInCompany = companyService.getCurrentlyLoggedInCompany();
 
-        DateRange dateRange = categoryService.findDateRangeForHighlightStart(category.getId());
+        DateRange dateRange = highlightedCourseService.findDateRangeForHighlightStart(category.getId());
+        List<HighlightedCourseOnCategory> highlightedCoursesForCompany = highlightedCourseService.findCurrentAndFutureHighlightedCoursesForCompany(category.getId(), currentlyLoggedInCompany.getId());
 
-        boolean startDirectlyPossible = isSameDay(dateRange.getStartDate(), Calendar.getInstance());
+
+        Calendar startDate = dateRange.getStartDate();
+        boolean startDirectlyPossible = isSameDay(startDate, Calendar.getInstance());
 
         String helpMessageDate = null;
         String helpMessageCourses = messageSource.getMessage("course.highlight.choose.helptext", new Object[]{category.getName()}, locale);
 
-        Company currentlyLoggedInCompany = companyService.getCurrentlyLoggedInCompany();
-
         if (!startDirectlyPossible) {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-            String formattedStartDate = sdf.format(dateRange.getStartDate());
-            helpMessageDate = messageSource.getMessage("highlight.courses.start.notdirectly", new Object[]{formattedStartDate}, locale);
+            String formattedStartDate = sdf.format(startDate.getTime());
+            helpMessageDate = messageSource.getMessage("highlight.courses.start.notdirectly", new Object[]{category.getName(), formattedStartDate}, locale);
         }
 
         List<Course> nonHighLightedCompanycourses = courseService.findNonHighlightedCoursesForCompanyAndCategory(currentlyLoggedInCompany, category);
 
-
+        model.addAttribute("hasHighlightedCourses", highlightedCoursesForCompany.size() > 0);
+        model.addAttribute("highlightedCoursesForCompany", highlightedCoursesForCompany);
         model.addAttribute("hasEligibleCourses", nonHighLightedCompanycourses.size() > 0);
         model.addAttribute("courses", nonHighLightedCompanycourses);
         model.addAttribute("highlightCourseFormData", formData);
@@ -137,9 +144,9 @@ public class AdminHighlightCoursesController {
         model.addAttribute("monthsOptions", NumberOfMonthsHighlighting.NUMBERS);
         model.addAttribute("helpMessageDate", helpMessageDate);
         model.addAttribute("advertiseToday", startDirectlyPossible);
-        model.addAttribute("startDay", dateRange.getStartDate().get(Calendar.DAY_OF_MONTH));
-        model.addAttribute("startMonth", dateRange.getStartDate().get(Calendar.MONTH));
-        model.addAttribute("startYear", dateRange.getStartDate().get(Calendar.YEAR));
+        model.addAttribute("startDay", startDate.get(Calendar.DAY_OF_MONTH));
+        model.addAttribute("startMonth", startDate.get(Calendar.MONTH));
+        model.addAttribute("startYear", startDate.get(Calendar.YEAR));
         model.addAttribute("endDay", dateRange.getEndDate().get(Calendar.DAY_OF_MONTH));
         model.addAttribute("endMonth", dateRange.getEndDate().get(Calendar.MONTH));
         model.addAttribute("endYear", dateRange.getEndDate().get(Calendar.YEAR));

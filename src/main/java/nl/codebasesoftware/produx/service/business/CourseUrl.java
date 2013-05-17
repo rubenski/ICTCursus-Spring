@@ -15,6 +15,10 @@ public class CourseUrl {
         return String.format("/c/%s/%d-%s.html", preprareStringForUrl(category), courseId, preprareStringForUrl(title));
     }
 
+    public static String createAdminUrl(Long id) {
+        return String.format("/admin/course/%d", id);
+    }
+
     private static String preprareStringForUrl(String title) {
         Pattern specialCharsPattern = Pattern.compile("([^a-zA-z0-9])");
         String s = specialCharsPattern.matcher(title).replaceAll("-");
@@ -40,4 +44,6 @@ public class CourseUrl {
 
         return id;
     }
+
+
 }

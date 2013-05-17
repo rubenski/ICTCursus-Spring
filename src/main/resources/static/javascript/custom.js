@@ -11,19 +11,30 @@ $(document).ready(function() {
                 url: "/admin/highlightcourses/" + category,
                 cache: false
             }).done(function(html) {
-                    $("body").append(html);
+                    $(html).hide().appendTo($("body")).fadeIn(600);
                 });
         }
     });
 
-    $("#close-panel").click(function() {
-        alert("test");
-        $('#lightbox').hide();
-    });
-
-    $("#formsubmit").click(function(e){
+    $("#formsubmit").click(function(e) {
         e.preventDefault();
-
     });
+
+    setIframeHeight($("#highlight-iframe"));
 });
+
+function setIframeHeight(iframe) {
+    if (iframe) {
+        var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+        if (iframeWin.document.body) {
+            iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+        }
+    }
+}
+
+function closePanel() {
+    $('#lightbox').fadeOut(200, function(){
+        $(this).remove();
+    });
+}
 

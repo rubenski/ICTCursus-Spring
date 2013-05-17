@@ -71,12 +71,19 @@ public class SysAdminUserProfileController {
 
         UserProfile userProfile = userProfileService.findWithCompany(bindableSysAdminUserProfile.getId());
 
+        String valid = "false";
+
         if(bindableSysAdminUserProfile.getRemove() == 1){
             userProfileService.removeProfile(bindableSysAdminUserProfile.getId());
             return "redirect:/admin/sys/userprofiles";
+        }else {
+            userProfileService.update(bindableSysAdminUserProfile);
+            valid = "true";
         }
 
         setDefaultFormData(model, locale, bindableSysAdminUserProfile, userProfile);
+
+        model.addAttribute("valid", valid);
 
         return "sysAdminMain";
     }

@@ -13,7 +13,5 @@ import java.util.List;
 public interface CategoryService {
     Category findByUrlTitle(String name);
     List<Category> findAll();
-    DateRange findDateRangeForHighlightStart(long categoryId);
-    DateRange findDateRangeForHighlightStart(Category category);
     Category findById(Long categoryId);
 }

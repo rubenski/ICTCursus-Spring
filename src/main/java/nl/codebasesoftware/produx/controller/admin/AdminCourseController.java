@@ -134,6 +134,7 @@ public class AdminCourseController {
         }
 
         addDataToModel(model, locale);
+        model.addAttribute("valid", "false");
         model.addAttribute("mainContent", "forms/editCourse");
         return "adminMain";
     }

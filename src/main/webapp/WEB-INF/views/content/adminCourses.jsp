@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 <div class="default-block">
@@ -10,8 +11,8 @@
 
             <table cellpadding="4" width="600">
                 <tr>
-                    <th><spring:message code="management.home.coursetable.courseheader"/></th>
-                    <th><spring:message code="management.home.coursetable.description"/></th>
+                    <th><spring:message code="generic.userMessage.course"/></th>
+                    <th><spring:message code="admin.articles.published"/></th>
                 </tr>
                 <c:forEach items="${courses}" var="course">
                     <tr>
@@ -19,7 +20,7 @@
                             <a href="/admin/course/${course.id}">${course.name}</a>
                         </td>
                         <td>
-
+                            <fmt:formatDate value="${course.firstPublished.time}" type="date" pattern="dd-MM-yyyy HH:mm:ss"/>
                         </td>
                     </tr>
                 </c:forEach>

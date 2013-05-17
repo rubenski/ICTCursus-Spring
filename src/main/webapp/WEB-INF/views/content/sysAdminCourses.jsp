@@ -10,7 +10,7 @@
 
             <table cellpadding="4" width="600">
                 <tr>
-                    <th><spring:message code="management.home.coursetable.courseheader"/></th>
+                    <th><spring:message code="generic.userMessage.course"/></th>
                     <th><spring:message code="management.home.coursetable.description"/></th>
                 </tr>
                 <c:forEach items="${courses}" var="course">

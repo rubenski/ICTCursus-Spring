@@ -6,6 +6,7 @@ import nl.codebasesoftware.produx.domain.Role;
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.domain.dto.ProfileStatus;
 import nl.codebasesoftware.produx.formdata.BindableMyUserProfile;
+import nl.codebasesoftware.produx.formdata.BindableSysAdminUserProfile;
 import nl.codebasesoftware.produx.formdata.OtherUserProfileFormData;
 import nl.codebasesoftware.produx.service.UserProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,15 @@ public class UserProfileServiceImpl implements UserProfileService {
         profile.setPhone(myBindableUserProfile.getPhone());
         profile.setPreposition(myBindableUserProfile.getPreposition());
         userProfileDao.persist(profile);
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public void update(BindableSysAdminUserProfile bindableSysAdminUserProfile) {
+        UserProfile userProfile = userProfileDao.find(bindableSysAdminUserProfile.getId());
+        userProfile.setEmail(bindableSysAdminUserProfile.getEmail());
+        userProfile.setEnabled(bindableSysAdminUserProfile.isEnabled());
+        // userProfileDao.persist(userProfile);
     }
 
     @Override

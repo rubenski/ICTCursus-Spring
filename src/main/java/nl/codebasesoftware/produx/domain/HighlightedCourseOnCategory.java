@@ -9,7 +9,6 @@ import java.util.Calendar;
  * Time: 0:49
  */
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"category_id", "course_id"}))
 public class HighlightedCourseOnCategory implements DomainObject {
 
     private Long id;
@@ -29,7 +28,7 @@ public class HighlightedCourseOnCategory implements DomainObject {
         this.id = id;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     public Category getCategory() {
         return category;
@@ -39,7 +38,7 @@ public class HighlightedCourseOnCategory implements DomainObject {
         this.category = category;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
     public Course getCourse() {
         return course;

@@ -5,6 +5,7 @@ import nl.codebasesoftware.produx.domain.*;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
@@ -89,15 +90,6 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
         return (Time) query.getSingleResult();
     }
 
-    /*
-    @Override
-    public List<CourseDate> findDates(Long id) {
-        String hql = "from CourseDate cd where cd.course.id = :id order by cd.startDate";
-        Query query = entityManager.createQuery(hql);
-        query.setParameter("id", id);
-        return query.getResultList();
-    }*/
-
     @Override
     public List<Course> findHighlightedCoursesForCompanyAndCategory(Long companyId, Long categoryId) {
         return entityManager.createQuery("from Course c inner join fetch c.highlightedOnCategories hc " +
@@ -114,4 +106,22 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
                 .setParameter("companyId", companyId)
                 .getResultList();
     }
+
+    @Override
+    public List<Course> findNonHighlightedCourses(long categoryId, Calendar currentDate) {
+        String query = "from Course c inner join fetch c.company inner join fetch c.category left join fetch c.highlightedOnCategories cats " +
+                "where c.category.id = :categoryId and (cats.category.id is null or cats.category.id <> :categoryId or (cats.category.id = :categoryId and :today not between cats.startTime and cats.endTime))";
+        List resultList = entityManager.createQuery(query).setParameter("categoryId", categoryId).setParameter("today", currentDate, TemporalType.DATE).getResultList();
+        return resultList;
+    }
+
+    @Override
+    public List<Course> findCurrentlyHighlightedCourses(long categoryId, Calendar currentTime) {
+        String query = "from Course c inner join fetch c.company inner join fetch c.category left join fetch c.highlightedOnCategories cats " +
+                "where c.category.id = :categoryId and cats.category.id = :categoryId and cats.startTime <= :today and cats.endTime > :today";
+        List resultList = entityManager.createQuery(query).setParameter("categoryId", categoryId).setParameter("today", currentTime, TemporalType.DATE).getResultList();
+        return resultList;
+    }
+
+
 }
