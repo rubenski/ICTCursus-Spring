@@ -10,11 +10,18 @@
     <link href="/static/style/shared.css" rel="stylesheet">
     <link href="/static/style/style.css" rel="stylesheet">
 
-    <script type="text/javascript" src="/static/javascript/jquery-1.8.3.min.js"></script>
+    <c:if test="${showLightboxLink or includeCourseJs}">
+        <script type="text/javascript" src="/static/javascript/jquery-1.8.3.min.js"></script>
+    </c:if>
+    <c:if test="${includeCourseJs}">
+        <script type="text/javascript" src="/static/javascript/course.js"></script>
+    </c:if>
+    <c:if test="${showLightboxLink}">
+        <script type="text/javascript" src="/static/javascript/lightbox.js"></script>
+    </c:if>
 
-    <script type="text/javascript" src="/static/javascript/custom.js"></script>
     <title>
-        <jsp:include page="components/title.jsp"/>
+        ${title}
     </title>
 </head>
 <body>
@@ -53,6 +60,7 @@
         <div id="maincontent">
             <jsp:include page="${mainContent}.jsp"/>
         </div>
+        <jsp:include page="${rightColumn}.jsp"/>
     </div>
 </div>
 

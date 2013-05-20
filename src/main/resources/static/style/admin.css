@@ -30,6 +30,14 @@
     background-color: #fff;
 }
 
+#wrapper #middle .default-block table.invisible tr {
+    background-color: #d4d0d0;
+}
+
+#wrapper #middle .default-block table.invisible td {
+    padding: 0;
+}
+
 #wrapper #middle .default-block table td {
     padding: 7px;
 }

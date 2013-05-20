@@ -12,7 +12,8 @@
     <mvc:annotation-driven/>
 
     <mvc:resources mapping="/static/**" location="classpath:/static/" />
-
+    <mvc:resources mapping="/favicon.ico" location="classpath:/" />
+    <mvc:resources mapping="/robots.txt" location="classpath:/" />
     <context:component-scan base-package="nl.codebasesoftware.produx.controller"/>
 
 

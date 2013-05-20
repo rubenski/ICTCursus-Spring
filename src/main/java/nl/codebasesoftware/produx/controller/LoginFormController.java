@@ -26,6 +26,7 @@ public class LoginFormController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String createLoginForm(Model model) {
         pageBlockService.setCourseCategoriesInLeftColumn(model);
+        pageBlockService.setEmptyRightColumn(model);
         model.addAttribute("mainContent", "forms/springLogin");
         UserProfile userProfile = new UserProfile();
         model.addAttribute("userProfile", userProfile);

@@ -11,4 +11,10 @@ public interface PageBlockService {
     void setCourseCategoriesInLeftColumn(Model model);
 
     void setAuthentication(Model model);
+
+    void setCourseCategoriesInRightColumn(Model model);
+
+    void setEmptyRightColumn(Model model);
+
+    void setEmptyLeftColumn(Model model);
 }

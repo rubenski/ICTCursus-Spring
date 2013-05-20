@@ -28,6 +28,7 @@ public class HomepageController {
     public String show(Model model) {
         pageBlockService.setCourseCategoriesInLeftColumn(model);
         pageBlockService.setAuthentication(model);
+        pageBlockService.setEmptyRightColumn(model);
         model.addAttribute("title", "ICT Cursus - cursussen en trainingen in de IT");
         model.addAttribute("mainContent", "content/home");
         return "main";

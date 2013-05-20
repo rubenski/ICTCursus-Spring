@@ -111,6 +111,8 @@
                 <bean class="nl.codebasesoftware.produx.conversion.ArticlePageToArticlePageFormData"/>
                 <bean class="nl.codebasesoftware.produx.conversion.AccountRequestFormDataToAccountRequest"/>
                 <bean class="nl.codebasesoftware.produx.conversion.AccountRequestToAccountRequestFormData"/>
+                <bean class="nl.codebasesoftware.produx.conversion.CourseRequestFormDataToNewCourseRequest"/>
+                <bean class="nl.codebasesoftware.produx.conversion.CourseRequestToCourseRequestFormData"/>
             </set>
         </property>
     </bean>

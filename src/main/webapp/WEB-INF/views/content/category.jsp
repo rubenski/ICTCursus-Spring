@@ -6,7 +6,7 @@
 <h1><spring:message code="generic.message.courses"/> ${category.name}</h1>
 
 <sec:authorize access="hasRole('ROLE_PERM_edit_company_advertisements')">
-    <c:if test="${showHighlightLink}">
+    <c:if test="${showLightboxLink}">
         <div id="advertising-overlay-link-container">
             <a href="#" id="${category.id}" class="lightbox-trigger"><spring:message code="category.yourcourse.here"/></a>
         </div>

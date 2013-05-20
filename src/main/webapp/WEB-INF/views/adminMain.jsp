@@ -33,7 +33,7 @@
         });
     </script>
     <title>
-        <jsp:include page="components/title.jsp"/>
+        ICT Cursus admin
     </title>
 </head>
 <body>

@@ -60,7 +60,7 @@ public class CompanyFormValidator implements Validator {
         Pattern emailPattern = Pattern.compile(emailRegex);
         matcher = emailPattern.matcher(bindableCompany.getEmail());
         if(!matcher.matches()){
-            errors.rejectValue("email", "errors.company.email");
+            errors.rejectValue("email", "errors.invalid.email");
         }
 
         String phoneRegex = "[0-9 ]{10,12}";

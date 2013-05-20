@@ -7,6 +7,7 @@ import nl.codebasesoftware.produx.service.PageBlockService;
 import nl.codebasesoftware.produx.service.support.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import java.util.List;
@@ -28,9 +29,8 @@ public class PageBlockServiceImpl implements PageBlockService {
 
     @Override
     public void setCourseCategoriesInLeftColumn(Model model) {
-        List<Category> firstLevelCategories = courseService.findFirstLevelCategories();
+        setCategories(model);
         model.addAttribute("leftColumn", "components/categoriesNavigation");
-        model.addAttribute("categories", firstLevelCategories);
     }
 
     @Override
@@ -38,5 +38,27 @@ public class PageBlockServiceImpl implements PageBlockService {
         UserProfile profile = CurrentUser.get();
         model.addAttribute("loggedIn", profile != null);
         model.addAttribute("currentUser", profile);
+    }
+
+    @Override
+    public void setCourseCategoriesInRightColumn(Model model) {
+        setCategories(model);
+        model.addAttribute("rightColumn", "components/categoriesNavigation");
+    }
+
+    @Override
+    public void setEmptyRightColumn(Model model) {
+        model.addAttribute("rightColumn", "components/empty");
+    }
+
+    @Override
+    public void setEmptyLeftColumn(Model model) {
+        model.addAttribute("leftColumn", "components/empty");
+    }
+
+    @Transactional(readOnly = false)
+    private void setCategories(Model model){
+        List<Category> firstLevelCategories = courseService.findFirstLevelCategories();
+        model.addAttribute("categories", firstLevelCategories);
     }
 }

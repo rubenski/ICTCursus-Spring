@@ -57,12 +57,13 @@ public class CategoryController {
         }
 
         pageBlockService.setCourseCategoriesInLeftColumn(model);
+        pageBlockService.setEmptyRightColumn(model);
         pageBlockService.setAuthentication(model);
 
         List<Course> nonHighlightedCourses = courseService.findNonHighlightedCourses(category.getId());
         List<Course> highlightedCourses = courseService.findCurrentlyHighlightedCourses(category.getId());
 
-        model.addAttribute("showHighlightLink", companyCoursesForCategory.size() > 0);
+        model.addAttribute("showLightboxLink", companyCoursesForCategory.size() > 0);
         model.addAttribute("title", "Cursussen " + category.getName() + " - ICT Cursus");
         model.addAttribute("nonHighlighted", nonHighlightedCourses);
         model.addAttribute("highlighted", highlightedCourses);

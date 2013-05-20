@@ -13,7 +13,7 @@
             <li><a href="/admin/company"><spring:message code="admin.sections.profile"/></a></li>
         </sec:authorize>
         <sec:authorize access="hasRole('ROLE_PERM_edit_company_requests') or hasRole('ROLE_PERM_edit_everything')">
-            <li><a href="/admin/requests"><spring:message code="admin.sections.requests"/></a></li>
+            <li><a href="/admin/courserequests"><spring:message code="admin.sections.requests"/></a></li>
         </sec:authorize>
         <sec:authorize access="hasRole('ROLE_PERM_edit_company_articles') or hasRole('ROLE_PERM_edit_everything')">
             <li><a href="/admin/articles"><spring:message code="admin.sections.articles"/></a></li>

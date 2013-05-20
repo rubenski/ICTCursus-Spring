@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.domain;
 
 import javax.persistence.*;
+import java.util.Calendar;
 
 /**
  * User: rvanloen
@@ -11,12 +12,14 @@ import javax.persistence.*;
 public class CourseRequest implements DomainObject {
 
     private Long id;
-    private String prefix;
-    private String name;
+    private int prefix;
+    private String requesterName;
     private String email;
     private String message;
     private int numberOfParticipants;
     private Course course;
+    private String courseName;
+    private Calendar created;
 
     @Override
     @Id
@@ -29,6 +32,7 @@ public class CourseRequest implements DomainObject {
         this.id = id;
     }
 
+    @Column(nullable = false)
     public String getEmail() {
         return email;
     }
@@ -37,6 +41,7 @@ public class CourseRequest implements DomainObject {
         this.email = email;
     }
 
+    @Column(nullable = false)
     public String getMessage() {
         return message;
     }
@@ -45,14 +50,16 @@ public class CourseRequest implements DomainObject {
         this.message = message;
     }
 
-    public String getName() {
-        return name;
+    @Column(nullable = false)
+    public String getRequesterName() {
+        return requesterName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRequesterName(String requesterName) {
+        this.requesterName = requesterName;
     }
 
+    @Column(nullable = false)
     public int getNumberOfParticipants() {
         return numberOfParticipants;
     }
@@ -61,11 +68,12 @@ public class CourseRequest implements DomainObject {
         this.numberOfParticipants = numberOfParticipants;
     }
 
-    public String getPrefix() {
+    @Column(nullable = false)
+    public int getPrefix() {
         return prefix;
     }
 
-    public void setPrefix(String prefix) {
+    public void setPrefix(int prefix) {
         this.prefix = prefix;
     }
 
@@ -76,5 +84,23 @@ public class CourseRequest implements DomainObject {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    @Column(nullable = false)
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    public Calendar getCreated() {
+        return created;
+    }
+
+    public void setCreated(Calendar created) {
+        this.created = created;
     }
 }

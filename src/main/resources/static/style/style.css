@@ -76,7 +76,7 @@ body {
 }
 
 #main {
-    background-color: #eaeaea;
+    background-color: #dddddd;
     padding: 30px 0px 50px 0px;
     text-align: left; /*resets text alignment from body tag */
 }
@@ -110,15 +110,19 @@ body {
 #main #innermain #maincontent {
     float: left;
     width: 550px;
+    line-height: 20px;
+    margin-right: 14px;
+    margin-left: 14px;
 }
 
 #main #innermain #maincontent p {
-    padding: 10px 0px 10px 0px;
+    padding-bottom: 10px;
 }
 
 #main #innermain #maincontent h1 {
-    padding-bottom: 15px;
-    font-size: 1.5em;
+    padding: 3px 0px 14px 0px;
+    font-weight: normal;
+    font-size: 1.9em;
 }
 
 #main #innermain #maincontent h2 {
@@ -208,11 +212,27 @@ div.pretty {
     border-radius: 5px;
 }
 
+
+.prettymain {
+    margin-bottom: 8px;
+    padding:  20px 20px 5px 20px;
+    background-color: #fdfdfd;
+    text-align: left;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+
+    background-image: url('/static/img/prettybg.gif');
+    background-position: top left;
+    background-repeat: repeat-x;;
+}
+
+
+
 div.pretty table {
     text-align: left;
     margin-top: 15px;
 }
-
 
 div.pretty table tr {
     font-size: 0.80em;
@@ -256,6 +276,8 @@ input, select, textarea {
 .form-error, #invalidMessage {
     color: red;
     font-weight: bold;
+    display: block;
+    padding-top: 3px;
 }
 
 #lightbox {
@@ -302,12 +324,9 @@ input, select, textarea {
     margin-bottom: 10px;
 }
 
-p {
-    padding: 8px 0px;
+#courseRequest {
+    margin-top: 15px;
 }
-
-
-
 
 
 

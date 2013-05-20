@@ -8,8 +8,9 @@ package nl.codebasesoftware.produx.formdata;
 public class CourseRequestFormData {
 
     private Long courseId;
-    private String prefix;
-    private String name;
+    private int prefix;
+    private String requesterName;
+    private String courseName;
     private String email;
     private String message;
     private int numberOfParticipants;
@@ -38,12 +39,12 @@ public class CourseRequestFormData {
         this.message = message;
     }
 
-    public String getName() {
-        return name;
+    public String getRequesterName() {
+        return requesterName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRequesterName(String requesterName) {
+        this.requesterName = requesterName;
     }
 
     public int getNumberOfParticipants() {
@@ -54,11 +55,19 @@ public class CourseRequestFormData {
         this.numberOfParticipants = numberOfParticipants;
     }
 
-    public String getPrefix() {
+    public int getPrefix() {
         return prefix;
     }
 
-    public void setPrefix(String prefix) {
+    public void setPrefix(int prefix) {
         this.prefix = prefix;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 }

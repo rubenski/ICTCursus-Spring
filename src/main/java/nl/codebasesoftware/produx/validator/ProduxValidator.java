@@ -1,5 +1,7 @@
 package nl.codebasesoftware.produx.validator;
 
+import nl.codebasesoftware.produx.domain.optionlists.NumberOfParticipants;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,7 +28,10 @@ public class ProduxValidator {
         return isValidName(lastName);
     }
 
-    private static boolean isValidName(String name) {
+    public static boolean isValidName(String name) {
+        if(name == null || name.length() == 0){
+            return false;
+        }
         Pattern p = Pattern.compile("[a-zA-Z ']{2,20}");
         Matcher m = p.matcher(name);
         return m.matches();
@@ -148,4 +153,19 @@ public class ProduxValidator {
 
         return Integer.parseInt(budgetTriggerAmount) >= 10;
     }
+
+    public static boolean isValidRequestMessage(String message) {
+        return isValidNormalText(message, 25, 500);
+    }
+
+    public static boolean isValidNumberOfParticipants(int numberOfParticipants) {
+        for(int i = 0; i < NumberOfParticipants.NUMBERS.length; i++){
+            if(numberOfParticipants == NumberOfParticipants.NUMBERS[i]){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }

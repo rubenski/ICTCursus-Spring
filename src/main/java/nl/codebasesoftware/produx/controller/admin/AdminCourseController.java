@@ -158,6 +158,7 @@ public class AdminCourseController {
     }
 
 
+
     private void addDataToModel(Model model, Locale locale) {
         String headerText = messageSource.getMessage("admin.sections.courses", new Object[]{}, locale);
         List<Category> categories = categoryService.findAll();

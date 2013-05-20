@@ -51,7 +51,7 @@ public class BindableCourse {
     }
 
     public String getLongDescription() {
-        return longDescription;
+        return cleanRichText(longDescription);
     }
 
     public void setLongDescription(String longDescription) {
@@ -189,6 +189,12 @@ public class BindableCourse {
 
     public void setPublishable(boolean publishable) {
         this.publishable = publishable;
+    }
+
+    private String cleanRichText(String richText){
+        richText = richText.replace("<p></p>", "");
+        richText = richText.replace("<p>&nbsp;</p>", "");
+        return richText;
     }
 
 }
