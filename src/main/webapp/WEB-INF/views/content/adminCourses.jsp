@@ -12,7 +12,8 @@
             <table cellpadding="4" width="600">
                 <tr>
                     <th><spring:message code="generic.userMessage.course"/></th>
-                    <th><spring:message code="admin.articles.published"/></th>
+                    <th><spring:message code="admin.articles.firstpublished"/></th>
+                    <th><spring:message code="admin.articles.currentlypublished"/></th>
                 </tr>
                 <c:forEach items="${courses}" var="course">
                     <tr>
@@ -21,6 +22,14 @@
                         </td>
                         <td>
                             <fmt:formatDate value="${course.firstPublished.time}" type="date" pattern="dd-MM-yyyy HH:mm:ss"/>
+                        </td>
+                         <td>
+                            <c:if test="${course.published}">
+                                <spring:message code="generic.message.yes"/>
+                            </c:if>
+                             <c:if test="${!course.published}">
+                                <spring:message code="generic.message.no"/>
+                            </c:if>
                         </td>
                     </tr>
                 </c:forEach>

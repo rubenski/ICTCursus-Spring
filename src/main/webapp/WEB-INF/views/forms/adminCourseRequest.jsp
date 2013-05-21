@@ -6,7 +6,7 @@
 
 <form:form modelAttribute="courseRequestFormData">
     <div class="default-block">
-        <form:label path="name"><spring:message code="user.genericlabel.name"/></form:label>
+        <form:label path="requesterName"><spring:message code="user.genericlabel.name"/></form:label>
         <table cellpadding="0" cellspacing="0" class="invisible">
             <tr>
                 <td>
@@ -15,10 +15,9 @@
                     </form:select>
                 </td>
                 <td>
-                    <form:input path="name" cssClass="form-input" cssErrorClass="form-input-error" disabled="true" maxlength="60" size="46"/>
+                    <form:input path="requesterName" cssClass="form-input" cssErrorClass="form-input-error" disabled="true" maxlength="60" size="46"/>
                 </td>
             </tr>
-
         </table>
     </div>
 
@@ -29,8 +28,8 @@
     </div>
 
     <div class="default-block">
-        <form:label path="email"><spring:message code="courserequest.requestforcourse.header"/></form:label>
-        <a href="${course.adminUrl}">${course.name}</a>
+        <form:label path="courseName"><spring:message code="courserequest.requestforcourse.header"/></form:label>
+        <a href="${course.adminUrl}">${courseRequestFormData.courseName}</a>
     </div>
 
     <div class="default-block">

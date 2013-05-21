@@ -3,6 +3,11 @@
     margin: 0;
 }
 
+@font-face {
+    font-family: BebasNeue;
+    src: url("/static/font/BebasNeue.otf") format("opentype");
+}
+
 html {
     overflow: -moz-scrollbars-vertical;
     overflow: scroll;
@@ -21,6 +26,8 @@ body {
 }
 
 
+
+
 #wrapper #middle {
     overflow: auto;
 }
@@ -36,6 +43,12 @@ body {
     margin-right: 1px;
 }
 
+#logo {
+    font-family: BebasNeue;
+    font-size: 3em;
+    display: inline;
+
+}
 
 textarea, input, select {
     background-color: #ffffff;

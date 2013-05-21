@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<div class="default-block">
+<div id="admin-menu">
     <ul>
         <li><a href="/admin">Home</a></li>
         <sec:authorize access="hasRole('ROLE_PERM_edit_company_courses') or hasRole('ROLE_PERM_edit_everything')">
@@ -26,6 +26,9 @@
         </sec:authorize>
         <sec:authorize access="hasRole('ROLE_PERM_edit_company_settings') or hasRole('ROLE_PERM_edit_everything')">
             <li><a href="/admin/settings"><spring:message code="admin.sections.settings"/></a></li>
+        </sec:authorize>
+        <sec:authorize access="hasRole('ROLE_PERM_edit_company_invoices') or hasRole('ROLE_PERM_edit_everything')">
+            <li><a href="/admin/invoices"><spring:message code="admin.sections.invoices"/></a></li>
         </sec:authorize>
     </ul>
     <br>

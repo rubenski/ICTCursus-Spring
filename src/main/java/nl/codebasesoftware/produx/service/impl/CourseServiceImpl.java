@@ -45,11 +45,6 @@ public class CourseServiceImpl implements CourseService {
         return courseDao.findFirstLevelCategories();
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Course> findCourses(Long categoryId) {
-        return courseDao.findCourses(categoryId);
-    }
 
     @Override
     @Transactional(readOnly = true)

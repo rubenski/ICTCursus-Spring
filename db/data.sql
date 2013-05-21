@@ -16,6 +16,7 @@ INSERT INTO `px_role` (`id`, `system_name`, `display_name`, `company_admin_role`
 INSERT INTO `px_role` (`id`, `system_name`, `display_name`, `company_admin_role`, `list_rank`, `user_assignable`) VALUES('6','COMPANY_USERS_ADMIN', 'Toegang tot gebruikersbeheer', 1, 5, 0);
 INSERT INTO `px_role` (`id`, `system_name`, `display_name`, `company_admin_role`, `list_rank`, `user_assignable`) VALUES('7','COMPANY_SETTINGS_ADMIN', 'Toegang tot bedrijfsinstellingen', 1, 6, 0);
 INSERT INTO `px_role` (`id`, `system_name`, `display_name`, `company_admin_role`, `list_rank`, `user_assignable`) VALUES('8','COMPANY_ADVERTISING_ADMIN', 'Toegang tot advertentiemogelijkheden', 1, 7, 0);
+INSERT INTO `px_role` (`id`, `system_name`, `display_name`, `company_admin_role`, `list_rank`, `user_assignable`) VALUES('9','COMPANY_INVOICES_ADMIN', 'Toegang tot facturen', 1, 8, 0);
 
 -- right
 INSERT INTO `px_right` (`id`, `name`) VALUES('1','access_admin_screens');
@@ -28,6 +29,8 @@ INSERT INTO `px_right` (`id`, `name`) VALUES('7','edit_everything');
 INSERT INTO `px_right` (`id`, `name`) VALUES('8','edit_company_users');
 INSERT INTO `px_right` (`id`, `name`) VALUES('9','edit_company_settings');
 INSERT INTO `px_right` (`id`, `name`) VALUES('10','edit_company_advertisements');
+INSERT INTO `px_right` (`id`, `name`) VALUES('11','edit_company_invoices');
+
 
 -- role2right
 INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('1','1');
@@ -46,6 +49,8 @@ INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('7','9');
 INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('7','1');
 INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('8','10');
 INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('5','10');
+INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('9','11');
+INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('5','11');
 
 -- userprofile
 INSERT INTO `px_userprofile` (`id`, `email`, `first_name`, `last_name`, `password_hash`, `phone`, `company_id`) VALUES(1,'rubenski@gmail.com','Ruben','van Loen','3fc393d1c2afa6bf41a3dc44b29aace238d885cc',NULL,1);
@@ -56,7 +61,7 @@ INSERT INTO `px_userprofile` (`id`, `email`, `first_name`, `last_name`, `passwor
 
 
 -- userprofile2role
-insert  into `px_userprofile2role`(`userprofile_id`,`role_id`) values (1,1),(1,2),(1,3),(1,4),(1,6),(1,7),(1,8),(2,5),(3,1),(3,2),(3,3),(3,4),(3,6),(3,7),(3,8),(4,1),(4,2),(4,3),(4,4),(4,6),(4,7),(4,8),(5,1),(5,2),(5,3),(5,4),(5,6),(5,7),(5,8);
+insert  into `px_userprofile2role`(`userprofile_id`,`role_id`) values (1,1),(1,2),(1,3),(1,4),(1,6),(1,7),(1,8),(1,9),(2,5),(3,1),(3,2),(3,3),(3,4),(3,6),(3,7),(3,8),(3,9),(4,1),(4,2),(4,3),(4,4),(4,6),(4,7),(4,8),(4,9),(5,1),(5,2),(5,3),(5,4),(5,6),(5,7),(5,8),(5,9);
 
 
 -- category

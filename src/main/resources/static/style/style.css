@@ -1,19 +1,9 @@
-@font-face {
-    font-family: BebasNeue;
-    src: url("/static/font/BebasNeue.otf") format("opentype");
-}
-
-* {
-    margin: 0;
-    padding: 0;
-}
 
 body {
     font-size: 0.80em;
     font-family: Arial;
     text-align: center; /* used to center lightbox div in IE */
 }
-
 
 #site-header {
     width: 100%;
@@ -30,11 +20,8 @@ body {
 }
 
 #site-header #innerheader #logo {
-    font-family: BebasNeue;
-    font-size: 3em;
-    display: inline;
     color: white;
-    text-shadow: 2px 2px #333;
+    text-shadow: 2px 2px #444;
 }
 
 #site-header #innerheader a {
@@ -255,7 +242,6 @@ div.pretty h2 {
 
 .default-block {
     padding-bottom: 15px;
-
 }
 
 .default-block label {

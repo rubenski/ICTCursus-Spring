@@ -58,7 +58,7 @@
                                 </form:select>
                             </td>
                             <td>
-                                <form:input path="requesterName" cssClass="form-input" cssErrorClass="form-input-error" cssStyle="width:229px" maxlength="60"/>
+                                <form:input path="requesterName" cssClass="form-input" cssErrorClass="form-input-error" size="47" maxlength="60"/>
                             </td>
                         </tr>
                         <tr>
@@ -74,13 +74,13 @@
 
                 <div class="default-block">
                     <form:label path="email"><spring:message code="user.genericlabel.email"/></form:label>
-                    <form:input path="email" cssClass="form-input" cssErrorClass="form-input-error" maxlength="60" cssStyle="width:300px"/>
+                    <form:input path="email" cssClass="form-input" cssErrorClass="form-input-error" maxlength="60" size="60"/>
                     <form:errors path="email" cssClass="form-error"/>
                 </div>
 
                 <div class="default-block">
                     <form:label path="message"><spring:message code="courserequest.message"/></form:label>
-                    <form:textarea path="message" cssClass="form-input" cssErrorClass="form-input-error" cssStyle="width:300px" rows="5"/>
+                    <form:textarea path="message" cssClass="form-input" cssErrorClass="form-input-error" cols="70" rows="8" maxlength="1000"/>
                     <form:errors path="message" cssClass="form-error"/>
                 </div>
 

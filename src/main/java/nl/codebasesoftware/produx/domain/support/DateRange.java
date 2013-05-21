@@ -25,6 +25,10 @@ public class DateRange {
     }
 
     public boolean isInRange(Calendar calendar){
-        return (calendar.after(startDate) && calendar.before(endDate));
+        return sameDay(calendar, startDate) || (calendar.after(startDate) && calendar.before(endDate)) || sameDay(calendar, endDate);
+    }
+
+    private boolean sameDay(Calendar one, Calendar two){
+        return one.get(Calendar.YEAR) == two.get(Calendar.YEAR) && one.get(Calendar.DAY_OF_YEAR) == two.get(Calendar.DAY_OF_YEAR);
     }
 }

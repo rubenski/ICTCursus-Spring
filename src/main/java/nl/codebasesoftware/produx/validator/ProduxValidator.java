@@ -143,7 +143,11 @@ public class ProduxValidator {
         return  matcher.matches();
     }
 
-    public static boolean isValidBudgetTriggerAmount(String budgetTriggerAmount) {
+    public static boolean isValidBudgetTriggerAmount(Integer budgetTriggerAmount) {
+        if(budgetTriggerAmount == null){
+            return true;
+        }
+
         Pattern p = Pattern.compile("[1-9]{1}[0-9]{1,3}");
         Matcher matcher = p.matcher(budgetTriggerAmount.toString());
         boolean match = matcher.matches();
@@ -151,11 +155,11 @@ public class ProduxValidator {
             return false;
         }
 
-        return Integer.parseInt(budgetTriggerAmount) >= 10;
+        return budgetTriggerAmount >= 10;
     }
 
     public static boolean isValidRequestMessage(String message) {
-        return isValidNormalText(message, 25, 500);
+        return isValidNormalText(message, 25, 1000);
     }
 
     public static boolean isValidNumberOfParticipants(int numberOfParticipants) {

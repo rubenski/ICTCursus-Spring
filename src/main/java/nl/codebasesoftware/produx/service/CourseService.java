@@ -27,8 +27,6 @@ public interface CourseService {
 
     List<Course> findAll();
 
-    List<Course> findCourses(Long categoryId);
-
     List<Course> findCurrentlyHighlightedCourses(long categoryId);
 
     List<Course> findNonHighlightedCourses(long categoryId);

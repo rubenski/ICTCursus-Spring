@@ -42,6 +42,7 @@ public class CourseRequest implements DomainObject {
     }
 
     @Column(nullable = false)
+    @Lob
     public String getMessage() {
         return message;
     }

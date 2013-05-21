@@ -37,16 +37,19 @@
     </title>
 </head>
 <body>
+
+
 <div id="wrapper">
-
-    <jsp:include page="components/header.jsp"/>
-
+    <header id="admin-header">
+        <a href="/"><span id="logo">ICTCursus Admin</span></a>
+    </header>
     <div id="middle">
         <sec:authorize access="hasRole('ROLE_PERM_access_admin_screens') or hasRole('ROLE_PERM_edit_everything')">
             <div id="left">
                 <jsp:include page="components/adminMenu.jsp"/>
             </div>
             <div id="main-content">
+                ${systemMessage}
                 <jsp:include page="components/adminHeader.jsp"/>
                     ${mainMessage}
                 <jsp:include page="${mainContent}.jsp"/>

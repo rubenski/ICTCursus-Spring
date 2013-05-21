@@ -23,10 +23,10 @@
                             <a href="/admin/courserequests/${courseRequest.id}">${courseRequest.id}</a>
                         </td>
                         <td>
-                            ${courseRequest.name}
+                            ${courseRequest.requesterName}
                         </td>
                         <td>
-                            ${courseRequest.course.name}
+                            ${courseRequest.courseName}
                         </td>
                         <td>
                             <fmt:formatDate value="${courseRequest.created.time}" type="date" pattern="dd-MM-yyyy HH:mm:ss"/>

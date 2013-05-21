@@ -75,7 +75,7 @@ public class CompanyServiceImpl implements CompanyService {
         CompanySettingsFormData dto = new CompanySettingsFormData();
         dto.setCourseRequestEmailAddress(company.getCourseRequestEmailAddress());
         dto.setAllCoursesDeactivated(company.isAllCoursesDeactivated());
-        dto.setBudgetTriggerAmount(company.getBudgetTriggerAmount().toString());
+        dto.setBudgetTriggerAmount(company.getBudgetTriggerAmount());
         dto.setCompanyId(company.getId());
         return dto;
     }
@@ -85,7 +85,7 @@ public class CompanyServiceImpl implements CompanyService {
     public void saveSettings(CompanySettingsFormData settingsDto) {
         Company company = getCurrentlyLoggedInCompany();
         company.setAllCoursesDeactivated(settingsDto.isAllCoursesDeactivated());
-        company.setBudgetTriggerAmount(Integer.parseInt(settingsDto.getBudgetTriggerAmount()));
+        company.setBudgetTriggerAmount(settingsDto.getBudgetTriggerAmount());
         company.setCourseRequestEmailAddress(settingsDto.getCourseRequestEmailAddress());
     }
 

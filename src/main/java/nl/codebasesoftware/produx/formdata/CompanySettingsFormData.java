@@ -8,7 +8,7 @@ package nl.codebasesoftware.produx.formdata;
 public class CompanySettingsFormData {
 
     private Long companyId;
-    private String budgetTriggerAmount;
+    private Integer budgetTriggerAmount;
     private String courseRequestEmailAddress;
     private boolean allCoursesDeactivated;
 
@@ -20,11 +20,11 @@ public class CompanySettingsFormData {
         this.allCoursesDeactivated = allCoursesDeactivated;
     }
 
-    public String getBudgetTriggerAmount() {
+    public Integer getBudgetTriggerAmount() {
         return budgetTriggerAmount;
     }
 
-    public void setBudgetTriggerAmount(String budgetTriggerAmount) {
+    public void setBudgetTriggerAmount(Integer budgetTriggerAmount) {
         this.budgetTriggerAmount = budgetTriggerAmount;
     }
 

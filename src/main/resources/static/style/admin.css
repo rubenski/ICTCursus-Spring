@@ -1,11 +1,11 @@
 @import url("shared.css");
 
-#wrapper #middle #left .default-block {
-    min-height: 200px;
-    height: auto !important;
-    height: 200px;
-    background-color: #9e9d9d;
+
+body{
+    margin-top: 25px;
 }
+
+
 
 #wrapper #middle .default-block table {
     padding: 5px 0px 15px 0px;
@@ -52,10 +52,8 @@
 }
 
 #wrapper #middle #left ul li a {
-    color: #fff;
     text-decoration: none;
     font-size: 13px;
-    font-weight: bold;
 }
 
 #wrapper #middle #left ul li a:hover {
@@ -102,7 +100,7 @@
 }
 
 .default-block {
-    padding: 15px 7px 15px 7px;
+    padding: 15px 15px 15px 15px;
     background-color: #d4d0d0;
     margin-bottom: 1px;
     -webkit-border-radius: 3px;
@@ -111,6 +109,18 @@
 
 .default-block.header {
     background-color: #f5f2f2;
+}
+
+#admin-header #logo {
+    color: #63a2ba;
+    width: 550px;
+    margin-left: 200px;
+    text-shadow: 2px 2px #ccc;
+
+}
+
+#admin-header a {
+    text-decoration: none;
 }
 
 .default-block .form-error {
@@ -122,7 +132,7 @@
 }
 
 .default-block h1 {
-    font-size: 26px;
+    font-size: 24px;
     font-weight: normal;
 }
 
@@ -261,8 +271,6 @@ a.subbutton.disabled-button {
     width: 100%;
 }
 
-
-
 #lightbox iframe {
     width: 450px;
     height: 180px;
@@ -303,7 +311,7 @@ a.subbutton.disabled-button {
 }
 
 .hidden {
-    display:none;
+    display: none;
 }
 
 #lightbox {
@@ -342,11 +350,18 @@ a.subbutton.disabled-button {
     -moz-border-radius: 6px; /* Old Firefox */
 }
 
-
 .upload-lightbox {
     width: 300px;
     background: #ccc repeat-x bottom left;
     margin-left: -200px;
+}
+#admin-menu {
+    text-align: right;
+    padding-right: 15px;
+}
+
+.default-block p {
+    padding: 0px 10px 15px 0px;
 }
 
 

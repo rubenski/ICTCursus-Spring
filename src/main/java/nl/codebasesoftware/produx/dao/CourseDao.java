@@ -13,14 +13,13 @@ import java.util.List;
 public interface CourseDao extends GenericDao<Course> {
 
     List<Category> findFirstLevelCategories();
-    List<Course> findCourses(Long categoryId);
     List<Course> findCourses(Company company);
     Course findFull(Long id);
     List<Long> findIndexableCourseIds(Calendar lastIndexDate);
     List<Course> findBasic(List<Long> id);
     List<Time> findCourseTimes();
     Time getCourseTime(long id);
-    List<Course> findHighlightedCoursesForCompanyAndCategory(Long companyId, Long categoryId);
+
     List<Course> findCoursesForCompanyAndCategory(Long companyId, Long categoryId);
 
     List<Course> findCurrentlyHighlightedCourses(long categoryId,  Calendar currentDate);

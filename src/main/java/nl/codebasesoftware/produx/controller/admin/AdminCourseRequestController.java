@@ -49,7 +49,7 @@ public class AdminCourseRequestController {
     }
 
     @RequestMapping(value = "/admin/courserequests", method = RequestMethod.GET)
-    public String forCompany(Model model, Locale locale){
+    public String forCompany(Model model, Locale locale) {
 
         Company currentlyLoggedInCompany = companyService.getCurrentlyLoggedInCompany();
         List<CourseRequest> courseRequests = requestService.findForCompany(currentlyLoggedInCompany.getId());
@@ -64,14 +64,18 @@ public class AdminCourseRequestController {
     }
 
     @RequestMapping(value = "/admin/courserequests/{id}", method = RequestMethod.GET)
-    public String showRequest(@PathVariable("id") Long id, Model model, Locale locale){
+    public String showRequest(@PathVariable("id") Long id, Model model, Locale locale) {
 
         Company currentlyLoggedInCompany = companyService.getCurrentlyLoggedInCompany();
         CourseRequest request = requestService.findById(id);
 
+        if (request == null) {
+            throw new ResourceNotFoundException();
+        }
+
         boolean isOwner = requestService.belongsTo(currentlyLoggedInCompany, request);
 
-        if(!isOwner){
+        if (!isOwner) {
             throw new ResourceNotFoundException();
         }
 

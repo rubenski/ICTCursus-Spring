@@ -33,7 +33,6 @@ public class BindableCourse {
     private boolean publishable;
 
 
-
     public String getDuration() {
         return duration;
     }
@@ -74,7 +73,7 @@ public class BindableCourse {
         this.formattedPrice = formattedPrice;
     }
 
-    public Long getPriceAsLong(){
+    public Long getPriceAsLong() {
         NumberFormat numberFormat = NumberFormat.getNumberInstance();
         Number number = null;
         try {
@@ -191,9 +190,11 @@ public class BindableCourse {
         this.publishable = publishable;
     }
 
-    private String cleanRichText(String richText){
-        richText = richText.replace("<p></p>", "");
-        richText = richText.replace("<p>&nbsp;</p>", "");
+    private String cleanRichText(String richText) {
+        if (richText != null) {
+            richText = richText.replace("<p></p>", "");
+            richText = richText.replace("<p>&nbsp;</p>", "");
+        }
         return richText;
     }
 

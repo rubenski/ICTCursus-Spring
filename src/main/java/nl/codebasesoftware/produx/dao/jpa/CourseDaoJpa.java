@@ -46,12 +46,6 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
         return query.getResultList();
     }
 
-    @Override
-    public List<Course> findCourses(Long categoryId) {
-        Query queryGood = entityManager.createQuery("select c from Course c join fetch c.company comp join fetch c.category cat where c.category.id = :categoryId");
-        queryGood.setParameter("categoryId", categoryId);
-        return queryGood.getResultList();
-    }
 
     @Override
     public List<Course> findCourses(Company company) {
@@ -91,15 +85,6 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
     }
 
     @Override
-    public List<Course> findHighlightedCoursesForCompanyAndCategory(Long companyId, Long categoryId) {
-        return entityManager.createQuery("from Course c inner join fetch c.highlightedOnCategories hc " +
-                "where c.category.id = :categoryId and c.company.id = :companyId and hc.category.id = :categoryId")
-                .setParameter("categoryId", categoryId)
-                .setParameter("companyId", companyId)
-                .getResultList();
-    }
-
-    @Override
     public List<Course> findCoursesForCompanyAndCategory(Long companyId, Long categoryId) {
         return entityManager.createQuery("from Course c where c.category.id = :categoryId and c.company.id = :companyId")
                 .setParameter("categoryId", categoryId)
@@ -109,16 +94,33 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
 
     @Override
     public List<Course> findNonHighlightedCourses(long categoryId, Calendar currentDate) {
-        String query = "from Course c inner join fetch c.company inner join fetch c.category left join fetch c.highlightedOnCategories cats " +
-                "where c.category.id = :categoryId and (cats.category.id is null or cats.category.id <> :categoryId or (cats.category.id = :categoryId and :today not between cats.startTime and cats.endTime))";
-        List resultList = entityManager.createQuery(query).setParameter("categoryId", categoryId).setParameter("today", currentDate, TemporalType.DATE).getResultList();
+        String query = "from Course c " +
+                "inner join fetch c.company " +
+                "inner join fetch c.category " +
+                "left join fetch c.highlightedOnCategories cats " +
+                "where c.category.id = :categoryId " +
+                "and (cats.category.id is null " +
+                "   or cats.category.id <> :categoryId " +
+                "   or (cats.category.id = :categoryId and :today not between cats.startTime and cats.endTime))" +
+                "and c.published = true";
+        List resultList = entityManager.createQuery(query)
+                .setParameter("categoryId", categoryId)
+                .setParameter("today", currentDate, TemporalType.DATE).getResultList();
+
         return resultList;
     }
 
     @Override
     public List<Course> findCurrentlyHighlightedCourses(long categoryId, Calendar currentTime) {
-        String query = "from Course c inner join fetch c.company inner join fetch c.category left join fetch c.highlightedOnCategories cats " +
-                "where c.category.id = :categoryId and cats.category.id = :categoryId and cats.startTime <= :today and cats.endTime > :today";
+        String query = "from Course c " +
+                "inner join fetch c.company " +
+                "inner join fetch c.category " +
+                "left join fetch c.highlightedOnCategories cats " +
+                "where c.category.id = :categoryId " +
+                "and cats.category.id = :categoryId " +
+                "and cats.startTime <= :today " +
+                "and cats.endTime > :today " +
+                "and c.published = true";
         List resultList = entityManager.createQuery(query).setParameter("categoryId", categoryId).setParameter("today", currentTime, TemporalType.DATE).getResultList();
         return resultList;
     }
