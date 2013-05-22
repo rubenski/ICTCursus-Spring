@@ -8,7 +8,6 @@ import nl.codebasesoftware.produx.service.CourseRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -50,18 +49,22 @@ public class CourseRequestServiceImpl implements CourseRequestService {
         return courseRequestDao.find(id);
     }
 
-
-    @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public boolean belongsToCompany(CourseRequest courseRequest, Company company) {
-        boolean equals = courseRequest.getCourse().getCompany().equals(company);
-        return equals;
-    }
-
     @Override
     @Transactional(readOnly = true)
     public boolean belongsTo(Company company, CourseRequest courseRequest) {
         CourseRequest mergedRequest = courseRequestDao.merge(courseRequest);
         return mergedRequest.getCourse().getCompany().equals(company);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<CourseRequest> findAllDateSortedDesc() {
+        return courseRequestDao.findAllDateSortedDesc();
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public void setInvalid(Long id, boolean invalid) {
+        courseRequestDao.setInvalid(id, invalid);
     }
 }

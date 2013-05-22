@@ -28,6 +28,7 @@ public interface UserProfileService {
     UserProfile findWithCompany(Long id);
     List<ProfileStatus> getProfileStatuses(Locale locale);
     void removeProfile(Long id);
+    UserProfile getCurrentlyLoggedInUser();
 
 
 }

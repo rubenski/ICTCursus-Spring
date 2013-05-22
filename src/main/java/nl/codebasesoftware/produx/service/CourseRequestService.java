@@ -19,7 +19,9 @@ public interface CourseRequestService {
 
     CourseRequest findById(long id);
 
-    boolean belongsToCompany(CourseRequest courseRequest, Company company);
-
     boolean belongsTo(Company company, CourseRequest courseRequest);
+
+    List<CourseRequest> findAllDateSortedDesc();
+
+    void setInvalid(Long id, boolean invalid);
 }

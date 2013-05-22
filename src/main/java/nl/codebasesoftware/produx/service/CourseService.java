@@ -37,4 +37,6 @@ public interface CourseService {
 
     Course findById(Long courseId);
 
+    List<Course> findAllWithCompany();
+
 }

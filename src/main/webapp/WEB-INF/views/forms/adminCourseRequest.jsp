@@ -5,6 +5,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <form:form modelAttribute="courseRequestFormData">
+
+    <jsp:include page="../forms/submitmessage.jsp"/>
+    <form:hidden path="id"/>
+
     <div class="default-block">
         <form:label path="requesterName"><spring:message code="user.genericlabel.name"/></form:label>
         <table cellpadding="0" cellspacing="0" class="invisible">
@@ -46,4 +50,14 @@
         </form:select>
         <form:errors path="numberOfParticipants" cssClass="form-error"/>
     </div>
+    <c:if test="${isSysAdmin}">
+        <div class="default-block">
+            <form:label path="invalid"><spring:message code="courserequest.invalid"/></form:label>
+            <form:checkbox path="invalid"/><spring:message code="courserequest.invalid"/>
+        </div>
+        <div class="default-block">
+            <input type="submit" class="submitbutton" value="<spring:message code="generic.message.save"/>"/>
+        </div>
+    </c:if>
+
 </form:form>

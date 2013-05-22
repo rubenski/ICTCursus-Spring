@@ -138,5 +138,9 @@ public class CourseServiceImpl implements CourseService {
         return courseDao.find(courseId);
     }
 
-
+    @Override
+    @Transactional(readOnly = true)
+    public List<Course> findAllWithCompany() {
+        return courseDao.findAllWithCompany();
+    }
 }

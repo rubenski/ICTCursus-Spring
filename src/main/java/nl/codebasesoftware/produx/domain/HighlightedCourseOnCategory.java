@@ -16,6 +16,7 @@ public class HighlightedCourseOnCategory implements DomainObject {
     private Calendar endTime;
     private Category category;
     private Course course;
+    private Calendar created;
 
     @Override
     @Id
@@ -64,5 +65,15 @@ public class HighlightedCourseOnCategory implements DomainObject {
 
     public void setStartTime(Calendar startTime) {
         this.startTime = startTime;
+    }
+
+    @Temporal(value=TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    public Calendar getCreated() {
+        return created;
+    }
+
+    public void setCreated(Calendar created) {
+        this.created = created;
     }
 }

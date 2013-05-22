@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.domain;
 
 import javax.persistence.*;
+import java.util.Calendar;
 
 /**
  * User: rvanloen
@@ -14,6 +15,7 @@ public abstract class InvoiceRecord implements DomainObject {
     private Long id;
     private int price;
     private String courseName;
+    private Calendar sourceRecordCreated;
 
     @Override
     @Id
@@ -42,5 +44,15 @@ public abstract class InvoiceRecord implements DomainObject {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    @Temporal(value = TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    public Calendar getSourceRecordCreated() {
+        return sourceRecordCreated;
+    }
+
+    public void setSourceRecordCreated(Calendar sourceRecordCreated) {
+        this.sourceRecordCreated = sourceRecordCreated;
     }
 }

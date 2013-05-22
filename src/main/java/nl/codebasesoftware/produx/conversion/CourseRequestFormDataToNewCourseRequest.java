@@ -36,6 +36,7 @@ public class CourseRequestFormDataToNewCourseRequest implements Converter<Course
         courseRequest.setCourseName(courseRequestFormData.getCourseName());
         courseRequest.setPrefix(courseRequestFormData.getPrefix());
         courseRequest.setCreated(Calendar.getInstance());
+        courseRequest.setInvalid(courseRequestFormData.isInvalid());
 
         return courseRequest;
     }

@@ -23,4 +23,18 @@ public class CourseRequestDaoJpa extends GenericDaoJpa<CourseRequest> implements
         return entityManager.createQuery("from CourseRequest cr inner join fetch cr.course c where c.company.id = :companyId order by cr.created desc")
                 .setParameter("companyId", companyId).getResultList();
     }
+
+    @Override
+    public List<CourseRequest> findAllDateSortedDesc() {
+        return entityManager.createQuery("from CourseRequest cr inner join fetch cr.course c inner join fetch c.company comp order by cr.created desc")
+                .getResultList();
+    }
+
+    @Override
+    public void setInvalid(Long id, boolean invalid) {
+        entityManager.createQuery("update CourseRequest c set c.invalid = :invalid where c.id = :id")
+                .setParameter("invalid", invalid)
+                .setParameter("id", id)
+                .executeUpdate();
+    }
 }

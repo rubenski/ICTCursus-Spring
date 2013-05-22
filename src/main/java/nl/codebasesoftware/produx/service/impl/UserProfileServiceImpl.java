@@ -9,6 +9,7 @@ import nl.codebasesoftware.produx.formdata.BindableMyUserProfile;
 import nl.codebasesoftware.produx.formdata.BindableSysAdminUserProfile;
 import nl.codebasesoftware.produx.formdata.OtherUserProfileFormData;
 import nl.codebasesoftware.produx.service.UserProfileService;
+import nl.codebasesoftware.produx.service.support.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.core.convert.ConversionService;
@@ -145,4 +146,9 @@ public class UserProfileServiceImpl implements UserProfileService {
         userProfileDao.delete(userProfile);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public UserProfile getCurrentlyLoggedInUser() {
+        return userProfileDao.find(CurrentUser.get().getId());
+    }
 }

@@ -125,5 +125,8 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
         return resultList;
     }
 
-
+    @Override
+    public List<Course> findAllWithCompany() {
+        return entityManager.createQuery("from Course c inner join fetch c.company").getResultList();
+    }
 }

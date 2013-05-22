@@ -56,6 +56,7 @@ public class HighLightedCourseServiceImpl implements HighlightedCourseService {
         highlightedCourse.setEndTime(endTime);
         highlightedCourse.setCategory(category);
         highlightedCourse.setCourse(course);
+        highlightedCourse.setCreated(Calendar.getInstance());
 
         category.getHighlightedCourses().add(highlightedCourse);
 

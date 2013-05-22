@@ -7,6 +7,7 @@ package nl.codebasesoftware.produx.formdata;
  */
 public class CourseRequestFormData {
 
+    private Long id;
     private Long courseId;
     private int prefix;
     private String requesterName;
@@ -14,6 +15,15 @@ public class CourseRequestFormData {
     private String email;
     private String message;
     private int numberOfParticipants;
+    private boolean invalid;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getCourseId() {
         return courseId;
@@ -69,5 +79,13 @@ public class CourseRequestFormData {
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
+    }
+
+    public boolean isInvalid() {
+        return invalid;
+    }
+
+    public void setInvalid(boolean invalid) {
+        this.invalid = invalid;
     }
 }

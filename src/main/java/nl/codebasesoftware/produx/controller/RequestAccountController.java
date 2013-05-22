@@ -89,6 +89,7 @@ public class RequestAccountController {
 
     private void setDefaultPageBlock(Model model) {
         pageBlockService.setCourseCategoriesInLeftColumn(model);
+        pageBlockService.setEmptyRightColumn(model);
         pageBlockService.setAuthentication(model);
     }
 

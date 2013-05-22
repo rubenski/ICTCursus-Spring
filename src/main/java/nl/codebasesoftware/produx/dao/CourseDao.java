@@ -26,4 +26,5 @@ public interface CourseDao extends GenericDao<Course> {
 
     List<Course> findNonHighlightedCourses(long categoryId, Calendar currentDate);
 
+    List<Course> findAllWithCompany();
 }

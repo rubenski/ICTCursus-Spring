@@ -4,14 +4,14 @@
 
 
 <div class="default-block">
-    <h2><spring:message code="admin.your.courses"/></h2>
+    <h2><spring:message code="admin.sections.courses"/></h2>
     <c:choose>
         <c:when test="${numberOfCourses > 0}">
 
             <table cellpadding="4" width="600">
                 <tr>
                     <th><spring:message code="generic.userMessage.course"/></th>
-                    <th><spring:message code="management.home.coursetable.description"/></th>
+                    <th><spring:message code="generic.userMessage.company"/></th>
                 </tr>
                 <c:forEach items="${courses}" var="course">
                     <tr>
@@ -19,7 +19,7 @@
                             <a href="/admin/sys/course/${course.id}">${course.name}</a>
                         </td>
                         <td>
-
+                            ${course.company.name}
                         </td>
                     </tr>
                 </c:forEach>
@@ -30,9 +30,5 @@
             <spring:message code="management.home.nocourses.message"/>
         </c:otherwise>
     </c:choose>
-</div>
-<div class="default-block">
-    <h2><spring:message code="admin.add.course"/></h2>
-    <a href="/admin/course/add"><spring:message code="admin.add.course.linktext"/></a>
 </div>
 

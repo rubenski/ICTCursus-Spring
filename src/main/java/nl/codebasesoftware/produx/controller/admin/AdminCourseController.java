@@ -69,7 +69,7 @@ public class AdminCourseController {
 
     @RequestMapping(value = "/admin/sys/courses", method = RequestMethod.GET)
     public String showSysadminCourses(Model model, Locale locale) {
-        List<Course> courses = courseService.findAll();
+        List<Course> courses = courseService.findAllWithCompany();
         model.addAttribute("mainContent", "content/sysAdminCourses");
         setCoursesScreenData(model, locale, courses);
         return "sysAdminMain";
@@ -79,7 +79,7 @@ public class AdminCourseController {
     public String getCourseForm(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes, Locale locale) {
 
         String isValidNewCourse = (String) redirectAttributes.getFlashAttributes().get("valid");
-        if(isValidNewCourse != null && isValidNewCourse.equals("true")){
+        if (isValidNewCourse != null && isValidNewCourse.equals("true")) {
             model.addAttribute("valid", isValidNewCourse);
         }
 
@@ -106,7 +106,7 @@ public class AdminCourseController {
         Course course = courseService.findFull(id);
         model.addAttribute("bindableCourse", conversionService.convert(course, BindableCourse.class));
         addDataToModel(model, locale);
-        return "adminMain";
+        return "sysAdminMain";
     }
 
     @RequestMapping(value = "/admin/course/add", method = RequestMethod.GET)
@@ -139,8 +139,19 @@ public class AdminCourseController {
         return "adminMain";
     }
 
-    @RequestMapping(value = {"/admin/sys/course/{id}", "/admin/course/{id}"}, method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/course/{id}", method = RequestMethod.POST)
     public String updateCourse(@ModelAttribute("bindableCourse") BindableCourse bindableCourse, BindingResult result, Model model, Locale locale) {
+        processSaveAction(bindableCourse, result, model, locale);
+        return "adminMain";
+    }
+
+    @RequestMapping(value = "/admin/sys/course/{id}", method = RequestMethod.POST)
+    public String updateCourseBySysAdmin(@ModelAttribute("bindableCourse") BindableCourse bindableCourse, BindingResult result, Model model, Locale locale) {
+        processSaveAction(bindableCourse, result, model, locale);
+        return "sysAdminMain";
+    }
+
+    private void processSaveAction(BindableCourse bindableCourse, BindingResult result, Model model, Locale locale) {
         validator.validate(bindableCourse, result);
 
         String valid = "false";
@@ -154,9 +165,7 @@ public class AdminCourseController {
         model.addAttribute("mainContent", "forms/editCourse");
         model.addAttribute("valid", valid);
         addDataToModel(model, locale);
-        return "adminMain";
     }
-
 
 
     private void addDataToModel(Model model, Locale locale) {

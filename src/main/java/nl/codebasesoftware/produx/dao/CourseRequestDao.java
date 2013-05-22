@@ -13,4 +13,8 @@ public interface CourseRequestDao extends GenericDao<CourseRequest> {
 
 
     List<CourseRequest> findForCompany(long companyId);
+
+    List<CourseRequest> findAllDateSortedDesc();
+
+    void setInvalid(Long id, boolean invalid);
 }

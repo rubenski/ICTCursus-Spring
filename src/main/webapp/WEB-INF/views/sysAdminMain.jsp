@@ -26,14 +26,16 @@
         });
     </script>
     <title>
-        <jsp:include page="components/title.jsp"/>
+        ${title}
     </title>
 </head>
 <body>
 <sec:authorize access="hasRole('ROLE_PERM_edit_everything')">
     <div id="wrapper">
 
-        <jsp:include page="components/header.jsp"/>
+        <header id="admin-header">
+            <a href="/"><span id="logo">ICTCursus Admin</span></a>
+        </header>
 
         <div id="middle">
             <div id="left">

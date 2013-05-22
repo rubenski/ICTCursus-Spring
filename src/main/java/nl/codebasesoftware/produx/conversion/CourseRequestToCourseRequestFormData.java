@@ -21,6 +21,8 @@ public class CourseRequestToCourseRequestFormData implements Converter<CourseReq
         formData.setRequesterName(courseRequest.getRequesterName());
         formData.setNumberOfParticipants(courseRequest.getNumberOfParticipants());
         formData.setPrefix(courseRequest.getPrefix());
+        formData.setInvalid(courseRequest.isInvalid());
+        formData.setId(courseRequest.getId());
         return formData;
     }
 }

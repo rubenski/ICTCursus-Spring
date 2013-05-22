@@ -20,6 +20,7 @@ public class CourseRequest implements DomainObject {
     private Course course;
     private String courseName;
     private Calendar created;
+    private boolean invalid;
 
     @Override
     @Id
@@ -97,11 +98,20 @@ public class CourseRequest implements DomainObject {
     }
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     public Calendar getCreated() {
         return created;
     }
 
     public void setCreated(Calendar created) {
         this.created = created;
+    }
+
+    public boolean isInvalid() {
+        return invalid;
+    }
+
+    public void setInvalid(boolean invalid) {
+        this.invalid = invalid;
     }
 }
