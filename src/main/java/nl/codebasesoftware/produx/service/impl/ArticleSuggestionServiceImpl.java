@@ -69,10 +69,31 @@ public class ArticleSuggestionServiceImpl implements ArticleSuggestionService {
         suggestion.setSuggester(currentUser);
         suggestion.setSuggestedTitle(formData.getTitle());
         suggestion.setSuggestionText(formData.getDescription());
+        suggestion.setCreated(formData.getCreated());
+        suggestion.setEmai(formData.getEmail());
 
 
         articleSuggestionDao.persist(suggestion);
 
         return suggestion;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ArticleSuggestion> findAllDateSortedDesc() {
+        return articleSuggestionDao.findAllDateSortedDesc();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ArticleSuggestion findFull(Long id) {
+        return articleSuggestionDao.findFull(id);
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public void setApproval(Long id, boolean approved) {
+        ArticleSuggestion articleSuggestion = articleSuggestionDao.find(id);
+        articleSuggestion.setApproved(approved);
     }
 }

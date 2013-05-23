@@ -30,5 +30,9 @@ public class ArticleSuggestionFormValidator implements Validator {
             errors.rejectValue("description", "articlesuggestion.invalidtext");
         }
 
+        if(!ProduxValidator.isValidEmail(formData.getEmail())){
+            errors.rejectValue("email", "error.email.invalid");
+        }
+
     }
 }

@@ -14,4 +14,8 @@ public interface ArticleSuggestionDao extends GenericDao<ArticleSuggestion>  {
 
 
     List<ArticleSuggestion> findForUser(UserProfile user);
+
+    List<ArticleSuggestion> findAllDateSortedDesc();
+
+    ArticleSuggestion findFull(Long id);
 }
