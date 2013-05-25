@@ -32,7 +32,7 @@ public class ArticleSuggestionDaoJpa extends GenericDaoJpa<ArticleSuggestion> im
 
     @Override
     public ArticleSuggestion findFull(Long id) {
-        return getSingleResult(entityManager.createQuery("from ArticleSuggestion a left join fetch a.article inner join fetch a.suggester"));
+        return getSingleResult(entityManager.createQuery("from ArticleSuggestion a left join fetch a.article inner join fetch a.suggester where a.id = :id").setParameter("id", id));
     }
 }
 

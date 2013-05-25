@@ -59,7 +59,7 @@
                 </c:when>
                 <c:otherwise>
                     <tr>
-                        <td><spring:message code="admin.article.nopages"/></td>
+                        <td colspan="2"><spring:message code="admin.article.nopages"/></td>
                     </tr>
                 </c:otherwise>
             </c:choose>

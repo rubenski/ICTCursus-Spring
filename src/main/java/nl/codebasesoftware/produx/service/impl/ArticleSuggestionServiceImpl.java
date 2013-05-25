@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -48,7 +49,7 @@ public class ArticleSuggestionServiceImpl implements ArticleSuggestionService {
 
     @Override
     @Transactional(readOnly = false)
-    public ArticleSuggestion save(ArticleSuggestionFormData formData) {
+    public ArticleSuggestion insert(ArticleSuggestionFormData formData) {
 
         UserProfile currentUser = userProfileDao.find(CurrentUser.get().getId());
 
@@ -69,8 +70,8 @@ public class ArticleSuggestionServiceImpl implements ArticleSuggestionService {
         suggestion.setSuggester(currentUser);
         suggestion.setSuggestedTitle(formData.getTitle());
         suggestion.setSuggestionText(formData.getDescription());
-        suggestion.setCreated(formData.getCreated());
-        suggestion.setEmai(formData.getEmail());
+        suggestion.setCreated(Calendar.getInstance());
+        suggestion.setEmail(formData.getEmail());
 
 
         articleSuggestionDao.persist(suggestion);

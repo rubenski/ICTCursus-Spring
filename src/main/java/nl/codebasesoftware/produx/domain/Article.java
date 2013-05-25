@@ -1,8 +1,12 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.comparator.RankComparator;
+
 import javax.persistence.*;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * User: rvanloen
@@ -15,7 +19,7 @@ public class Article implements DomainObject {
     private Long id;
     private String teaser;
     private String title;
-    private Set<ArticlePage> pages;
+    private Set<ArticlePage> pages = new TreeSet<ArticlePage>(new RankComparator());
     private Calendar creationDate;
     private Calendar firstPublicationDate;
     private boolean published;
@@ -85,7 +89,7 @@ public class Article implements DomainObject {
         this.published = published;
     }
 
-    @ManyToOne (fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false, name = "userprofile_id")
     public UserProfile getAuthor() {
         return author;
@@ -93,5 +97,18 @@ public class Article implements DomainObject {
 
     public void setAuthor(UserProfile author) {
         this.author = author;
+    }
+
+
+    @Transient
+    public int getNextPageNumber() {
+        Iterator<ArticlePage> iterator = pages.iterator();
+        for (int i = 1; iterator.hasNext(); i++) {
+            if (i == pages.size()) {
+                return iterator.next().getPosition() + 1;
+            }
+            iterator.next();
+        }
+        return 1;
     }
 }

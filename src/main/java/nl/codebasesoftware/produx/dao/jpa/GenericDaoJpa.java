@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
-import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
@@ -47,6 +46,11 @@ public class GenericDaoJpa<T extends DomainObject> implements GenericDao<T> {
     @Override
     public void persist(T object) {
         entityManager.persist(object);
+    }
+
+    @Override
+    public void flush(){
+        entityManager.flush();
     }
 
     @Override

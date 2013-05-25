@@ -54,7 +54,11 @@
                         </td>
                         <td>
                             <c:choose>
-                                <c:when test="suggestion.approved">
+                                <c:when test="${suggestion.used}">
+                                    <fmt:formatDate value="${article.creation_date.time}" type="date" pattern="dd-MM-yyyy HH:mm:ss" var="date"/>
+                                    <spring:message code="articlesuggestion.used" arguments="${date}"/>
+                                </c:when>
+                                <c:when test="${suggestion.approved}">
                                     <a href="/admin/articles/suggested/add/${suggestion.id}"><spring:message code="article.create"/></a>
                                 </c:when>
                                 <c:otherwise>

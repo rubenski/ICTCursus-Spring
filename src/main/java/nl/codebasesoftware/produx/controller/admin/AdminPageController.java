@@ -53,21 +53,34 @@ public class AdminPageController {
 
         checkArticle(articleId);
         setHeaderText(locale, model);
-        model.addAttribute("articlePageFormData", new ArticlePageFormData());
+        ArticlePageFormData formData = new ArticlePageFormData();
+        formData.setArticleId(articleId);
+        model.addAttribute("articlePageFormData", formData);
         model.addAttribute("mainContent", "forms/articlepage");
 
         return "adminMain";
     }
 
     @RequestMapping(value = "/admin/article/{articleId}/pages/add", method = RequestMethod.POST)
-    public String savePage(@ModelAttribute("articlePageFormData") ArticlePageFormData formData, @PathVariable("articleId") Long articleId,
-                           Model model, Locale locale) {
+    public String savePage(@ModelAttribute("articlePageFormData") ArticlePageFormData formData, BindingResult result,
+                           @PathVariable("articleId") Long articleId, Model model, Locale locale) {
 
         checkArticle(articleId);
+
+        String valid = "false";
+        validator.validate(formData, result);
+
+        if (!result.hasErrors()) {
+            valid = "true";
+            articleService.saveArticlePage(formData, formData.getArticleId());
+            return String.format("redirect:/admin/articles/edit/%d", formData.getArticleId());
+        }
+
         setHeaderText(locale, model);
-        articleService.saveArticlePage(formData, articleId);
-        model.addAttribute("articlePageFormData", new ArticlePageFormData());
+
+        model.addAttribute("articlePageFormData", formData);
         model.addAttribute("mainContent", "forms/articlepage");
+        model.addAttribute("valid", valid);
 
         return "adminMain";
     }

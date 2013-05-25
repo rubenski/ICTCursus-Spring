@@ -81,4 +81,8 @@ public class ArticleSuggestionFormData {
     public void setSuggesterId(long suggesterId) {
         this.suggesterId = suggesterId;
     }
+
+    public boolean isUsed(){
+        return articleId != null;
+    }
 }

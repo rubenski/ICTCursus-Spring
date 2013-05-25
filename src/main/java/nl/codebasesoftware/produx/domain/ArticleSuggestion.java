@@ -51,7 +51,7 @@ public class ArticleSuggestion implements DomainObject {
         this.suggestionText = suggestionText;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="article_id", nullable = true)
     public Article getArticle() {
         return article;
@@ -96,4 +96,10 @@ public class ArticleSuggestion implements DomainObject {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    @Transient
+    public boolean isUsed(){
+        return article != null;
+    }
+
 }

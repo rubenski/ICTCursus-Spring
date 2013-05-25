@@ -1,9 +1,11 @@
 package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.ArticleSuggestion;
+import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.formdata.ArticleSuggestionFormData;
 import nl.codebasesoftware.produx.service.ArticleSuggestionService;
+import nl.codebasesoftware.produx.service.UserProfileService;
 import nl.codebasesoftware.produx.service.support.CurrentUser;
 import nl.codebasesoftware.produx.validator.ArticleSuggestionFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,21 +34,29 @@ public class AdminArticleSuggestionController {
     private ArticleSuggestionFormValidator formValidator;
     private ArticleSuggestionService articleSuggestionService;
     private ConversionService conversionService;
+    private UserProfileService userProfileService;
 
     @Autowired
     public AdminArticleSuggestionController(MessageSource messageSource, ArticleSuggestionFormValidator formValidator,
-                                            ArticleSuggestionService articleSuggestionService, ConversionService conversionService) {
+                                            ArticleSuggestionService articleSuggestionService, ConversionService conversionService,
+                                            UserProfileService userProfileService) {
         this.messageSource = messageSource;
         this.formValidator = formValidator;
         this.articleSuggestionService = articleSuggestionService;
         this.conversionService = conversionService;
+        this.userProfileService = userProfileService;
     }
 
     @RequestMapping(value = "/admin/articles/suggest", method = RequestMethod.GET)
     public String suggestionForm(Model model, Locale locale) {
 
         setHeader(model, locale);
-        model.addAttribute("articleSuggestionFormData", new ArticleSuggestionFormData());
+        UserProfile user = userProfileService.getCurrentlyLoggedInUser();
+
+        ArticleSuggestionFormData formData = new ArticleSuggestionFormData();
+        formData.setEmail(user.getEmail());
+
+        model.addAttribute("articleSuggestionFormData", formData);
         model.addAttribute("mainContent", "forms/articlesuggestion");
 
         return "adminMain";
@@ -59,7 +69,7 @@ public class AdminArticleSuggestionController {
         formValidator.validate(formData, result);
 
         if (!result.hasErrors()) {
-            ArticleSuggestion suggestion = articleSuggestionService.save(formData);
+            ArticleSuggestion suggestion = articleSuggestionService.insert(formData);
             return String.format("redirect:/admin/articles/suggest/success/%s", suggestion.getId());
         }
 

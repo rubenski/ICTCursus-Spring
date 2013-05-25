@@ -179,6 +179,7 @@ public class AdminCourseController {
         model.addAttribute("categories", categories);
         model.addAttribute("optionCategories", optionCategories);
         model.addAttribute("headerText", headerText);
+        model.addAttribute("courseForm", true);
     }
 
     private void setCoursesScreenData(Model model, Locale locale, List<Course> courses) {

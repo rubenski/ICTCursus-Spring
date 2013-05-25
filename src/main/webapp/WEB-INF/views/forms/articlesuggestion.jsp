@@ -16,6 +16,12 @@
     </div>
 
     <div class="default-block">
+        <form:label path="email"><spring:message code="generic.userMessage.youremail"/></form:label>
+        <form:input path="email" cssClass="form-input" cssErrorClass="form-input-error" size="50" maxlength="60"/>
+        <form:errors path="email" cssClass="form-error"/>
+    </div>
+
+    <div class="default-block">
         <form:label path="description">
             <spring:message code="article.suggest.fieldheader"/>
             <span><spring:message code="articlesuggestion.description.helptext"/></span>

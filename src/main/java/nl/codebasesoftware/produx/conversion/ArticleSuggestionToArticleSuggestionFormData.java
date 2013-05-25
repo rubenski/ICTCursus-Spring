@@ -20,7 +20,7 @@ public class ArticleSuggestionToArticleSuggestionFormData implements Converter<A
         }
         formData.setCreated(articleSuggestion.getCreated());
         formData.setDescription(articleSuggestion.getSuggestionText());
-        formData.setEmail(articleSuggestion.getEmai());
+        formData.setEmail(articleSuggestion.getEmail());
         formData.setId(articleSuggestion.getId());
         formData.setTitle(articleSuggestion.getSuggestedTitle());
         formData.setSuggesterId(articleSuggestion.getSuggester().getId());

@@ -96,20 +96,22 @@ public class ArticleServiceImpl implements ArticleService {
 
         if (formData.getId() != null) {
             articlePage = articlePageDao.find(formData.getId());
+            articlePage.setPosition(formData.getPosition());
         } else {
             articlePage = new ArticlePage();
+            articlePage.setPosition(article.getNextPageNumber());
         }
 
         articlePage.setArticle(article);
         articlePage.setBody(formData.getText());
         articlePage.setDescription(formData.getMetaDescription());
         articlePage.setKeywords(formData.getMetaKeywords());
-        articlePage.setPosition(1);
         articlePage.setTitle(formData.getTitle());
 
         articlePageDao.persist(articlePage);
 
     }
+
 
     @Override
     @Transactional(readOnly = true)
@@ -121,6 +123,8 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional(readOnly = false)
     public void updateArticle(EditArticleFormData formData) {
         Article article = articleDao.find(formData.getId());
+
+        nullifyPagePositions(article);
 
         for (String s : formData.getPageOrder()) {
             String[] elements = s.split("-");
@@ -142,8 +146,14 @@ public class ArticleServiceImpl implements ArticleService {
         if(article.getFirstPublicationDate() == null && formData.isPublished()){
             article.setFirstPublicationDate(Calendar.getInstance());
         }
+    }
 
-
+    private void nullifyPagePositions(Article article){
+        for (ArticlePage articlePage : article.getArticlePages()) {
+            articlePage.setPosition(null);
+            articlePageDao.persist(articlePage);
+        }
+        articlePageDao.flush();
     }
 
     @Override

@@ -1,5 +1,7 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.comparator.RankOrderable;
+
 import javax.persistence.*;
 
 /**
@@ -7,8 +9,12 @@ import javax.persistence.*;
  * Date: 16-9-12
  * Time: 11:09
  */
+@Table(
+    uniqueConstraints=
+        @UniqueConstraint(columnNames={"position", "article_id"})
+)
 @Entity
-public class ArticlePage implements DomainObject {
+public class ArticlePage implements DomainObject, RankOrderable {
 
     private Long id;
     private String body;
@@ -56,6 +62,8 @@ public class ArticlePage implements DomainObject {
         this.keywords = keywords;
     }
 
+    // This field must be nullable to allow nullifying when updating the article page's positions
+    @Column(nullable = true, name="position")
     public Integer getPosition() {
         return position;
     }
@@ -80,5 +88,11 @@ public class ArticlePage implements DomainObject {
 
     public void setArticle(Article article) {
         this.article = article;
+    }
+
+    @Override
+    @Transient
+    public int getDisplayRank() {
+        return position;
     }
 }

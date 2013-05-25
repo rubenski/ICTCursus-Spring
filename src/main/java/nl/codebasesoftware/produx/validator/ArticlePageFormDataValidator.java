@@ -22,6 +22,10 @@ public class ArticlePageFormDataValidator implements Validator {
     public void validate(Object o, Errors errors) {
         ArticlePageFormData formData = (ArticlePageFormData) o;
 
+        if(!ProduxValidator.isValidArticleTitle(formData.getTitle())){
+            errors.rejectValue("title", "article.title.error");
+        }
+
         if(!ProduxValidator.isValidMetaKeywords(formData.getMetaKeywords())){
             errors.rejectValue("metaKeywords", "page.error.metakeywords");
         }

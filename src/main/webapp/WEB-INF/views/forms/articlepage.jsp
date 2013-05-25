@@ -30,7 +30,7 @@
             <spring:message code="articlepage.form.meta.keywords"/>
             <span><spring:message code="page.metakeywords.helptext"/></span>
         </form:label>
-        <form:textarea cols="75" rows="1" path="metaKeywords" cssClass="form-input" cssErrorClass="form-input-error" size="50" maxlength="60"/>
+        <form:textarea cols="75" rows="1" path="metaKeywords" cssClass="form-input" cssErrorClass="form-input-error" size="50" maxlength="120"/>
         <form:errors path="metaKeywords" cssClass="form-error"/>
     </div>
 
@@ -39,7 +39,7 @@
             <spring:message code="articlepage.form.meta.description"/>
             <span><spring code="page.metadescription.helptext"/></span>
         </form:label>
-        <form:textarea cols="75" rows="3" path="metaDescription" cssClass="form-input" cssErrorClass="form-input-error" size="50" maxlength="200"/>
+        <form:textarea cols="75" rows="3" path="metaDescription" cssClass="form-input" cssErrorClass="form-input-error" size="50" maxlength="220"/>
         <form:errors path="metaDescription" cssClass="form-error"/>
     </div>
 

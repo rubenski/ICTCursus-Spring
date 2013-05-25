@@ -30,14 +30,23 @@
         <form:errors path="description" cssClass="form-error"/>
     </div>
 
+    <c:if test="${articleSuggestionFormData.used}">
+        <c:set var="disable" value="true"/>
+    </c:if>
+    <c:if test="${!articleSuggestionFormData.used}">
+        <c:set var="disable" value="false"/>
+    </c:if>
+
     <div class="default-block">
         <form:label path="approved"><spring:message code="articlesuggestion.approved"/></form:label>
-        <form:checkbox path="approved" cssClass="form-input" cssErrorClass="form-input-error" size="50" maxlength="60"/><spring:message code="articlesuggestion.approved"/>
+        <form:checkbox path="approved" cssClass="form-input" cssErrorClass="form-input-error" disabled="${disable}"/><spring:message
+            code="articlesuggestion.approved"/>
         <form:errors path="approved" cssClass="form-error"/>
     </div>
 
-    <div class="default-block">
-        <input type="submit" class="submitbutton" value="<spring:message code="generic.message.save"/>"/>
-    </div>
-
+    <c:if test="${!articleSuggestionFormData.used}">
+        <div class="default-block">
+            <input type="submit" class="submitbutton" value="<spring:message code="generic.message.save"/>"/>
+        </div>
+    </c:if>
 </form:form>

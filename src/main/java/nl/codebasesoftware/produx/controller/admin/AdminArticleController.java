@@ -75,7 +75,7 @@ public class AdminArticleController {
     public String addArticleForm(@PathVariable("suggestionId") Long suggestiondId, Model model, Locale locale) {
         ArticleSuggestion suggestion = articleSuggestionService.findById(suggestiondId);
 
-        if (suggestion == null || !suggestion.getSuggester().equals(CurrentUser.get())) {
+        if (suggestion == null || !suggestion.getSuggester().equals(CurrentUser.get()) || !suggestion.isApproved() || suggestion.isUsed() ) {
             throw new ResourceNotFoundException();
         }
 

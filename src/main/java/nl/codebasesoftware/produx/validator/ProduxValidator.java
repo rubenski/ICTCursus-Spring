@@ -81,13 +81,13 @@ public class ProduxValidator {
         if (keywords == null) {
             return false;
         }
-        Pattern p = Pattern.compile("[A-Za-z0-9, -.']{10,60}");
+        Pattern p = Pattern.compile("[A-Za-z0-9, -.']{10,120}");
         Matcher m = p.matcher(keywords);
         return m.matches();
     }
 
     public static boolean isValidMetaDescription(String description) {
-        return isValidNormalText(description, 50, 200);
+        return isValidNormalText(description, 50, 220);
     }
 
     public static boolean isValidSuggestionText(String suggestionText) {
