@@ -31,5 +31,13 @@ public class ArticleDaoJpa extends GenericDaoJpa<Article> implements ArticleDao 
                 .setParameter("article", article).getResultList();
     }
 
+    @Override
+    public List<Article> findByCategory(Long categoryId) {
+        return entityManager.createQuery("from Article a inner join fetch a.category c where a.category.id = :id").setParameter("id", categoryId).getResultList();
+    }
 
+    @Override
+    public Article findFull(long id) {
+        return getSingleResult(entityManager.createQuery("from Article a inner join fetch a.category c left join fetch a.pages ap where a.id = :id").setParameter("id", id));
+    }
 }

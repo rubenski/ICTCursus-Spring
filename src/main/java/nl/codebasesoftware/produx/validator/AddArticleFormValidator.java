@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component;
  * Date: 8-4-13
  * Time: 9:59
  */
-@Component
-public class ArticleFormValidator implements Validator {
+@Component (value = "addArticleValidator")
+public class AddArticleFormValidator implements Validator {
     @Override
     public boolean supports(Class<?> aClass) {
-        return aClass.isAssignableFrom(ArticleFormValidator.class);
+        return aClass.isAssignableFrom(AddArticleFormValidator.class);
     }
 
     @Override
@@ -33,6 +33,8 @@ public class ArticleFormValidator implements Validator {
             }
         }
 
-
+        if(formData.getCategory() == -1){
+            errors.rejectValue("category", "errors.category.invalid");
+        }
     }
 }

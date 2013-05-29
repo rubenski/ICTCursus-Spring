@@ -18,8 +18,10 @@ public interface ArticleService {
     Article addArticle(AddArticleFormData formData, long authorProfileId);
     Article findById(long id);
     List<ArticlePage> findPages(Article article);
-    void saveArticlePage(ArticlePageFormData formData, long articleId);
+    long saveArticlePage(ArticlePageFormData formData, long articleId);
     ArticlePage findPage(long pageId);
     void updateArticle(EditArticleFormData formData);
-    void removePage(Long pageId);
+    void removePage(long pageId);
+    List<Article> findByCategory(long catgeoryId);
+    Article findFull(long id);
 }

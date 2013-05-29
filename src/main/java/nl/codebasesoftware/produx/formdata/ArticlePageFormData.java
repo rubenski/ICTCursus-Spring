@@ -14,7 +14,8 @@ public class ArticlePageFormData {
     private String metaKeywords;
     private String metaDescription;
     private int position;
-    private int remove;
+    private String remove;
+    private boolean articleTitleEnabled;
 
     public Long getId() {
         return id;
@@ -72,11 +73,23 @@ public class ArticlePageFormData {
         this.title = title;
     }
 
-    public int getRemove() {
+    public String getRemove() {
         return remove;
     }
 
-    public void setRemove(int remove) {
+    public void setRemove(String remove) {
         this.remove = remove;
+    }
+
+    public boolean removeClicked(){
+        return this.remove != null && this.remove.equals("Verwijderen");
+    }
+
+    public void setArticleTitleEnabled(boolean b) {
+        this.articleTitleEnabled = b;
+    }
+
+    public boolean isArticleTitleEnabled() {
+        return articleTitleEnabled;
     }
 }

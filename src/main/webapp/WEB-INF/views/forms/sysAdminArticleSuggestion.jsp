@@ -26,7 +26,7 @@
             <spring:message code="article.suggest.fieldheader"/>
             <span><spring:message code="articlesuggestion.description.helptext"/></span>
         </form:label>
-        <form:textarea rows="12" path="description" cssErrorClass="form-input-error" cols="100" disabled="true"/>
+        <form:textarea rows="12" path="description" cssErrorClass="form-input-error" cols="100" disabled="true" maxlength="500"/>
         <form:errors path="description" cssClass="form-error"/>
     </div>
 

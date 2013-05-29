@@ -49,3 +49,14 @@
     </div>
 </c:forEach>
 
+<c:forEach items="${articles}" var="article">
+    <div class="course-list-item">
+        <div class="description">
+            <a href="${article.url}" class="courselink"><h2>${article.title}</h2></a>
+            <p>
+                ${article.teaser}
+            </p>
+        </div>
+    </div>
+</c:forEach>
+

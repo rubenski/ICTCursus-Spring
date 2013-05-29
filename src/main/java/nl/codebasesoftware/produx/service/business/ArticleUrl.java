@@ -4,13 +4,13 @@ import nl.codebasesoftware.produx.exception.ProduxServiceException;
 
 /**
  * User: rvanloen
- * Date: 25-4-13
- * Time: 15:46
+ * Date: 28-5-13
+ * Time: 9:57
  */
-public class CourseUrl extends BaseUrl {
+public class ArticleUrl extends BaseUrl {
 
     public static String createUrl(Long courseId, String category, String title) {
-        return String.format("/%s/c%d-%s.html", preprareStringForUrl(category), courseId, preprareStringForUrl(title));
+        return String.format("/%s/a%d-%s.html", preprareStringForUrl(category), courseId, preprareStringForUrl(title));
     }
 
     public static String createAdminUrl(Long id) {
@@ -18,7 +18,7 @@ public class CourseUrl extends BaseUrl {
     }
 
     public static long extractId(String url) throws ProduxServiceException {
-        String s = url.split("-")[0].substring(1);
+        String s = url.split("-")[0];
 
         long id = -1;
         try {

@@ -21,7 +21,19 @@
     </div>
 
     <div class="default-block">
-        <form:label path="teaser"><spring:message code="article.form.teaser"/></form:label>
+        <form:label path="category"><spring:message code="course.form.category"/></form:label>
+        <form:select path="category" cssErrorClass="form-input-error">
+            <form:option value="-1" label=""/>
+            <form:options items="${categories}" itemValue="id" itemLabel="name"/>
+        </form:select>
+        <form:errors path="category" cssClass="form-error"/>
+    </div>
+
+    <div class="default-block">
+        <form:label path="teaser">
+            <spring:message code="article.form.teaser"/>
+            <span><spring:message code="article.shortdescription.helptext"/></span>
+        </form:label>
         <form:textarea cols="75" rows="4" path="teaser" cssClass="form-input" cssErrorClass="form-input-error" size="50" maxlength="500"/>
         <form:errors path="teaser" cssClass="form-error"/>
     </div>

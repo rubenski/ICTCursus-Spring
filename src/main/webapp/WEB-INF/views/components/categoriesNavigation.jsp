@@ -7,7 +7,7 @@
     <div class="prettymain">
         <ul>
             <c:forEach items="${categories}" var="category">
-                <li><a href="/c/${category.urlTitle}">${category.name}</a>
+                <li><a href="/${category.urlTitle}">${category.name}</a>
                 <c:forEach items="${category.children}" var="subCategory">
                     <li><a href="/c/${subCategory.urlTitle}">${subCategory.name}</a></li>
                 </c:forEach>

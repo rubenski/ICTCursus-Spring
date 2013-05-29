@@ -90,17 +90,30 @@ public class ProduxValidator {
         return isValidNormalText(description, 50, 220);
     }
 
-    public static boolean isValidSuggestionText(String suggestionText) {
-        return isValidNormalText(suggestionText, 30, 500);
-    }
-
     public static boolean isValidTradeNumber(String tradeNumber){
         Pattern p = Pattern.compile("[0-9]{8}");
         Matcher m = p.matcher(tradeNumber);
         return m.matches();
     }
 
-    private static boolean isValidNormalText(String text, int min, int max) {
+    public static boolean isShorterThan(String text, int length){
+        return text.length() < length;
+    }
+
+    public static boolean isLongerThan(String text, int length){
+        return text.length() > length;
+    }
+
+    public static boolean isValidNormalText(String text) {
+        if (text == null || text.length() == 0) {
+            return true;
+        }
+        Pattern p = Pattern.compile(String.format("%s+", NORMAL_TEXT_PATTERN));
+        Matcher m = p.matcher(text);
+        return m.matches();
+    }
+
+    public static boolean isValidNormalText(String text, int min, int max) {
         if (text == null) {
             return false;
         }
@@ -171,5 +184,6 @@ public class ProduxValidator {
 
         return false;
     }
+
 
 }

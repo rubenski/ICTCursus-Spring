@@ -55,9 +55,38 @@ public class AdminPageController {
         setHeaderText(locale, model);
         ArticlePageFormData formData = new ArticlePageFormData();
         formData.setArticleId(articleId);
+        setFormData(formData, model);
+
+        return "adminMain";
+    }
+
+    @RequestMapping(value = "/admin/articles/page/{pageId}", method = RequestMethod.POST)
+    public String savePage(@ModelAttribute("articlePageFormData") ArticlePageFormData formData, @PathVariable("pageId") Long pageId, Model model,
+                           BindingResult result, Locale locale) {
+
+        if (formData.removeClicked()) {
+            articleService.removePage(formData.getId());
+            return String.format("redirect:/admin/articles/edit/%s", formData.getArticleId());
+        }
+
+        String valid = "false";
+
+        UserProfile author = userProfileService.findAuthorByPage(pageId);
+        if (!CurrentUser.get().equals(author)) {
+            throw new ResourceNotFoundException();
+        }
+
+        validator.validate(formData, result);
+
+        if (!result.hasErrors()) {
+            valid = "true";
+            articleService.saveArticlePage(formData, formData.getArticleId());
+        }
+
+        setHeaderText(locale, model);
+        model.addAttribute("valid", valid);
         model.addAttribute("articlePageFormData", formData);
         model.addAttribute("mainContent", "forms/articlepage");
-
         return "adminMain";
     }
 
@@ -65,24 +94,25 @@ public class AdminPageController {
     public String savePage(@ModelAttribute("articlePageFormData") ArticlePageFormData formData, BindingResult result,
                            @PathVariable("articleId") Long articleId, Model model, Locale locale) {
 
-        checkArticle(articleId);
-
         String valid = "false";
         validator.validate(formData, result);
 
         if (!result.hasErrors()) {
             valid = "true";
-            articleService.saveArticlePage(formData, formData.getArticleId());
-            return String.format("redirect:/admin/articles/edit/%d", formData.getArticleId());
+            long newId = articleService.saveArticlePage(formData, formData.getArticleId());
+            return String.format("redirect:/admin/articles/page/%d", newId);
         }
 
         setHeaderText(locale, model);
-
-        model.addAttribute("articlePageFormData", formData);
-        model.addAttribute("mainContent", "forms/articlepage");
+        setFormData(formData, model);
         model.addAttribute("valid", valid);
 
         return "adminMain";
+    }
+
+    private void setFormData(ArticlePageFormData formData, Model model) {
+        model.addAttribute("articlePageFormData", formData);
+        model.addAttribute("mainContent", "forms/articlepage");
     }
 
     @RequestMapping(value = "/admin/articles/page/{pageId}", method = RequestMethod.GET)
@@ -90,7 +120,7 @@ public class AdminPageController {
 
         ArticlePage page = articleService.findPage(pageId);
 
-        if(page == null){
+        if (page == null) {
             throw new ResourceNotFoundException();
         }
 
@@ -103,41 +133,9 @@ public class AdminPageController {
     }
 
 
-
-    @RequestMapping(value = "/admin/articles/page/{pageId}", method = RequestMethod.POST)
-    public String savePage(@ModelAttribute("articlePageFormData") ArticlePageFormData formData, @PathVariable("pageId") Long pageId, Model model,
-                           BindingResult result, Locale locale) {
-
-        if(formData.getRemove() == 1){
-            articleService.removePage(formData.getId());
-            return String.format("redirect:/admin/articles/edit/%s", formData.getArticleId());
-        }
-
-        String valid = "false";
-
-        UserProfile author = userProfileService.findAuthorByPage(pageId);
-        if(!CurrentUser.get().equals(author)){
-            throw new ResourceNotFoundException();
-        }
-
-        validator.validate(formData, result);
-
-        if (!result.hasErrors()) {
-            valid = "true";
-            articleService.saveArticlePage(formData, formData.getArticleId());
-        }
-
-        setHeaderText(locale, model);
-        model.addAttribute("valid", valid);
-        model.addAttribute("articlePageFormData", formData);
-        model.addAttribute("mainContent", "forms/articlepage");
-        return "adminMain";
-    }
-
-
-    private void checkArticle(long articleId) {
+    private Article checkArticle(long articleId) {
         // Check if the article is this author's article
-        Article article = articleService.findById(articleId);
+        Article article = articleService.findFull(articleId);
 
         if (article == null) {
             throw new ResourceNotFoundException();
@@ -149,9 +147,12 @@ public class AdminPageController {
         if (!author.equals(CurrentUser.get())) {
             throw new ResourceNotFoundException();
         }
+
+
+        return article;
     }
 
-    private void setHeaderText(Locale locale, Model model){
+    private void setHeaderText(Locale locale, Model model) {
         model.addAttribute("headerText", messageSource.getMessage("admin.pageform.header", new Object[]{}, locale));
     }
 

@@ -172,9 +172,6 @@ body {
     width: 475px;
 }
 
-#main #innermain #maincontent .course-list-item .logo {
-    float
-}
 
 #main #innermain #maincontent .course-list-item .logo img {
     position: absolute;
@@ -208,10 +205,6 @@ div.pretty {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
-
-    background-image: url('/static/img/prettybg.gif');
-    background-position: top left;
-    background-repeat: repeat-x;;
 }
 
 

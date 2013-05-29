@@ -12,6 +12,10 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ArticleSuggestionFormValidator implements Validator {
+
+    private int MINIMAL_SUGGESTION_LENGTH = 30;
+    private int MAXIMAL_SUGGESTION_LENGTH = 1000;
+
     @Override
     public boolean supports(Class<?> aClass) {
         return aClass.isAssignableFrom(ArticleSuggestionFormValidator.class);
@@ -26,13 +30,20 @@ public class ArticleSuggestionFormValidator implements Validator {
             errors.rejectValue("title", "article.error.wrongtitle");
         }
 
-        if(!ProduxValidator.isValidSuggestionText(formData.getDescription())){
+        if(!ProduxValidator.isValidNormalText(formData.getDescription())){
             errors.rejectValue("description", "articlesuggestion.invalidtext");
+        }
+
+        if(ProduxValidator.isLongerThan(formData.getDescription(), MAXIMAL_SUGGESTION_LENGTH)){
+            errors.rejectValue("description", "error.texttoolong", new Object[]{MAXIMAL_SUGGESTION_LENGTH}, "");
+        }
+
+        if(ProduxValidator.isShorterThan(formData.getDescription(), MINIMAL_SUGGESTION_LENGTH)){
+            errors.rejectValue("description", "error.texttooshort", new Object[]{MINIMAL_SUGGESTION_LENGTH}, "");
         }
 
         if(!ProduxValidator.isValidEmail(formData.getEmail())){
             errors.rejectValue("email", "error.email.invalid");
         }
-
     }
 }

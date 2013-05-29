@@ -38,8 +38,8 @@
                         <td>
                             <c:choose>
                                 <c:when test="${suggestion.used}">
-                                    <fmt:formatDate value="${suggestion.article.creationDate.time}" type="date" pattern="dd-MM-yyyy HH:mm:ss" var="date"/>
-                                    <spring:message code="articlesuggestion.used" arguments="${date}"/>
+                                    <fmt:formatDate value="${suggestion.article.creationDate.time}" type="date" pattern="dd-MM-yyyy HH:mm:ss" var="dateVar"/>
+                                    <spring:message code="articlesuggestion.used" arguments="${dateVar}" />
                                 </c:when>
                                 <c:when test="${suggestion.approved}">
                                     <spring:message code="article.approved.notcreated"/>

@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.domain;
 
 import nl.codebasesoftware.produx.comparator.RankComparator;
+import nl.codebasesoftware.produx.service.business.ArticleUrl;
 
 import javax.persistence.*;
 import java.util.Calendar;
@@ -24,6 +25,8 @@ public class Article implements DomainObject {
     private Calendar firstPublicationDate;
     private boolean published;
     private UserProfile author;
+    private String text;
+    private Category category;
 
     @Override
     @Id
@@ -37,11 +40,11 @@ public class Article implements DomainObject {
     }
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "article")
-    public Set<ArticlePage> getArticlePages() {
+    public Set<ArticlePage> getPages() {
         return pages;
     }
 
-    public void setArticlePages(Set<ArticlePage> pages) {
+    public void setPages(Set<ArticlePage> pages) {
         this.pages = pages;
     }
 
@@ -99,16 +102,37 @@ public class Article implements DomainObject {
         this.author = author;
     }
 
+    @JoinColumn(nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    @Lob
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
 
     @Transient
     public int getNextPageNumber() {
-        Iterator<ArticlePage> iterator = pages.iterator();
-        for (int i = 1; iterator.hasNext(); i++) {
-            if (i == pages.size()) {
-                return iterator.next().getPosition() + 1;
-            }
-            iterator.next();
-        }
-        return 1;
+        return pages.size() + 1;
+    }
+
+    @Transient
+    public String getUrl(){
+        return ArticleUrl.createUrl(id, category.getName(), title);
+    }
+
+    @Transient
+    public boolean hasPages(){
+        return pages.size() > 0;
     }
 }

@@ -12,6 +12,7 @@ public class AddArticleFormData {
     private String teaser;
     private String title;
     private boolean published;
+    private Long category;
 
     public Long getId() {
         return id;
@@ -51,5 +52,13 @@ public class AddArticleFormData {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Long getCategory() {
+        return category;
+    }
+
+    public void setCategory(Long category) {
+        this.category = category;
     }
 }

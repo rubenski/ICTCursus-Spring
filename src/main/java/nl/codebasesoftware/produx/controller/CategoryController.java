@@ -1,13 +1,11 @@
 package nl.codebasesoftware.produx.controller;
 
+import nl.codebasesoftware.produx.domain.Article;
 import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
-import nl.codebasesoftware.produx.service.CategoryService;
-import nl.codebasesoftware.produx.service.CompanyService;
-import nl.codebasesoftware.produx.service.CourseService;
-import nl.codebasesoftware.produx.service.PageBlockService;
+import nl.codebasesoftware.produx.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,20 +22,26 @@ import java.util.List;
  * Time: 12:03
  */
 @Controller
-@RequestMapping("/c/{categoryUrlName}")
+@RequestMapping("/{categoryUrlName}")
 public class CategoryController {
 
     private CourseService courseService;
     private CategoryService categoryService;
     private PageBlockService pageBlockService;
     private CompanyService companyService;
+    private ArticleService articleService;
 
     @Autowired
-    public CategoryController(CourseService courseService, CategoryService categoryService, PageBlockService pageBlockService, CompanyService companyService) {
+    public CategoryController(CourseService courseService,
+                              CategoryService categoryService,
+                              PageBlockService pageBlockService,
+                              CompanyService companyService,
+                              ArticleService articleService) {
         this.courseService = courseService;
         this.categoryService = categoryService;
         this.pageBlockService = pageBlockService;
         this.companyService = companyService;
+        this.articleService = articleService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -62,7 +66,9 @@ public class CategoryController {
 
         List<Course> nonHighlightedCourses = courseService.findNonHighlightedCourses(category.getId());
         List<Course> highlightedCourses = courseService.findCurrentlyHighlightedCourses(category.getId());
+        List<Article> categoryArticles = articleService.findByCategory(category.getId());
 
+        model.addAttribute("articles", categoryArticles);
         model.addAttribute("showLightboxLink", companyCoursesForCategory.size() > 0);
         model.addAttribute("title", "Cursussen " + category.getName() + " - ICT Cursus");
         model.addAttribute("nonHighlighted", nonHighlightedCourses);

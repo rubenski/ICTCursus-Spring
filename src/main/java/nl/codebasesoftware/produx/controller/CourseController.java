@@ -3,13 +3,11 @@ package nl.codebasesoftware.produx.controller;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.optionlists.NumberOfParticipants;
 import nl.codebasesoftware.produx.domain.optionlists.Prefixes;
-import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.formdata.CourseRequestFormData;
 import nl.codebasesoftware.produx.service.CourseRequestService;
 import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.service.PageBlockService;
-import nl.codebasesoftware.produx.service.business.CourseUrl;
 import nl.codebasesoftware.produx.validator.CourseRequestValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,10 +42,10 @@ public class CourseController {
         this.courseRequestService = courseRequestService;
     }
 
-    @RequestMapping(value = "/c/{categoryUrlNmame}/{title}", method = RequestMethod.GET)
-    public String get(@PathVariable("title") String title, Model model) {
+    @RequestMapping(value = "/{category}/c{id:[0-9]}-{title}", method = RequestMethod.GET)
+    public String get(@PathVariable("title") String title, @PathVariable("id") Long id, Model model) {
 
-        long id = idFromTitle(title);
+
         CourseRequestFormData courseRequestFormData = new CourseRequestFormData();
         courseRequestFormData.setCourseId(id);
 
@@ -56,18 +54,10 @@ public class CourseController {
         return "main";
     }
 
-    private long idFromTitle(String title) {
-        long id = -1;
-        try {
-            id = CourseUrl.extractId(title);
-        } catch (ProduxServiceException e) {
-            e.printStackTrace();
-        }
-        return id;
-    }
 
-    @RequestMapping(value = "/c/{categoryUrlNmame}/{title}", method = RequestMethod.POST)
-    public String submitRequest(@ModelAttribute("courseRequest") CourseRequestFormData request, BindingResult result, Model model) {
+    @RequestMapping(value = "/{category}/c{id:[0-9]}-{title}", method = RequestMethod.POST)
+    public String submitRequest(@ModelAttribute("courseRequest") CourseRequestFormData request,
+                                BindingResult result, Model model) {
         courseRequestValidator.validate(request, result);
         if (!result.hasErrors()) {
             courseRequestService.saveRequest(request);
@@ -82,7 +72,7 @@ public class CourseController {
     private void setFormData(Model model, CourseRequestFormData formData, Long courseId) {
         Course course = courseService.findFull(courseId);
 
-        if(course == null){
+        if (course == null) {
             throw new ResourceNotFoundException();
         }
 

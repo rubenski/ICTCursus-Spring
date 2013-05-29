@@ -52,7 +52,7 @@ public class UserProfileDaoJpa extends GenericDaoJpa<UserProfile> implements Use
 
     @Override
     public UserProfile findAuthorByPage(long pageId) {
-        return (UserProfile) entityManager.createQuery("from UserProfile u inner join fetch u.articles a inner join fetch a.articlePages ap where ap.id = :id")
+        return (UserProfile) entityManager.createQuery("from UserProfile u inner join fetch u.articles a inner join fetch a.pages ap where ap.id = :id")
                 .setParameter("id", pageId)
                 .getSingleResult();
     }

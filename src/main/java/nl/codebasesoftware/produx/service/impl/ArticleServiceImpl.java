@@ -3,10 +3,8 @@ package nl.codebasesoftware.produx.service.impl;
 import nl.codebasesoftware.produx.dao.ArticleDao;
 import nl.codebasesoftware.produx.dao.ArticlePageDao;
 import nl.codebasesoftware.produx.dao.ArticleSuggestionDao;
-import nl.codebasesoftware.produx.domain.Article;
-import nl.codebasesoftware.produx.domain.ArticlePage;
-import nl.codebasesoftware.produx.domain.ArticleSuggestion;
-import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.dao.CategoryDao;
+import nl.codebasesoftware.produx.domain.*;
 import nl.codebasesoftware.produx.formdata.AddArticleFormData;
 import nl.codebasesoftware.produx.formdata.ArticlePageFormData;
 import nl.codebasesoftware.produx.formdata.EditArticleFormData;
@@ -31,14 +29,16 @@ public class ArticleServiceImpl implements ArticleService {
     private UserProfileService userProfileService;
     private ArticlePageDao articlePageDao;
     private ArticleSuggestionDao articleSuggestionDao;
+    private CategoryDao categoryDao;
 
     @Autowired
     public ArticleServiceImpl(ArticleDao articleDao, UserProfileService userProfileService,
-                              ArticlePageDao articlePageDao, ArticleSuggestionDao articleSuggestionDao) {
+                              ArticlePageDao articlePageDao, ArticleSuggestionDao articleSuggestionDao, CategoryDao categoryDao) {
         this.articleDao = articleDao;
         this.userProfileService = userProfileService;
         this.articlePageDao = articlePageDao;
         this.articleSuggestionDao = articleSuggestionDao;
+        this.categoryDao = categoryDao;
     }
 
     @Override
@@ -55,6 +55,8 @@ public class ArticleServiceImpl implements ArticleService {
         UserProfile author = userProfileService.findById(authorProfileId);
         // Get the suggestion on which this article is based so we can add the article to the suggestion later
         ArticleSuggestion suggestion = articleSuggestionDao.find(formData.getSuggestionId());
+        // Get the category
+        Category category = categoryDao.find(formData.getCategory());
 
         if (author == null) {
             throw new IllegalArgumentException("No author found for id");
@@ -66,6 +68,7 @@ public class ArticleServiceImpl implements ArticleService {
         article.setTeaser(formData.getTeaser());
         article.setTitle(formData.getTitle());
         article.setPublished(false);
+        article.setCategory(category);
         articleDao.persist(article);
 
         suggestion.setArticle(article);
@@ -89,14 +92,13 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(readOnly = false)
-    public void saveArticlePage(ArticlePageFormData formData, long articleId) {
+    public long saveArticlePage(ArticlePageFormData formData, long articleId) {
 
         ArticlePage articlePage = null;
         Article article = articleDao.find(articleId);
 
         if (formData.getId() != null) {
             articlePage = articlePageDao.find(formData.getId());
-            articlePage.setPosition(formData.getPosition());
         } else {
             articlePage = new ArticlePage();
             articlePage.setPosition(article.getNextPageNumber());
@@ -109,6 +111,8 @@ public class ArticleServiceImpl implements ArticleService {
         articlePage.setTitle(formData.getTitle());
 
         articlePageDao.persist(articlePage);
+
+        return articlePage.getId();
 
     }
 
@@ -123,33 +127,41 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional(readOnly = false)
     public void updateArticle(EditArticleFormData formData) {
         Article article = articleDao.find(formData.getId());
+        Category category = categoryDao.find(formData.getId());
 
         nullifyPagePositions(article);
-
-        for (String s : formData.getPageOrder()) {
-            String[] elements = s.split("-");
-            String position = elements[0];
-            String pageId = elements[1];
-
-            long i = Long.parseLong(pageId);
-            int pos = Integer.parseInt(position);
-            ArticlePage articlePage = articlePageDao.find(i);
-            articlePage.setPosition(pos);
-            articlePageDao.persist(articlePage);
-        }
+        updatePagePositions(formData);
 
         article.setTeaser(formData.getTeaser());
         article.setTitle(formData.getTitle());
         article.setPublished(formData.isPublished());
+        article.setCategory(category);
+        article.setText(formData.getText());
 
         // If the article if published for the first time, set the 'first publication date'
-        if(article.getFirstPublicationDate() == null && formData.isPublished()){
+        if (article.getFirstPublicationDate() == null && formData.isPublished()) {
             article.setFirstPublicationDate(Calendar.getInstance());
         }
     }
 
-    private void nullifyPagePositions(Article article){
-        for (ArticlePage articlePage : article.getArticlePages()) {
+    private void updatePagePositions(EditArticleFormData formData) {
+        if (formData.getPageOrder() != null) {
+            for (String s : formData.getPageOrder()) {
+                String[] elements = s.split("-");
+                String position = elements[0];
+                String pageId = elements[1];
+
+                long i = Long.parseLong(pageId);
+                int pos = Integer.parseInt(position);
+                ArticlePage articlePage = articlePageDao.find(i);
+                articlePage.setPosition(pos);
+                articlePageDao.persist(articlePage);
+            }
+        }
+    }
+
+    private void nullifyPagePositions(Article article) {
+        for (ArticlePage articlePage : article.getPages()) {
             articlePage.setPosition(null);
             articlePageDao.persist(articlePage);
         }
@@ -158,8 +170,20 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(readOnly = false)
-    public void removePage(Long pageId) {
+    public void removePage(long pageId) {
         ArticlePage page = articlePageDao.find(pageId);
         articlePageDao.delete(page);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Article> findByCategory(long catgeoryId) {
+        return articleDao.findByCategory(catgeoryId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Article findFull(long id) {
+        return articleDao.findFull(id);
     }
 }

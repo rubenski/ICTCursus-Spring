@@ -14,6 +14,7 @@ public class EditArticleFormData extends AddArticleFormData {
     private boolean published;
     private List<ArticlePage> pages;
     private List<String> pageOrder;
+    private String text;
 
     public boolean isPublished() {
         return published;
@@ -37,5 +38,13 @@ public class EditArticleFormData extends AddArticleFormData {
 
     public void setPageOrder(List<String> pageOrder) {
         this.pageOrder = pageOrder;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }

@@ -13,29 +13,53 @@
     <jsp:include page="submitmessage.jsp"/>
 
     <div class="default-block">
+        <form:label path="published">
+            <spring:message code="article.form.articleStatusheader"/>
+            <span><spring:message code="article.form.articleStatusheader.helptext"/></span>
+        </form:label>
+        <spring:message code="admin.articles.published" var="label"/>
+        <span class="inlineCheckBox"><form:checkbox path="published" label="${label}"/></span>
+        <form:errors path="published" cssClass="form-error"/>
+    </div>
+
+    <div class="default-block">
         <form:label path="title"><spring:message code="article.form.title"/></form:label>
         <form:input path="title" cssClass="form-input" cssErrorClass="form-input-error" size="50" maxlength="100"/>
         <form:errors path="title" cssClass="form-error"/>
     </div>
 
     <div class="default-block">
-        <form:label path="teaser"><spring:message code="article.form.teaser"/></form:label>
+        <form:label path="teaser">
+            <spring:message code="article.form.teaser"/>
+            <span><spring:message code="article.shortdescription.helptext"/></span>
+        </form:label>
         <form:textarea cols="75" rows="4" path="teaser" cssClass="form-input" cssErrorClass="form-input-error" size="50" maxlength="250"/>
         <form:errors path="teaser" cssClass="form-error"/>
     </div>
 
     <div class="default-block">
-        <form:label path="published">
-            <spring:message code="article.form.articleStatusheader"/>
-            <span><spring:message code="article.form.articleStatusheader.helptext"/></span>
-        </form:label>
-        <spring:message code="admin.articles.published" var="label"/>
-        <span class="inlineCheckBox"><form:checkbox disabled="${publishingDisabled}" path="published" label="${label}"/></span>
-        <form:errors path="published" cssClass="form-error"/>
+        <form:label path="category"><spring:message code="course.form.category"/></form:label>
+        <form:select path="category" cssErrorClass="form-input-error">
+            <form:option value="-1" label=""/>
+            <form:options items="${categories}" itemValue="id" itemLabel="name"/>
+        </form:select>
+        <form:errors path="category" cssClass="form-error"/>
     </div>
 
     <div class="default-block">
-        <form:label path="pages"><spring:message code="article.form.pages"/></form:label>
+        <form:label path="text">
+            <spring:message code="article.firstpagetext"/>
+            <span><spring:message code="article.firstpagetext.helptext"/></span>
+        </form:label>
+        <form:textarea path="text" cols="100" rows="50" cssClass="richtext" cssErrorClass="richtext form-input-error" maxlength="6000"/>
+        <form:errors path="text" cssClass="form-error"/>
+    </div>
+
+    <div class="default-block">
+        <form:label path="pages">
+            <spring:message code="article.form.pages"/>
+            <span><spring:message code="article.form.pages.helptext"/></span>
+        </form:label>
         <table cellpadding="4" width="600" id="pagetable">
             <tr>
                 <th><spring:message code="generic.message.title"/></th>
@@ -64,7 +88,7 @@
                 </c:otherwise>
             </c:choose>
         </table>
-        <a href="/admin/article/${id}/pages/add"><spring:message code="admin.article.add.page"/></a>
+        <a href="/admin/article/${editArticleFormData.id}/pages/add"><spring:message code="admin.article.add.page"/></a>
 
     </div>
 
