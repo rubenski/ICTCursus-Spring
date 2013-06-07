@@ -27,7 +27,7 @@ public class AccountRequestFormDataToAccountRequest implements Converter<Account
     @Override
     public AccountRequest convert(AccountRequestFormData accountRequestFormData) {
 
-        AccountRequest request = null;
+        AccountRequest request;
 
         if (accountRequestFormData.isPersisted()) {
             request = accountRequestDao.find(accountRequestFormData.getId());
