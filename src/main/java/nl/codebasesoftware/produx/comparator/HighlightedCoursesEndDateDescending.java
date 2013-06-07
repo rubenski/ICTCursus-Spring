@@ -9,7 +9,7 @@ import java.util.Comparator;
  * Date: 7-5-13
  * Time: 14:19
  */
-public class HighlightedCoursesEndDataDescending implements Comparator<HighlightedCourseOnCategory> {
+public class HighlightedCoursesEndDateDescending implements Comparator<HighlightedCourseOnCategory> {
 
     @Override
     public int compare(HighlightedCourseOnCategory o1, HighlightedCourseOnCategory o2) {
