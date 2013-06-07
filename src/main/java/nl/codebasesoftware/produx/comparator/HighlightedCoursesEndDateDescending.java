@@ -12,7 +12,7 @@ import java.util.Comparator;
 public class HighlightedCoursesEndDateDescending implements Comparator<HighlightedCourseOnCategory> {
 
     @Override
-    public int compare(HighlightedCourseOnCategory o1, HighlightedCourseOnCategory o2) {
-        return o1.getEndTime().compareTo(o2.getEndTime());
+    public int compare(HighlightedCourseOnCategory one, HighlightedCourseOnCategory two) {
+        return one.getEndTime().compareTo(two.getEndTime());
     }
 }

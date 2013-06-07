@@ -1,6 +1,6 @@
 package nl.codebasesoftware.produx.domain;
 
-import nl.codebasesoftware.produx.comparator.HighlightedCoursesEndDataDescending;
+import nl.codebasesoftware.produx.comparator.HighlightedCoursesEndDateDescending;
 import nl.codebasesoftware.produx.comparator.NameComparable;
 
 import javax.persistence.*;
@@ -23,7 +23,7 @@ public class Category implements DomainObject, NameComparable {
     private Category parent;
     private String urlTitle;
     private List<Category> children;
-    private Set<HighlightedCourseOnCategory> highlightedCourses = new TreeSet<HighlightedCourseOnCategory>(new HighlightedCoursesEndDataDescending());
+    private Set<HighlightedCourseOnCategory> highlightedCourses = new TreeSet<HighlightedCourseOnCategory>(new HighlightedCoursesEndDateDescending());
 
     @Override
     @Id
@@ -100,9 +100,8 @@ public class Category implements DomainObject, NameComparable {
 
         Category category = (Category) o;
 
-        if (id != null ? !id.equals(category.id) : category.id != null) return false;
+        return !(id != null ? !id.equals(category.id) : category.id != null);
 
-        return true;
     }
 
     @Override
