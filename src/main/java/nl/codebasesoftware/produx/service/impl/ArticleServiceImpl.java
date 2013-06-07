@@ -105,7 +105,7 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
         articlePage.setArticle(article);
-        articlePage.setBody(formData.getText());
+        articlePage.setText(formData.getText());
         articlePage.setDescription(formData.getMetaDescription());
         articlePage.setKeywords(formData.getMetaKeywords());
         articlePage.setTitle(formData.getTitle());
@@ -127,7 +127,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional(readOnly = false)
     public void updateArticle(EditArticleFormData formData) {
         Article article = articleDao.find(formData.getId());
-        Category category = categoryDao.find(formData.getId());
+        Category category = categoryDao.find(formData.getCategory());
 
         nullifyPagePositions(article);
         updatePagePositions(formData);

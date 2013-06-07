@@ -1,13 +1,11 @@
 package nl.codebasesoftware.produx.domain;
 
-import nl.codebasesoftware.produx.comparator.RankComparator;
 import nl.codebasesoftware.produx.service.business.ArticleUrl;
 
 import javax.persistence.*;
 import java.util.Calendar;
-import java.util.Iterator;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * User: rvanloen
@@ -20,7 +18,7 @@ public class Article implements DomainObject {
     private Long id;
     private String teaser;
     private String title;
-    private Set<ArticlePage> pages = new TreeSet<ArticlePage>(new RankComparator());
+    private Set<ArticlePage> pages = new HashSet<ArticlePage>();
     private Calendar creationDate;
     private Calendar firstPublicationDate;
     private boolean published;
@@ -40,6 +38,7 @@ public class Article implements DomainObject {
     }
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "article")
+    @OrderBy("position ASC")
     public Set<ArticlePage> getPages() {
         return pages;
     }
@@ -128,11 +127,23 @@ public class Article implements DomainObject {
 
     @Transient
     public String getUrl(){
-        return ArticleUrl.createUrl(id, category.getName(), title);
+        return ArticleUrl.createArticleUrl(id, category.getName(), title);
     }
+
 
     @Transient
     public boolean hasPages(){
         return pages.size() > 0;
+    }
+
+    @Transient
+    public ArticlePage getArticlePage(int position){
+        for (ArticlePage page : pages) {
+            if(page.getPosition().equals(position)){
+                return page;
+            }
+        }
+
+        return null;
     }
 }

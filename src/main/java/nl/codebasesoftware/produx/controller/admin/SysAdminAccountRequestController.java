@@ -1,10 +1,10 @@
 package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.AccountRequest;
+import nl.codebasesoftware.produx.domain.optionlists.ListOptions;
 import nl.codebasesoftware.produx.formdata.AccountRequestFormData;
 import nl.codebasesoftware.produx.service.AccountRequestService;
 import nl.codebasesoftware.produx.service.business.BasicAccountRequestEvaluation;
-import nl.codebasesoftware.produx.util.ListOptions;
 import nl.codebasesoftware.produx.validator.RequestAccountFormValidator;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,10 +1,10 @@
 package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.Company;
+import nl.codebasesoftware.produx.domain.optionlists.ListOptions;
 import nl.codebasesoftware.produx.formdata.BindableCompany;
 import nl.codebasesoftware.produx.formdata.BindableFileUpload;
 import nl.codebasesoftware.produx.service.CompanyService;
-import nl.codebasesoftware.produx.util.ListOptions;
 import nl.codebasesoftware.produx.validator.CompanyFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

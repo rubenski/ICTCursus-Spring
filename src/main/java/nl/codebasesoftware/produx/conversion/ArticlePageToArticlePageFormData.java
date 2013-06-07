@@ -19,7 +19,7 @@ public class ArticlePageToArticlePageFormData implements Converter<ArticlePage, 
         formData.setMetaDescription(articlePage.getDescription());
         formData.setMetaKeywords(articlePage.getKeywords());
         formData.setPosition(articlePage.getPosition());
-        formData.setText(articlePage.getBody());
+        formData.setText(articlePage.getText());
         formData.setTitle(articlePage.getTitle());
         return formData;
     }

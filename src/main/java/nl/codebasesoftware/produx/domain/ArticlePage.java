@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.domain;
 
 import nl.codebasesoftware.produx.comparator.RankOrderable;
+import nl.codebasesoftware.produx.service.business.ArticleUrl;
 
 import javax.persistence.*;
 
@@ -10,14 +11,14 @@ import javax.persistence.*;
  * Time: 11:09
  */
 @Table(
-    uniqueConstraints=
-        @UniqueConstraint(columnNames={"position", "article_id"})
+        uniqueConstraints =
+        @UniqueConstraint(columnNames = {"position", "article_id"})
 )
 @Entity
 public class ArticlePage implements DomainObject, RankOrderable {
 
     private Long id;
-    private String body;
+    private String text;
     private String title;
     private String description;
     private String keywords;
@@ -38,12 +39,12 @@ public class ArticlePage implements DomainObject, RankOrderable {
 
     @Lob
     @Column(nullable = false)
-    public String getBody() {
-        return body;
+    public String getText() {
+        return text;
     }
 
-    public void setBody(String body) {
-        this.body = body;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public String getDescription() {
@@ -63,7 +64,7 @@ public class ArticlePage implements DomainObject, RankOrderable {
     }
 
     // This field must be nullable to allow nullifying when updating the article page's positions
-    @Column(nullable = true, name="position")
+    @Column(nullable = true, name = "position")
     public Integer getPosition() {
         return position;
     }
@@ -94,5 +95,10 @@ public class ArticlePage implements DomainObject, RankOrderable {
     @Transient
     public int getDisplayRank() {
         return position;
+    }
+
+    @Transient
+    public String getUrl() {
+        return ArticleUrl.createArticlePageUrl(article.getId(), article.getCategory().getName(), position, title);
     }
 }

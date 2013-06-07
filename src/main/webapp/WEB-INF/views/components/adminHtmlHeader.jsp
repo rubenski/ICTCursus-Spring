@@ -15,18 +15,17 @@
 </c:if>
 <c:if test="${articleform}">
     <script type="text/javascript" src="/static/javascript/admin/article.js"></script>
+    <script type="text/javascript" src="/static/libs/ckeditor/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            CKEDITOR.replace('text',
+                    {
+                        customConfig: '/static/libs/ckeditor/produx_custom_config/produx_config.js'
+                    }
+            );
+        };
+    </script>
 </c:if>
 <c:if test="${articlePage}">
     <script type="text/javascript" src="/static/javascript/admin/articlepage.js"></script>
 </c:if>
-<script type="text/javascript" src="/static/javascript/tiny_mce/tiny_mce.js"></script>
-
-<script type="text/javascript">
-    tinyMCE.init({
-        mode : "specific_textareas",
-        editor_selector : "richtext",
-        theme_advanced_buttons1 : "bold, italic, underline, separator, cut, copy, paste, separator, bullist, numlist, separator, undo, redo, separator, link, unlink",
-        content_css: "/static/style/admin.css"
-
-    });
-</script>

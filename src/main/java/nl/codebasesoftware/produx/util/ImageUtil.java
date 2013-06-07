@@ -1,17 +1,12 @@
 package nl.codebasesoftware.produx.util;
 
 import nl.codebasesoftware.produx.util.support.ImageDimensions;
+import org.apache.commons.io.IOUtils;
 
 import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
-import javax.imageio.stream.ImageInputStream;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Iterator;
+import java.io.*;
 
 /**
  * User: rvanloen
@@ -38,7 +33,6 @@ public class ImageUtil {
         int newHeight = (int) Math.floor(height / divideBy);
 
         return new ImageDimensions(newWidth, newHeight);
-
     }
 
     public static byte[] resize(InputStream imageData, int maxLength) {
@@ -73,78 +67,24 @@ public class ImageUtil {
             imageBytes = baos.toByteArray();
             baos.close();
         } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
 
         return imageBytes;
     }
 
-    /*
-    public static BufferedImage scaleImage(InputStream imageData, int maxLength) {
+    public static void saveImage(byte[] bytes, String filePath){
 
-        BufferedImage bufferedImage = null;
         try {
-            bufferedImage = ImageIO.read(imageData);
+            File f = new File(filePath);
+            OutputStream os = new FileOutputStream(f);
+            IOUtils.write(bytes, os);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        ImageDimensions dimensions = getScaledImageDimensions(bufferedImage, maxLength);
-
-        BufferedImage resizedImage = new BufferedImage(dimensions.getWidth(), dimensions.getHeight(), BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g = resizedImage.createGraphics();
-        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-
-        g.drawImage(bufferedImage, 0, 0, dimensions.getWidth(), dimensions.getHeight(), null);
-        g.dispose();
-
-        return resizedImage;
-    }   */
-
-    public static boolean saveImage(BufferedImage image, String filePath) {
-
-        boolean success = false;
-        try {
-            success = ImageIO.write(image, "png", new File(filePath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return success;
     }
 
-    public static String encodeBase64(File file) {
-
-        if (!file.exists()) {
-            return null;
-        }
-
-        BufferedImage img = null;
-        String formatName = null;
-        ByteArrayOutputStream baos = null;
-        org.apache.commons.codec.binary.Base64 base = new org.apache.commons.codec.binary.Base64();
-        try {
-            ImageInputStream iis = ImageIO.createImageInputStream(file);
-            Iterator<ImageReader> imageReaders = ImageIO.getImageReaders(iis);
-            while (imageReaders.hasNext()) {
-                ImageReader reader = imageReaders.next();
-                formatName = reader.getFormatName();
-            }
-            iis.flush();
-            iis.close();
-
-            img = ImageIO.read(file);
-            baos = new ByteArrayOutputStream();
-            ImageIO.write(img, formatName, baos);
-            baos.flush();
-            baos.close();
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return base.encodeToString(baos.toByteArray());
-    }
 
 }

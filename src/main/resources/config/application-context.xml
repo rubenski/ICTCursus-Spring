@@ -89,6 +89,9 @@
                 <entry key="security.code.length" value="${security.code.length}"/>
                 <entry key="highlighted.courses.per.category" value="${highlighted.courses.per.category}"/>
                 <entry key="range.for.highlight.start" value="${range.for.highlight.start}"/>
+                <entry key="domain" value="${domain}"/>
+                <entry key="articleimage.uploaddir" value="${articleimage.uploaddir}"/>
+                <entry key="articleimage.maxlength" value="${articleimage.maxlength}"/>
             </map>
         </property>
     </bean>

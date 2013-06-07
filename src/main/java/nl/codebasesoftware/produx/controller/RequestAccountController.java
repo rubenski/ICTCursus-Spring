@@ -1,9 +1,9 @@
 package nl.codebasesoftware.produx.controller;
 
+import nl.codebasesoftware.produx.domain.optionlists.ListOptions;
 import nl.codebasesoftware.produx.formdata.AccountRequestFormData;
 import nl.codebasesoftware.produx.service.AccountRequestService;
 import nl.codebasesoftware.produx.service.PageBlockService;
-import nl.codebasesoftware.produx.util.ListOptions;
 import nl.codebasesoftware.produx.validator.RequestAccountFormValidator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -9,8 +9,10 @@ import java.util.Properties;
  * Date: 8-11-12
  * Time: 0:47
  */
+@Deprecated
 public class TextProperties {
 
+    @Deprecated
     public static String getTextProperty(String key, String language) {
         Properties properties = new Properties();
 

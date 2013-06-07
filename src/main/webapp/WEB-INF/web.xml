@@ -23,6 +23,16 @@
     </listener>
 
     <servlet>
+        <servlet-name>ckImageUploadServlet</servlet-name>
+        <servlet-class>nl.codebasesoftware.ckfilemanager.CkUploadServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ckImageUploadServlet</servlet-name>
+        <url-pattern>/ckuploader/upload</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>produxDispatcherServlet</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>

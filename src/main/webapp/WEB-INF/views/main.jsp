@@ -56,7 +56,7 @@
 
 <div id="main">
     <div id="innermain">
-        <jsp:include page="${leftColumn}.jsp"/>
+        <jsp:include page="left.jsp"/>
         <div id="maincontent">
             <jsp:include page="${mainContent}.jsp"/>
         </div>

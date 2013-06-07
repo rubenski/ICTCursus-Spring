@@ -30,7 +30,7 @@ public class PageBlockServiceImpl implements PageBlockService {
     @Override
     public void setCourseCategoriesInLeftColumn(Model model) {
         setCategories(model);
-        model.addAttribute("leftColumn", "components/categoriesNavigation");
+        model.addAttribute("categoriesNav", true);
     }
 
     @Override
@@ -41,19 +41,8 @@ public class PageBlockServiceImpl implements PageBlockService {
     }
 
     @Override
-    public void setCourseCategoriesInRightColumn(Model model) {
-        setCategories(model);
-        model.addAttribute("rightColumn", "components/categoriesNavigation");
-    }
-
-    @Override
     public void setEmptyRightColumn(Model model) {
         model.addAttribute("rightColumn", "components/empty");
-    }
-
-    @Override
-    public void setEmptyLeftColumn(Model model) {
-        model.addAttribute("leftColumn", "components/empty");
     }
 
     @Transactional(readOnly = false)

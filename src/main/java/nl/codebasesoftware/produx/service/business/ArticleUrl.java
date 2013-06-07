@@ -9,8 +9,12 @@ import nl.codebasesoftware.produx.exception.ProduxServiceException;
  */
 public class ArticleUrl extends BaseUrl {
 
-    public static String createUrl(Long courseId, String category, String title) {
-        return String.format("/%s/a%d-%s.html", preprareStringForUrl(category), courseId, preprareStringForUrl(title));
+    public static String createArticleUrl(Long articleId, String category, String title) {
+        return String.format("/%s/a%d/%s.html", preprareStringForUrl(category), articleId, preprareStringForUrl(title));
+    }
+
+    public static String createArticlePageUrl(Long articleId, String category, int pageNumber, String title) {
+        return String.format("/%s/a%d/p%d-%s.html", preprareStringForUrl(category), articleId, pageNumber, preprareStringForUrl(title));
     }
 
     public static String createAdminUrl(Long id) {

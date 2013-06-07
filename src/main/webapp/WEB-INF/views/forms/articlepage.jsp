@@ -26,7 +26,7 @@
 
     <div class="default-block">
         <form:label path="text"><spring:message code="articlepage.form.text.label"/></form:label>
-        <form:textarea cols="100" rows="50" path="text" cssClass="richtext" cssErrorClass="richtext form-input-error" size="50" maxlength="6000"/>
+        <form:textarea cols="100" rows="50" path="text" cssErrorClass="form-input-error" size="50" maxlength="6000"/>
         <form:errors path="text" cssClass="form-error"/>
     </div>
 

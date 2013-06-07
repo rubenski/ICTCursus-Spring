@@ -89,7 +89,12 @@ body {
     text-decoration: none;
 }
 
-#main #innermain #topics {
+#main a:hover {
+    color: #6b0c0c;
+    text-decoration: underline;
+}
+
+#main #innermain #left {
     float: left;
     width: 200px;
 }
@@ -98,8 +103,8 @@ body {
     float: left;
     width: 550px;
     line-height: 20px;
-    margin-right: 14px;
-    margin-left: 14px;
+    margin: 35px 14px 0px 14px;
+
 }
 
 #main #innermain #maincontent p {
@@ -107,7 +112,7 @@ body {
 }
 
 #main #innermain #maincontent h1 {
-    padding: 3px 0px 14px 0px;
+    padding: 3px 0px 20px 0px;
     font-weight: normal;
     font-size: 1.9em;
 }
@@ -115,7 +120,7 @@ body {
 #main #innermain #maincontent h2 {
     padding-bottom: 15px;
     font-size: 1.3em;
-    padding-top: 25px;
+    padding-top: 5px;
 }
 
 #main #innermain #maincontent .course-list-item h2 {
@@ -123,7 +128,7 @@ body {
     margin: 0;
 }
 
-#main #topics h2 {
+#main #left h2 {
     padding-bottom: 15px;
     font-size: 1.3em;
 }
@@ -198,8 +203,8 @@ div.pretty {
 
 
 .prettymain {
-    margin-bottom: 8px;
-    padding:  20px 20px 5px 20px;
+    margin-bottom: 30px;
+    padding:  20px 20px 10px 20px;
     background-color: #fdfdfd;
     text-align: left;
     -moz-border-radius: 5px;
