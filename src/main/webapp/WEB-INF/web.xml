@@ -22,15 +22,7 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
-    <servlet>
-        <servlet-name>ckImageUploadServlet</servlet-name>
-        <servlet-class>nl.codebasesoftware.ckfilemanager.CkUploadServlet</servlet-class>
-    </servlet>
 
-    <servlet-mapping>
-        <servlet-name>ckImageUploadServlet</servlet-name>
-        <url-pattern>/ckuploader/upload</url-pattern>
-    </servlet-mapping>
 
     <servlet>
         <servlet-name>produxDispatcherServlet</servlet-name>
@@ -46,9 +38,6 @@
         <servlet-name>produxDispatcherServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-
-
-
 
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>

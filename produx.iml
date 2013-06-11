@@ -15,33 +15,16 @@
         </sourceRoots>
       </configuration>
     </facet>
-    <facet type="Spring" name="Spring">
-      <configuration>
-        <fileset id="fileset1" name="My Fileset" removed="false">
-          <file>file://$MODULE_DIR$/src/main/resources/config/spring-jpa.xml</file>
-          <file>file://$MODULE_DIR$/src/main/resources/config/application-context-web.xml</file>
-          <file>file://$MODULE_DIR$/src/main/resources/config/application-context.xml</file>
-          <file>file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml</file>
-          <file>file://$MODULE_DIR$/src/main/resources/config/dwr-context.xml</file>
-        </fileset>
-        <fileset id="fileset2" name="My Fileset1" removed="false">
-          <file>file://$MODULE_DIR$/src/main/resources/config/dwr-context.xml</file>
-        </fileset>
-      </configuration>
-    </facet>
     <facet type="jpa" name="JPA">
       <configuration>
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="" />
-        <datasource-mapping>
-          <factory-entry name="entityManagerFactory" value="dataSource" />
-          <factory-entry name="mysqlPersistenceUnit" value="6cd40c57-3e8a-4479-b5e7-a1ae0a16bbc4" />
-        </datasource-mapping>
+        <datasource-mapping />
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6" inherit-compiler-output="false">
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -52,9 +35,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: org.mortbay.jetty:jetty:6.1.2" level="project" />
-    <orderEntry type="library" name="Maven: org.mortbay.jetty:jetty-util:6.1.2" level="project" />
-    <orderEntry type="library" name="Maven: org.mortbay.jetty:servlet-api-2.5:6.1.2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:3.1.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:3.1.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: aopalliance:aopalliance:1.0" level="project" />
@@ -112,6 +92,7 @@
     <orderEntry type="library" name="Maven: org.apache.velocity:velocity:1.7" level="project" />
     <orderEntry type="library" name="Maven: javax.mail:mail:1.4" level="project" />
     <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:servlet-api:2.5" level="project" />
     <orderEntry type="library" name="Maven: cglib:cglib:2.2.2" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.7.1" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-core-asl:1.7.1" level="project" />
@@ -123,7 +104,6 @@
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.codehaus.woodstox:wstx-asl:3.2.7" level="project" />
     <orderEntry type="library" name="Maven: com.google.guava:guava:14.0" level="project" />
     <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
-    <orderEntry type="library" name="Maven: nl.codebasesoftware:CodeBaseCkFileManager:1.0.0" level="project" />
   </component>
 </module>
 

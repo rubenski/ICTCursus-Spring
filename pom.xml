@@ -1,12 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
-    <groupId>net.tekstenuitleg</groupId>
+    <groupId>nl.codebasesoftware</groupId>
     <artifactId>produx</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Produx</name>
-
 
     <properties>
         <spring.version>3.1.1.RELEASE</spring.version>
@@ -31,12 +31,7 @@
     </pluginRepositories>
 
     <dependencies>
-        <!-- jetty -->
-        <dependency>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>jetty</artifactId>
-            <version>${jettyVersion}</version>
-        </dependency>
+
 
         <!-- Spring dependencies -->
         <dependency>
@@ -216,6 +211,15 @@
             <version>1.4</version>
         </dependency>
 
+        <!-- servlet -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <scope>provided</scope>
+            <version>2.5</version>
+        </dependency>
+
+
         <!-- cglib to create proxy of SessionData sessiojn scoped bean -->
         <dependency>
             <groupId>cglib</groupId>
@@ -250,13 +254,6 @@
             <version>4.11</version>
         </dependency>
 
-        <dependency>
-            <groupId>nl.codebasesoftware</groupId>
-            <artifactId>CodeBaseCkFileManager</artifactId>
-            <version>1.0.0</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/src/main/resources/lib/CodeBaseCkFileManager-1.0.jar</systemPath>
-        </dependency>
 
 
     </dependencies>
@@ -276,129 +273,9 @@
         </profile>
     </profiles>
 
+
     <build>
         <finalName>ROOT</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                    <compilerArgument>-proc:none</compilerArgument>
-                </configuration>
-            </plugin>
-            <!--
-           <plugin>
-               <groupId>org.bsc.maven</groupId>
-               <artifactId>maven-processor-plugin</artifactId>
-
-               <executions>
-
-                   <execution>
-
-                       <id>process</id>
-                       <goals>
-                           <goal>process</goal>
-                       </goals>
-                       <phase>generate-sources</phase>
-                       <configuration>
-
-                           <outputDirectory>target/metamodel</outputDirectory>
-
-                       </configuration>
-                   </execution>
-               </executions>
-           </plugin> -->
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.3</version>
-                <executions>
-                    <execution>
-                        <id>add-source</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>target/metamodel</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!--
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.3</version>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                        <configuration>
-                            <tasks name="Restart Tomcat">
-
-                                <exec dir="${tomcat.dir}" executable="${tomcat.dir}/bin/shutdown.bat" failonerror="false">
-                                    <arg line=""/>
-                                </exec>
-
-                                <sleep seconds="3"/>
-
-                                <delete dir="C:\tomcat6\webapps\ROOT"/>
-
-                                <copy file="C:\PROJECTS\ICTCursus Spring\target\ROOT.war" todir="C:\tomcat6\webapps" overwrite="true"
-                                      failonerror="true"/>
-
-                                <exec dir="${tomcat.dir}" executable="${tomcat.dir}/bin/startup.bat" failonerror="true">
-                                    <arg line=""/>
-                                </exec>
-                            </tasks>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin> -->
-
-            <plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>8.0.0.M3</version>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                    </execution>
-                </executions>
-                <configuration>
-                    <!-- <scanIntervalSeconds>120</scanIntervalSeconds> -->
-                    <stopKey>foo</stopKey>
-                    <stopPort>9999</stopPort>
-
-                    <scanTargetPatterns>
-                        <scanTargetPattern>
-                            <directory>src/main/resources/static/style</directory>
-                        </scanTargetPattern>
-                        <scanTargetPattern>
-                            <directory>src/main/resources/static/javascript</directory>
-                        </scanTargetPattern>
-                        <scanTargetPattern>
-                            <directory>src/main/resources/static/img</directory>
-                        </scanTargetPattern>
-                    </scanTargetPatterns>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.1</version>
-            </plugin>
-
-
-        </plugins>
     </build>
+
 </project>

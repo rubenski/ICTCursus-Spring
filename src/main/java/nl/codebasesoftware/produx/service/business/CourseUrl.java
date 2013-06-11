@@ -1,6 +1,5 @@
 package nl.codebasesoftware.produx.service.business;
 
-import nl.codebasesoftware.produx.exception.ProduxServiceException;
 
 /**
  * User: rvanloen
@@ -16,7 +15,7 @@ public class CourseUrl extends BaseUrl {
     public static String createAdminUrl(Long id) {
         return String.format("/admin/course/%d", id);
     }
-
+    /*
     public static long extractId(String url) throws ProduxServiceException {
         String s = url.split("-")[0].substring(1);
 
@@ -28,5 +27,5 @@ public class CourseUrl extends BaseUrl {
         }
 
         return id;
-    }
+    }*/
 }
