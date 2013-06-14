@@ -19,8 +19,20 @@
       <configuration>
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="" />
-        <datasource-mapping />
+        <datasource-mapping>
+          <factory-entry name="entityManagerFactory" value="68f54e29-9308-4ebd-b462-2c61f9b7a3f7" />
+          <factory-entry name="mysqlPersistenceUnit" value="68f54e29-9308-4ebd-b462-2c61f9b7a3f7" />
+        </datasource-mapping>
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
+      </configuration>
+    </facet>
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/config/spring-security.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/config/application-context.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/config/application-context-web.xml</file>
+        </fileset>
       </configuration>
     </facet>
   </component>

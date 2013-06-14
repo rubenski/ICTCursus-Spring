@@ -51,6 +51,7 @@ CKEDITOR.editorConfig = function(config) {
     // Change color
     config.uiColor = '#d4d0d0';
 
-    config.filebrowserBrowseUrl = '/ckuploader/browse';
-    config.filebrowserUploadUrl = '/ckuploader/upload';
+    config.filebrowserBrowseUrl = '/cbckfilemanager/browse';
+    config.filebrowserUploadUrl = '/cbckfilemanager/upload';
+    // config.height = '800px'; Doesn't work?
 };

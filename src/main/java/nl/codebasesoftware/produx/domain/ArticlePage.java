@@ -1,7 +1,7 @@
 package nl.codebasesoftware.produx.domain;
 
 import nl.codebasesoftware.produx.comparator.RankOrderable;
-import nl.codebasesoftware.produx.service.business.ArticleUrl;
+import nl.codebasesoftware.produx.service.business.ArticlePageUrl;
 
 import javax.persistence.*;
 
@@ -99,6 +99,6 @@ public class ArticlePage implements DomainObject, RankOrderable {
 
     @Transient
     public String getUrl() {
-        return ArticleUrl.createArticlePageUrl(article.getId(), article.getCategory().getName(), position, title);
+        return ArticlePageUrl.create(article.getId(), article.getCategory().getName(), position, title);
     }
 }

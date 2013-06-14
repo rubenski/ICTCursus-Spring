@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
  * Date: 28-5-13
  * Time: 9:56
  */
-public abstract class BaseUrl {
+public abstract class AbstractUrl {
 
     protected static String preprareStringForUrl(String title) {
         Pattern specialCharsPattern = Pattern.compile("([^a-zA-z0-9])");

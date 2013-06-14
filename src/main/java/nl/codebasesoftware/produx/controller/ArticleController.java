@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.controller;
 
 import nl.codebasesoftware.produx.domain.Article;
 import nl.codebasesoftware.produx.domain.ArticlePage;
+import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.service.ArticleService;
 import nl.codebasesoftware.produx.service.PageBlockService;
 import nl.codebasesoftware.produx.util.Properties;
@@ -11,10 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * User: rvanloen
@@ -36,47 +34,47 @@ public class ArticleController {
     }
 
 
-    @RequestMapping(value = "/{category}/a{aid:[0-9]+}/{title}")
-    public String getArticle(@PathVariable("aid") Long articleId, @PathVariable("title") String title, Model model) {
+    @RequestMapping(value = "/{category}/a{aid:[0-9]+}/{title:[^p0-9:-].+}")
+    public String getArticle(@PathVariable("aid") Long articleId,
+                             HttpServletRequest request,
+                             Model model) {
 
         Article article = articleService.findFull(articleId);
+        String url = article.getUrl();
+        String requestUri = request.getRequestURI();
 
-        IdAndTitle idAndTitle = isArticlePage(title);
-
-        if (idAndTitle != null) {
-            ArticlePage articlePage = article.getArticlePage(idAndTitle.pageNumber);
-            setData(model, article, articlePage);
-        } else {
-            setData(model, article, null);
-            model.addAttribute("title", article.getTitle() + " - " + properties.getProperty("domain"));
+        if(!requestUri.equals(url)){
+            throw new ResourceNotFoundException();
         }
 
+        setData(model, article, null);
+        model.addAttribute("title", article.getTitle() + " - " + properties.getProperty("domain"));
+
+        return "main";
+    }
+
+    @RequestMapping(value = "/{category}/a{aid:[0-9]+}/p{pnr:[0-9]+}-{title:.+}")
+    public String getArticlePage(@PathVariable("aid") Long articleId,
+                                 @PathVariable("pnr") int pageNumber,
+                                 HttpServletRequest request,
+                                 Model model) {
+
+        Article article = articleService.findFull(articleId);
+        ArticlePage articlePage = article.getArticlePage(pageNumber);
+
+        String url = articlePage.getUrl();
+        String requestURI = request.getRequestURI();
+
+        if (!requestURI.equals(url)) {
+            throw new ResourceNotFoundException();
+        }
+
+        setData(model, article, articlePage);
 
         return "main";
     }
 
 
-    // Method to extract the page number. The mapping "/{category}/a{aid:[0-9]+}/p[0-9]-{title}" is not chosen
-    // unfortunately. Probably a Spring bug.
-    private IdAndTitle isArticlePage(String title) {
-        Pattern p = Pattern.compile("p([0-9]+)[-]((.*))");
-        Matcher m = p.matcher(title);
-        List<String> parts = new ArrayList<String>();
-        IdAndTitle idAndTitle = null;
-        if (m.matches()) {
-            idAndTitle = new IdAndTitle();
-            for (int i = 0; i < m.groupCount(); i++) {
-                String group = m.group(i);
-                if (i == 1) {
-                    idAndTitle.pageNumber = Integer.parseInt(group);
-                } else if (i == 2) {
-                    idAndTitle.utlTitle = group;
-                }
-            }
-        }
-
-        return idAndTitle;
-    }
 
     private void setData(Model model, Article article, ArticlePage page) {
 
@@ -95,8 +93,5 @@ public class ArticleController {
         model.addAttribute("articleNav", article.getPages().size() > 0);
     }
 
-    private static class IdAndTitle {
-        public int pageNumber;
-        public String utlTitle;
-    }
+
 }

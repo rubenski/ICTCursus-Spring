@@ -23,7 +23,7 @@
             </p>
         </div>
         <div class="logo">
-            <c:if test="${course.company.hasLogo()}">
+            <c:if test="${course.company.normalLogo != null}">
                 <img src="/logo/small/${course.company.id}-cursusbedrijf.png"
                      title="<spring:message code='course.listing.courseby'/> ${course.company.name}"/>
             </c:if>
@@ -41,7 +41,7 @@
             </p>
         </div>
         <div class="logo">
-            <c:if test="${course.company.hasLogo()}">
+            <c:if test="${course.company.normalLogo != null}">
                 <img src="/logo/small/${course.company.id}-cursusbedrijf.png"
                      title="<spring:message code='course.listing.courseby'/> ${course.company.name}"/>
             </c:if>

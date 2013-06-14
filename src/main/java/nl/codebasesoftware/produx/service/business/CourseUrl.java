@@ -6,10 +6,10 @@ package nl.codebasesoftware.produx.service.business;
  * Date: 25-4-13
  * Time: 15:46
  */
-public class CourseUrl extends BaseUrl {
+public class CourseUrl extends AbstractUrl {
 
     public static String createUrl(Long courseId, String category, String title) {
-        return String.format("/%s/c%d-%s.html", preprareStringForUrl(category), courseId, preprareStringForUrl(title));
+        return String.format("/%s/c%d-%s", preprareStringForUrl(category), courseId, preprareStringForUrl(title));
     }
 
     public static String createAdminUrl(Long id) {
