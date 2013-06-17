@@ -1,9 +1,9 @@
 package nl.codebasesoftware.produx.validator;
 
 import nl.codebasesoftware.produx.formdata.ArticlePageFormData;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import org.springframework.stereotype.Component;
 
 /**
  * User: rvanloen
@@ -12,6 +12,9 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ArticlePageFormDataValidator implements Validator {
+
+    private static final int META_DESCRIPTION_MIN_LENGTH = 40;
+    private static final int META_DESCRIPTION_MAX_LENGTH = 200;
 
     @Override
     public boolean supports(Class<?> aClass) {
@@ -22,16 +25,20 @@ public class ArticlePageFormDataValidator implements Validator {
     public void validate(Object o, Errors errors) {
         ArticlePageFormData formData = (ArticlePageFormData) o;
 
-        if(!ProduxValidator.isValidArticleTitle(formData.getTitle())){
+        if (!ProduxValidator.isValidArticleTitle(formData.getTitle())) {
             errors.rejectValue("title", "article.title.error");
         }
 
-        if(!ProduxValidator.isValidMetaKeywords(formData.getMetaKeywords())){
+        if (!ProduxValidator.isValidMetaKeywords(formData.getMetaKeywords())) {
             errors.rejectValue("metaKeywords", "page.error.metakeywords");
         }
 
-        if(!ProduxValidator.isValidMetaDescription(formData.getMetaDescription())){
+        if (!ProduxValidator.isValidMetaDescription(formData.getMetaDescription())) {
             errors.rejectValue("metaDescription", "page.error.metadescription");
+        } else if (ProduxValidator.isShorterThan(formData.getMetaDescription(), META_DESCRIPTION_MIN_LENGTH)) {
+            errors.rejectValue("metaDescription", "metadescription.tooshort");
+        } else if (ProduxValidator.isLongerThan(formData.getMetaDescription(), META_DESCRIPTION_MAX_LENGTH)) {
+            errors.reject("metaDescription", "metadescription.toolong");
         }
     }
 }

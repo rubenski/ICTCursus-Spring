@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  */
 public class ProduxValidator {
 
-    private static final String NORMAL_TEXT_PATTERN = "[A-Za-z0-9'!@#*;{}()\\[\\]&\"'?,\\.></ -]";
+    private static final String NORMAL_TEXT_PATTERN = "[A-Za-z0-9'!@#*:;{}()\\[\\]&\"'?,\\.></ -]";
 
     public static boolean isValidEmail(String email) {
         Pattern p = Pattern.compile("([a-zA-Z0-9!#$%&'*+-/=?^_`{}][a-zA-Z0-9!#$%&'*+-/=?^_`{}]{2,50}\\.?)+@([0-9a-zA-Z]+[-\\.]?)+\\.([a-zA-Z]{2,4}[\\.]?)+");
@@ -70,11 +70,11 @@ public class ProduxValidator {
     }
 
     public static boolean isArticleTeaserLongEnough(String articleTeaser) {
-        return articleTeaser == null ? false : articleTeaser.length() > 150;
+        return articleTeaser == null ? false : articleTeaser.length() > 100;
     }
 
     public static boolean isArticleTeaserValid(String articleTeaser) {
-        return isValidNormalText(articleTeaser, 150, 500);
+        return isValidNormalText(articleTeaser, 100, 300);
     }
 
     public static boolean isValidMetaKeywords(String keywords) {
@@ -87,8 +87,9 @@ public class ProduxValidator {
     }
 
     public static boolean isValidMetaDescription(String description) {
-        return isValidNormalText(description, 50, 220);
+        return isValidNormalText(description);
     }
+
 
     public static boolean isValidTradeNumber(String tradeNumber){
         Pattern p = Pattern.compile("[0-9]{8}");

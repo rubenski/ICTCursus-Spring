@@ -69,6 +69,7 @@ public class ArticleController {
             throw new ResourceNotFoundException();
         }
 
+        model.addAttribute("title", articlePage.getTitle() + " - " + properties.getProperty("domain"));
         setData(model, article, articlePage);
 
         return "main";

@@ -28,14 +28,35 @@ CKEDITOR.editorConfig = function(config) {
      { name: 'about' }
      ]; */
 
+
+
     config.toolbar = [
-        { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
+        { name: 'styles', items : [ 'Styles', 'Font'] },
         { name: 'basicstyles', groups: [ 'basicstyles'], items: [ 'Bold', 'Italic'] },
+        { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
         { name: 'paragraph', groups: [ 'list',  'blocks'], items: [ 'NumberedList', 'BulletedList', '-', 'Blockquote' ] },
         { name: 'links', items: [ 'Link', 'Unlink'] },
         { name: 'insert', items: [ 'Image', 'SpecialChar' ] },
         { name: 'tools', items: [ 'Maximize' ] }
+
     ];
+
+    config.font_names =
+        'Arial/Arial, Helvetica, sans-serif;' +
+            'Times New Roman/Times New Roman, Times, serif;' +
+            'Verdana';
+
+    CKEDITOR.stylesSet.add( 'produx_styles', [
+        { name: 'Normaal', element: 'p'},
+        { name: 'Kopje', element: 'h2'},
+        { name: 'Subkopje' , element: 'h3'},
+        { name: 'Code block', element: 'pre', attributes: { 'class': 'code'} },
+        { name: 'Code inline', element: 'span', attributes: { 'style':'font-family: Courier; font-size: 1.2em'} }
+    ]);
+
+
+
+    config.stylesSet = 'produx_styles';
 
 
     // Remove some buttons, provided by the standard plugins, which we don't

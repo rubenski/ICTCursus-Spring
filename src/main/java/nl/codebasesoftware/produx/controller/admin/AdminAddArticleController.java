@@ -64,6 +64,7 @@ public class AdminAddArticleController {
 
         AddArticleFormData formData = new AddArticleFormData();
         formData.setSuggestionId(suggestion.getId());
+        formData.setTitle(suggestion.getSuggestedTitle());
         setAddArticleFormData(model, locale, formData);
 
         return "adminMain";

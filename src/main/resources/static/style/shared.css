@@ -71,4 +71,9 @@ textarea:focus, input:focus, select:focus {
     outline:  none;
 }
 
+.code{
+    font-family: "Courier New";
+    font-size: 1.2em;
+}
+
 

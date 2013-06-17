@@ -9,7 +9,7 @@
         <c:forEach items="${categories}" var="category">
             <li><a href="/${category.urlTitle}">${category.name}</a>
             <c:forEach items="${category.children}" var="subCategory">
-                <li><a href="/c/${subCategory.urlTitle}">${subCategory.name}</a></li>
+                <li><a href="/${subCategory.urlTitle}">${subCategory.name}</a></li>
             </c:forEach>
             </li>
         </c:forEach>

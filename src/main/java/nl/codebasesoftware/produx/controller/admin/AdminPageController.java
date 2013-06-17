@@ -85,8 +85,7 @@ public class AdminPageController {
 
         setHeaderText(locale, model);
         model.addAttribute("valid", valid);
-        model.addAttribute("articlePageFormData", formData);
-        model.addAttribute("mainContent", "forms/articlepage");
+        setFormData(formData, model);
         return "adminMain";
     }
 
@@ -113,6 +112,7 @@ public class AdminPageController {
     private void setFormData(ArticlePageFormData formData, Model model) {
         model.addAttribute("articlePageFormData", formData);
         model.addAttribute("mainContent", "forms/articlepage");
+        model.addAttribute("articleform", true);
     }
 
     @RequestMapping(value = "/admin/articles/page/{pageId}", method = RequestMethod.GET)
@@ -129,6 +129,7 @@ public class AdminPageController {
         model.addAttribute("articlePage", true);
         model.addAttribute("articlePageFormData", formData);
         model.addAttribute("mainContent", "forms/articlepage");
+        model.addAttribute("articleform", true);
         return "adminMain";
     }
 

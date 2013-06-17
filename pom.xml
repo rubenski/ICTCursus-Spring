@@ -6,7 +6,7 @@
     <artifactId>produx</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Produx</name>
+    <name>ictcursus.nl</name>
 
     <properties>
         <spring.version>3.1.1.RELEASE</spring.version>
@@ -16,12 +16,6 @@
         <jettyVersion>6.1.2</jettyVersion>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>apache.org</id>
-            <url>http://repo.maven.apache.org/maven2/</url>
-        </repository>
-    </repositories>
 
     <pluginRepositories>
         <pluginRepository>
@@ -30,9 +24,16 @@
         </pluginRepository>
     </pluginRepositories>
 
+
+    <repositories>
+        <repository>
+            <id>apache.org</id>
+            <url>http://repo.maven.apache.org/maven2/</url>
+        </repository>
+    </repositories>
+
+
     <dependencies>
-
-
         <!-- Spring dependencies -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -253,7 +254,6 @@
             <artifactId>junit</artifactId>
             <version>4.11</version>
         </dependency>
-
 
 
     </dependencies>
