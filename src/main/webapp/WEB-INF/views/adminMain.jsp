@@ -7,11 +7,10 @@
 <head>
     <jsp:include page="components/adminHtmlHeader.jsp"/>
     <title>
-        ICT Cursus admin
+        ICTCursus admin
     </title>
 </head>
 <body>
-
 
 <div id="wrapper">
     <header id="admin-header">
