@@ -49,7 +49,7 @@
     </div>
 </c:forEach>
 
-<h2>Online curussen en artikelen over ${category.name}</h2>
+<h2>Online cursussen en artikelen over ${category.name}</h2>
 
 <c:forEach items="${articles}" var="article">
     <div class="course-list-item">

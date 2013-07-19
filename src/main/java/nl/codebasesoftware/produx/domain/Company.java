@@ -3,6 +3,7 @@ package nl.codebasesoftware.produx.domain;
 import nl.codebasesoftware.produx.formdata.BindableCompany;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,7 +13,7 @@ import java.util.Set;
  * Time: 20:55
  */
 @Entity
-public class Company implements DomainObject {
+public class Company implements DomainObject, Serializable {
 
     private Long id;
     private String email;

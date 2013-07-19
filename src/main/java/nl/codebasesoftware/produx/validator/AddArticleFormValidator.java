@@ -12,12 +12,12 @@ import org.springframework.stereotype.Component;
  */
 @Component (value = "addArticleValidator")
 public class AddArticleFormValidator implements Validator {
-    @Override
+
     public boolean supports(Class<?> aClass) {
         return aClass.isAssignableFrom(AddArticleFormValidator.class);
     }
 
-    @Override
+
     public void validate(Object o, Errors errors) {
         AddArticleFormData formData = (AddArticleFormData) o;
 

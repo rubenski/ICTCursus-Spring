@@ -55,6 +55,7 @@ public class SearchController {
         FacetField regionsFacet = response.getFacetField("regions");
         FacetField incompanyFacet = response.getFacetField("incompany");
         FacetField certificateFacet = response.getFacetField("certificate");
+
         FacetField priceFacet = response.getFacetField("price");
 
         model.addAttribute("categoryFacets", categoryFacet);

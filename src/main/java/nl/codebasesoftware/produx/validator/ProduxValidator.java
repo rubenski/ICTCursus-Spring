@@ -66,7 +66,7 @@ public class ProduxValidator {
     }
 
     public static boolean isValidArticleTitle(String articleTitle) {
-        return isValidNormalText(articleTitle, 8, 50);
+        return isValidNormalText(articleTitle);
     }
 
     public static boolean isArticleTeaserLongEnough(String articleTeaser) {
@@ -74,7 +74,7 @@ public class ProduxValidator {
     }
 
     public static boolean isArticleTeaserValid(String articleTeaser) {
-        return isValidNormalText(articleTeaser, 100, 300);
+        return isValidNormalText(articleTeaser);
     }
 
     public static boolean isValidMetaKeywords(String keywords) {

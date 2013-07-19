@@ -16,6 +16,9 @@ public class ArticlePageFormDataValidator implements Validator {
     private static final int META_DESCRIPTION_MIN_LENGTH = 40;
     private static final int META_DESCRIPTION_MAX_LENGTH = 200;
 
+    private static final int TITLE_MIN_LENGTH = 10;
+    private static final int TITLE_MAX_LENGTH = 60;
+
     @Override
     public boolean supports(Class<?> aClass) {
         return aClass.isAssignableFrom(ArticlePageFormData.class);
@@ -27,6 +30,10 @@ public class ArticlePageFormDataValidator implements Validator {
 
         if (!ProduxValidator.isValidArticleTitle(formData.getTitle())) {
             errors.rejectValue("title", "article.title.error");
+        } else if (ProduxValidator.isShorterThan(formData.getTitle(), TITLE_MIN_LENGTH)) {
+            errors.rejectValue("title", "title.tooshort");
+        } else if (ProduxValidator.isLongerThan(formData.getTitle(), TITLE_MAX_LENGTH)) {
+            errors.reject("title", "title.toolong");
         }
 
         if (!ProduxValidator.isValidMetaKeywords(formData.getMetaKeywords())) {

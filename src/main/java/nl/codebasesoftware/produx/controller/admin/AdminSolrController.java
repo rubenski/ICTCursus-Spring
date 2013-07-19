@@ -65,29 +65,30 @@ public class AdminSolrController {
             e.printStackTrace();
         }
 
-        model.addAttribute("mainContent", "content/managementSolr");
+        model.addAttribute("mainContent", "content/solr");
 
         ModifiableSolrParams solrParams = new ModifiableSolrParams();
 
 
         // Fetch some data from Solr just for testing
-        String query ="cursus";
+        String query ="cursus&facet=on&facet.field=price";
 		solrParams.set("q", query);
 
         String result = "";
+        QueryResponse queryResponse = null;
 
         try {
             // look here for query examples: http://wiki.constellio.com/index.php/Solrj_example`
-            QueryResponse queryResponse = server.query(solrParams);
-
+            queryResponse = server.query(solrParams);
+            /*
             for (SolrDocument solrDocument : queryResponse.getResults()) {
                 result += String.format("%s<br>", solrDocument.getFieldValue("id"));
-            }
+            }  */
         } catch (SolrServerException e) {
             e.printStackTrace();
         }
 
-        model.addAttribute("result", result);
+        model.addAttribute("result", queryResponse.getResults());
 
         return "adminMain";
 

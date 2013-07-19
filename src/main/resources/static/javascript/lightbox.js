@@ -11,7 +11,7 @@ $(document).ready(function() {
                 url: "/admin/highlightcourses/" + category,
                 cache: false
             }).done(function(html) {
-                    $(html).hide().appendTo($("body")).fadeIn(600);
+                    $(html).hide().appendTo($("body")).fadeIn(400);
                 });
         }
     });

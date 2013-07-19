@@ -1,4 +1,3 @@
-
 body {
     font-size: 0.80em;
     font-family: Arial;
@@ -72,17 +71,37 @@ body {
     overflow: auto;
 }
 
-#main #innermain ul li {
-    background: url('/static/img/list-bullet.gif') no-repeat left;
-    list-style-type: none;
-    padding: 2px 0px 2px 18px;
+#main #innermain ul {
+    padding: 10px 0px 10px 20px;
+    margin: 0;
 }
 
-#main #innermain ul li li {
-    background: url('/static/img/list-bullet.gif') no-repeat left;
-    list-style-type: none;
-    padding: 2px 0px 2px 18px;
+#main #innermain ol {
+    padding: 10px 0px 10px 20px;
+    margin: 0;
 }
+
+#main #innermain ol li {
+    padding: 4px 0px 4px 0px;
+    list-style-type: square;
+}
+
+
+#main #innermain ul li {
+    padding: 4px 0px 4px 0px;
+    list-style-type: square;
+}
+
+#main #innermain #left ul {
+    padding: 10px 0px 10px 10px;
+    margin: 0;
+}
+
+#main #innermain #left ul li {
+    padding: 2px 0px 2px 0px;
+    list-style-type: circle;
+}
+
 
 #main a {
     color: #ee4141;
@@ -143,7 +162,7 @@ body {
     padding: 10px;
     position: relative;
     margin-bottom: 5px;
-    border-bottom:  1px solid #9c9b9b;
+    border-bottom: 1px solid #9c9b9b;
 }
 
 #main #innermain #maincontent .course-list-item p {
@@ -177,7 +196,6 @@ body {
     width: 475px;
 }
 
-
 #main #innermain #maincontent .course-list-item .logo img {
     position: absolute;
     top: 0;
@@ -193,7 +211,7 @@ body {
 
 div.pretty {
     margin-top: 15px;
-    padding:  15px;
+    padding: 15px;
     background-color: #eaeaea;
     text-align: left;
     -moz-border-radius: 5px;
@@ -201,18 +219,15 @@ div.pretty {
     border-radius: 5px;
 }
 
-
 .prettymain {
     margin-bottom: 30px;
-    padding:  20px 20px 10px 20px;
+    padding: 20px 20px 10px 20px;
     background-color: #fdfdfd;
     text-align: left;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
 }
-
-
 
 div.pretty table {
     text-align: left;
@@ -221,16 +236,16 @@ div.pretty table {
 
 div.pretty table tr {
     font-size: 0.80em;
-    border-bottom:  1px solid white;
+    border-bottom: 1px solid white;
 }
 
 div.pretty table tr td {
-    padding:  6px 2px 6px 2px;
+    padding: 6px 2px 6px 2px;
     background-color: #ffffff;
 }
 
 div.pretty table tr th {
-    padding:  6px 2px 6px 2px;
+    padding: 6px 2px 6px 2px;
 }
 
 div.pretty h2 {
