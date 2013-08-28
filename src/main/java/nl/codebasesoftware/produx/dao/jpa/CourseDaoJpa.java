@@ -63,7 +63,7 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
     public Course findFull(Long id) {
         Query query = entityManager.createQuery("select distinct c from Course c " +
                 "join fetch c.company " +
-                "join fetch c.regions " +
+                "left join fetch c.regions " +
                 "left join fetch c.tags " +
                 "left join fetch c.category " +
                 "left join fetch c.times " +

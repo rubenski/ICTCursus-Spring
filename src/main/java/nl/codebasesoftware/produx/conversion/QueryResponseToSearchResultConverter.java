@@ -1,9 +1,10 @@
 package nl.codebasesoftware.produx.conversion;
 
-import nl.codebasesoftware.produx.domain.dto.entity.ListingCourseDTO;
+import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 import nl.codebasesoftware.produx.search.ProduxFacetField;
 import nl.codebasesoftware.produx.search.SearchResult;
 import nl.codebasesoftware.produx.service.CourseService;
+import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.response.*;
 import org.apache.solr.common.SolrDocument;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ import java.util.List;
  */
 
 public class QueryResponseToSearchResultConverter {
+
+    private static final Logger LOG = Logger.getLogger(QueryResponseToSearchResultConverter.class);
 
     private CourseService courseService;
 
@@ -43,9 +46,12 @@ public class QueryResponseToSearchResultConverter {
     private void addCourses(QueryResponse queryResponse, SearchResult.Builder builder) {
         List<Long> ids = new ArrayList<>();
         for (SolrDocument course : queryResponse.getResults()) {
-            ids.add((Long) course.getFieldValue("course_id"));
+            ids.add(Long.parseLong((String)course.getFieldValue("course_id")));
+            String shortdescription = (String) course.getFieldValue("shortdescription");
+            LOG.debug(shortdescription);
         }
 
+        // TODO: Rebuild this to NOT query the database, but use stored solr fields instead
         List<ListingCourseDTO> listingCourses = courseService.findForListing(ids);
         builder.setCourses(listingCourses);
     }

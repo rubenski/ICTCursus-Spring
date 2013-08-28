@@ -40,8 +40,20 @@ public class CategoryEntityDTO extends DomainEntityDTO {
         this.urlTitle = urlTitle;
     }
 
-    public String getSolrName(){
-        return String.format("%s%s%s", urlTitle, SOLR_NAME_SEPARATOR, name);
+    public String getSolrValue(){
+        return String.format("%d%s%s%s%s", id, SOLR_NAME_SEPARATOR, urlTitle, SOLR_NAME_SEPARATOR, name);
+    }
+
+    public static CategoryEntityDTO fromSolrValue(String solrValue){
+        String[] strings = solrValue.split(SOLR_NAME_SEPARATOR);
+        long id = Long.parseLong(strings[0]);
+        String urlTitle = strings[1];
+        String name = strings[2];
+        CategoryEntityDTO dto = new CategoryEntityDTO();
+        dto.setId(id);
+        dto.setName(name);
+        dto.setUrlTitle(urlTitle);
+        return dto;
     }
 
 }

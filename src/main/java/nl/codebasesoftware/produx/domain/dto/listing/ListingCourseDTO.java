@@ -1,4 +1,6 @@
-package nl.codebasesoftware.produx.domain.dto.entity;
+package nl.codebasesoftware.produx.domain.dto.listing;
+
+import nl.codebasesoftware.produx.domain.dto.entity.*;
 
 import java.util.*;
 
@@ -14,10 +16,9 @@ public class ListingCourseDTO extends DomainEntityDTO {
     private Long id;
     private String name;
     private String listDescription;
-    private CompanyEntityDTO company;
+    private ListingCompanyDTO company;
     private CategoryEntityDTO category;
-    private List<TagEntityDTO> tags = new ArrayList<>();
-    private List<RegionEntityDTO> regions = new ArrayList<>();
+
 
     @Override
     public Long getId() {
@@ -44,11 +45,11 @@ public class ListingCourseDTO extends DomainEntityDTO {
         this.listDescription = listDescription;
     }
 
-    public CompanyEntityDTO getCompany() {
+    public ListingCompanyDTO getCompany() {
         return company;
     }
 
-    public void setCompany(CompanyEntityDTO company) {
+    public void setCompany(ListingCompanyDTO company) {
         this.company = company;
     }
 
@@ -60,19 +61,4 @@ public class ListingCourseDTO extends DomainEntityDTO {
         this.category = category;
     }
 
-    public List<TagEntityDTO> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<TagEntityDTO> tags) {
-        this.tags = tags;
-    }
-
-    public List<RegionEntityDTO> getRegions() {
-        return regions;
-    }
-
-    public void setRegions(List<RegionEntityDTO> regions) {
-        this.regions = regions;
-    }
 }

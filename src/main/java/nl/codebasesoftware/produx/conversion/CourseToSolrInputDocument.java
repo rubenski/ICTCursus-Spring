@@ -21,10 +21,11 @@ public class CourseToSolrInputDocument implements Converter<CourseEntityDTO, Sol
         solrInputDocument.addField("name", course.getName());
         solrInputDocument.addField("longdescription", course.getLongDescription());
         solrInputDocument.addField("shortdescription", course.getListDescription());
-        // TODO: remove certificateText queryitems from schema.xml. This queryitems has been removed
         solrInputDocument.addField("price", course.getPrice());
-        solrInputDocument.addField("category", course.getCategory().getSolrName());
-        solrInputDocument.addField("company", course.getCompany().getName());
+        solrInputDocument.addField("category", course.getCategory().getSolrValue());
+        solrInputDocument.addField("company_name", course.getCompany().getName());
+        solrInputDocument.addField("company_id", course.getCompany().getId());
+        solrInputDocument.addField("company_logo", course.getCompany().getSmallLogo());
         solrInputDocument.addField("regions", course.getRegionNames());
         solrInputDocument.addField("region_ids", course.getRegionIds());
         solrInputDocument.addField("tags", course.getTagNames());

@@ -1,7 +1,7 @@
 package nl.codebasesoftware.produx.controller;
 
 
-import nl.codebasesoftware.produx.domain.dto.entity.ListingCourseDTO;
+import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.service.SearchService;
 import org.apache.solr.client.solrj.response.FacetField;

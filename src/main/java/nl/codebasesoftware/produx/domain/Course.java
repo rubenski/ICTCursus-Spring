@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.domain;
 
 import nl.codebasesoftware.produx.domain.dto.entity.*;
 import nl.codebasesoftware.produx.domain.dto.entity.TagEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 import nl.codebasesoftware.produx.service.business.CourseUrl;
 import org.springframework.beans.factory.annotation.Configurable;
 
@@ -304,15 +305,11 @@ public class Course implements DomainEntity {
     @Transient
     public ListingCourseDTO toListingCourseDTO() {
         ListingCourseDTO listingCourse = new ListingCourseDTO();
-
         listingCourse.setId(id);
         listingCourse.setName(name);
         listingCourse.setCategory(category.toDTO());
-        listingCourse.setCompany(company.toDTO());
+        listingCourse.setCompany(company.toListingCompanyDTO());
         listingCourse.setListDescription(listDescription);
-        listingCourse.setRegions(getRegionsAsDTOs());
-        listingCourse.setTags(getTagsAsDTOs());
-
         return listingCourse;
     }
 

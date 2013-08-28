@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.Course;
+import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 import nl.codebasesoftware.produx.search.solrquery.SolrQuery;
 import nl.codebasesoftware.produx.search.solrquery.queryitems.FacetFieldParameter;
 import nl.codebasesoftware.produx.search.solrquery.queryitems.FacetFieldRangeParameter;
@@ -60,9 +61,9 @@ public class AdminSolrController {
     public String updateSolr(Model model) {
 
         List<SolrInputDocument> solrDocuments = new ArrayList<SolrInputDocument>();
-        List<Course> indexableCourses = courseService.findIndexableCourses();
+        List<CourseEntityDTO> indexableCourses = courseService.findIndexableCourses();
 
-        for (Course indexableCourse : indexableCourses) {
+        for (CourseEntityDTO indexableCourse : indexableCourses) {
             SolrInputDocument solrInputDocument = conversionService.convert(indexableCourse, SolrInputDocument.class);
             solrDocuments.add(solrInputDocument);
         }

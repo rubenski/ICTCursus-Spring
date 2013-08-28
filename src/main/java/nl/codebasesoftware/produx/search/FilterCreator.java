@@ -22,7 +22,7 @@ public class FilterCreator {
         if(criteria.getCategories().size() > 0){
             List<String> names = new ArrayList<>();
             for (CategoryEntityDTO category : criteria.getCategories()) {
-                names.add(category.getSolrName());
+                names.add(category.getSolrValue());
             }
             param += createMultiValueFilter(names, "category");
         }
@@ -55,7 +55,7 @@ public class FilterCreator {
         for (int i = 0; i < size; i++) {
             valueString += (i != 0 && i != size - 1 ? " OR " : "") + values.get(i);
         }
-        String filter = String.format("%s:(%s)", fieldName, valueString);
+        String filter = String.format("%s:(\"%s\")", fieldName, valueString);
 
         return filter;
     }

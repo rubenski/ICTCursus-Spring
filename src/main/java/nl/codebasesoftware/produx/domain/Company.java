@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.domain;
 
 import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.listing.ListingCompanyDTO;
 import nl.codebasesoftware.produx.formdata.BindableCompany;
 
 import javax.persistence.*;
@@ -235,6 +236,10 @@ public class Company implements DomainEntity, Serializable {
     @Override
     public int hashCode() {
         return id.hashCode();
+    }
+
+    public ListingCompanyDTO toListingCompanyDTO(){
+        return new ListingCompanyDTO(id, name);
     }
 
     public CompanyEntityDTO toDTO() {

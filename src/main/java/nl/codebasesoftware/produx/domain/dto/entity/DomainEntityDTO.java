@@ -19,6 +19,6 @@ public abstract class DomainEntityDTO {
         return IdHashCode.hashCode(this);
     }
 
-    abstract Long getId();
+    protected abstract Long getId();
 }
 

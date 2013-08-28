@@ -1,6 +1,6 @@
 package nl.codebasesoftware.produx.search;
 
-import nl.codebasesoftware.produx.domain.dto.entity.ListingCourseDTO;
+import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 
 import java.util.ArrayList;
 import java.util.Collection;

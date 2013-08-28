@@ -5,7 +5,8 @@ import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.Time;
-import nl.codebasesoftware.produx.domain.dto.entity.ListingCourseDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
 import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.service.SystemPropertyService;
@@ -110,13 +111,13 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Course> findIndexableCourses() {
+    public List<CourseEntityDTO> findIndexableCourses() {
         Calendar calendar = systemPropertyService.lastSolrUpdateDate();
         List<Long> indexableCourseIds = courseDao.findIndexableCourseIds(calendar);
-        List<Course> indexableCourses = new ArrayList<Course>();
+        List<CourseEntityDTO> indexableCourses = new ArrayList<>();
         for (Long indexableCourseId : indexableCourseIds) {
             Course course = courseDao.findFull(indexableCourseId);
-            indexableCourses.add(course);
+            indexableCourses.add(course.toDTO());
         }
 
         return indexableCourses;
