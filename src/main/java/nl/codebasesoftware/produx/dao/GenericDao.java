@@ -1,10 +1,10 @@
 package nl.codebasesoftware.produx.dao;
 
-import nl.codebasesoftware.produx.domain.DomainObject;
+import nl.codebasesoftware.produx.domain.DomainEntity;
 
 import java.util.List;
 
-public interface GenericDao<T extends DomainObject> {
+public interface GenericDao<T extends DomainEntity> {
 	public T find(Long id);
 	public List<T> findAll();
 	public void persist(T object);

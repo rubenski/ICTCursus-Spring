@@ -1,9 +1,8 @@
 package nl.codebasesoftware.produx.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import nl.codebasesoftware.produx.domain.dto.entity.TimeEntityDTO;
+
+import javax.persistence.*;
 
 /**
  * User: rvanloen
@@ -11,7 +10,7 @@ import javax.persistence.Id;
  * Time: 19:50
  */
 @Entity
-public class Time implements DomainObject {
+public class Time implements DomainEntity {
 
     private Long id;
     private String name;
@@ -43,5 +42,15 @@ public class Time implements DomainObject {
 
     public void setDisplayRank(int displayRank) {
         this.displayRank = displayRank;
+    }
+
+    @Override
+    @Transient
+    public TimeEntityDTO toDTO(){
+        TimeEntityDTO dto = new TimeEntityDTO();
+        dto.setName(name);
+        dto.setId(id);
+        dto.setDisplayRank(displayRank);
+        return dto;
     }
 }

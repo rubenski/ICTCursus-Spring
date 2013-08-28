@@ -1,5 +1,8 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.domain.dto.entity.RegionEntityDTO;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,7 +13,7 @@ import javax.persistence.Id;
  * Time: 21:23
  */
 @Entity
-public class Region implements DomainObject {
+public class Region implements DomainEntity {
 
     private Long id;
     private String name;
@@ -26,6 +29,7 @@ public class Region implements DomainObject {
         this.id = id;
     }
 
+    @Column(unique = true)
     public String getName() {
         return name;
     }
@@ -37,5 +41,12 @@ public class Region implements DomainObject {
     @Override
     public String toString() {
         return name;
+    }
+
+    public RegionEntityDTO toDTO(){
+        RegionEntityDTO regionEntityDTO = new RegionEntityDTO();
+        regionEntityDTO.setId(id);
+        regionEntityDTO.setName(name);
+        return regionEntityDTO;
     }
 }

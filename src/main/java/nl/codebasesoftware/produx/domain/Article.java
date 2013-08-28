@@ -1,11 +1,11 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.ArticlePageEntityDTO;
 import nl.codebasesoftware.produx.service.business.ArticleUrl;
 
 import javax.persistence.*;
-import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * User: rvanloen
@@ -13,7 +13,7 @@ import java.util.Set;
  * Time: 23:27
  */
 @Entity
-public class Article implements DomainObject {
+public class Article implements DomainEntity {
 
     private Long id;
     private String teaser;
@@ -25,6 +25,7 @@ public class Article implements DomainObject {
     private UserProfile author;
     private String text;
     private Category category;
+
 
     @Override
     @Id
@@ -112,6 +113,7 @@ public class Article implements DomainObject {
     }
 
     @Lob
+    @Column(name = "page_text")
     public String getText() {
         return text;
     }
@@ -145,5 +147,31 @@ public class Article implements DomainObject {
         }
 
         return null;
+    }
+
+    @Override
+    @Transient
+    public ArticleEntityDTO toDTO() {
+        ArticleEntityDTO dto = new ArticleEntityDTO();
+        dto.setAuthor(author);
+        dto.setCategory(category.toDTO());
+        dto.setCreationDate(creationDate);
+        dto.setFirstPublicationDate(firstPublicationDate);
+        dto.setId(id);
+        dto.setPages(getPagesAsDTOs());
+        dto.setPublished(published);
+        dto.setTitle(title);
+        dto.setText(text);
+        dto.setTeaser(teaser);
+        return dto;
+    }
+
+    @Transient
+    private List<ArticlePageEntityDTO> getPagesAsDTOs(){
+        List<ArticlePageEntityDTO> pageDTOs = new ArrayList<>();
+        for (ArticlePage page : pages) {
+            pageDTOs.add(page.toDTO());
+        }
+        return pageDTOs;
     }
 }

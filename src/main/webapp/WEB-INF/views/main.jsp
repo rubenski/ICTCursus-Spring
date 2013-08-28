@@ -7,10 +7,11 @@
 <html lang="nl" class="no-js">
 <head>
     <meta charset="utf-8"/>
-    <link href="/static/style/shared.css" rel="stylesheet">
-    <link href="/static/style/style.css" rel="stylesheet">
 
-    <c:if test="${showLightboxLink or includeCourseJs}">
+    <link href="/static/style/shared.css" rel="stylesheet"/>
+    <link href="/static/style/style.css" rel="stylesheet"/>
+
+    <c:if test="${showLightboxLink or includeCourseJs or includeHighlighter}">
         <script type="text/javascript" src="/static/javascript/jquery-1.8.3.min.js"></script>
     </c:if>
     <c:if test="${includeCourseJs}">
@@ -18,6 +19,16 @@
     </c:if>
     <c:if test="${showLightboxLink}">
         <script type="text/javascript" src="/static/javascript/lightbox.js"></script>
+    </c:if>
+    <c:if test="${includeHighlighter}">
+        <link rel="stylesheet" href="/static/libs/highlight.js/styles/idea.css">
+        <script src="/static/libs/highlight.js/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            $(document).ready(function() {
+                $('pre').each(function(i, e) {hljs.highlightBlock(e)});
+            });
+        </script>
     </c:if>
 
     <title>
@@ -57,7 +68,7 @@
 <div id="main">
     <div id="innermain">
         <jsp:include page="left.jsp"/>
-        <div id="maincontent">
+        <div id="maincontent" class="whitebox">
             <jsp:include page="${mainContent}.jsp"/>
         </div>
         <jsp:include page="${rightColumn}.jsp"/>

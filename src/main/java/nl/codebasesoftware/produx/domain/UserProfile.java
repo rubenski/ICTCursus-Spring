@@ -1,5 +1,7 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.domain.dto.entity.RoleEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.domain.optionlists.RoleName;
 import nl.codebasesoftware.produx.spring.authentication.ProduxAuthority;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,7 +11,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-public class UserProfile implements DomainObject, UserDetails {
+public class UserProfile implements DomainEntity, UserDetails {
 
     private Long id;
     private String email;
@@ -221,4 +223,32 @@ public class UserProfile implements DomainObject, UserDetails {
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
     }
+
+    @Override
+    @Transient
+    public UserProfileEntityDTO toDTO() {
+        UserProfileEntityDTO dto = new UserProfileEntityDTO();
+        dto.setId(id);
+        dto.setEmail(email);
+        dto.setCompany(company.toDTO());
+        dto.setEnabled(enabled);
+        dto.setFirstName(firstName);
+        dto.setLastName(lastName);
+        dto.setPasswordHash(passwordHash);
+        dto.setPhone(phone);
+        dto.setPreposition(preposition);
+        dto.setRoles(getRolesAsDTOs());
+        return dto;
+    }
+
+    @Transient
+    public List<RoleEntityDTO> getRolesAsDTOs() {
+        List<RoleEntityDTO> roleDTOs = new ArrayList<>();
+        for (Role role : roles) {
+            roleDTOs.add(role.toDTO());
+        }
+        return roleDTOs;
+    }
+
+
 }

@@ -1,6 +1,6 @@
 package nl.codebasesoftware.produx.domain;
 
-import nl.codebasesoftware.produx.domain.dto.TagDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.TagEntityDTO;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -11,7 +11,7 @@ import java.util.Set;
  * Time: 10:58
  */
 @Entity
-public class Tag implements DomainObject {
+public class Tag implements DomainEntity {
 
     private Long id;
     private String name;
@@ -48,10 +48,10 @@ public class Tag implements DomainObject {
     }
 
     @Transient
-    public TagDTO toDTO(){
-        TagDTO tagDTO = new TagDTO();
-        tagDTO.setId(id);
-        tagDTO.setName(name);
-        return tagDTO;
+    public TagEntityDTO toDTO(){
+        TagEntityDTO tagEntityDTO = new TagEntityDTO();
+        tagEntityDTO.setId(id);
+        tagEntityDTO.setName(name);
+        return tagEntityDTO;
     }
 }

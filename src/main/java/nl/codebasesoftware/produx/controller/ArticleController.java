@@ -92,6 +92,7 @@ public class ArticleController {
         model.addAttribute("article", article);
         model.addAttribute("mainContent", "content/article");
         model.addAttribute("articleNav", article.getPages().size() > 0);
+        model.addAttribute("includeHighlighter", true);
     }
 
 

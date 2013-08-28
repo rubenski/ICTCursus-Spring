@@ -50,7 +50,7 @@ CKEDITOR.editorConfig = function(config) {
         { name: 'Normaal', element: 'p'},
         { name: 'Kopje', element: 'h2'},
         { name: 'Subkopje' , element: 'h3'},
-        { name: 'Code block', element: 'pre', attributes: { 'class': 'code'} },
+        { name: 'Code block', element: 'pre' },
         { name: 'Code inline', element: 'span', attributes: { 'style':'font-family: Courier; font-size: 1.2em'} }
     ]);
 

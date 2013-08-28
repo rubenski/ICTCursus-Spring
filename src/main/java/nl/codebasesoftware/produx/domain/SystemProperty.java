@@ -1,5 +1,7 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.domain.dto.entity.SystemPropertyEntityDTO;
+
 import javax.persistence.*;
 
 /**
@@ -8,7 +10,7 @@ import javax.persistence.*;
  * Time: 21:28
  */
 @Entity
-public class SystemProperty implements DomainObject{
+public class SystemProperty implements DomainEntity {
 
     private Long id;
     private String key;
@@ -43,5 +45,14 @@ public class SystemProperty implements DomainObject{
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    @Override
+    public SystemPropertyEntityDTO toDTO() {
+        SystemPropertyEntityDTO dto = new SystemPropertyEntityDTO();
+        dto.setId(id);
+        dto.setKey(key);
+        dto.setValue(value);
+        return dto;
     }
 }

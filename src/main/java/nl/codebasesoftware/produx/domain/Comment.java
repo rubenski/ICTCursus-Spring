@@ -1,5 +1,8 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.domain.dto.entity.CommentEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -9,7 +12,7 @@ import java.util.Date;
  * Time: 21:32
  */
 @Entity
-public class Comment implements DomainObject {
+public class Comment implements DomainEntity {
 
     private Long id;
     private String commentText;
@@ -69,5 +72,18 @@ public class Comment implements DomainObject {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    @Override
+    @Transient
+    public CommentEntityDTO toDTO(){
+        CommentEntityDTO dto = new CommentEntityDTO();
+        dto.setId(id);
+        dto.setName(name);
+        dto.setEmail(email);
+        dto.setCommentText(commentText);
+        dto.setCourse(course.toDTO());
+        dto.setDate(date);
+        return dto;
     }
 }

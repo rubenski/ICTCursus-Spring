@@ -1,5 +1,8 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.domain.dto.entity.AccountRequestEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.DomainEntityDTO;
+
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -10,7 +13,7 @@ import java.util.Calendar;
  * Time: 16:25
  */
 @Entity
-public class AccountRequest implements DomainObject {
+public class AccountRequest implements DomainEntity {
 
     private Long id;
 
@@ -213,6 +216,33 @@ public class AccountRequest implements DomainObject {
 
     public void setAdminMessage(String adminMessage) {
         this.adminMessage = adminMessage;
+    }
+
+    @Override
+    @Transient
+    public AccountRequestEntityDTO toDTO() {
+        AccountRequestEntityDTO dto = new AccountRequestEntityDTO();
+        dto.setId(id);
+        dto.setAdminMessage(adminMessage);
+        dto.setCompanyAddress(companyAddress);
+        dto.setCompanyCity(companyCity);
+        dto.setCompanyEmail(companyEmail);
+        dto.setCompanyName(companyName);
+        dto.setCompanyPhone(companyPhone);
+        dto.setCompanyZipCode(companyZipCode);
+        dto.setCountry(country);
+        dto.setEmail(email);
+        dto.setEvaluated(evaluated);
+        dto.setFirstName(firstName);
+        dto.setLastName(lastName);
+        dto.setPhone(phone);
+        dto.setGranted(granted);
+        dto.setPreposition(preposition);
+        dto.setRequestDate(requestDate);
+        dto.setTradeNumber(tradeNumber);
+        dto.setUserMessage(userMessage);
+        dto.setVatNumber(vatNumber);
+        return dto;
     }
 
     @Transient

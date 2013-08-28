@@ -1,5 +1,7 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.domain.dto.entity.CourseDateEntityDTO;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,7 +14,7 @@ import java.util.Calendar;
  * Time: 18:27
  */
 @Entity
-public class CourseDate implements DomainObject {
+public class CourseDate implements DomainEntity {
 
     private Long id;
     private Calendar startDate;
@@ -45,4 +47,13 @@ public class CourseDate implements DomainObject {
     public void setCourse(Course course) {
         this.course = course;
     }
+
+    public CourseDateEntityDTO toDTO(){
+        CourseDateEntityDTO dto = new CourseDateEntityDTO();
+        dto.setId(id);
+        dto.setStartDate(startDate);
+        return dto;
+    }
+
+
 }

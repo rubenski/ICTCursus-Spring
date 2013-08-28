@@ -1,5 +1,8 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.DomainEntityDTO;
+
 import javax.persistence.*;
 import java.util.Calendar;
 
@@ -9,7 +12,7 @@ import java.util.Calendar;
  * Time: 16:45
  */
 @Entity
-public class CourseRequest implements DomainObject {
+public class CourseRequest implements DomainEntity {
 
     private Long id;
     private int prefix;
@@ -113,5 +116,23 @@ public class CourseRequest implements DomainObject {
 
     public void setInvalid(boolean invalid) {
         this.invalid = invalid;
+    }
+
+    @Override
+    @Transient
+    public CourseRequestEntityDTO toDTO() {
+        CourseRequestEntityDTO dto = new CourseRequestEntityDTO();
+        dto.setId(id);
+        dto.setRequesterName(requesterName);
+        dto.setPrefix(prefix);
+        dto.setCourse(course.toDTO());
+        dto.setCourseName(courseName);
+        dto.setCreated(created);
+        dto.setEmail(email);
+        dto.setInvalid(invalid);
+        dto.setMessage(message);
+        dto.setNumberOfParticipants(numberOfParticipants);
+        dto.setInvalid(invalid);
+        return dto;
     }
 }

@@ -1,5 +1,6 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.domain.dto.entity.RightEntityDTO;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "Right")
-public class Right implements DomainObject, GrantedAuthority {
+public class Right implements DomainEntity, GrantedAuthority {
 
     private Long id;
     private String name;
@@ -40,5 +41,14 @@ public class Right implements DomainObject, GrantedAuthority {
     @Transient
     public String getAuthority() {
         return name;
+    }
+
+    @Override
+    @Transient
+    public RightEntityDTO toDTO() {
+        RightEntityDTO dto = new RightEntityDTO();
+        dto.setId(id);
+        dto.setName(name);
+        return dto;
     }
 }

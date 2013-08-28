@@ -13,4 +13,8 @@ public class ProduxServiceException extends Exception {
     public ProduxServiceException(String message) {
         super(message);
     }
+
+    public ProduxServiceException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

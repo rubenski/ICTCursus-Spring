@@ -1,5 +1,7 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.domain.dto.entity.ArticleSuggestionEntityDTO;
+
 import javax.persistence.*;
 import java.util.Calendar;
 
@@ -9,7 +11,7 @@ import java.util.Calendar;
  * Time: 21:52
  */
 @Entity
-public class ArticleSuggestion implements DomainObject {
+public class ArticleSuggestion implements DomainEntity {
 
     private Long id;
     private String suggestedTitle;
@@ -102,4 +104,18 @@ public class ArticleSuggestion implements DomainObject {
         return article != null;
     }
 
+    @Transient
+    @Override
+    public ArticleSuggestionEntityDTO toDTO() {
+        ArticleSuggestionEntityDTO dto = new ArticleSuggestionEntityDTO();
+        dto.setApproved(approved);
+        dto.setArticle(article.toDTO());
+        dto.setCreated(created);
+        dto.setEmail(email);
+        dto.setId(id);
+        dto.setSuggestedTitle(suggestedTitle);
+        dto.setSuggestionText(suggestionText);
+        dto.setSuggester(suggester.toDTO());
+        return dto;
+    }
 }

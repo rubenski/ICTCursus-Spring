@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.service;
 
 import nl.codebasesoftware.produx.domain.*;
+import nl.codebasesoftware.produx.domain.dto.entity.ListingCourseDTO;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public interface CourseService {
 
     List<Course> findIndexableCourses();
 
-    List<Course> findBasic(List<Long> ids);
+    List<ListingCourseDTO> findForListing(List<Long> ids);
 
     List<Time> findCourseTimes();
 

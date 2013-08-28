@@ -22,6 +22,7 @@
         <form:errors path="published" cssClass="form-error"/>
     </div>
 
+
     <div class="default-block">
         <form:label path="title"><spring:message code="article.form.title"/></form:label>
         <form:input path="title" cssClass="form-input" cssErrorClass="form-input-error" size="50" maxlength="100"/>

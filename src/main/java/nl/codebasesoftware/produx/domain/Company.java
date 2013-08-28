@@ -1,5 +1,6 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.formdata.BindableCompany;
 
 import javax.persistence.*;
@@ -13,7 +14,7 @@ import java.util.Set;
  * Time: 20:55
  */
 @Entity
-public class Company implements DomainObject, Serializable {
+public class Company implements DomainEntity, Serializable {
 
     private Long id;
     private String email;
@@ -234,5 +235,26 @@ public class Company implements DomainObject, Serializable {
     @Override
     public int hashCode() {
         return id.hashCode();
+    }
+
+    public CompanyEntityDTO toDTO() {
+        CompanyEntityDTO companyDTO = new CompanyEntityDTO();
+        companyDTO.setName(name);
+        companyDTO.setAddress(address);
+        companyDTO.setAllCoursesDeactivated(allCoursesDeactivated);
+        companyDTO.setBudgetTriggerAmount(budgetTriggerAmount);
+        companyDTO.setCity(city);
+        companyDTO.setCountry(country);
+        companyDTO.setCourseRequestEmailAddress(courseRequestEmailAddress);
+        companyDTO.setDescription(description);
+        companyDTO.setEmail(email);
+        companyDTO.setId(id);
+        companyDTO.setNormalLogo(normalLogo);
+        companyDTO.setSmallLogo(smallLogo);
+        companyDTO.setTradeNumber(tradeNumber);
+        companyDTO.setPhone(phone);
+        companyDTO.setVatNumber(vatNumber);
+        companyDTO.setZipCode(zipCode);
+        return companyDTO;
     }
 }

@@ -1,7 +1,7 @@
 package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.Tag;
-import nl.codebasesoftware.produx.domain.dto.TagDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.TagEntityDTO;
 import nl.codebasesoftware.produx.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,17 +28,18 @@ public class AdminTagController {
     }
 
     @RequestMapping(value= "/tag/search/{tagName}")
-    public @ResponseBody List<TagDTO> search(@PathVariable String tagName){
+    public @ResponseBody List<TagEntityDTO> search(@PathVariable String tagName){
         List<Tag> tags = tagService.findBySubString(tagName);
-        List<TagDTO> tagDTOs = new ArrayList<TagDTO>();
+        List<TagEntityDTO> tagEntityDTOs = new ArrayList<TagEntityDTO>();
         for (Tag tag : tags) {
-            tagDTOs.add(tag.toDTO());
+            tagEntityDTOs.add(tag.toDTO());
         }
-        return tagDTOs;
+        return tagEntityDTOs;
     }
 
     @RequestMapping(value= "/tag/byname/{tagName}")
-    public @ResponseBody TagDTO byName(@PathVariable String tagName){
+    public @ResponseBody
+    TagEntityDTO byName(@PathVariable String tagName){
         Tag tag = tagService.findByName(tagName);
         return tag == null ? null : tag.toDTO();
     }

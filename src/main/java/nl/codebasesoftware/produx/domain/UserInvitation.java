@@ -1,7 +1,12 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.domain.dto.entity.RoleEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.UserInvitationEntityDTO;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -10,7 +15,7 @@ import java.util.Set;
  * Time: 21:41
  */
 @Entity
-public class UserInvitation implements DomainObject {
+public class UserInvitation implements DomainEntity {
 
     private Long id;
     private String firstName;
@@ -128,5 +133,33 @@ public class UserInvitation implements DomainObject {
     @Transient
     public String getFullNameFormal(){
         return preposition != null ? String.format("%s, %s  %s", lastName, firstName, preposition) : String.format("%s, %s", lastName, firstName);
+    }
+
+    @Override
+    @Transient
+    public UserInvitationEntityDTO toDTO(){
+        UserInvitationEntityDTO dto = new UserInvitationEntityDTO();
+        dto.setActivated(activated);
+        dto.setCompany(company.toDTO());
+        dto.setCreationDate(creationDate);
+        dto.setEmail(email);
+        dto.setFirstName(firstName);
+        dto.setFirstName(firstName);
+        dto.setId(id);
+        dto.setInvitedBy(invitedBy.toDTO());
+        dto.setLastName(lastName);
+        dto.setPreposition(preposition);
+        dto.setRoles(getRolesAsDTOs());
+        dto.setSecurityCode(securityCode);
+        return dto;
+    }
+
+    @Transient
+    private List<RoleEntityDTO> getRolesAsDTOs(){
+        List<RoleEntityDTO> roleDTOs  = new ArrayList<>();
+        for (Role role : roles) {
+            roleDTOs.add(role.toDTO());
+        }
+        return roleDTOs;
     }
 }

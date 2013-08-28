@@ -1,8 +1,14 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.domain.dto.entity.DomainEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.InvoiceEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.InvoiceRecordEntityDTO;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -10,7 +16,7 @@ import java.util.Set;
  * Date: 20-5-13
  * Time: 23:31
  */
-public class Invoice implements DomainObject {
+public class Invoice implements DomainEntity {
 
     private Long id;
     private Calendar dateCreated;
@@ -51,4 +57,15 @@ public class Invoice implements DomainObject {
     public void setRecords(Set<InvoiceRecord> records) {
         this.records = records;
     }
+
+    @Transient
+    @Override
+    public InvoiceEntityDTO toDTO(){
+        InvoiceEntityDTO dto = new InvoiceEntityDTO();
+        dto.setId(id);
+        dto.setCompany(company.toDTO());
+        dto.setDateCreated(dateCreated);
+        return dto;
+    }
+
 }

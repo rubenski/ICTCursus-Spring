@@ -5,7 +5,7 @@
 
 <h1><spring:message code="generic.userMessage.login"/></h1>
 
-<div class="prettymain">
+<div class="whitebox">
 
 
     <c:if test="${param.error == 'true'}">

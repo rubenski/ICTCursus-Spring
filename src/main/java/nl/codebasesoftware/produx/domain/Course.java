@@ -1,5 +1,7 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.domain.dto.entity.*;
+import nl.codebasesoftware.produx.domain.dto.entity.TagEntityDTO;
 import nl.codebasesoftware.produx.service.business.CourseUrl;
 import org.springframework.beans.factory.annotation.Configurable;
 
@@ -13,7 +15,7 @@ import java.util.*;
  */
 @Entity
 @Configurable
-public class Course implements DomainObject {
+public class Course implements DomainEntity {
 
     private Long id;
     private String name;
@@ -192,7 +194,7 @@ public class Course implements DomainObject {
     }
 
     // CascadeType.ALL results in unsaved dates being automatically saved
-    // Orpan removal removes any orphaned records in the coursedate table after an update of Course
+    // Orphan removal removes any orphaned records in the coursedate table after an update of Course
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "course_id")
     public Set<CourseDate> getDates() {
@@ -203,8 +205,22 @@ public class Course implements DomainObject {
         this.dates = dates;
     }
 
+    // TODO: Move this to CourseEntityDTO
+    @Deprecated
+    @Transient
+    public List<String> getTagNames() {
+        List<String> names = new ArrayList<String>();
+        Iterator<Tag> tagIterator = tags.iterator();
+        for (int i = 0; tagIterator.hasNext(); i++) {
+            Tag tag = tagIterator.next();
+            names.add(tag.getName());
+        }
+        return names;
+    }
+
     // Sets new dates on the course while retaining the original collection that was created by Hibernate (or another ORM)
-    public void replaceDates(Set<CourseDate> newDates){
+    @Transient
+    public void replaceDates(Set<CourseDate> newDates) {
         this.dates.clear();
         this.dates.addAll(newDates);
     }
@@ -244,16 +260,6 @@ public class Course implements DomainObject {
         this.highlightedOnCategories = highlightedOnCategories;
     }
 
-    @Transient
-    public List<String> getTagNames() {
-        List<String> names = new ArrayList<String>();
-        Iterator<Tag> tagIterator = tags.iterator();
-        for (int i = 0; tagIterator.hasNext(); i++) {
-            Tag tag = tagIterator.next();
-            names.add(tag.getName());
-        }
-        return names;
-    }
 
     @Transient
     public boolean equals(Object o) {
@@ -262,12 +268,12 @@ public class Course implements DomainObject {
     }
 
     @Transient
-    public String getUrl(){
+    public String getUrl() {
         return CourseUrl.createUrl(id, category.getName(), name);
     }
 
     @Transient
-    public String getAdminUrl(){
+    public String getAdminUrl() {
         return CourseUrl.createAdminUrl(id);
     }
 
@@ -276,31 +282,120 @@ public class Course implements DomainObject {
         return name.hashCode();
     }
 
-    @Transient
-    public List<String> getRegionNames() {
-        List<String> regionNames = new ArrayList<String>();
-        for (Region region : regions) {
-            regionNames.add(region.getName());
-        }
-        return regionNames;
-    }
 
     @Transient
-    public boolean wasPreviouslyPublished(){
+    public boolean wasPreviouslyPublished() {
         return firstPublished != null;
     }
 
     @Transient
-    public boolean isPublishable(){
-        if(name == null) return false;
-        if(listDescription == null) return false;
-        if(longDescription == null) return false;
-        if(duration == null) return false;
-        if(price == null) return false;
-        if(company == null) return false;
-        if(category == null) return false;
-        if(regions == null || regions.size() == 0) return false;
+    public boolean isPublishable() {
+        if (name == null) return false;
+        if (listDescription == null) return false;
+        if (longDescription == null) return false;
+        if (duration == null) return false;
+        if (price == null) return false;
+        if (company == null) return false;
+        if (category == null) return false;
+        if (regions == null || regions.size() == 0) return false;
         return true;
+    }
+
+    @Transient
+    public ListingCourseDTO toListingCourseDTO() {
+        ListingCourseDTO listingCourse = new ListingCourseDTO();
+
+        listingCourse.setId(id);
+        listingCourse.setName(name);
+        listingCourse.setCategory(category.toDTO());
+        listingCourse.setCompany(company.toDTO());
+        listingCourse.setListDescription(listDescription);
+        listingCourse.setRegions(getRegionsAsDTOs());
+        listingCourse.setTags(getTagsAsDTOs());
+
+        return listingCourse;
+    }
+
+    @Transient
+    @Override
+    public CourseEntityDTO toDTO() {
+        CourseEntityDTO dto = new CourseEntityDTO();
+        dto.setCategory(category.toDTO());
+        dto.setCertificate(certificate);
+        dto.setCertificateName(certificateName);
+        dto.setCompany(company.toDTO());
+        dto.setDates(getDatesAsDTOs());
+        dto.setDuration(duration);
+        dto.setFirstPublished(firstPublished);
+        dto.setHighlightedOnCategories(getHighlightedCourseOnCategoryAsDTOs());
+        dto.setId(id);
+        dto.setLastIndexed(lastIndexed);
+        dto.setLastUpdated(lastUpdated);
+        dto.setListDescription(listDescription);
+        dto.setLongDescription(longDescription);
+        dto.setName(name);
+        dto.setOptions(getOptionsAsDTOs());
+        dto.setPrice(price);
+        dto.setPublished(published);
+        dto.setRegions(getRegionsAsDTOs());
+        dto.setTags(getTagsAsDTOs());
+        dto.setTimes(getTimesAsDTOs());
+        return dto;
+    }
+
+    @Transient
+    private List<CourseDateEntityDTO> getDatesAsDTOs() {
+        List<CourseDateEntityDTO> dateDTOs = new ArrayList<>();
+        for (CourseDate date : dates) {
+            dateDTOs.add(date.toDTO());
+        }
+        return dateDTOs;
+    }
+
+    @Transient
+    private List<HighlightedCourseOnCategoryEntityDTO> getHighlightedCourseOnCategoryAsDTOs() {
+        List<HighlightedCourseOnCategoryEntityDTO> highlightedCourseDTOs = new ArrayList<>();
+        for (HighlightedCourseOnCategory highlightedOnCategory : highlightedOnCategories) {
+            highlightedCourseDTOs.add(highlightedOnCategory.toDTO());
+        }
+        return highlightedCourseDTOs;
+    }
+
+    @Transient
+    private List<CourseOptionEntityDTO> getOptionsAsDTOs() {
+        List<CourseOptionEntityDTO> optionDTOs = new ArrayList<>();
+        for (CourseOption option : options) {
+            optionDTOs.add(option.toDTO());
+        }
+
+        return optionDTOs;
+    }
+
+    @Transient
+    private List<TagEntityDTO> getTagsAsDTOs() {
+        List<TagEntityDTO> tagEntityDTOs = new ArrayList<>();
+        for (Tag tag : tags) {
+            tagEntityDTOs.add(tag.toDTO());
+        }
+        return tagEntityDTOs;
+    }
+
+    @Transient
+    private List<RegionEntityDTO> getRegionsAsDTOs() {
+        List<RegionEntityDTO> regionEntityDTOs = new ArrayList<>();
+        for (Region region : regions) {
+            regionEntityDTOs.add(region.toDTO());
+        }
+        return regionEntityDTOs;
+    }
+
+    @Transient
+    private List<TimeEntityDTO> getTimesAsDTOs(){
+        List<TimeEntityDTO> timeDTOs = new ArrayList<>();
+        for (Time time : times) {
+            timeDTOs.add(time.toDTO());
+        }
+        return timeDTOs;
     }
 
 

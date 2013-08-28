@@ -1,5 +1,7 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.domain.dto.entity.CourseOptionEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.DomainEntityDTO;
 import nl.codebasesoftware.produx.formdata.BindableCourseOption;
 
 import javax.persistence.*;
@@ -10,7 +12,7 @@ import javax.persistence.*;
  * Time: 15:39
  */
 @Entity
-public class CourseOption implements DomainObject {
+public class CourseOption implements DomainEntity {
 
     private Long id;
     private String displayName;
@@ -71,5 +73,15 @@ public class CourseOption implements DomainObject {
         bindableCourseOption.setDisplayName(displayName);
         bindableCourseOption.setDisplayRank(displayRank);
         return bindableCourseOption;
+    }
+
+    @Override
+    public CourseOptionEntityDTO toDTO() {
+        CourseOptionEntityDTO dto = new CourseOptionEntityDTO();
+        dto.setId(id);
+        dto.setCategory(category.toDTO());
+        dto.setDisplayRank(displayRank);
+        dto.setDisplayName(displayName);
+        return dto;
     }
 }

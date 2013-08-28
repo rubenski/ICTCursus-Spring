@@ -1,8 +1,7 @@
 package nl.codebasesoftware.produx.controller;
 
 
-import nl.codebasesoftware.produx.domain.Course;
-import nl.codebasesoftware.produx.search.SolrQueryBuilder;
+import nl.codebasesoftware.produx.domain.dto.entity.ListingCourseDTO;
 import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.service.SearchService;
 import org.apache.solr.client.solrj.response.FacetField;
@@ -29,6 +28,7 @@ public class SearchController {
     private SearchService searchService;
     private CourseService courseService;
 
+
     @Autowired
     public SearchController(SearchService searchService, CourseService courseService) {
         this.searchService = searchService;
@@ -38,8 +38,7 @@ public class SearchController {
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String search(@RequestParam("for") String terms, Model model) {
 
-        SolrQueryBuilder builder = new SolrQueryBuilder();
-        QueryResponse response = searchService.search(terms);
+        QueryResponse response = null;
 
         List<Long> ids = new ArrayList<Long>();
         for (SolrDocument solrDocument : response.getResults()) {
@@ -48,7 +47,7 @@ public class SearchController {
             ids.add(id);
         }
 
-        List<Course> courses = courseService.findBasic(ids);
+        List<ListingCourseDTO> courses = courseService.findForListing(ids);
 
         FacetField categoryFacet = response.getFacetField("category");
         FacetField tagsFacet = response.getFacetField("tags");
@@ -64,7 +63,6 @@ public class SearchController {
         model.addAttribute("incompanyFacets", incompanyFacet);
         model.addAttribute("certificateFacets", certificateFacet);
         model.addAttribute("priceFacets", priceFacet);
-
         model.addAttribute("response", response);
         model.addAttribute("courses", courses);
         model.addAttribute("terms", terms);

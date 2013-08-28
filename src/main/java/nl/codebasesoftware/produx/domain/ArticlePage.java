@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.domain;
 
 import nl.codebasesoftware.produx.comparator.RankOrderable;
+import nl.codebasesoftware.produx.domain.dto.entity.ArticlePageEntityDTO;
 import nl.codebasesoftware.produx.service.business.ArticlePageUrl;
 
 import javax.persistence.*;
@@ -12,10 +13,10 @@ import javax.persistence.*;
  */
 @Table(
         uniqueConstraints =
-        @UniqueConstraint(columnNames = {"position", "article_id"})
+        @UniqueConstraint(columnNames = {"pos", "article_id"})
 )
 @Entity
-public class ArticlePage implements DomainObject, RankOrderable {
+public class ArticlePage implements DomainEntity, RankOrderable {
 
     private Long id;
     private String text;
@@ -24,7 +25,6 @@ public class ArticlePage implements DomainObject, RankOrderable {
     private String keywords;
     private Integer position;
     private Article article;
-
 
     @Override
     @Id
@@ -38,7 +38,11 @@ public class ArticlePage implements DomainObject, RankOrderable {
     }
 
     @Lob
-    @Column(nullable = false)
+    // TODO: this columnDefinition is untested. It might cause trouble, but it may fix the following problem:
+    // http://stackoverflow.com/questions/10957238/incorrect-string-value-when-trying-to-insert-utf-8-into-mysql-via-jdbc
+    // http://stackoverflow.com/questions/2108824/mysql-incorrect-string-value-error-when-save-unicode-string-in-django
+    // columnDefinition = "CHARACTER SET utf8 COLLATE utf8_general_ci"
+    @Column(nullable = false, name = "page_text")
     public String getText() {
         return text;
     }
@@ -63,8 +67,8 @@ public class ArticlePage implements DomainObject, RankOrderable {
         this.keywords = keywords;
     }
 
-    // This field must be nullable to allow nullifying when updating the article page's positions
-    @Column(nullable = true, name = "position")
+    // This  must be nullable to allow nullifying when updating the article page's positions
+    @Column(nullable = true, name = "pos")
     public Integer getPosition() {
         return position;
     }
@@ -100,5 +104,19 @@ public class ArticlePage implements DomainObject, RankOrderable {
     @Transient
     public String getUrl() {
         return ArticlePageUrl.create(article.getId(), article.getCategory().getName(), position, title);
+    }
+
+    @Override
+    @Transient
+    public ArticlePageEntityDTO toDTO() {
+        ArticlePageEntityDTO dto = new ArticlePageEntityDTO();
+        dto.setId(id);
+        dto.setArticle(article.toDTO());
+        dto.setDescription(description);
+        dto.setKeywords(keywords);
+        dto.setPosition(position);
+        dto.setText(text);
+        dto.setTitle(title);
+        return dto;
     }
 }

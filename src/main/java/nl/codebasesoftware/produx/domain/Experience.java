@@ -1,5 +1,8 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.domain.dto.entity.DomainEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.ExperienceEntityDTO;
+
 import javax.persistence.*;
 
 /**
@@ -8,7 +11,7 @@ import javax.persistence.*;
  * Time: 17:02
  */
 @Entity
-public class Experience implements DomainObject {
+public class Experience implements DomainEntity {
 
     private Long id;
     private String message;
@@ -50,5 +53,14 @@ public class Experience implements DomainObject {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    @Override
+    public ExperienceEntityDTO toDTO() {
+        ExperienceEntityDTO dto = new ExperienceEntityDTO();
+        dto.setId(id);
+        dto.setMessage(message);
+        dto.setRating(rating);
+        return dto;
     }
 }

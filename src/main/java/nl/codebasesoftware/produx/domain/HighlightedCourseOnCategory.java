@@ -1,5 +1,7 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.domain.dto.entity.HighlightedCourseOnCategoryEntityDTO;
+
 import javax.persistence.*;
 import java.util.Calendar;
 
@@ -9,7 +11,7 @@ import java.util.Calendar;
  * Time: 0:49
  */
 @Entity
-public class HighlightedCourseOnCategory implements DomainObject {
+public class HighlightedCourseOnCategory implements DomainEntity {
 
     private Long id;
     private Calendar startTime;
@@ -75,5 +77,17 @@ public class HighlightedCourseOnCategory implements DomainObject {
 
     public void setCreated(Calendar created) {
         this.created = created;
+    }
+
+    @Override
+    public HighlightedCourseOnCategoryEntityDTO toDTO() {
+        HighlightedCourseOnCategoryEntityDTO dto = new HighlightedCourseOnCategoryEntityDTO();
+        dto.setId(id);
+        dto.setCategory(category.toDTO());
+        dto.setCourse(course.toDTO());
+        dto.setCreated(created);
+        dto.setEndTime(endTime);
+        dto.setStartTime(startTime);
+        return dto;
     }
 }

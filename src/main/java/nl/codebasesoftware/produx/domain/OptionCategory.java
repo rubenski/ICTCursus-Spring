@@ -1,5 +1,7 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.domain.dto.entity.DomainEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.OptionCategoryEntityDTO;
 import nl.codebasesoftware.produx.formdata.BindableOptionCategory;
 
 import javax.persistence.*;
@@ -12,7 +14,7 @@ import java.util.Set;
  * Time: 16:50
  */
 @Entity
-public class OptionCategory implements DomainObject {
+public class OptionCategory implements DomainEntity {
 
     private Long id;
     private String name;
@@ -76,5 +78,13 @@ public class OptionCategory implements DomainObject {
         return (int) (id * 17);
     }
 
-
+    @Override
+    @Transient
+    public OptionCategoryEntityDTO toDTO() {
+        OptionCategoryEntityDTO dto = new OptionCategoryEntityDTO();
+        dto.setId(id);
+        dto.setName(name);
+        dto.setDisplayRank(displayRank);
+        return dto;
+    }
 }

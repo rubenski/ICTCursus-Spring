@@ -8,4 +8,14 @@
     </tr>
 
 </c:forEach>
+
+<tr><td>range facets</td></tr>
+
+<c:forEach items="${rangeFacets}" var="rangeFacet">
+    <tr>
+        <td>${rangeFacet}</td>
+
+    </tr>
+
+</c:forEach>
 </table>

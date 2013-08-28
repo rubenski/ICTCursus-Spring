@@ -5,6 +5,7 @@ import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.Time;
+import nl.codebasesoftware.produx.domain.dto.entity.ListingCourseDTO;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
 import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.service.SystemPropertyService;
@@ -14,9 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 /**
  * User: rvanloen
@@ -32,7 +31,9 @@ public class CourseServiceImpl implements CourseService {
     private ConversionService conversionService;
 
     @Autowired
-    public CourseServiceImpl(CourseDao courseDao,  SystemPropertyService systemPropertyService, ConversionService conversionService) {
+    public CourseServiceImpl(CourseDao courseDao,
+                             SystemPropertyService systemPropertyService,
+                             ConversionService conversionService) {
         this.courseDao = courseDao;
         this.systemPropertyService = systemPropertyService;
         this.conversionService = conversionService;
@@ -66,8 +67,13 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Course> findBasic(List<Long> ids) {
-        return courseDao.findBasic(ids);
+    public List<ListingCourseDTO> findForListing(List<Long> ids) {
+        List<Course> list = courseDao.findForListing(ids);
+        List<ListingCourseDTO> listingCourses = new ArrayList<>();
+        for (Course course : list) {
+            listingCourses.add(course.toListingCourseDTO());
+        }
+        return listingCourses;
     }
 
     @Override

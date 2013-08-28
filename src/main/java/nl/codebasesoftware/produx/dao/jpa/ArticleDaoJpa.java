@@ -41,6 +41,6 @@ public class ArticleDaoJpa extends GenericDaoJpa<Article> implements ArticleDao 
 
     @Override
     public Article findFull(long id) {
-        return getSingleResult(entityManager.createQuery("from Article a inner join fetch a.category c left join fetch a.pages ap where a.id = :id").setParameter("id", id));
+        return getSingleResult(entityManager.createQuery("select distinct a from Article a inner join fetch a.category c left join fetch a.pages ap where a.id = :id").setParameter("id", id));
     }
 }

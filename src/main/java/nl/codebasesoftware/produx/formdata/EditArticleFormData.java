@@ -47,4 +47,5 @@ public class EditArticleFormData extends AddArticleFormData {
     public void setText(String text) {
         this.text = text;
     }
+
 }

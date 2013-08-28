@@ -71,6 +71,12 @@ body {
     overflow: auto;
 }
 
+#main #innermain pre {
+    font-size: 1.2em;
+    background-color: #f0f0f0;
+    padding: 5px;
+}
+
 #main #innermain ul {
     padding: 10px 0px 10px 20px;
     margin: 0;
@@ -126,8 +132,17 @@ body {
 
 }
 
-#main #innermain #maincontent p {
-    padding-bottom: 10px;
+#main #innermain #maincontent p,
+ #main #innermain #maincontent pre {
+    margin-bottom: 10px;
+}
+
+#main #innermain #maincontent pre {
+    white-space: pre-wrap;       /* css-3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
 
 #main #innermain #maincontent h1 {
@@ -219,7 +234,7 @@ div.pretty {
     border-radius: 5px;
 }
 
-.prettymain {
+.whitebox {
     margin-bottom: 30px;
     padding: 20px 20px 10px 20px;
     background-color: #fdfdfd;

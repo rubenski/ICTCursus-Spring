@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.domain;
 
 import nl.codebasesoftware.produx.comparator.HighlightedCoursesEndDateDescending;
 import nl.codebasesoftware.produx.comparator.NameComparable;
+import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -15,7 +16,7 @@ import java.util.TreeSet;
  * Time: 22:08
  */
 @Entity
-public class Category implements DomainObject, NameComparable {
+public class Category implements DomainEntity, NameComparable {
 
     private Long id;
     private String name;
@@ -84,7 +85,7 @@ public class Category implements DomainObject, NameComparable {
         this.children = children;
     }
 
-    @OneToMany(fetch = FetchType.EAGER,  mappedBy = "category", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY,  mappedBy = "category", orphanRemoval = true)
     public Set<HighlightedCourseOnCategory> getHighlightedCourses() {
         return highlightedCourses;
     }
@@ -107,5 +108,13 @@ public class Category implements DomainObject, NameComparable {
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
+    }
+
+    public CategoryEntityDTO toDTO(){
+        CategoryEntityDTO category = new CategoryEntityDTO();
+        category.setId(id);
+        category.setName(name);
+        category.setUrlTitle(urlTitle);
+        return category;
     }
 }

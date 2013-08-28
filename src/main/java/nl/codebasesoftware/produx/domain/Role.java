@@ -1,9 +1,13 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.domain.dto.entity.RightEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.RoleEntityDTO;
 import nl.codebasesoftware.produx.domain.optionlists.RoleName;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -12,7 +16,7 @@ import java.util.Set;
  * Time: 11:39
  */
 @Entity
-public class Role implements DomainObject {
+public class Role implements DomainEntity {
 
     private Long id;
     private Set<Right> rights;
@@ -104,5 +108,26 @@ public class Role implements DomainObject {
             }
         }
         return false;
+    }
+
+    @Transient
+    @Override
+    public RoleEntityDTO toDTO() {
+        RoleEntityDTO dto = new RoleEntityDTO();
+        dto.setCompanyAdminRole(companyAdminRole);
+        dto.setDisplayName(displayName);
+        dto.setId(id);
+        dto.setListRank(listRank);
+        dto.setRights(getRightDTOs());
+        return dto;
+    }
+
+    @Transient
+    private List<RightEntityDTO> getRightDTOs(){
+        List<RightEntityDTO> righDTOs = new ArrayList<>();
+        for (Right right : rights) {
+            righDTOs.add(right.toDTO());
+        }
+        return righDTOs;
     }
 }

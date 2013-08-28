@@ -4,7 +4,10 @@ import nl.codebasesoftware.produx.domain.Article;
 import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
+import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
+import nl.codebasesoftware.produx.search.SearchCriteria;
+import nl.codebasesoftware.produx.search.SearchResult;
 import nl.codebasesoftware.produx.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,18 +33,21 @@ public class CategoryController {
     private PageBlockService pageBlockService;
     private CompanyService companyService;
     private ArticleService articleService;
+    private SearchService searchService;
 
     @Autowired
     public CategoryController(CourseService courseService,
                               CategoryService categoryService,
                               PageBlockService pageBlockService,
                               CompanyService companyService,
-                              ArticleService articleService) {
+                              ArticleService articleService,
+                              SearchService searchService) {
         this.courseService = courseService;
         this.categoryService = categoryService;
         this.pageBlockService = pageBlockService;
         this.companyService = companyService;
         this.articleService = articleService;
+        this.searchService = searchService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -64,6 +70,10 @@ public class CategoryController {
         pageBlockService.setEmptyRightColumn(model);
         pageBlockService.setAuthentication(model);
 
+        SearchResult searchResult = findWithSolr(category);
+
+
+
         List<Course> nonHighlightedCourses = courseService.findNonHighlightedCourses(category.getId());
         List<Course> highlightedCourses = courseService.findCurrentlyHighlightedCourses(category.getId());
         List<Article> categoryArticles = articleService.findByCategory(category.getId());
@@ -76,6 +86,20 @@ public class CategoryController {
         model.addAttribute("category", category);
         model.addAttribute("mainContent", "content/category");
         return "main";
+    }
+
+    private SearchResult findWithSolr(Category category) {
+        SearchCriteria criteria = new SearchCriteria.Builder().addCategory(category.toDTO()).build();
+
+        SearchResult result = null;
+
+        try {
+            result = searchService.findCourses(criteria);
+        } catch (ProduxServiceException e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 }
 

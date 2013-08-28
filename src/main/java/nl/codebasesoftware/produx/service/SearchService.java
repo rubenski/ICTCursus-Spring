@@ -1,8 +1,8 @@
 package nl.codebasesoftware.produx.service;
 
-import org.apache.solr.client.solrj.response.QueryResponse;
-
-import java.util.List;
+import nl.codebasesoftware.produx.exception.ProduxServiceException;
+import nl.codebasesoftware.produx.search.SearchCriteria;
+import nl.codebasesoftware.produx.search.SearchResult;
 
 /**
  * User: rvanloen
@@ -10,5 +10,5 @@ import java.util.List;
  * Time: 13:17
  */
 public interface SearchService {
-    QueryResponse search(String query);
+    SearchResult findCourses(SearchCriteria criteria) throws ProduxServiceException;
 }

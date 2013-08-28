@@ -8,12 +8,16 @@
     <packaging>war</packaging>
     <name>ictcursus.nl</name>
 
+
     <properties>
         <spring.version>3.1.1.RELEASE</spring.version>
         <hibernate.version>4.1.1.Final</hibernate.version>
         <tiles.version>3.0.0</tiles.version>
         <tomcat.dir>C:\tomcat6</tomcat.dir>
         <jettyVersion>6.1.2</jettyVersion>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
 
 
@@ -255,6 +259,12 @@
             <version>4.11</version>
         </dependency>
 
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.8.3</version>
+        </dependency>
+
 
     </dependencies>
 
@@ -273,9 +283,30 @@
         </profile>
     </profiles>
 
-
     <build>
         <finalName>ROOT</finalName>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-maven-plugin</artifactId>
+                    <configuration>
+                        <scanIntervalSeconds>0</scanIntervalSeconds>
+                        <httpConnector>
+                            <port>80</port>
+                        </httpConnector>
+                        <contextHandlers>
+                            <contextHandler implementation="org.eclipse.jetty.webapp.WebAppContext">
+                                <war>C:/Projects/cbckmanager/target/cbckfilemanager.war</war>
+                                <contextPath>/cbckfilemanager</contextPath>
+                            </contextHandler>
+                        </contextHandlers>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
     </build>
 
 </project>
