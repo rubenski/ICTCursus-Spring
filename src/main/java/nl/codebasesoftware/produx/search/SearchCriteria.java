@@ -21,6 +21,8 @@ public class SearchCriteria {
     private List<Long> tagIds = new ArrayList<>();
     private List<String> facetFields = new ArrayList<>();
     private List<RangeFacet> rangeFacets = new ArrayList<>();
+    private Integer offset;
+    private Integer rows;
 
     public List<CategoryEntityDTO> getCategories() {
         return categories;
@@ -50,7 +52,17 @@ public class SearchCriteria {
         return rangeFacets;
     }
 
+    public int getOffset() {
+        return offset;
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
     private SearchCriteria(Builder builder){
+        rows = builder.rows;
+        offset = builder.offset;
         categories = builder.categories;
         query = builder.query;
         priceRanges = builder.priceRanges;
@@ -69,6 +81,8 @@ public class SearchCriteria {
         private List<Long> tags = new ArrayList<>();
         private List<String> facetFields = new ArrayList<>();
         private List<RangeFacet> rangeFacets = new ArrayList<>();
+        private Integer offset;
+        private Integer rows;
 
 
         public Builder setQuery(String query) {
@@ -106,8 +120,17 @@ public class SearchCriteria {
             return this;
         }
 
+        public Builder setOffset(int offset) {
+            this.offset = offset;
+            return this;
+        }
+
+        public Builder setRows(int rows) {
+            this.rows = rows;
+            return this;
+        }
+
         public SearchCriteria build(){
-            // TODO: equals if values in builder are retained across usages
             return new SearchCriteria(this);
         }
     }

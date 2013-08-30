@@ -2,6 +2,8 @@ package nl.codebasesoftware.produx.controller;
 
 import nl.codebasesoftware.produx.domain.Article;
 import nl.codebasesoftware.produx.domain.ArticlePage;
+import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.ArticlePageEntityDTO;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.service.ArticleService;
 import nl.codebasesoftware.produx.service.PageBlockService;
@@ -39,7 +41,7 @@ public class ArticleController {
                              HttpServletRequest request,
                              Model model) {
 
-        Article article = articleService.findFull(articleId);
+        ArticleEntityDTO article = articleService.findFull(articleId);
         String url = article.getUrl();
         String requestUri = request.getRequestURI();
 
@@ -59,8 +61,8 @@ public class ArticleController {
                                  HttpServletRequest request,
                                  Model model) {
 
-        Article article = articleService.findFull(articleId);
-        ArticlePage articlePage = article.getArticlePage(pageNumber);
+        ArticleEntityDTO article = articleService.findFull(articleId);
+        ArticlePageEntityDTO articlePage = article.getArticlePage(pageNumber);
 
         String url = articlePage.getUrl();
         String requestURI = request.getRequestURI();
@@ -77,7 +79,7 @@ public class ArticleController {
 
 
 
-    private void setData(Model model, Article article, ArticlePage page) {
+    private void setData(Model model, ArticleEntityDTO article, ArticlePageEntityDTO page) {
 
         pageBlockService.setCourseCategoriesInLeftColumn(model);
         pageBlockService.setEmptyRightColumn(model);

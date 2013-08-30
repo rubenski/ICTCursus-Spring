@@ -25,7 +25,6 @@ public class CourseToSolrInputDocument implements Converter<CourseEntityDTO, Sol
         solrInputDocument.addField("category", course.getCategory().getSolrValue());
         solrInputDocument.addField("company_name", course.getCompany().getName());
         solrInputDocument.addField("company_id", course.getCompany().getId());
-        solrInputDocument.addField("company_logo", course.getCompany().getSmallLogo());
         solrInputDocument.addField("regions", course.getRegionNames());
         solrInputDocument.addField("region_ids", course.getRegionIds());
         solrInputDocument.addField("tags", course.getTagNames());

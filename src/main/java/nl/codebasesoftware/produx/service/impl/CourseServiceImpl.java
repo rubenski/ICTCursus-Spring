@@ -50,8 +50,8 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Course> findCurrentlyHighlightedCourses(long categoryId) {
-        return courseDao.findCurrentlyHighlightedCourses(categoryId, Calendar.getInstance());
+    public List<ListingCourseDTO> findHighlightedCourses(long categoryId) {
+        return asListingCourses(courseDao.findHighlightedCourses(categoryId, Calendar.getInstance()));
     }
 
     @Override
@@ -150,4 +150,13 @@ public class CourseServiceImpl implements CourseService {
     public List<Course> findAllWithCompany() {
         return courseDao.findAllWithCompany();
     }
+
+    private List<ListingCourseDTO> asListingCourses(List<Course> courses){
+        List<ListingCourseDTO> dtos = new ArrayList<>();
+        for (Course course : courses) {
+            dtos.add(course.toListingCourseDTO());
+        }
+        return dtos;
+    }
+
 }

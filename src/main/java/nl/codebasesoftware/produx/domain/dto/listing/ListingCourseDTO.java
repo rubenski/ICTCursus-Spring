@@ -18,7 +18,7 @@ public class ListingCourseDTO extends DomainEntityDTO {
     private String listDescription;
     private ListingCompanyDTO company;
     private CategoryEntityDTO category;
-
+    private boolean highlighted;
 
     @Override
     public Long getId() {
@@ -61,4 +61,16 @@ public class ListingCourseDTO extends DomainEntityDTO {
         this.category = category;
     }
 
+    public boolean isHighlighted() {
+        return highlighted;
+    }
+
+    public void setHighlighted(boolean highlighted) {
+        this.highlighted = highlighted;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%d : %s", id, name);
+    }
 }

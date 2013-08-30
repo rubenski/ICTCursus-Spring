@@ -1,9 +1,9 @@
 package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.Category;
+import nl.codebasesoftware.produx.domain.HighlightedCoursePeriod;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
-import nl.codebasesoftware.produx.domain.HighlightedCourseOnCategory;
 import nl.codebasesoftware.produx.domain.optionlists.NumberOfMonthsHighlighting;
 import nl.codebasesoftware.produx.domain.support.DateRange;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
@@ -11,7 +11,7 @@ import nl.codebasesoftware.produx.formdata.HighlightCourseFormData;
 import nl.codebasesoftware.produx.service.CategoryService;
 import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.service.CourseService;
-import nl.codebasesoftware.produx.service.HighlightedCourseService;
+import nl.codebasesoftware.produx.service.HighlightedCoursePeriodService;
 import nl.codebasesoftware.produx.validator.HighlightedCourseFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -43,17 +43,17 @@ public class AdminHighlightCoursesController {
     private CourseService courseService;
     private MessageSource messageSource;
     private HighlightedCourseFormValidator highlightedCourseFormValidator;
-    private HighlightedCourseService highlightedCourseService;
+    private HighlightedCoursePeriodService highlightedCoursePeriodService;
 
     @Autowired
     public AdminHighlightCoursesController(CategoryService categoryService, CompanyService companyService, CourseService courseService, MessageSource messageSource,
-                                           HighlightedCourseFormValidator highlightedCourseFormValidator, HighlightedCourseService highlightedCourseService) {
+                                           HighlightedCourseFormValidator highlightedCourseFormValidator, HighlightedCoursePeriodService highlightedCoursePeriodService) {
         this.categoryService = categoryService;
         this.companyService = companyService;
         this.courseService = courseService;
         this.messageSource = messageSource;
         this.highlightedCourseFormValidator = highlightedCourseFormValidator;
-        this.highlightedCourseService = highlightedCourseService;
+        this.highlightedCoursePeriodService = highlightedCoursePeriodService;
         this.companyService = companyService;
     }
 
@@ -101,7 +101,7 @@ public class AdminHighlightCoursesController {
                 e.printStackTrace();
             }
 
-            highlightedCourseService.addHighlightedCourse(courseId, categoryId, startDate, numberOfMonths);
+            highlightedCoursePeriodService.addHighlightedCourse(courseId, categoryId, startDate, numberOfMonths);
 
             model.addAttribute("highlightCourseRequest", highlightCourseFormData);
 
@@ -117,8 +117,8 @@ public class AdminHighlightCoursesController {
         Category category = categoryService.findById(categoryId);
         Company currentlyLoggedInCompany = companyService.getCurrentlyLoggedInCompany();
 
-        DateRange dateRange = highlightedCourseService.findDateRangeForHighlightStart(category.getId());
-        List<HighlightedCourseOnCategory> highlightedCoursesForCompany = highlightedCourseService.findCurrentAndFutureHighlightedCoursesForCompany(category.getId(), currentlyLoggedInCompany.getId());
+        DateRange dateRange = highlightedCoursePeriodService.findDateRangeForHighlightStart(category.getId());
+        List<HighlightedCoursePeriod> highlightedCoursesForCompany = highlightedCoursePeriodService.findCurrentAndFutureHighlightedCoursesForCompany(category.getId(), currentlyLoggedInCompany.getId());
 
 
         Calendar startDate = dateRange.getStartDate();

@@ -118,17 +118,19 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
     }
 
     @Override
-    public List<Course> findCurrentlyHighlightedCourses(long categoryId, Calendar currentTime) {
+    public List<Course> findHighlightedCourses(long categoryId, Calendar time) {
         String query = "from Course c " +
                 "inner join fetch c.company " +
                 "inner join fetch c.category " +
-                "left join fetch c.highlightedOnCategories cats " +
+                "left join fetch c.highlightedCoursePeriods cats " +
                 "where c.category.id = :categoryId " +
                 "and cats.category.id = :categoryId " +
-                "and cats.startTime <= :today " +
-                "and cats.endTime > :today " +
+                "and cats.startTime <= :time " +
+                "and cats.endTime > :time " +
                 "and c.published = true";
-        List resultList = entityManager.createQuery(query).setParameter("categoryId", categoryId).setParameter("today", currentTime, TemporalType.DATE).getResultList();
+        List resultList = entityManager.createQuery(query)
+                .setParameter("categoryId", categoryId)
+                .setParameter("time", time, TemporalType.DATE).getResultList();
         return resultList;
     }
 

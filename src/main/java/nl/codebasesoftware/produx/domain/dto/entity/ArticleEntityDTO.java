@@ -3,7 +3,9 @@ package nl.codebasesoftware.produx.domain.dto.entity;
 import nl.codebasesoftware.produx.domain.ArticlePage;
 import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.service.business.ArticleUrl;
 
+import javax.persistence.Transient;
 import java.util.*;
 
 /**
@@ -27,7 +29,7 @@ public class ArticleEntityDTO extends DomainEntityDTO {
     private CategoryEntityDTO category;
 
     @Override
-    Long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -109,5 +111,20 @@ public class ArticleEntityDTO extends DomainEntityDTO {
 
     public void addPage(ArticlePageEntityDTO page){
         pages.add(page);
+    }
+
+    // Utility methods
+
+    public String getUrl(){
+        return ArticleUrl.createArticleUrl(id, category.getName(), title);
+    }
+
+    public ArticlePageEntityDTO getArticlePage(int position){
+        for (ArticlePageEntityDTO page : pages) {
+            if(page.getPosition().equals(position)){
+                return page;
+            }
+        }
+        return null;
     }
 }

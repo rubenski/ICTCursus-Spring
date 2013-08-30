@@ -31,14 +31,14 @@ public class Course implements DomainEntity {
     private Category category;
     private boolean certificate;
     private String certificateName;
-    private Set<Tag> tags = new HashSet<Tag>();
-    private Set<Experience> experiences = new HashSet<Experience>();
-    private Set<CourseDate> dates = new HashSet<CourseDate>();
-    private Set<Time> times = new HashSet<Time>();
-    private Set<CourseOption> options = new HashSet<CourseOption>();
-    private Set<Region> regions = new HashSet<Region>();
+    private Set<Tag> tags = new HashSet<>();
+    private Set<Experience> experiences = new HashSet<>();
+    private Set<CourseDate> dates = new HashSet<>();
+    private Set<Time> times = new HashSet<>();
+    private Set<CourseOption> options = new HashSet<>();
+    private Set<Region> regions = new HashSet<>();
     private boolean published;
-    private Set<HighlightedCourseOnCategory> highlightedOnCategories = new HashSet<HighlightedCourseOnCategory>();
+    private Set<HighlightedCoursePeriod> highlightedCoursePeriods = new HashSet<>();
 
 
     public Course() {
@@ -253,12 +253,12 @@ public class Course implements DomainEntity {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", orphanRemoval = true)
-    public Set<HighlightedCourseOnCategory> getHighlightedOnCategories() {
-        return highlightedOnCategories;
+    public Set<HighlightedCoursePeriod> getHighlightedCoursePeriods() {
+        return highlightedCoursePeriods;
     }
 
-    public void setHighlightedOnCategories(Set<HighlightedCourseOnCategory> highlightedOnCategories) {
-        this.highlightedOnCategories = highlightedOnCategories;
+    public void setHighlightedCoursePeriods(Set<HighlightedCoursePeriod> highlightedOnCategories) {
+        this.highlightedCoursePeriods = highlightedOnCategories;
     }
 
 
@@ -352,7 +352,7 @@ public class Course implements DomainEntity {
     @Transient
     private List<HighlightedCourseOnCategoryEntityDTO> getHighlightedCourseOnCategoryAsDTOs() {
         List<HighlightedCourseOnCategoryEntityDTO> highlightedCourseDTOs = new ArrayList<>();
-        for (HighlightedCourseOnCategory highlightedOnCategory : highlightedOnCategories) {
+        for (HighlightedCoursePeriod highlightedOnCategory : highlightedCoursePeriods) {
             highlightedCourseDTOs.add(highlightedOnCategory.toDTO());
         }
         return highlightedCourseDTOs;

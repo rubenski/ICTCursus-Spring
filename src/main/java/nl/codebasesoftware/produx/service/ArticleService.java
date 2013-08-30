@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.service;
 
 import nl.codebasesoftware.produx.domain.Article;
 import nl.codebasesoftware.produx.domain.ArticlePage;
+import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
 import nl.codebasesoftware.produx.formdata.AddArticleFormData;
 import nl.codebasesoftware.produx.formdata.ArticlePageFormData;
 import nl.codebasesoftware.produx.formdata.EditArticleFormData;
@@ -22,6 +23,6 @@ public interface ArticleService {
     ArticlePage findPage(long pageId);
     void updateArticle(EditArticleFormData formData);
     void removePage(long pageId);
-    List<Article> findByCategory(long catgeoryId);
-    Article findFull(long id);
+    List<ArticleEntityDTO> findByCategory(long catgeoryId);
+    ArticleEntityDTO findFull(long id);
 }

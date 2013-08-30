@@ -128,25 +128,8 @@ public class Article implements DomainEntity {
     }
 
     @Transient
-    public String getUrl(){
-        return ArticleUrl.createArticleUrl(id, category.getName(), title);
-    }
-
-
-    @Transient
     public boolean hasPages(){
         return pages.size() > 0;
-    }
-
-    @Transient
-    public ArticlePage getArticlePage(int position){
-        for (ArticlePage page : pages) {
-            if(page.getPosition().equals(position)){
-                return page;
-            }
-        }
-
-        return null;
     }
 
     @Override

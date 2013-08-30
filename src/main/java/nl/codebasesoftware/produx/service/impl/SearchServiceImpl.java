@@ -1,5 +1,6 @@
 package nl.codebasesoftware.produx.service.impl;
 
+import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.search.SearchCriteria;
 import nl.codebasesoftware.produx.search.SearchResult;
@@ -30,7 +31,6 @@ public class SearchServiceImpl implements SearchService {
         this.solrService = solrService;
         this.conversionService = conversionService;
     }
-
 
     @Override
     public SearchResult findCourses(SearchCriteria criteria) throws ProduxServiceException {

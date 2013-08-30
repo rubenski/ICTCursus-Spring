@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
 import nl.codebasesoftware.produx.domain.Article;
+import nl.codebasesoftware.produx.service.business.ArticlePageUrl;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,7 +21,7 @@ public class ArticlePageEntityDTO extends DomainEntityDTO {
     private ArticleEntityDTO article;
 
     @Override
-    Long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -74,6 +75,12 @@ public class ArticlePageEntityDTO extends DomainEntityDTO {
 
     public void setArticle(ArticleEntityDTO article) {
         this.article = article;
+    }
+
+    // Utility methods
+
+    public String getUrl() {
+        return ArticlePageUrl.create(article.getId(), article.getCategory().getName(), position, title);
     }
 
 

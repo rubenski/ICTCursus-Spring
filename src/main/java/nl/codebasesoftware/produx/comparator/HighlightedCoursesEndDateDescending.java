@@ -1,6 +1,6 @@
 package nl.codebasesoftware.produx.comparator;
 
-import nl.codebasesoftware.produx.domain.HighlightedCourseOnCategory;
+import nl.codebasesoftware.produx.domain.HighlightedCoursePeriod;
 
 import java.util.Comparator;
 
@@ -9,10 +9,10 @@ import java.util.Comparator;
  * Date: 7-5-13
  * Time: 14:19
  */
-public class HighlightedCoursesEndDateDescending implements Comparator<HighlightedCourseOnCategory> {
+public class HighlightedCoursesEndDateDescending implements Comparator<HighlightedCoursePeriod> {
 
     @Override
-    public int compare(HighlightedCourseOnCategory one, HighlightedCourseOnCategory two) {
+    public int compare(HighlightedCoursePeriod one, HighlightedCoursePeriod two) {
         return one.getEndTime().compareTo(two.getEndTime());
     }
 }

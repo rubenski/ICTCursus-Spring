@@ -29,7 +29,7 @@ public interface CourseService {
 
     List<Course> findAll();
 
-    List<Course> findCurrentlyHighlightedCourses(long categoryId);
+    List<ListingCourseDTO> findHighlightedCourses(long categoryId);
 
     List<Course> findNonHighlightedCourses(long categoryId);
 

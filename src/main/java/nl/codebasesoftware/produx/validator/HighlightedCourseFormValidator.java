@@ -2,8 +2,7 @@ package nl.codebasesoftware.produx.validator;
 
 import nl.codebasesoftware.produx.domain.support.DateRange;
 import nl.codebasesoftware.produx.formdata.HighlightCourseFormData;
-import nl.codebasesoftware.produx.service.CategoryService;
-import nl.codebasesoftware.produx.service.HighlightedCourseService;
+import nl.codebasesoftware.produx.service.HighlightedCoursePeriodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -23,11 +22,11 @@ import java.util.Date;
 public class HighlightedCourseFormValidator implements Validator {
 
 
-    private HighlightedCourseService highlightedCourseService;
+    private HighlightedCoursePeriodService highlightedCoursePeriodService;
 
     @Autowired
-    public HighlightedCourseFormValidator(HighlightedCourseService highlightedCourseService) {
-        this.highlightedCourseService = highlightedCourseService;
+    public HighlightedCourseFormValidator(HighlightedCoursePeriodService highlightedCoursePeriodService) {
+        this.highlightedCoursePeriodService = highlightedCoursePeriodService;
     }
 
     @Override
@@ -40,7 +39,7 @@ public class HighlightedCourseFormValidator implements Validator {
         HighlightCourseFormData highLightedCourse = (HighlightCourseFormData) o;
 
 
-        DateRange dateRangeForHighlightStart = highlightedCourseService.findDateRangeForHighlightStart(highLightedCourse.getCategory());
+        DateRange dateRangeForHighlightStart = highlightedCoursePeriodService.findDateRangeForHighlightStart(highLightedCourse.getCategory());
 
         SimpleDateFormat sdf = new SimpleDateFormat("d-M-yyyy");
         Date startDate = null;

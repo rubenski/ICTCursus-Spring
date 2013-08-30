@@ -24,7 +24,7 @@ public class Category implements DomainEntity, NameComparable {
     private Category parent;
     private String urlTitle;
     private List<Category> children;
-    private Set<HighlightedCourseOnCategory> highlightedCourses = new TreeSet<HighlightedCourseOnCategory>(new HighlightedCoursesEndDateDescending());
+    private Set<HighlightedCoursePeriod> highlightedCourses = new TreeSet<HighlightedCoursePeriod>(new HighlightedCoursesEndDateDescending());
 
     @Override
     @Id
@@ -86,11 +86,11 @@ public class Category implements DomainEntity, NameComparable {
     }
 
     @OneToMany(fetch = FetchType.LAZY,  mappedBy = "category", orphanRemoval = true)
-    public Set<HighlightedCourseOnCategory> getHighlightedCourses() {
+    public Set<HighlightedCoursePeriod> getHighlightedCourses() {
         return highlightedCourses;
     }
 
-    public void setHighlightedCourses(Set<HighlightedCourseOnCategory> highlightedCourses) {
+    public void setHighlightedCourses(Set<HighlightedCoursePeriod> highlightedCourses) {
         this.highlightedCourses = highlightedCourses;
     }
 

@@ -101,17 +101,11 @@ public class ArticlePage implements DomainEntity, RankOrderable {
         return position;
     }
 
-    @Transient
-    public String getUrl() {
-        return ArticlePageUrl.create(article.getId(), article.getCategory().getName(), position, title);
-    }
-
     @Override
     @Transient
     public ArticlePageEntityDTO toDTO() {
         ArticlePageEntityDTO dto = new ArticlePageEntityDTO();
         dto.setId(id);
-        dto.setArticle(article.toDTO());
         dto.setDescription(description);
         dto.setKeywords(keywords);
         dto.setPosition(position);

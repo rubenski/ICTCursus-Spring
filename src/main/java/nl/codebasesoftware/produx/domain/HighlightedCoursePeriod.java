@@ -11,7 +11,7 @@ import java.util.Calendar;
  * Time: 0:49
  */
 @Entity
-public class HighlightedCourseOnCategory implements DomainEntity {
+public class HighlightedCoursePeriod implements DomainEntity {
 
     private Long id;
     private Calendar startTime;

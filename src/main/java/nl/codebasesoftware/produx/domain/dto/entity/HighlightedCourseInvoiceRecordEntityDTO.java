@@ -1,9 +1,5 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
-import nl.codebasesoftware.produx.domain.Category;
-import nl.codebasesoftware.produx.domain.Course;
-import nl.codebasesoftware.produx.domain.HighlightedCourseOnCategory;
-
 import java.util.Calendar;
 
 /**

@@ -5,6 +5,7 @@ import nl.codebasesoftware.produx.dao.ArticlePageDao;
 import nl.codebasesoftware.produx.dao.ArticleSuggestionDao;
 import nl.codebasesoftware.produx.dao.CategoryDao;
 import nl.codebasesoftware.produx.domain.*;
+import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
 import nl.codebasesoftware.produx.formdata.AddArticleFormData;
 import nl.codebasesoftware.produx.formdata.ArticlePageFormData;
 import nl.codebasesoftware.produx.formdata.EditArticleFormData;
@@ -14,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -177,13 +180,21 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Article> findByCategory(long catgeoryId) {
-        return articleDao.findByCategory(catgeoryId);
+    public List<ArticleEntityDTO> findByCategory(long catgeoryId) {
+        return asArticleEntityDTOs(articleDao.findByCategory(catgeoryId));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Article findFull(long id) {
-        return articleDao.findFull(id);
+    public ArticleEntityDTO findFull(long id) {
+        return articleDao.findFull(id).toDTO();
+    }
+
+    private List<ArticleEntityDTO> asArticleEntityDTOs(List<Article> articles){
+        List<ArticleEntityDTO> dtos = new ArrayList<>();
+        for (Article article : articles) {
+            dtos.add(article.toDTO());
+        }
+        return dtos;
     }
 }

@@ -89,6 +89,7 @@
                 <entry key="highlighted.courses.per.category" value="${highlighted.courses.per.category}"/>
                 <entry key="range.for.highlight.start" value="${range.for.highlight.start}"/>
                 <entry key="domain" value="${domain}"/>
+                <entry key="courses.per.page" value="${courses.per.page}"/>
             </map>
         </property>
     </bean>
@@ -115,6 +116,7 @@
                 <bean class="nl.codebasesoftware.produx.conversion.CourseRequestToCourseRequestFormData"/>
                 <bean class="nl.codebasesoftware.produx.conversion.ArticleSuggestionToArticleSuggestionFormData"/>
                 <bean class="nl.codebasesoftware.produx.conversion.SearchCriteriaToSolrParams"/>
+                <bean class="nl.codebasesoftware.produx.conversion.SolrDocumentToListingCourse"/>
             </set>
         </property>
     </bean>

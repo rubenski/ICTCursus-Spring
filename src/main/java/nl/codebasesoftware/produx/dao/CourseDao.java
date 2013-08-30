@@ -22,7 +22,7 @@ public interface CourseDao extends GenericDao<Course> {
 
     List<Course> findCoursesForCompanyAndCategory(Long companyId, Long categoryId);
 
-    List<Course> findCurrentlyHighlightedCourses(long categoryId,  Calendar currentDate);
+    List<Course> findHighlightedCourses(long categoryId, Calendar time);
 
     List<Course> findNonHighlightedCourses(long categoryId, Calendar currentDate);
 

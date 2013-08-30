@@ -9,6 +9,7 @@ import org.apache.solr.client.solrj.response.*;
 import org.apache.solr.common.SolrDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.apache.solr.client.solrj.response.FacetField.Count;
+import org.springframework.core.convert.ConversionService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +27,12 @@ public class QueryResponseToSearchResultConverter {
     private static final Logger LOG = Logger.getLogger(QueryResponseToSearchResultConverter.class);
 
     private CourseService courseService;
+    private ConversionService conversionService;
 
     @Autowired
-    public QueryResponseToSearchResultConverter(CourseService courseService) {
+    public QueryResponseToSearchResultConverter(CourseService courseService, ConversionService conversionService) {
         this.courseService = courseService;
+        this.conversionService = conversionService;
     }
 
     public SearchResult convert(QueryResponse queryResponse) {
@@ -44,15 +47,10 @@ public class QueryResponseToSearchResultConverter {
     }
 
     private void addCourses(QueryResponse queryResponse, SearchResult.Builder builder) {
-        List<Long> ids = new ArrayList<>();
-        for (SolrDocument course : queryResponse.getResults()) {
-            ids.add(Long.parseLong((String)course.getFieldValue("course_id")));
-            String shortdescription = (String) course.getFieldValue("shortdescription");
-            LOG.debug(shortdescription);
+        List<ListingCourseDTO> listingCourses = new ArrayList<>();
+        for (SolrDocument solrDoc : queryResponse.getResults()) {
+            listingCourses.add(conversionService.convert(solrDoc, ListingCourseDTO.class));
         }
-
-        // TODO: Rebuild this to NOT query the database, but use stored solr fields instead
-        List<ListingCourseDTO> listingCourses = courseService.findForListing(ids);
         builder.setCourses(listingCourses);
     }
 
