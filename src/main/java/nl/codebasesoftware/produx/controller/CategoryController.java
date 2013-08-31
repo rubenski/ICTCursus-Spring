@@ -1,6 +1,5 @@
 package nl.codebasesoftware.produx.controller;
 
-import nl.codebasesoftware.produx.domain.Article;
 import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
@@ -63,7 +62,7 @@ public class CategoryController {
         return process(model, categoryUrlName, 0);
     }
 
-    @RequestMapping(value = "/{categoryUrlName/{p:[0-9]+}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{categoryUrlName}/{p:[0-9]+}", method = RequestMethod.GET)
     public String showResultPage(@PathVariable("categoryUrlName") String categoryUrlName, @PathVariable("p") Integer page, Model model){
         return process(model, categoryUrlName, page);
     }
@@ -88,15 +87,11 @@ public class CategoryController {
 
         long start = System.currentTimeMillis();
 
-        LOG.debug("time solr: " + (System.currentTimeMillis() - start));
-
-        long start1 = System.currentTimeMillis();
-
         SearchResult searchResult = findWithSolr(category, page);
         List<ListingCourseDTO> highlightedCourses = courseService.findHighlightedCourses(category.getId());
         List<ArticleEntityDTO> categoryArticles = articleService.findByCategory(category.getId());
 
-        LOG.debug("time db: " + (System.currentTimeMillis() - start1));
+        LOG.debug("time : " + (System.currentTimeMillis() - start));
 
         model.addAttribute("articles", categoryArticles);
         model.addAttribute("showLightboxLink", companyCoursesForCategory.size() > 0);
@@ -106,21 +101,18 @@ public class CategoryController {
         model.addAttribute("highlighted", highlightedCourses);
         model.addAttribute("category", category);
         model.addAttribute("mainContent", "content/category");
+        model.addAttribute("rightColumn", "content/articlelisting");
         return "main";
     }
 
-
-
-
     private SearchResult findWithSolr(Category category, int page) {
 
-        String property = properties.getProperty("courses.per.page");
-        int coursesPerPage = Integer.parseInt(property);
+        int resultsPerPage = properties.getSearchResultsPerPage();
 
         SearchCriteria criteria = new SearchCriteria.Builder()
                 .addCategory(category.toDTO())
-                .setOffset(page * coursesPerPage)
-                .setRows(coursesPerPage)
+                .setStart(page * resultsPerPage)
+                .setRows(resultsPerPage)
                 .build();
 
         SearchResult result = null;

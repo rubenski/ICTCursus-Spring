@@ -3,6 +3,7 @@ package nl.codebasesoftware.produx.dao.jpa;
 import nl.codebasesoftware.produx.dao.CompanyDao;
 import nl.codebasesoftware.produx.domain.Article;
 import nl.codebasesoftware.produx.domain.Company;
+import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
@@ -22,7 +23,7 @@ public class CompanyDaoJpa extends GenericDaoJpa<Company> implements CompanyDao 
 
 
     @Override
-    public Company findByArticle(Article article) {
+    public Company findByArticle(ArticleEntityDTO article) {
         Query query = entityManager.createQuery("from Company c join fetch c.users u join fetch u.articles a where a.id = :articleId");
         query.setParameter("articleId", article.getId());
         return getSingleResult(query);

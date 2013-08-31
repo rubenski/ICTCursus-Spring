@@ -1,5 +1,7 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
+import nl.codebasesoftware.produx.domain.dto.listing.ListingCompanyDTO;
+
 /**
  * Created with IntelliJ IDEA.
  * User: rvanloen
@@ -7,11 +9,10 @@ package nl.codebasesoftware.produx.domain.dto.entity;
  * Time: 12:09
  * To change this template use File | Settings | File Templates.
  */
-public class CompanyEntityDTO extends DomainEntityDTO {
+public class CompanyEntityDTO extends ListingCompanyDTO {
 
-    private Long id;
+
     private String email;
-    private String name;
     private String address;
     private String zipCode;
     private String description;
@@ -20,20 +21,13 @@ public class CompanyEntityDTO extends DomainEntityDTO {
     private String phone;
     private String city;
     private String country;
-    private byte[] normalLogo;
-    private byte[] smallLogo;
     private Integer budgetTriggerAmount;
     private String courseRequestEmailAddress;
     private boolean allCoursesDeactivated;
+    private byte[] normalLogo;
+    private byte[] smallLogo;
 
-    @Override
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getEmail() {
         return email;
@@ -41,14 +35,6 @@ public class CompanyEntityDTO extends DomainEntityDTO {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getAddress() {
@@ -115,22 +101,6 @@ public class CompanyEntityDTO extends DomainEntityDTO {
         this.country = country;
     }
 
-    public byte[] getNormalLogo() {
-        return normalLogo;
-    }
-
-    public void setNormalLogo(byte[] normalLogo) {
-        this.normalLogo = normalLogo;
-    }
-
-    public byte[] getSmallLogo() {
-        return smallLogo;
-    }
-
-    public void setSmallLogo(byte[] smallLogo) {
-        this.smallLogo = smallLogo;
-    }
-
     public Integer getBudgetTriggerAmount() {
         return budgetTriggerAmount;
     }
@@ -153,5 +123,21 @@ public class CompanyEntityDTO extends DomainEntityDTO {
 
     public void setAllCoursesDeactivated(boolean allCoursesDeactivated) {
         this.allCoursesDeactivated = allCoursesDeactivated;
+    }
+
+    public byte[] getNormalLogo() {
+        return normalLogo;
+    }
+
+    public void setNormalLogo(byte[] normalLogo) {
+        this.normalLogo = normalLogo;
+    }
+
+    public byte[] getSmallLogo() {
+        return smallLogo;
+    }
+
+    public void setSmallLogo(byte[] smallLogo) {
+        this.smallLogo = smallLogo;
     }
 }

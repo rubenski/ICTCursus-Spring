@@ -17,48 +17,49 @@
     <div class="course-list-item highlighted">
         <div class="description">
             <a href="${course.url}" class="courselink"><h2>${course.name}</h2></a>
-
             <p>
                     ${course.listDescription}
             </p>
         </div>
         <div class="logo">
-            <c:if test="${course.company.normalLogo != null}">
-                <img src="/logo/small/${course.company.id}-cursusbedrijf.png"
+            <c:if test="${course.company.hasLogo()}">
+                <img src="${course.company.getNormalLogoUrl()}"
                      title="<spring:message code='course.listing.courseby'/> ${course.company.name}"/>
             </c:if>
         </div>
     </div>
 </c:forEach>
 
-<c:forEach items="${nonHighlighted}" var="course">
-    <div class="course-list-item">
+<c:forEach items="${searchResult.courses}" var="course" varStatus="loop">
+
+    <c:if test="${loop.last}">
+        <c:set var="lastClass" value="last"/>
+    </c:if>
+
+    <div class="course-list-item ${lastClass}">
         <div class="description">
             <a href="${course.url}" class="courselink"><h2>${course.name}</h2></a>
-
             <p>
                     ${course.listDescription}
             </p>
         </div>
         <div class="logo">
-            <c:if test="${course.company.normalLogo != null}">
-                <img src="/logo/small/${course.company.id}-cursusbedrijf.png"
+            <c:if test="${course.company.hasLogo()}">
+                <img src="${course.company.getNormalLogoUrl()}"
                      title="<spring:message code='course.listing.courseby'/> ${course.company.name}"/>
             </c:if>
         </div>
     </div>
 </c:forEach>
 
-<h2>Online cursussen en artikelen over ${category.name}</h2>
+<c:if test="${searchResult.getNumberOfResultPages() > 1}">
+    <ul class="horizontal-list">
+        <li><a href="/${category.urlTitle}">1</a></li>
+    <c:forEach begin="1" end="${searchResult.getNumberOfResultPages()}" varStatus="loop">
+        <li><a href="/${category.urlTitle}/${loop.count}">${loop.count + 1}</a></li>
+    </c:forEach>
+    </ul>
+</c:if>
 
-<c:forEach items="${articles}" var="article">
-    <div class="course-list-item">
-        <div class="description">
-            <a href="${article.url}" class="courselink"><h2>${article.title}</h2></a>
-            <p>
-                ${article.teaser}
-            </p>
-        </div>
-    </div>
-</c:forEach>
+
 

@@ -4,6 +4,7 @@ import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 import nl.codebasesoftware.produx.search.ProduxFacetField;
 import nl.codebasesoftware.produx.search.SearchResult;
 import nl.codebasesoftware.produx.service.CourseService;
+import nl.codebasesoftware.produx.util.Properties;
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.response.*;
 import org.apache.solr.common.SolrDocument;
@@ -26,22 +27,23 @@ public class QueryResponseToSearchResultConverter {
 
     private static final Logger LOG = Logger.getLogger(QueryResponseToSearchResultConverter.class);
 
-    private CourseService courseService;
     private ConversionService conversionService;
+    private Properties properties;
 
     @Autowired
-    public QueryResponseToSearchResultConverter(CourseService courseService, ConversionService conversionService) {
-        this.courseService = courseService;
+    public QueryResponseToSearchResultConverter(ConversionService conversionService, Properties properties) {
         this.conversionService = conversionService;
+        this.properties = properties;
     }
 
     public SearchResult convert(QueryResponse queryResponse) {
 
         SearchResult.Builder builder = new SearchResult.Builder();
-
         addCourses(queryResponse, builder);
         addNormalFacetFields(queryResponse, builder);
         addRangeFacetFields(queryResponse, builder);
+        builder.setTotalFound(queryResponse.getResults().getNumFound());
+        builder.setResultsPerPage(properties.getSearchResultsPerPage());
 
         return builder.build();
     }

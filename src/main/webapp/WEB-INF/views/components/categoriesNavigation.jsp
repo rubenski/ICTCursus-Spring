@@ -2,9 +2,10 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 
-<h2><spring:message code="mainsite.label.topics"/></h2>
+
 
 <nav class="whitebox">
+    <h2><spring:message code="mainsite.label.topics"/></h2>
     <ul>
         <c:forEach items="${categories}" var="category">
             <li><a href="/${category.urlTitle}">${category.name}</a>

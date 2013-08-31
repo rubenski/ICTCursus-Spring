@@ -20,6 +20,8 @@ public class SearchCriteriaToSolrParams implements Converter<SearchCriteria, Mod
         params.add("q", criteria.getQuery());
         params.add(FilterCreator.createFilters(criteria));
         params.add(FacetCreator.createFacets(criteria));
+        params.add("start", "" + criteria.getStart());
+        params.add("rows", "" + criteria.getRows());
         return params;
     }
 }

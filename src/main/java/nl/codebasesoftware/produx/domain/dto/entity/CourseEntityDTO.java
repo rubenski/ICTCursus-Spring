@@ -1,5 +1,8 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
+import nl.codebasesoftware.produx.domain.dto.generic.WebVisitable;
+import nl.codebasesoftware.produx.service.business.CourseUrl;
+
 import java.util.*;
 
 /**
@@ -9,7 +12,7 @@ import java.util.*;
  * Time: 22:00
  * To change this template use File | Settings | File Templates.
  */
-public class CourseEntityDTO extends DomainEntityDTO {
+public class CourseEntityDTO extends DomainEntityDTO implements WebVisitable {
 
     private Long id;
     private String name;
@@ -233,5 +236,8 @@ public class CourseEntityDTO extends DomainEntityDTO {
         return tagIds;
     }
 
-
+    @Override
+    public String getUrl() {
+        return CourseUrl.createUrl(id, category.getName(), name);
+    }
 }

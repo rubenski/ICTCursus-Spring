@@ -3,7 +3,7 @@
 <table>
 <c:forEach items="${result}" var="doc">
     <tr>
-        <td>${doc}</td>
+        <td>${doc}<br><br></td>
 
     </tr>
 

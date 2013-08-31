@@ -82,6 +82,16 @@ body {
     margin: 0;
 }
 
+#main #innermain ul.horizontal-list {
+    text-align: center;
+}
+
+#main #innermain ul.horizontal-list li {
+    display: inline;
+    list-style-type: none;
+    padding-right: 15px;
+}
+
 #main #innermain ol {
     padding: 10px 0px 10px 20px;
     margin: 0;
@@ -99,7 +109,7 @@ body {
 }
 
 #main #innermain #left ul {
-    padding: 10px 0px 10px 10px;
+    padding: 0px 0px 10px 10px;
     margin: 0;
 }
 
@@ -120,8 +130,35 @@ body {
 }
 
 #main #innermain #left {
-    float: left;
     width: 200px;
+}
+
+#main #innermain #right {
+    width: 142px;
+}
+
+#right, #left {
+     float: left;
+     margin-top: 35px;
+}
+
+#left h2, #maincontent h2, #right h2 {
+    font-size: 1.1em;
+    margin-bottom: 12px;
+}
+
+#maincontent a h2 {
+    margin-bottom: 0;
+}
+
+#main #innermain #right h3 {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+#main #innermain #right p {
+    margin-bottom: 20px;
+    line-height: 20px;
 }
 
 #main #innermain #maincontent {
@@ -146,25 +183,9 @@ body {
 }
 
 #main #innermain #maincontent h1 {
-    padding: 3px 0px 20px 0px;
+    padding: 3px 0px 30px 0px;
     font-weight: normal;
     font-size: 1.9em;
-}
-
-#main #innermain #maincontent h2 {
-    padding-bottom: 15px;
-    font-size: 1.3em;
-    padding-top: 5px;
-}
-
-#main #innermain #maincontent .course-list-item h2 {
-    padding: 0;
-    margin: 0;
-}
-
-#main #left h2 {
-    padding-bottom: 15px;
-    font-size: 1.3em;
 }
 
 #site-footer {
@@ -174,10 +195,14 @@ body {
 
 #main #innermain #maincontent .course-list-item {
     overflow: auto;
-    padding: 10px;
     position: relative;
-    margin-bottom: 5px;
-    border-bottom: 1px solid #9c9b9b;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #dad9d9;
+    min-height: 100px;
+}
+
+#main #innermain #maincontent .course-list-item.last {
+    border-bottom: none;
 }
 
 #main #innermain #maincontent .course-list-item p {
@@ -196,14 +221,6 @@ body {
     border-radius: 3px;
 }
 
-#main #innermain #maincontent .course-list-item.highlighted h2 {
-    padding-bottom: 4px;
-    font-size: 1.3em;
-}
-
-#main #innermain #maincontent .course-list-item h2 {
-    font-size: 1.0em;
-}
 
 #main #innermain #maincontent .course-list-item .description {
     float: left;
@@ -237,7 +254,7 @@ div.pretty {
 .whitebox {
     margin-bottom: 30px;
     padding: 20px 20px 10px 20px;
-    background-color: #fdfdfd;
+    background-color: #fff;
     text-align: left;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -261,11 +278,6 @@ div.pretty table tr td {
 
 div.pretty table tr th {
     padding: 6px 2px 6px 2px;
-}
-
-div.pretty h2 {
-    font-size: 1.1em;
-    padding-bottom: 6px;
 }
 
 .default-block {
@@ -341,6 +353,11 @@ input, select, textarea {
 #courseRequest {
     margin-top: 15px;
 }
+
+
+
+
+
 
 
 

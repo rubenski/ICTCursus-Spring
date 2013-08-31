@@ -239,7 +239,11 @@ public class Company implements DomainEntity, Serializable {
     }
 
     public ListingCompanyDTO toListingCompanyDTO(){
-        return new ListingCompanyDTO(id, name);
+        ListingCompanyDTO dto = new ListingCompanyDTO();
+        dto.setId(id);
+        dto.setName(name);
+        dto.setLogo(hasLogo());
+        return dto;
     }
 
     public CompanyEntityDTO toDTO() {
@@ -260,6 +264,7 @@ public class Company implements DomainEntity, Serializable {
         companyDTO.setPhone(phone);
         companyDTO.setVatNumber(vatNumber);
         companyDTO.setZipCode(zipCode);
+        companyDTO.setLogo(hasLogo());
         return companyDTO;
     }
 }

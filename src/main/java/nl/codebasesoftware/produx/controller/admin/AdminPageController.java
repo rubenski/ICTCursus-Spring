@@ -3,6 +3,7 @@ package nl.codebasesoftware.produx.controller.admin;
 import nl.codebasesoftware.produx.domain.Article;
 import nl.codebasesoftware.produx.domain.ArticlePage;
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.formdata.ArticlePageFormData;
 import nl.codebasesoftware.produx.service.ArticleService;
@@ -134,9 +135,9 @@ public class AdminPageController {
     }
 
 
-    private Article checkArticle(long articleId) {
+    private ArticleEntityDTO checkArticle(long articleId) {
         // Check if the article is this author's article
-        Article article = articleService.findFull(articleId);
+        ArticleEntityDTO article = articleService.findFull(articleId);
 
         if (article == null) {
             throw new ResourceNotFoundException();

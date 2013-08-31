@@ -269,11 +269,6 @@ public class Course implements DomainEntity {
     }
 
     @Transient
-    public String getUrl() {
-        return CourseUrl.createUrl(id, category.getName(), name);
-    }
-
-    @Transient
     public String getAdminUrl() {
         return CourseUrl.createAdminUrl(id);
     }
@@ -337,6 +332,7 @@ public class Course implements DomainEntity {
         dto.setRegions(getRegionsAsDTOs());
         dto.setTags(getTagsAsDTOs());
         dto.setTimes(getTimesAsDTOs());
+
         return dto;
     }
 

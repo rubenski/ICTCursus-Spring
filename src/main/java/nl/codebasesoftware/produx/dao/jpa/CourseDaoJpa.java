@@ -71,7 +71,7 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
                 "left join fetch c.options opts " +
                 "left join fetch opts.category " +
                 "left join fetch c.experiences " +
-                "left join fetch c.highlightedOnCategories " +
+                "left join fetch c.highlightedCoursePeriods " +
                 "where c.id = :id");
         query.setParameter("id", id);
         Course result = getSingleResult(query);
@@ -104,7 +104,7 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
         String query = "from Course c " +
                 "inner join fetch c.company " +
                 "inner join fetch c.category " +
-                "left join fetch c.highlightedOnCategories cats " +
+                "left join fetch c.highlightedCoursePeriods cats " +
                 "where c.category.id = :categoryId " +
                 "and (cats.category.id is null " +
                 "   or cats.category.id <> :categoryId " +

@@ -24,5 +24,9 @@ public class Properties {
         String value =  propertyMap.get(key);
         return value;
     }
+
+    public int getSearchResultsPerPage(){
+        return Integer.parseInt(getProperty("courses.per.page"));
+    }
 }
 

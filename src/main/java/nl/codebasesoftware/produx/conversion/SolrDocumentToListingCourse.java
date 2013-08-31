@@ -23,8 +23,13 @@ public class SolrDocumentToListingCourse implements Converter<SolrDocument, List
         dto.setId((Long)solrDoc.getFieldValue("course_id"));
         dto.setName((String)solrDoc.getFieldValue("name"));
         dto.setCategory(CategoryEntityDTO.fromSolrValue((String) solrDoc.getFieldValue("category")));
-        ListingCompanyDTO listingCompany = new ListingCompanyDTO((Long)solrDoc.getFieldValue("company_id"),
-                (String)solrDoc.getFieldValue("company_name"));
+        ListingCompanyDTO listingCompany = new ListingCompanyDTO();
+
+        listingCompany.setId((Long)solrDoc.getFieldValue("company_id"));
+        listingCompany.setName((String)solrDoc.getFieldValue("company_name"));
+        listingCompany.setLogo(solrDoc.getFieldValue("company_has_logo") == 1);
+
+
         dto.setCompany(listingCompany);
         dto.setListDescription((String)solrDoc.getFieldValue("shortdescription"));
         return dto;

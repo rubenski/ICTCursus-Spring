@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.*;
+import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.formdata.EditArticleFormData;
 import nl.codebasesoftware.produx.service.ArticleService;
@@ -94,7 +95,7 @@ public class AdminEditArticleController {
     @RequestMapping(value = "/admin/articles/edit/{id}", method = RequestMethod.GET)
     public String editArticle(@PathVariable("id") Long id, Model model, Locale locale) {
 
-        Article article = articleService.findFull(id);
+        ArticleEntityDTO article = articleService.findFull(id);
 
         if (article == null) {
             throw new ResourceNotFoundException();

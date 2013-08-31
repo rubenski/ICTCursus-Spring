@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.dao;
 
 import nl.codebasesoftware.produx.domain.Article;
 import nl.codebasesoftware.produx.domain.Company;
+import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
 
 /**
  * User: rvanloen
@@ -10,6 +11,6 @@ import nl.codebasesoftware.produx.domain.Company;
  */
 public interface CompanyDao extends GenericDao<Company> {
 
-    Company findByArticle(Article article);
+    Company findByArticle(ArticleEntityDTO article);
 
 }

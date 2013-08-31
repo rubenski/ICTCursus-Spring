@@ -15,17 +15,4 @@ public class CourseUrl extends AbstractUrl {
     public static String createAdminUrl(Long id) {
         return String.format("/admin/course/%d", id);
     }
-    /*
-    public static long extractId(String url) throws ProduxServiceException {
-        String s = url.split("-")[0].substring(1);
-
-        long id = -1;
-        try {
-            id = Long.parseLong(s);
-        } catch (NumberFormatException e) {
-            throw new ProduxServiceException("Url doesn't contain an id");
-        }
-
-        return id;
-    }*/
 }
