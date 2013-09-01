@@ -1,16 +1,20 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
-        $('a.lightbox').click(function(e) {
+        $('a.lightbox').click(function (e) {
             e.preventDefault();
             showUploadPanel();
         });
 
-        $('a#close-panel').click(function(e) {
+        $('a#close-panel').click(function (e) {
             e.preventDefault();
             removeUploadPanel();
         });
 
-        (function() {
+
+        var companyId = $("#id").val();
+
+
+        (function () {
             updateLogo();
         })();
 
@@ -18,9 +22,9 @@ $(document).ready(function() {
          * Get contents of hidden iframe after upload form submission and either show
          * an error or remove the form and reload the logo though Ajax.
          */
-        (function() {
+        (function () {
 
-            $("#upload-result-frame").load(function() {
+            $("#upload-result-frame").load(function () {
                 var frameContent = $("#upload-result-frame").contents().find("body").text();
                 if (frameContent.trim().length > 0) {
                     alert(frameContent);
@@ -34,20 +38,42 @@ $(document).ready(function() {
 
 
         function updateLogo() {
+
             var companyId = $("#id").val();
-            $("#companyLogoImg").remove();
-            var logoUrl = "/logo/normal/" + companyId + "-cursusbedrijf.png";
-            $.ajax(logoUrl,
-                {
-                    statusCode: {
-                        200: function() {
-                            $("<img/>")
-                                .attr('src', logoUrl)
-                                .attr('id', 'companyLogoImg')
-                                .appendTo($('#companyLogo'));
+
+            var hasLogoUrl = "/admin/logo/has/" + companyId;
+            $.post(hasLogoUrl, function (data) {
+                    if (data == true) {
+
+                        var logoUrl = "/logo/normal/" + companyId + "-cursusbedrijf.png";
+                        $.ajax(logoUrl,
+                            {
+                                statusCode: {
+                                    200: function () {
+                                        $("<img/>")
+                                            .attr('src', logoUrl)
+                                            .attr('id', 'companyLogoImg')
+                                            .appendTo($('#companyLogo'));
+                                    }
+                                }
+                            });
+
+                        var removeLink = $(".removelogo");
+                        if (removeLink.length == 0) {
+                            $(".lightbox").after("&nbsp;&nbsp;<a href='#' class='removelogo'>Verwijder logo</a>");
+                            $(".removelogo").click(function () {
+                                $.post("/admin/logo/remove/" + companyId,
+                                    {
+                                        success: function () {
+                                            removeLogoImage();
+                                            removeLogoRemovalLink();
+                                        }
+                                    });
+                            });
                         }
                     }
-                });
+                }
+            );
         }
 
 
@@ -60,8 +86,19 @@ $(document).ready(function() {
             $("#lightbox, #lightbox-panel").fadeOut(200);
         }
 
+        function removeLogoImage() {
+            $("#companyLogoImg").remove();
+        }
+
+        function removeLogoRemovalLink() {
+            $(".removelogo").remove();
+        }
+
 
     }
-
 );
+
+
+
+
 

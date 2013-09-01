@@ -212,7 +212,7 @@ public class Company implements DomainEntity, Serializable {
         bindableCompany.setPhone(phone);
         bindableCompany.setVatNumber(vatNumber);
         bindableCompany.setZipCode(zipCode);
-
+        bindableCompany.setHasLogo(hasLogo());
         return bindableCompany;
     }
 

@@ -122,8 +122,8 @@ public class CompanyServiceImpl implements CompanyService {
 
         CommonsMultipartFile fileData = bindableFileUpload.getFileData();
         try {
-            normalImageBytes = ImageUtil.resize(fileData.getInputStream(), normalLength);
-            smallImageBytes = ImageUtil.resize(fileData.getInputStream(), smallLength);
+            normalImageBytes = ImageUtil.resizeWithImgScalr(fileData.getInputStream(), normalLength);
+            smallImageBytes = ImageUtil.resizeWithImgScalr(fileData.getInputStream(), smallLength);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -133,6 +133,13 @@ public class CompanyServiceImpl implements CompanyService {
         company.setSmallLogo(smallImageBytes);
     }
 
+    @Override
+    @Transactional(readOnly = false)
+    public void removeLogo(long companyId) {
+        Company company = companyDao.find(companyId);
+        company.setNormalLogo(null);
+        company.setSmallLogo(null);
+    }
 }
 
 

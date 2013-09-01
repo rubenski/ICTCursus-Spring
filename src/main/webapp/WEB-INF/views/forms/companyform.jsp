@@ -16,9 +16,8 @@
         <form:errors path="name" cssClass="form-error"/>
     </div>
     <div class="default-block logo">
-        <form:label path="logoFileName"><spring:message code="company.form.logo"/></form:label>
+        <form:label path="hasLogo"><spring:message code="company.form.logo"/></form:label>
         <a href="#" class="lightbox"><spring:message code="company.upload.logo"/></a>
-
         <div id="companyLogo"></div>
     </div>
     <div class="default-block">
@@ -71,9 +70,6 @@
         <form:textarea rows="12" path="description" cssErrorClass="form-input-error" cols="100"/>
         <form:errors path="description" cssClass="form-error"/>
     </div>
-
-
-
 
     <div class="default-block">
         <input type="submit" class="submitbutton" value="<spring:message code="generic.message.save"/>"/>

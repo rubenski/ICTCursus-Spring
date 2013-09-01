@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.util;
 
 import nl.codebasesoftware.produx.util.support.ImageDimensions;
 import org.apache.commons.io.IOUtils;
+import org.imgscalr.Scalr;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -35,27 +36,17 @@ public class ImageUtil {
         return new ImageDimensions(newWidth, newHeight);
     }
 
-    public static byte[] resize(InputStream imageData, int maxLength) {
-
-        BufferedImage source = null;
+    public static byte[] resizeWithImgScalr(InputStream imageData, int maxLength){
+        BufferedImage result = null;
         try {
-            source = ImageIO.read(imageData);
+            BufferedImage source = ImageIO.read(imageData);
+            ImageDimensions dimensions = getScaledImageDimensions(source, maxLength);
+            result = Scalr.resize(source, Scalr.Method.ULTRA_QUALITY, dimensions.getWidth(), dimensions.getHeight());
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        ImageDimensions dimensions = getScaledImageDimensions(source, maxLength);
-
-        BufferedImage bicubic = new BufferedImage(dimensions.getWidth(), dimensions.getHeight(), source.getType());
-        Graphics2D bg = bicubic.createGraphics();
-        bg.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-        float sx = (float) dimensions.getWidth() / source.getWidth();
-        float sy = (float) dimensions.getHeight() / source.getHeight();
-        bg.scale(sx, sy);
-        bg.drawImage(source, 0, 0, null);
-        bg.dispose();
-
-        return toBytes(bicubic);
+        return toBytes(result);
     }
 
     private static byte[] toBytes(BufferedImage bufferedImage) {

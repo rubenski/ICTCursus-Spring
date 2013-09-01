@@ -22,4 +22,5 @@ public interface CompanyService {
     CompanySettingsFormData getCompanySettingsForCurrentCompany();
     void saveSettings(CompanySettingsFormData settingsDto);
     void updateLogo(BindableFileUpload bindableFileUpload);
+    void removeLogo(long companyId);
 }

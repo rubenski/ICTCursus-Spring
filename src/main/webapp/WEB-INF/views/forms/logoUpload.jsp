@@ -12,7 +12,6 @@
                  window.parent.$('body').trigger('replaceLogo');
             }
         });
-
     </script>
 </head>
 <body>

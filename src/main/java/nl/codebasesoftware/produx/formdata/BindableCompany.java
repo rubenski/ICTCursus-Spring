@@ -18,11 +18,9 @@ public class BindableCompany implements Serializable {
     private String vatNumber;
     private String chamberOfCommerceNumber;
     private String phone;
-    private String logoFileName;
-    private String logoFileExtension;
-    private String logoFileType;
     private String city;
     private String country;
+    private boolean hasLogo;
 
 
     public String getAddress() {
@@ -81,14 +79,6 @@ public class BindableCompany implements Serializable {
         this.id = id;
     }
 
-    public String getLogoFileName() {
-        return logoFileName;
-    }
-
-    public void setLogoFileName(String logoFileName) {
-        this.logoFileName = logoFileName;
-    }
-
     public String getName() {
         return name;
     }
@@ -121,21 +111,11 @@ public class BindableCompany implements Serializable {
         this.zipCode = zipCode;
     }
 
-    public String getLogoFileExtension() {
-        return logoFileExtension;
+    public boolean isHasLogo() {
+        return hasLogo;
     }
 
-    public String getLogoFileType() {
-        return logoFileType;
+    public void setHasLogo(boolean hasLogo) {
+        this.hasLogo = hasLogo;
     }
-
-    public void setLogoFileType(String logoFileType) {
-        this.logoFileType = logoFileType;
-    }
-
-    public void setLogoFileExtension(String logoFileExtension) {
-        this.logoFileExtension = logoFileExtension;
-    }
-
-
 }
