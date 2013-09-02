@@ -62,7 +62,7 @@ public class AdminCourseController {
     public String get(Model model, Locale locale) {
         UserProfile userProfile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Company company = companyService.findByUserProfile(userProfile);
-        List<Course> courses = courseService.findByCompany(company);
+        List<CourseEntityDTO> courses = courseService.findByCompany(company);
         model.addAttribute("mainContent", "content/adminCourses");
         setCoursesScreenData(model, locale, courses);
         return "adminMain";
@@ -70,7 +70,7 @@ public class AdminCourseController {
 
     @RequestMapping(value = "/admin/sys/courses", method = RequestMethod.GET)
     public String showSysadminCourses(Model model, Locale locale) {
-        List<Course> courses = courseService.findAllWithCompany();
+        List<CourseEntityDTO> courses = courseService.findAllWithCompany();
         model.addAttribute("mainContent", "content/sysAdminCourses");
         setCoursesScreenData(model, locale, courses);
         return "sysAdminMain";
@@ -86,7 +86,7 @@ public class AdminCourseController {
 
 
         Company loggedInCompany = companyService.getCurrentlyLoggedInCompany();
-        List<Course> companyCourses = courseService.findByCompany(loggedInCompany);
+        List<CourseEntityDTO> companyCourses = courseService.findByCompany(loggedInCompany);
 
         model.addAttribute("mainContent", "forms/editCourse");
         CourseEntityDTO course = courseService.findFull(id);
@@ -183,7 +183,7 @@ public class AdminCourseController {
         model.addAttribute("courseForm", true);
     }
 
-    private void setCoursesScreenData(Model model, Locale locale, List<Course> courses) {
+    private void setCoursesScreenData(Model model, Locale locale, List<CourseEntityDTO> courses) {
         String headerText = messageSource.getMessage("admin.sections.courses", new Object[]{}, locale);
         model.addAttribute("courses", courses);
         model.addAttribute("numberOfCourses", courses.size());

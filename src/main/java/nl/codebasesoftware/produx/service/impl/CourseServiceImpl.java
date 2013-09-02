@@ -62,8 +62,8 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Course> findByCompany(Company company) {
-        return courseDao.findCourses(company);
+    public List<CourseEntityDTO> findByCompany(Company company) {
+        return asCourseDTOs(courseDao.findCourses(company));
     }
 
     @Override
@@ -147,14 +147,22 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Course> findAllWithCompany() {
-        return courseDao.findAllWithCompany();
+    public List<CourseEntityDTO> findAllWithCompany() {
+        return asCourseDTOs(courseDao.findAllWithCompany());
     }
 
     private List<ListingCourseDTO> asListingCourses(List<Course> courses){
         List<ListingCourseDTO> dtos = new ArrayList<>();
         for (Course course : courses) {
             dtos.add(course.toListingCourseDTO());
+        }
+        return dtos;
+    }
+
+    private List<CourseEntityDTO> asCourseDTOs(List<Course> courses) {
+        List<CourseEntityDTO> dtos = new ArrayList<>();
+        for (Course course : courses) {
+            dtos.add(course.toDTO());
         }
         return dtos;
     }

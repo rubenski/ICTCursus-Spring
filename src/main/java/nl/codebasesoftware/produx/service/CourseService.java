@@ -13,7 +13,7 @@ import java.util.List;
  * Time: 17:13
  */
 public interface CourseService {
-    List<Course> findByCompany(Company company);
+    List<CourseEntityDTO> findByCompany(Company company);
 
     List<Category> findFirstLevelCategories();
 
@@ -39,6 +39,6 @@ public interface CourseService {
 
     Course findById(Long courseId);
 
-    List<Course> findAllWithCompany();
+    List<CourseEntityDTO> findAllWithCompany();
 
 }

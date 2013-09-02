@@ -71,10 +71,10 @@ public class AdminSolrController {
     @ResponseBody
     public int updateCompanyCourses(@PathVariable("companyId") long companyId){
         Company company = companyService.findById(companyId);
-        List<Course> courses = courseService.findByCompany(company);
+        List<CourseEntityDTO> courses = courseService.findByCompany(company);
         List<CourseEntityDTO> updatableCourses = new ArrayList<>();
-        for (Course course : courses) {
-            updatableCourses.add(course.toDTO());
+        for (CourseEntityDTO course : courses) {
+            updatableCourses.add(course);
         }
         return solrService.addOrUpdate(updatableCourses);
     }

@@ -225,7 +225,6 @@ public class CourseEntityDTO extends DomainEntityDTO implements WebVisitable {
         return names;
     }
 
-
     public List<Long> getTagIds() {
         List<Long> tagIds = new ArrayList<Long>();
         Iterator<TagEntityDTO> tagIterator = tags.iterator();
@@ -239,5 +238,17 @@ public class CourseEntityDTO extends DomainEntityDTO implements WebVisitable {
     @Override
     public String getUrl() {
         return CourseUrl.createUrl(id, category.getName(), name);
+    }
+
+    public boolean isPublishable() {
+        if (name == null) return false;
+        if (listDescription == null) return false;
+        if (longDescription == null) return false;
+        if (duration == null) return false;
+        if (price == null) return false;
+        if (company == null) return false;
+        if (category == null) return false;
+        if (regions == null || regions.size() == 0) return false;
+        return true;
     }
 }

@@ -285,6 +285,7 @@ public class Course implements DomainEntity {
     }
 
     @Transient
+    @Deprecated // use dto version
     public boolean isPublishable() {
         if (name == null) return false;
         if (listDescription == null) return false;

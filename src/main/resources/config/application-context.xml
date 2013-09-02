@@ -117,6 +117,7 @@
                 <bean class="nl.codebasesoftware.produx.conversion.ArticleSuggestionToArticleSuggestionFormData"/>
                 <bean class="nl.codebasesoftware.produx.conversion.SearchCriteriaToSolrParams"/>
                 <bean class="nl.codebasesoftware.produx.conversion.SolrDocumentToListingCourse"/>
+                <bean class="nl.codebasesoftware.produx.conversion.CourseEntityDTOToBindableCourse"/>
             </set>
         </property>
     </bean>
