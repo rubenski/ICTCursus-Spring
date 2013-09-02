@@ -60,6 +60,14 @@ public class SearchCriteria {
         return rows;
     }
 
+    public boolean hasFacetting(){
+        return rangeFacets.size() > 0 || facetFields.size() > 0;
+    }
+
+    public boolean hasRangeFacetting(){
+        return rangeFacets.size() > 0;
+    }
+
     private SearchCriteria(Builder builder){
         rows = builder.rows;
         start = builder.start;

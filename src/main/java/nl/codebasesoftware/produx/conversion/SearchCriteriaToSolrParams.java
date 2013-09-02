@@ -16,12 +16,18 @@ import java.util.List;
 public class SearchCriteriaToSolrParams implements Converter<SearchCriteria, ModifiableSolrParams> {
 
     public ModifiableSolrParams convert(SearchCriteria criteria) {
+
         ModifiableSolrParams params = new ModifiableSolrParams();
         params.add("q", criteria.getQuery());
         params.add(FilterCreator.createFilters(criteria));
         params.add(FacetCreator.createFacets(criteria));
         params.add("start", "" + criteria.getStart());
         params.add("rows", "" + criteria.getRows());
+
+        if(criteria.hasFacetting()){
+            params.add("facet", "on");
+        }
+
         return params;
     }
 }

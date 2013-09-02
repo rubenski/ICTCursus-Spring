@@ -1,5 +1,6 @@
 package nl.codebasesoftware.produx.search;
 
+import nl.codebasesoftware.produx.search.solrquery.RangeFacetOtherBehavior;
 import org.apache.solr.common.params.ModifiableSolrParams;
 
 /**
@@ -34,13 +35,21 @@ public class FacetCreator {
 
             String fieldStart = String.format("f.%s.facet.range.", rangeFacet.getField());
 
-            params.add("facet.field", rangeFacet.getField());
             params.add(fieldStart +  "start", rangeFacet.getStart().toString());
             params.add(fieldStart +  "end", rangeFacet.getEnd().toString());
             params.add(fieldStart +  "gap", rangeFacet.getGap().toString());
+            params.add("facet.range", rangeFacet.getField());
+
+
 
             if(rangeFacet.hasOther()){
-                params.add(fieldStart + "other", rangeFacet.getOther());
+                for(RangeFacetOtherBehavior otherBehavior : rangeFacet.getOtherBehaviors()){
+                    params.add(fieldStart + "other", otherBehavior.getValue());
+                }
+            }
+
+            if(rangeFacet.getMinResultCount() != null){
+                params.add("facet.mincount", "" + rangeFacet.getMinResultCount());
             }
         }
 

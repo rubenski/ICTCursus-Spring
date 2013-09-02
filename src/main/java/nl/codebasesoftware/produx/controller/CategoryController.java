@@ -7,8 +7,10 @@ import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
+import nl.codebasesoftware.produx.search.RangeFacet;
 import nl.codebasesoftware.produx.search.SearchCriteria;
 import nl.codebasesoftware.produx.search.SearchResult;
+import nl.codebasesoftware.produx.search.solrquery.RangeFacetOtherBehavior;
 import nl.codebasesoftware.produx.service.*;
 import nl.codebasesoftware.produx.util.Properties;
 import org.apache.log4j.Logger;
@@ -88,6 +90,12 @@ public class CategoryController {
         long start = System.currentTimeMillis();
 
         SearchResult searchResult = findWithSolr(category, page);
+
+        // This prevents users and bots from accessing page numbers beyond the number of pages needed for paging.
+        if(searchResult.getCourses().size() == 0){
+            throw new ResourceNotFoundException();
+        }
+
         List<ListingCourseDTO> highlightedCourses = courseService.findHighlightedCourses(category.getId());
         List<ArticleEntityDTO> categoryArticles = articleService.findByCategory(category.getId());
 
@@ -109,8 +117,14 @@ public class CategoryController {
 
         int resultsPerPage = properties.getSearchResultsPerPage();
 
+
+        RangeFacet rangeFacet = new RangeFacet("price", 0, 300000, 50000);
+        rangeFacet.addOtherBehavior(RangeFacetOtherBehavior.AFTER);
+
         SearchCriteria criteria = new SearchCriteria.Builder()
                 .addCategory(category.toDTO())
+                .addRangeFacetField(rangeFacet)
+                .addFacetField("price")
                 .setStart(page * resultsPerPage)
                 .setRows(resultsPerPage)
                 .build();

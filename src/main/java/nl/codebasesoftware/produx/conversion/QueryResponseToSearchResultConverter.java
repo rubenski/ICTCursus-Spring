@@ -78,9 +78,9 @@ public class QueryResponseToSearchResultConverter {
             for (RangeFacet rangeFacet : queryResponse.getFacetRanges()) {
                 ProduxFacetField produxFacetField = new ProduxFacetField();
                 produxFacetField.setFieldName(rangeFacet.getName());
-                List<Count> values = rangeFacet.getCounts();
-                for (Count value : values) {
-                    produxFacetField.addValue(value.getName(), value.getCount());
+                List<RangeFacet.Count> counts = rangeFacet.getCounts();
+                for (RangeFacet.Count value : counts) {
+                    produxFacetField.addValue(value.getValue(), value.getCount());
                 }
 
                 builder.addNormalFacetField(produxFacetField);

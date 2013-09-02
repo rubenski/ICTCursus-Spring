@@ -1,5 +1,10 @@
 package nl.codebasesoftware.produx.search;
 
+import nl.codebasesoftware.produx.search.solrquery.RangeFacetOtherBehavior;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: rvanloen
@@ -9,11 +14,12 @@ package nl.codebasesoftware.produx.search;
  */
 public class RangeFacet {
 
-    String field;
-    Integer start;
-    Integer end;
-    Integer gap;
-    String other;
+    private String field;
+    private Integer start;
+    private Integer end;
+    private Integer gap;
+    private List<RangeFacetOtherBehavior> otherBehaviors = new ArrayList<>();
+    private Integer minResultCount;
 
     public RangeFacet(String field, Integer start, Integer end, Integer gap) {
         this.start = start;
@@ -26,12 +32,12 @@ public class RangeFacet {
         return field;
     }
 
-    public String getOther() {
-        return other;
+    public List<RangeFacetOtherBehavior> getOtherBehaviors() {
+        return otherBehaviors;
     }
 
-    public void setOther(String other) {
-        this.other = other;
+    public void addOtherBehavior(RangeFacetOtherBehavior other) {
+        this.otherBehaviors.add(other);
     }
 
     public Integer getStart() {
@@ -47,6 +53,14 @@ public class RangeFacet {
     }
 
     public boolean hasOther(){
-        return this.other != null;
+        return this.otherBehaviors.size() > 0;
+    }
+
+    public void setMinResultCount(int min){
+        this.minResultCount = min;
+    }
+
+    public Integer getMinResultCount() {
+        return minResultCount;
     }
 }
