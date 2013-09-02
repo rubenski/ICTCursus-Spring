@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.controller;
 
 import nl.codebasesoftware.produx.domain.Course;
+import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 import nl.codebasesoftware.produx.domain.optionlists.NumberOfParticipants;
 import nl.codebasesoftware.produx.domain.optionlists.Prefixes;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
@@ -70,7 +71,7 @@ public class CourseController {
     }
 
     private void setFormData(Model model, CourseRequestFormData formData, Long courseId) {
-        Course course = courseService.findFull(courseId);
+        CourseEntityDTO course = courseService.findFull(courseId);
 
         if (course == null) {
             throw new ResourceNotFoundException();

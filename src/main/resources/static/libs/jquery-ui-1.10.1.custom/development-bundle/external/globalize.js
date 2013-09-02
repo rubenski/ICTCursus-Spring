@@ -969,7 +969,7 @@ getEraYear = function( date, cal, era, sortable ) {
 				continue;
 			}
 
-			// add a regex group for the token.
+			// addOrUpdate a regex group for the token.
 			var m = match[ 0 ],
 				len = m.length,
 				add;

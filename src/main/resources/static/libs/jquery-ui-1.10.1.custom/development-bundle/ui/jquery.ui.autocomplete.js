@@ -508,7 +508,7 @@ $.widget( "ui.autocomplete", {
 		var ul = this.menu.element;
 		ul.outerWidth( Math.max(
 			// Firefox wraps long text (possibly a rounding bug)
-			// so we add 1px to avoid the wrapping (#7513)
+			// so we addOrUpdate 1px to avoid the wrapping (#7513)
 			ul.width( "" ).outerWidth() + 1,
 			this.element.outerWidth()
 		) );

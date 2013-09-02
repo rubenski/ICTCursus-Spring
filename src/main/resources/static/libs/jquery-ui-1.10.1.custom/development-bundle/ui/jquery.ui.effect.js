@@ -181,7 +181,7 @@ function clamp( value, prop, allowEmpty ) {
 	}
 
 	if ( type.mod ) {
-		// we add mod before modding to make sure that negatives values
+		// we addOrUpdate mod before modding to make sure that negatives values
 		// get converted properly: -10 -> 350
 		return (value + type.mod) % type.mod;
 	}
@@ -480,7 +480,7 @@ spaces.hsla.to = function ( rgba ) {
 	}
 
 	// chroma (diff) == 0 means greyscale which, by definition, saturation = 0%
-	// otherwise, saturation is based on the ratio of chroma (diff) to lightness (add)
+	// otherwise, saturation is based on the ratio of chroma (diff) to lightness (addOrUpdate)
 	if ( diff === 0 ) {
 		s = 0;
 	} else if ( l <= 0.5 ) {
@@ -586,7 +586,7 @@ each( spaces, function( spaceName, space ) {
 	});
 });
 
-// add cssHook and .fx.step function for each named hook.
+// addOrUpdate cssHook and .fx.step function for each named hook.
 // accept a space separated string of properties
 color.hook = function( hook ) {
 	var hooks = hook.split( " " );
@@ -686,7 +686,7 @@ colors = jQuery.Color.names = {
 /******************************************************************************/
 (function() {
 
-var classAnimationActions = [ "add", "remove", "toggle" ],
+var classAnimationActions = [ "addOrUpdate", "remove", "toggle" ],
 	shorthandStyles = {
 		border: 1,
 		borderBottom: 1,
@@ -1090,7 +1090,7 @@ function _normalizeArguments( effect, options, speed, callback ) {
 		speed = null;
 	}
 
-	// add options to effect
+	// addOrUpdate options to effect
 	if ( options ) {
 		$.extend( effect, options );
 	}

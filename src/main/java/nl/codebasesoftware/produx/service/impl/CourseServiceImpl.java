@@ -85,8 +85,8 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     @Transactional(readOnly = true)
-    public Course findFull(Long id) {
-        return courseDao.findFull(id);
+    public CourseEntityDTO findFull(Long id) {
+        return courseDao.findFull(id).toDTO();
     }
 
     @Override

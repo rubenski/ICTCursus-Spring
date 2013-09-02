@@ -170,7 +170,7 @@ $.widget( "ui.spinner", {
 		},
 		"mouseup .ui-spinner-button": "_stop",
 		"mouseenter .ui-spinner-button": function( event ) {
-			// button will add ui-state-active if mouse was down while mouseleave and kept down
+			// button will addOrUpdate ui-state-active if mouse was down while mouseleave and kept down
 			if ( !$( event.currentTarget ).hasClass( "ui-state-active" ) ) {
 				return;
 			}
@@ -192,7 +192,7 @@ $.widget( "ui.spinner", {
 			.attr( "autocomplete", "off" )
 			.wrap( this._uiSpinnerHtml() )
 			.parent()
-				// add buttons
+				// addOrUpdate buttons
 				.append( this._buttonHtml() );
 
 		this.element.attr( "role", "spinbutton" );

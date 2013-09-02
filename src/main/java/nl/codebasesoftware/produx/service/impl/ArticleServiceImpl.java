@@ -56,7 +56,7 @@ public class ArticleServiceImpl implements ArticleService {
 
         // Get the author and tie it to the article later
         UserProfile author = userProfileService.findById(authorProfileId);
-        // Get the suggestion on which this article is based so we can add the article to the suggestion later
+        // Get the suggestion on which this article is based so we can addOrUpdate the article to the suggestion later
         ArticleSuggestion suggestion = articleSuggestionDao.find(formData.getSuggestionId());
         // Get the category
         Category category = categoryDao.find(formData.getCategory());

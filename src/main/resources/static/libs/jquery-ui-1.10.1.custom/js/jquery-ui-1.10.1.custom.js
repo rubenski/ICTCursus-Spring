@@ -1618,7 +1618,7 @@ $.widget( "ui.accordion", {
 		}
 
 		// #5332 - opacity doesn't cascade to positioned elements in IE
-		// so we need to add the disabled class to the headers and panels
+		// so we need to addOrUpdate the disabled class to the headers and panels
 		if ( key === "disabled" ) {
 			this.headers.add( this.headers.next() )
 				.toggleClass( "ui-state-disabled", !!value );
@@ -2523,7 +2523,7 @@ $.widget( "ui.autocomplete", {
 		var ul = this.menu.element;
 		ul.outerWidth( Math.max(
 			// Firefox wraps long text (possibly a rounding bug)
-			// so we add 1px to avoid the wrapping (#7513)
+			// so we addOrUpdate 1px to avoid the wrapping (#7513)
 			ul.width( "" ).outerWidth() + 1,
 			this.element.outerWidth()
 		) );
@@ -3733,7 +3733,7 @@ $.extend(Datepicker.prototype, {
 		}
 		if (!$.datepicker._pos) { // position below input
 			$.datepicker._pos = $.datepicker._findPos(input);
-			$.datepicker._pos[1] += input.offsetHeight; // add the height
+			$.datepicker._pos[1] += input.offsetHeight; // addOrUpdate the height
 		}
 
 		isFixed = false;
@@ -3792,9 +3792,9 @@ $.extend(Datepicker.prototype, {
 		if (cols > 1) {
 			inst.dpDiv.addClass("ui-datepicker-multi-" + cols).css("width", (width * cols) + "em");
 		}
-		inst.dpDiv[(numMonths[0] !== 1 || numMonths[1] !== 1 ? "add" : "remove") +
+		inst.dpDiv[(numMonths[0] !== 1 || numMonths[1] !== 1 ? "addOrUpdate" : "remove") +
 			"Class"]("ui-datepicker-multi");
-		inst.dpDiv[(this._get(inst, "isRTL") ? "add" : "remove") +
+		inst.dpDiv[(this._get(inst, "isRTL") ? "addOrUpdate" : "remove") +
 			"Class"]("ui-datepicker-rtl");
 
 		// #6694 - don't focus the input if it's already focused
@@ -7299,7 +7299,7 @@ function clamp( value, prop, allowEmpty ) {
 	}
 
 	if ( type.mod ) {
-		// we add mod before modding to make sure that negatives values
+		// we addOrUpdate mod before modding to make sure that negatives values
 		// get converted properly: -10 -> 350
 		return (value + type.mod) % type.mod;
 	}
@@ -7598,7 +7598,7 @@ spaces.hsla.to = function ( rgba ) {
 	}
 
 	// chroma (diff) == 0 means greyscale which, by definition, saturation = 0%
-	// otherwise, saturation is based on the ratio of chroma (diff) to lightness (add)
+	// otherwise, saturation is based on the ratio of chroma (diff) to lightness (addOrUpdate)
 	if ( diff === 0 ) {
 		s = 0;
 	} else if ( l <= 0.5 ) {
@@ -7704,7 +7704,7 @@ each( spaces, function( spaceName, space ) {
 	});
 });
 
-// add cssHook and .fx.step function for each named hook.
+// addOrUpdate cssHook and .fx.step function for each named hook.
 // accept a space separated string of properties
 color.hook = function( hook ) {
 	var hooks = hook.split( " " );
@@ -7804,7 +7804,7 @@ colors = jQuery.Color.names = {
 /******************************************************************************/
 (function() {
 
-var classAnimationActions = [ "add", "remove", "toggle" ],
+var classAnimationActions = [ "addOrUpdate", "remove", "toggle" ],
 	shorthandStyles = {
 		border: 1,
 		borderBottom: 1,
@@ -8208,7 +8208,7 @@ function _normalizeArguments( effect, options, speed, callback ) {
 		speed = null;
 	}
 
-	// add options to effect
+	// addOrUpdate options to effect
 	if ( options ) {
 		$.extend( effect, options );
 	}
@@ -13362,7 +13362,7 @@ $.widget( "ui.spinner", {
 		},
 		"mouseup .ui-spinner-button": "_stop",
 		"mouseenter .ui-spinner-button": function( event ) {
-			// button will add ui-state-active if mouse was down while mouseleave and kept down
+			// button will addOrUpdate ui-state-active if mouse was down while mouseleave and kept down
 			if ( !$( event.currentTarget ).hasClass( "ui-state-active" ) ) {
 				return;
 			}
@@ -13384,7 +13384,7 @@ $.widget( "ui.spinner", {
 			.attr( "autocomplete", "off" )
 			.wrap( this._uiSpinnerHtml() )
 			.parent()
-				// add buttons
+				// addOrUpdate buttons
 				.append( this._buttonHtml() );
 
 		this.element.attr( "role", "spinbutton" );

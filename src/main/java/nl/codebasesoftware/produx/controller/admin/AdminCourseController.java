@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.*;
+import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
 import nl.codebasesoftware.produx.service.*;
@@ -88,7 +89,7 @@ public class AdminCourseController {
         List<Course> companyCourses = courseService.findByCompany(loggedInCompany);
 
         model.addAttribute("mainContent", "forms/editCourse");
-        Course course = courseService.findFull(id);
+        CourseEntityDTO course = courseService.findFull(id);
 
         if (course == null || !companyCourses.contains(course)) {
             throw new ResourceNotFoundException();
@@ -103,7 +104,7 @@ public class AdminCourseController {
     @RequestMapping(value = "/admin/sys/course/{id}", method = RequestMethod.GET)
     public String getSysAdminCourseForm(@PathVariable("id") Long id, Model model, Locale locale) {
         model.addAttribute("mainContent", "forms/editCourse");
-        Course course = courseService.findFull(id);
+        CourseEntityDTO course = courseService.findFull(id);
         model.addAttribute("bindableCourse", conversionService.convert(course, BindableCourse.class));
         addDataToModel(model, locale);
         return "sysAdminMain";

@@ -10,10 +10,6 @@ $(document).ready(function () {
             removeUploadPanel();
         });
 
-
-        var companyId = $("#id").val();
-
-
         (function () {
             updateLogo();
         })();
@@ -23,7 +19,6 @@ $(document).ready(function () {
          * an error or remove the form and reload the logo though Ajax.
          */
         (function () {
-
             $("#upload-result-frame").load(function () {
                 var frameContent = $("#upload-result-frame").contents().find("body").text();
                 if (frameContent.trim().length > 0) {
@@ -32,6 +27,7 @@ $(document).ready(function () {
                     $("#lightbox").fadeOut(200);
                     $("#lightbox-panel").fadeOut(200);
                     updateLogo();
+                    updateCourseInSolr();
                 }
             });
         })();
@@ -67,6 +63,7 @@ $(document).ready(function () {
                                         success: function () {
                                             removeLogoImage();
                                             removeLogoRemovalLink();
+                                            updateCourseInSolr();
                                         }
                                     });
                             });
@@ -94,6 +91,13 @@ $(document).ready(function () {
             $(".removelogo").remove();
         }
 
+        function updateCourseInSolr(){
+            var companyId = $("#id").val();
+            var url = "/admin/solr/updatecompany/" + companyId;
+            $.post(url, function(result){
+                alert(result);
+            });
+        }
 
     }
 );

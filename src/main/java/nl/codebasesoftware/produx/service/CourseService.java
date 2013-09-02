@@ -17,7 +17,7 @@ public interface CourseService {
 
     List<Category> findFirstLevelCategories();
 
-    Course findFull(Long id);
+    CourseEntityDTO findFull(Long id);
 
     Course save(BindableCourse bindableCourse);
 

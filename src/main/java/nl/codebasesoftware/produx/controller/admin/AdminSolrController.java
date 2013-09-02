@@ -1,12 +1,15 @@
 package nl.codebasesoftware.produx.controller.admin;
 
+import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 import nl.codebasesoftware.produx.search.solrquery.SolrQuery;
 import nl.codebasesoftware.produx.search.solrquery.queryitems.FacetFieldParameter;
 import nl.codebasesoftware.produx.search.solrquery.queryitems.FacetFieldRangeParameter;
 import nl.codebasesoftware.produx.search.solrquery.queryitems.SearchPhraseParameter;
+import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.service.CourseService;
+import nl.codebasesoftware.produx.service.SolrService;
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
@@ -19,7 +22,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,100 +40,42 @@ import java.util.List;
 @Controller
 public class AdminSolrController {
 
-    /*
-        HttpSolrServer is thread-safe and if you are using the following constructor,
-        you *MUST* re-use the same instance for all requests.  If instances are created on
-        the fly, it can cause a connection leak. The recommended practice is to keep a
-        static instance of HttpSolrServer per solr server url and share it for all requests.
-        See https://issues.apache.org/jira/browse/SOLR-861 for more details
-
-        In this application the Solr server is defined as a singleton scoped Spring bean, which also works.
-    */
-    private HttpSolrServer solrServer;
 
     private ConversionService conversionService;
+    private SolrService solrService;
     private CourseService courseService;
+    private CompanyService companyService;
 
     private static Logger LOG = Logger.getLogger(AdminSolrController.class);
 
     @Autowired
-    public AdminSolrController(CourseService courseService, ConversionService conversionService, HttpSolrServer solrServer) {
+    public AdminSolrController(CourseService courseService, ConversionService conversionService, SolrService solrService
+            , CompanyService companyService) {
         this.courseService = courseService;
         this.conversionService = conversionService;
-        this.solrServer = solrServer;
+        this.solrService = solrService;
+        this.companyService = companyService;
     }
 
     @RequestMapping(value = "/admin/updatesolr")
     public String updateSolr(Model model) {
-
-        List<SolrInputDocument> solrDocuments = new ArrayList<SolrInputDocument>();
         List<CourseEntityDTO> indexableCourses = courseService.findIndexableCourses();
-
-        for (CourseEntityDTO indexableCourse : indexableCourses) {
-            SolrInputDocument solrInputDocument = conversionService.convert(indexableCourse, SolrInputDocument.class);
-            solrDocuments.add(solrInputDocument);
-        }
-
-        try {
-            solrServer.add(solrDocuments);
-            solrServer.commit();
-        } catch (SolrServerException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        solrService.addOrUpdate(indexableCourses);
         model.addAttribute("mainContent", "content/solr");
-
-        ModifiableSolrParams solrParams = new ModifiableSolrParams();
-
-
-        // Fetch some data from Solr just for testing
-        // This works directly on the server: q=cursus&facet=on&facet.queryitems=price
-        solrParams.set("q", "cursus");
-        solrParams.set("facet", true);
-        solrParams.set("facet.queryitems", "price");
-        solrParams.set("facet.range", "price");
-        solrParams.set("f.price.facet.range.start", 0);
-        solrParams.set("f.price.facet.range.end", 100000);
-        solrParams.set("f.price.facet.range.gap", 10000);
-
-
-        /*
-        SolrQuery query = new SolrQuery.Builder()
-                .setSearchPhrase(new SearchPhraseParameter("cursus"))
-                .addFacetField(new FacetFieldParameter("price"))
-                .addFacetField(new FacetFieldParameter("je moeder"))
-                .addFacetFieldRange(new FacetFieldRangeParameter("price", 10000L, 100000L, 10000L))
-                .build();
-        */
-
-        QueryResponse queryResponse = null;
-        // http://local.tomcat:8983/solr/select?q=cursus&facet=on&f.price.facet.range.start=0&f.price.facet.range.end=10000&f.price.facet.range.gap=1000&facet.range.other=after&wt=xml
-        try {
-            // look here for query examples: http://wiki.constellio.com/index.php/Solrj_example`
-            queryResponse = solrServer.query(solrParams);
-        } catch (SolrServerException e) {
-            e.printStackTrace();
-        }
-
-
-        for (RangeFacet rangeFacet : queryResponse.getFacetRanges()) {
-            String rangeFacetName = rangeFacet.getName();
-            LOG.debug(rangeFacetName);
-
-            List<RangeFacet.Count> counts = rangeFacet.getCounts();
-
-            for (RangeFacet.Count count : counts) {
-                LOG.debug(count.getValue() + " : " + count.getCount());
-            }
-
-        }
-
-        SolrDocumentList results = queryResponse.getResults();
-        model.addAttribute("result", results);
-
+        model.addAttribute("updatedCourses", indexableCourses);
+        model.addAttribute("numberOfCourses", indexableCourses.size());
         return "adminMain";
+    }
 
+    @RequestMapping(value = "/admin/solr/updatecompany/{companyId}", method = RequestMethod.POST)
+    @ResponseBody
+    public int updateCompanyCourses(@PathVariable("companyId") long companyId){
+        Company company = companyService.findById(companyId);
+        List<Course> courses = courseService.findByCompany(company);
+        List<CourseEntityDTO> updatableCourses = new ArrayList<>();
+        for (Course course : courses) {
+            updatableCourses.add(course.toDTO());
+        }
+        return solrService.addOrUpdate(updatableCourses);
     }
 }

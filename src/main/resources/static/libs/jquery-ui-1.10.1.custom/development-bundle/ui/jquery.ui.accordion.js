@@ -159,7 +159,7 @@ $.widget( "ui.accordion", {
 		}
 
 		// #5332 - opacity doesn't cascade to positioned elements in IE
-		// so we need to add the disabled class to the headers and panels
+		// so we need to addOrUpdate the disabled class to the headers and panels
 		if ( key === "disabled" ) {
 			this.headers.add( this.headers.next() )
 				.toggleClass( "ui-state-disabled", !!value );

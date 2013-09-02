@@ -1,21 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
+Updated ${numberOfCourses} courses
 <table>
-<c:forEach items="${result}" var="doc">
+<c:forEach items="${updatedCourses}" var="course">
     <tr>
-        <td>${doc}<br><br></td>
-
+        <td>${course.id}<br><br></td>
     </tr>
-
 </c:forEach>
 
-<tr><td>range facets</td></tr>
-
-<c:forEach items="${rangeFacets}" var="rangeFacet">
-    <tr>
-        <td>${rangeFacet}</td>
-
-    </tr>
-
-</c:forEach>
 </table>

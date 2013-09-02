@@ -718,7 +718,7 @@ $.extend(Datepicker.prototype, {
 		}
 		if (!$.datepicker._pos) { // position below input
 			$.datepicker._pos = $.datepicker._findPos(input);
-			$.datepicker._pos[1] += input.offsetHeight; // add the height
+			$.datepicker._pos[1] += input.offsetHeight; // addOrUpdate the height
 		}
 
 		isFixed = false;
@@ -777,9 +777,9 @@ $.extend(Datepicker.prototype, {
 		if (cols > 1) {
 			inst.dpDiv.addClass("ui-datepicker-multi-" + cols).css("width", (width * cols) + "em");
 		}
-		inst.dpDiv[(numMonths[0] !== 1 || numMonths[1] !== 1 ? "add" : "remove") +
+		inst.dpDiv[(numMonths[0] !== 1 || numMonths[1] !== 1 ? "addOrUpdate" : "remove") +
 			"Class"]("ui-datepicker-multi");
-		inst.dpDiv[(this._get(inst, "isRTL") ? "add" : "remove") +
+		inst.dpDiv[(this._get(inst, "isRTL") ? "addOrUpdate" : "remove") +
 			"Class"]("ui-datepicker-rtl");
 
 		// #6694 - don't focus the input if it's already focused
