@@ -110,6 +110,7 @@ public class CategoryController {
         model.addAttribute("category", category);
         model.addAttribute("mainContent", "content/category");
         model.addAttribute("rightColumn", "content/articlelisting");
+        model.addAttribute("facetedSearch", true);
         return "main";
     }
 

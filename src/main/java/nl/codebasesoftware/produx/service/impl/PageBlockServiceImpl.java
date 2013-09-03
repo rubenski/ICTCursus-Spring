@@ -45,7 +45,7 @@ public class PageBlockServiceImpl implements PageBlockService {
         model.addAttribute("rightColumn", "components/empty");
     }
 
-    @Transactional(readOnly = false)
+    @Transactional(readOnly = true)
     private void setCategories(Model model){
         List<Category> firstLevelCategories = courseService.findFirstLevelCategories();
         model.addAttribute("categories", firstLevelCategories);

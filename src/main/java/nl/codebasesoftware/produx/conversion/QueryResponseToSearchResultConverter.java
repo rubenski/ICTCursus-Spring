@@ -59,15 +59,12 @@ public class QueryResponseToSearchResultConverter {
     private void addNormalFacetFields(QueryResponse queryResponse, SearchResult.Builder builder) {
         if (queryResponse.getFacetFields() != null) {
             for (FacetField facetField : queryResponse.getFacetFields()) {
-
                 ProduxFacetField produxFacetField = new ProduxFacetField();
                 produxFacetField.setFieldName(facetField.getName());
                 List<Count> values = facetField.getValues();
                 for (Count value : values) {
                     produxFacetField.addValue(value.getName(), value.getCount());
-
                 }
-
                 builder.addNormalFacetField(produxFacetField);
             }
         }

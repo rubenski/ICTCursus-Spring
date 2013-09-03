@@ -9,4 +9,7 @@
     <c:if test="${categoriesNav}">
         <jsp:include page="components/categoriesNavigation.jsp"/>
     </c:if>
+    <c:if test="${facetedSearch}">
+        <jsp:include page="components/facetedSearch.jsp"/>
+    </c:if>
 </div>
