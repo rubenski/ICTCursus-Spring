@@ -12,20 +12,18 @@ import java.util.List;
  * Time: 14:54
  * To change this template use File | Settings | File Templates.
  */
-public class RangeFacet {
+public class RangeFacet extends Facet {
 
-    private String field;
     private Integer start;
     private Integer end;
     private Integer gap;
     private List<RangeFacetOtherBehavior> otherBehaviors = new ArrayList<>();
-    private Integer minResultCount;
 
-    public RangeFacet(String field, Integer start, Integer end, Integer gap) {
+    public RangeFacet(String field, Integer start, Integer end, Integer gap, FacetSortingBehavior sorting) {
+        super(field,sorting);
         this.start = start;
         this.end = end;
         this.gap = gap;
-        this.field = field;
     }
 
     public String getField() {
@@ -56,11 +54,4 @@ public class RangeFacet {
         return this.otherBehaviors.size() > 0;
     }
 
-    public void setMinResultCount(int min){
-        this.minResultCount = min;
-    }
-
-    public Integer getMinResultCount() {
-        return minResultCount;
-    }
 }

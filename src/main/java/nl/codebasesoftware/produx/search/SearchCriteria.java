@@ -19,7 +19,7 @@ public class SearchCriteria {
     private List<PriceRangeFilter> priceRanges = new ArrayList<>();
     private List<Long> regionIds = new ArrayList<>();
     private List<Long> tagIds = new ArrayList<>();
-    private List<String> facetFields = new ArrayList<>();
+    private List<Facet> facetFields = new ArrayList<>();
     private List<RangeFacet> rangeFacets = new ArrayList<>();
     private Integer start;
     private Integer rows;
@@ -44,7 +44,7 @@ public class SearchCriteria {
         return tagIds;
     }
 
-    public List<String> getFacetFields() {
+    public List<Facet> getFacetFields() {
         return facetFields;
     }
 
@@ -87,7 +87,7 @@ public class SearchCriteria {
         private List<PriceRangeFilter> priceRanges = new ArrayList<>();
         private List<Long> regions = new ArrayList<>();
         private List<Long> tags = new ArrayList<>();
-        private List<String> facetFields = new ArrayList<>();
+        private List<Facet> facetFields = new ArrayList<>();
         private List<RangeFacet> rangeFacets = new ArrayList<>();
         private Integer start;
         private Integer rows;
@@ -118,8 +118,8 @@ public class SearchCriteria {
             return this;
         }
 
-        public Builder addFacetField(String fieldName){
-            this.facetFields.add(fieldName);
+        public Builder addFacetField(Facet facet){
+            this.facetFields.add(facet);
             return this;
         }
 

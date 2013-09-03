@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.conversion;
 
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
+import nl.codebasesoftware.produx.search.FacetFieldNameValue;
 import nl.codebasesoftware.produx.search.ProduxFacetField;
 import nl.codebasesoftware.produx.search.SearchResult;
 import nl.codebasesoftware.produx.service.CourseService;
@@ -59,11 +60,10 @@ public class QueryResponseToSearchResultConverter {
     private void addNormalFacetFields(QueryResponse queryResponse, SearchResult.Builder builder) {
         if (queryResponse.getFacetFields() != null) {
             for (FacetField facetField : queryResponse.getFacetFields()) {
-                ProduxFacetField produxFacetField = new ProduxFacetField();
-                produxFacetField.setFieldName(facetField.getName());
+                ProduxFacetField produxFacetField = new ProduxFacetField(facetField.getName());
                 List<Count> values = facetField.getValues();
                 for (Count value : values) {
-                    produxFacetField.addValue(value.getName(), value.getCount());
+                    produxFacetField.addValue(new FacetFieldNameValue(facetField.getName(), value.getName(), value.getCount()));
                 }
                 builder.addNormalFacetField(produxFacetField);
             }
@@ -73,11 +73,10 @@ public class QueryResponseToSearchResultConverter {
     private void addRangeFacetFields(QueryResponse queryResponse, SearchResult.Builder builder) {
         if (queryResponse.getFacetRanges() != null) {
             for (RangeFacet rangeFacet : queryResponse.getFacetRanges()) {
-                ProduxFacetField produxFacetField = new ProduxFacetField();
-                produxFacetField.setFieldName(rangeFacet.getName());
+                ProduxFacetField produxFacetField = new ProduxFacetField(rangeFacet.getName());
                 List<RangeFacet.Count> counts = rangeFacet.getCounts();
                 for (RangeFacet.Count value : counts) {
-                    produxFacetField.addValue(value.getValue(), value.getCount());
+                    produxFacetField.addValue(new FacetFieldNameValue(rangeFacet.getName(), value.getValue(), value.getCount()));
                 }
 
                 builder.addNormalFacetField(produxFacetField);

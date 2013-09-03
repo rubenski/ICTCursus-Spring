@@ -21,8 +21,10 @@ public class FacetCreator {
 
     private static ModifiableSolrParams createNormalFacets(SearchCriteria criteria){
         ModifiableSolrParams params = new ModifiableSolrParams();
-        for (String facetField : criteria.getFacetFields()) {
-            params.add("facet.field", facetField);
+        for (Facet facetField : criteria.getFacetFields()) {
+            params.add("facet.field", facetField.getField());
+            params.add(String.format("f.%s.facet.sort", facetField.getField()), facetField.getSorting().getValue());
+            params.add(String.format("f.%s.facet.mincount", facetField.getField()), "" + facetField.getMinCount());
         }
         return params;
     }
@@ -39,17 +41,13 @@ public class FacetCreator {
             params.add(fieldStart +  "end", rangeFacet.getEnd().toString());
             params.add(fieldStart +  "gap", rangeFacet.getGap().toString());
             params.add("facet.range", rangeFacet.getField());
-
-
+            params.add(String.format("f.%s.facet.sort", rangeFacet.getField()), rangeFacet.getSorting().getValue());
+            params.add(String.format("f.%s.facet.mincount", rangeFacet.getField()), "" + rangeFacet.getMinCount());
 
             if(rangeFacet.hasOther()){
                 for(RangeFacetOtherBehavior otherBehavior : rangeFacet.getOtherBehaviors()){
                     params.add(fieldStart + "other", otherBehavior.getValue());
                 }
-            }
-
-            if(rangeFacet.getMinResultCount() != null){
-                params.add("facet.mincount", "" + rangeFacet.getMinResultCount());
             }
         }
 

@@ -7,6 +7,7 @@ import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
+import nl.codebasesoftware.produx.search.FacetSortingBehavior;
 import nl.codebasesoftware.produx.search.RangeFacet;
 import nl.codebasesoftware.produx.search.SearchCriteria;
 import nl.codebasesoftware.produx.search.SearchResult;
@@ -119,13 +120,14 @@ public class CategoryController {
         int resultsPerPage = properties.getSearchResultsPerPage();
 
 
-        RangeFacet rangeFacet = new RangeFacet("price", 0, 300000, 50000);
+        RangeFacet rangeFacet = new RangeFacet("price", 0, 300000, 50000, FacetSortingBehavior.COUNT);
         rangeFacet.addOtherBehavior(RangeFacetOtherBehavior.AFTER);
+        rangeFacet.setMinCount(1);
+
 
         SearchCriteria criteria = new SearchCriteria.Builder()
                 .addCategory(category.toDTO())
                 .addRangeFacetField(rangeFacet)
-                .addFacetField("price")
                 .setStart(page * resultsPerPage)
                 .setRows(resultsPerPage)
                 .build();

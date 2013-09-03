@@ -1,6 +1,8 @@
 package nl.codebasesoftware.produx.search;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,23 +15,22 @@ import java.util.Map;
 public class ProduxFacetField {
 
     String fieldName;
-    String fieldHeaderKey;
-    Map<String, Long> values = new HashMap<>();
+    List<FacetFieldNameValue> values = new ArrayList<>();
+
+    public ProduxFacetField(String fieldName) {
+        this.fieldName = fieldName;
+    }
 
     public String getFieldName() {
         return fieldName;
     }
 
-    public void setFieldName(String fieldName) {
-        this.fieldName = fieldName;
-    }
-
-    public Map<String, Long> getValues() {
+    public List<FacetFieldNameValue> getValues() {
         return values;
     }
 
-    public void addValue(String name, long value) {
-        values.put(name, value);
+    public void addValue(FacetFieldNameValue nameValue) {
+        values.add(nameValue);
     }
 
     public String getFieldHeaderKey() {
