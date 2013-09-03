@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.service;
 
 import nl.codebasesoftware.produx.domain.Course;
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.search.SearchResult;
@@ -21,4 +22,5 @@ import java.util.Collection;
 public interface SolrService {
     SearchResult search(SolrParams params) throws ProduxServiceException;
     int addOrUpdate(Collection<CourseEntityDTO> courses);
+    int updateCompanyCourses(long companyId);
 }

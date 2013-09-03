@@ -1,10 +1,13 @@
 package nl.codebasesoftware.produx.service.impl;
 
 import nl.codebasesoftware.produx.conversion.QueryResponseToSearchResultConverter;
+import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.search.SearchResult;
 import nl.codebasesoftware.produx.search.SolrServerFactory;
+import nl.codebasesoftware.produx.service.CompanyService;
+import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.service.SolrService;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -34,15 +37,18 @@ public class SolrServiceImpl implements SolrService {
     private SolrServerFactory solrServerFactory;
     private QueryResponseToSearchResultConverter responseConverter;
     private ConversionService conversionService;
+    private CourseService courseService;
 
 
     @Autowired
     public SolrServiceImpl(SolrServerFactory solrServerFactory,
                            QueryResponseToSearchResultConverter responseConverter,
-                           ConversionService conversionService) {
+                           ConversionService conversionService,
+                           CourseService courseService) {
         this.solrServerFactory = solrServerFactory;
         this.responseConverter = responseConverter;
         this.conversionService = conversionService;
+        this.courseService = courseService;
     }
 
     @Override
@@ -82,5 +88,15 @@ public class SolrServiceImpl implements SolrService {
 
         assert response != null;
         return response.getStatus();
+    }
+
+    @Override
+    public int updateCompanyCourses(long companyId) {
+        List<CourseEntityDTO> courses = courseService.findByCompanyId(companyId);
+        List<CourseEntityDTO> updatableCourses = new ArrayList<>();
+        for (CourseEntityDTO course : courses) {
+            updatableCourses.add(course);
+        }
+        return addOrUpdate(updatableCourses);
     }
 }

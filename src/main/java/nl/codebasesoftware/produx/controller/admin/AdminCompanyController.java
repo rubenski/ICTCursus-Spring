@@ -5,6 +5,7 @@ import nl.codebasesoftware.produx.domain.optionlists.ListOptions;
 import nl.codebasesoftware.produx.formdata.BindableCompany;
 import nl.codebasesoftware.produx.formdata.BindableFileUpload;
 import nl.codebasesoftware.produx.service.CompanyService;
+import nl.codebasesoftware.produx.service.SolrService;
 import nl.codebasesoftware.produx.validator.CompanyFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -32,13 +33,16 @@ public class AdminCompanyController {
     private CompanyFormValidator validator;
     private ListOptions listOptions;
 
+
     @Autowired
     public AdminCompanyController(CompanyService companyService, MessageSource messageSource, CompanyFormValidator validator,
                                   ListOptions listOptions) {
+
         this.companyService = companyService;
         this.messageSource = messageSource;
         this.validator = validator;
         this.listOptions = listOptions;
+
     }
 
     @RequestMapping(value= "/admin/company", method = RequestMethod.GET)
@@ -66,7 +70,6 @@ public class AdminCompanyController {
             companyService.update(bindableCompany);
             valid = "true";
         }
-
 
         model.addAttribute("headerText", messageSource.getMessage("admin.sections.companyprofile", new Object[]{}, locale));
         model.addAttribute("bindableFileUpload", new BindableFileUpload());

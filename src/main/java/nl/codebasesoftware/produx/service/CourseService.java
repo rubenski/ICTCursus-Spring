@@ -41,4 +41,5 @@ public interface CourseService {
 
     List<CourseEntityDTO> findAllWithCompany();
 
+    List<CourseEntityDTO> findByCompanyId(long companyId);
 }

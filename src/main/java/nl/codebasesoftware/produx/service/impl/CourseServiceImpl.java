@@ -30,14 +30,16 @@ public class CourseServiceImpl implements CourseService {
     private CourseDao courseDao;
     private SystemPropertyService systemPropertyService;
     private ConversionService conversionService;
+    private CompanyDao companyDao;
 
     @Autowired
     public CourseServiceImpl(CourseDao courseDao,
                              SystemPropertyService systemPropertyService,
-                             ConversionService conversionService) {
+                             ConversionService conversionService, CompanyDao companyDao) {
         this.courseDao = courseDao;
         this.systemPropertyService = systemPropertyService;
         this.conversionService = conversionService;
+        this.companyDao = companyDao;
     }
 
 
@@ -64,6 +66,12 @@ public class CourseServiceImpl implements CourseService {
     @Transactional(readOnly = true)
     public List<CourseEntityDTO> findByCompany(Company company) {
         return asCourseDTOs(courseDao.findCourses(company));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<CourseEntityDTO> findByCompanyId(long companyId) {
+        return findByCompany(companyDao.find(companyId));
     }
 
     @Override

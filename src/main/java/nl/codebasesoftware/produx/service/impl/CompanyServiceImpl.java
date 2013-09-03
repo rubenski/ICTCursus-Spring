@@ -9,6 +9,7 @@ import nl.codebasesoftware.produx.formdata.BindableFileUpload;
 import nl.codebasesoftware.produx.formdata.CompanySettingsFormData;
 import nl.codebasesoftware.produx.formdata.BindableCompany;
 import nl.codebasesoftware.produx.service.CompanyService;
+import nl.codebasesoftware.produx.service.SolrService;
 import nl.codebasesoftware.produx.service.support.CurrentUser;
 import nl.codebasesoftware.produx.util.ImageUtil;
 import nl.codebasesoftware.produx.util.Properties;
@@ -31,11 +32,13 @@ public class CompanyServiceImpl implements CompanyService {
 
     private CompanyDao companyDao;
     private Properties properties;
+    private SolrService solrService;
 
     @Autowired
-    public CompanyServiceImpl(CompanyDao companyDao, Properties properties) {
+    public CompanyServiceImpl(CompanyDao companyDao, Properties properties, SolrService solrService) {
         this.companyDao = companyDao;
         this.properties = properties;
+        this.solrService = solrService;
     }
 
     @Override
@@ -55,6 +58,7 @@ public class CompanyServiceImpl implements CompanyService {
     public void update(BindableCompany bindableCompany) {
         Company company = getCurrentlyLoggedInCompany();
         bindableCompanyToCompany(bindableCompany, company);
+        solrService.updateCompanyCourses(company.getId());
         companyDao.persist(company);
     }
 
