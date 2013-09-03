@@ -13,6 +13,7 @@ import java.util.Map;
 public class ProduxFacetField {
 
     String fieldName;
+    String fieldHeaderKey;
     Map<String, Long> values = new HashMap<>();
 
     public String getFieldName() {
@@ -29,5 +30,10 @@ public class ProduxFacetField {
 
     public void addValue(String name, long value) {
         values.put(name, value);
+    }
+
+    public String getFieldHeaderKey() {
+        String s = String.format("faceting.header.%s", fieldName);
+        return s;
     }
 }
