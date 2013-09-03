@@ -18,9 +18,11 @@ import org.apache.solr.common.params.SolrParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -37,18 +39,15 @@ public class SolrServiceImpl implements SolrService {
     private SolrServerFactory solrServerFactory;
     private QueryResponseToSearchResultConverter responseConverter;
     private ConversionService conversionService;
-    private CourseService courseService;
 
 
     @Autowired
     public SolrServiceImpl(SolrServerFactory solrServerFactory,
                            QueryResponseToSearchResultConverter responseConverter,
-                           ConversionService conversionService,
-                           CourseService courseService) {
+                           ConversionService conversionService) {
         this.solrServerFactory = solrServerFactory;
         this.responseConverter = responseConverter;
         this.conversionService = conversionService;
-        this.courseService = courseService;
     }
 
     @Override
@@ -90,13 +89,11 @@ public class SolrServiceImpl implements SolrService {
         return response.getStatus();
     }
 
+
     @Override
-    public int updateCompanyCourses(long companyId) {
-        List<CourseEntityDTO> courses = courseService.findByCompanyId(companyId);
-        List<CourseEntityDTO> updatableCourses = new ArrayList<>();
-        for (CourseEntityDTO course : courses) {
-            updatableCourses.add(course);
-        }
-        return addOrUpdate(updatableCourses);
+    public int addOrUpdate(CourseEntityDTO course) {
+        return addOrUpdate(Arrays.asList(course));
     }
+
+
 }

@@ -9,6 +9,7 @@ import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
 import nl.codebasesoftware.produx.service.CourseService;
+import nl.codebasesoftware.produx.service.SolrService;
 import nl.codebasesoftware.produx.service.SystemPropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
@@ -31,15 +32,18 @@ public class CourseServiceImpl implements CourseService {
     private SystemPropertyService systemPropertyService;
     private ConversionService conversionService;
     private CompanyDao companyDao;
+    private SolrService solrService;
+
 
     @Autowired
     public CourseServiceImpl(CourseDao courseDao,
                              SystemPropertyService systemPropertyService,
-                             ConversionService conversionService, CompanyDao companyDao) {
+                             ConversionService conversionService, CompanyDao companyDao, SolrService solrService) {
         this.courseDao = courseDao;
         this.systemPropertyService = systemPropertyService;
         this.conversionService = conversionService;
         this.companyDao = companyDao;
+        this.solrService = solrService;
     }
 
 
@@ -111,7 +115,7 @@ public class CourseServiceImpl implements CourseService {
         if (bindableCourse.isPublished() && !course.wasPreviouslyPublished()) {
             course.setFirstPublished(Calendar.getInstance());
         }
-
+        solrService.addOrUpdate(course.toDTO());
         courseDao.persist(course);
 
         return course;

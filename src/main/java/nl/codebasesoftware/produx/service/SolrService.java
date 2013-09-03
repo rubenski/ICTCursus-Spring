@@ -11,6 +11,7 @@ import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.params.SolrParams;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,5 +23,5 @@ import java.util.Collection;
 public interface SolrService {
     SearchResult search(SolrParams params) throws ProduxServiceException;
     int addOrUpdate(Collection<CourseEntityDTO> courses);
-    int updateCompanyCourses(long companyId);
+    int addOrUpdate(CourseEntityDTO course);
 }

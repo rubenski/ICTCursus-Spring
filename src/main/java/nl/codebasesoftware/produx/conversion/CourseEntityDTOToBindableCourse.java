@@ -87,6 +87,7 @@ public class CourseEntityDTOToBindableCourse implements Converter<CourseEntityDT
         NumberFormat numberFormat = NumberFormat.getInstance();
         numberFormat.setMaximumFractionDigits(2);
         numberFormat.setMinimumFractionDigits(2);
+        numberFormat.setGroupingUsed(false);
         Double priceDouble = priceCents / 100d;
         String s = numberFormat.format(priceDouble);
         return s;

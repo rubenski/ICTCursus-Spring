@@ -1,10 +1,11 @@
 package nl.codebasesoftware.produx.service.impl;
 
 import nl.codebasesoftware.produx.dao.CompanyDao;
-import nl.codebasesoftware.produx.domain.Article;
 import nl.codebasesoftware.produx.domain.Company;
+import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 import nl.codebasesoftware.produx.formdata.BindableFileUpload;
 import nl.codebasesoftware.produx.formdata.CompanySettingsFormData;
 import nl.codebasesoftware.produx.formdata.BindableCompany;
@@ -21,6 +22,10 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 /**
  * User: rvanloen
@@ -33,6 +38,7 @@ public class CompanyServiceImpl implements CompanyService {
     private CompanyDao companyDao;
     private Properties properties;
     private SolrService solrService;
+
 
     @Autowired
     public CompanyServiceImpl(CompanyDao companyDao, Properties properties, SolrService solrService) {
@@ -58,7 +64,8 @@ public class CompanyServiceImpl implements CompanyService {
     public void update(BindableCompany bindableCompany) {
         Company company = getCurrentlyLoggedInCompany();
         bindableCompanyToCompany(bindableCompany, company);
-        solrService.updateCompanyCourses(company.getId());
+        Set<Course> courses = company.getCourses();
+        solrService.addOrUpdate(asCourseEntities(courses));
         companyDao.persist(company);
     }
 
@@ -143,6 +150,14 @@ public class CompanyServiceImpl implements CompanyService {
         Company company = companyDao.find(companyId);
         company.setNormalLogo(null);
         company.setSmallLogo(null);
+    }
+
+    public List<CourseEntityDTO> asCourseEntities(Collection<Course> courses){
+        List<CourseEntityDTO> courseEntities = new ArrayList<>();
+        for (Course course : courses) {
+            courseEntities.add(course.toDTO());
+        }
+        return courseEntities;
     }
 }
 
