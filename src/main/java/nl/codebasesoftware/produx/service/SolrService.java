@@ -21,7 +21,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public interface SolrService {
-    SearchResult search(SolrParams params) throws ProduxServiceException;
+    QueryResponse search(SolrParams params) throws ProduxServiceException;
     int addOrUpdate(Collection<CourseEntityDTO> courses);
     int addOrUpdate(CourseEntityDTO course);
 }

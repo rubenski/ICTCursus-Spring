@@ -1,10 +1,10 @@
 package nl.codebasesoftware.produx.conversion;
 
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
-import nl.codebasesoftware.produx.search.FacetFieldNameValue;
+import nl.codebasesoftware.produx.search.NormalFacetFieldView;
 import nl.codebasesoftware.produx.search.ProduxFacetField;
+import nl.codebasesoftware.produx.search.RangeFacetFieldView;
 import nl.codebasesoftware.produx.search.SearchResult;
-import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.util.Properties;
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.response.*;
@@ -37,12 +37,12 @@ public class QueryResponseToSearchResultConverter {
         this.properties = properties;
     }
 
-    public SearchResult convert(QueryResponse queryResponse) {
+    public SearchResult convert(QueryResponse queryResponse, String baseUrl) {
 
         SearchResult.Builder builder = new SearchResult.Builder();
         addCourses(queryResponse, builder);
-        addNormalFacetFields(queryResponse, builder);
-        addRangeFacetFields(queryResponse, builder);
+        addNormalFacetFields(queryResponse, builder, baseUrl);
+        addRangeFacetFields(queryResponse, builder, baseUrl);
         builder.setTotalFound(queryResponse.getResults().getNumFound());
         builder.setResultsPerPage(properties.getSearchResultsPerPage());
 
@@ -57,26 +57,27 @@ public class QueryResponseToSearchResultConverter {
         builder.setCourses(listingCourses);
     }
 
-    private void addNormalFacetFields(QueryResponse queryResponse, SearchResult.Builder builder) {
+    private void addNormalFacetFields(QueryResponse queryResponse, SearchResult.Builder builder, String baseUrl) {
         if (queryResponse.getFacetFields() != null) {
             for (FacetField facetField : queryResponse.getFacetFields()) {
                 ProduxFacetField produxFacetField = new ProduxFacetField(facetField.getName());
                 List<Count> values = facetField.getValues();
                 for (Count value : values) {
-                    produxFacetField.addValue(new FacetFieldNameValue(facetField.getName(), value.getName(), value.getCount()));
+                    produxFacetField.addValue(new NormalFacetFieldView(facetField.getName(), value.getName(), value.getCount(), baseUrl));
                 }
                 builder.addNormalFacetField(produxFacetField);
             }
         }
     }
 
-    private void addRangeFacetFields(QueryResponse queryResponse, SearchResult.Builder builder) {
+    private void addRangeFacetFields(QueryResponse queryResponse, SearchResult.Builder builder, String baseUrl) {
         if (queryResponse.getFacetRanges() != null) {
             for (RangeFacet rangeFacet : queryResponse.getFacetRanges()) {
                 ProduxFacetField produxFacetField = new ProduxFacetField(rangeFacet.getName());
                 List<RangeFacet.Count> counts = rangeFacet.getCounts();
                 for (RangeFacet.Count value : counts) {
-                    produxFacetField.addValue(new FacetFieldNameValue(rangeFacet.getName(), value.getValue(), value.getCount()));
+                    RangeFacetFieldView rangeFacetFieldView = new RangeFacetFieldView(rangeFacet.getName(), Integer.parseInt(value.getValue()), value.getCount(), (Integer)rangeFacet.getGap(), baseUrl);
+                    produxFacetField.addValue(rangeFacetFieldView);
                 }
 
                 builder.addNormalFacetField(produxFacetField);

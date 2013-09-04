@@ -1,9 +1,7 @@
 package nl.codebasesoftware.produx.search;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,7 +13,7 @@ import java.util.Map;
 public class ProduxFacetField {
 
     String fieldName;
-    List<FacetFieldNameValue> values = new ArrayList<>();
+    List<FacetFieldView> values = new ArrayList<>();
 
     public ProduxFacetField(String fieldName) {
         this.fieldName = fieldName;
@@ -25,11 +23,11 @@ public class ProduxFacetField {
         return fieldName;
     }
 
-    public List<FacetFieldNameValue> getValues() {
+    public List<FacetFieldView> getValues() {
         return values;
     }
 
-    public void addValue(FacetFieldNameValue nameValue) {
+    public void addValue(FacetFieldView nameValue) {
         values.add(nameValue);
     }
 

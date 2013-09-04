@@ -12,6 +12,7 @@ import nl.codebasesoftware.produx.search.RangeFacet;
 import nl.codebasesoftware.produx.search.SearchCriteria;
 import nl.codebasesoftware.produx.search.SearchResult;
 import nl.codebasesoftware.produx.search.solrquery.RangeFacetOtherBehavior;
+import nl.codebasesoftware.produx.search.solrquery.filter.FacetFilter;
 import nl.codebasesoftware.produx.service.*;
 import nl.codebasesoftware.produx.util.Properties;
 import org.apache.log4j.Logger;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,16 +63,17 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/{categoryUrlName}", method = RequestMethod.GET)
-    public String showFrontPage(@PathVariable("categoryUrlName") String categoryUrlName, Model model){
-        return process(model, categoryUrlName, 0);
+    public String showFrontPage(@PathVariable("categoryUrlName") String categoryUrlName, Model model, HttpServletRequest request){
+        return process(model, categoryUrlName, 0, request);
     }
 
     @RequestMapping(value = "/{categoryUrlName}/{p:[0-9]+}", method = RequestMethod.GET)
-    public String showResultPage(@PathVariable("categoryUrlName") String categoryUrlName, @PathVariable("p") Integer page, Model model){
-        return process(model, categoryUrlName, page);
+    public String showResultPage(@PathVariable("categoryUrlName") String categoryUrlName, @PathVariable("p") Integer page, Model model, HttpServletRequest request){
+        return process(model, categoryUrlName, page, request);
     }
 
-    private String process(Model model, String categoryUrlName, int page){
+    private String process(Model model, String categoryUrlName, int page, HttpServletRequest request){
+
         Category category = categoryService.findByUrlTitle(categoryUrlName);
 
         if(category == null){
@@ -90,7 +93,7 @@ public class CategoryController {
 
         long start = System.currentTimeMillis();
 
-        SearchResult searchResult = findWithSolr(category, page);
+        SearchResult searchResult = searchService.findCategoryCourses(category, page, request.getRequestURI());
 
         // This prevents users and bots from accessing page numbers beyond the number of pages needed for paging.
         if(searchResult.getCourses().size() == 0){
@@ -115,33 +118,7 @@ public class CategoryController {
         return "main";
     }
 
-    private SearchResult findWithSolr(Category category, int page) {
 
-        int resultsPerPage = properties.getSearchResultsPerPage();
-
-
-        RangeFacet rangeFacet = new RangeFacet("price", 0, 300000, 50000, FacetSortingBehavior.COUNT);
-        rangeFacet.addOtherBehavior(RangeFacetOtherBehavior.AFTER);
-        rangeFacet.setMinCount(1);
-
-
-        SearchCriteria criteria = new SearchCriteria.Builder()
-                .addCategory(category.toDTO())
-                .addRangeFacetField(rangeFacet)
-                .setStart(page * resultsPerPage)
-                .setRows(resultsPerPage)
-                .build();
-
-        SearchResult result = null;
-
-        try {
-            result = searchService.findCourses(criteria);
-        } catch (ProduxServiceException e) {
-            e.printStackTrace();
-        }
-
-        return result;
-    }
 }
 
 

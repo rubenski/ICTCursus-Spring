@@ -1,13 +1,9 @@
 package nl.codebasesoftware.produx.service.impl;
 
 import nl.codebasesoftware.produx.conversion.QueryResponseToSearchResultConverter;
-import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
-import nl.codebasesoftware.produx.search.SearchResult;
 import nl.codebasesoftware.produx.search.SolrServerFactory;
-import nl.codebasesoftware.produx.service.CompanyService;
-import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.service.SolrService;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -18,7 +14,6 @@ import org.apache.solr.common.params.SolrParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,21 +32,18 @@ import java.util.List;
 public class SolrServiceImpl implements SolrService {
 
     private SolrServerFactory solrServerFactory;
-    private QueryResponseToSearchResultConverter responseConverter;
     private ConversionService conversionService;
 
 
     @Autowired
     public SolrServiceImpl(SolrServerFactory solrServerFactory,
-                           QueryResponseToSearchResultConverter responseConverter,
                            ConversionService conversionService) {
         this.solrServerFactory = solrServerFactory;
-        this.responseConverter = responseConverter;
         this.conversionService = conversionService;
     }
 
     @Override
-    public SearchResult search(SolrParams params) throws ProduxServiceException {
+    public QueryResponse search(SolrParams params) throws ProduxServiceException {
 
         QueryResponse response;
 
@@ -61,7 +53,7 @@ public class SolrServiceImpl implements SolrService {
             throw new ProduxServiceException("Solr server couldn't be reached", e);
         }
 
-        return responseConverter.convert(response);
+        return response;
     }
 
     @Override
