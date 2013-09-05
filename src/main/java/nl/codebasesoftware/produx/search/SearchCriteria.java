@@ -16,7 +16,7 @@ public class SearchCriteria {
 
     private List<CategoryEntityDTO> categories = new ArrayList<>();
     private String query;
-    private List<PriceRangeFilter> priceRanges = new ArrayList<>();
+    private List<RangeFilter> rangeFilters = new ArrayList<>();
     private List<Long> regionIds = new ArrayList<>();
     private List<Long> tagIds = new ArrayList<>();
     private List<Facet> facetFields = new ArrayList<>();
@@ -32,8 +32,8 @@ public class SearchCriteria {
         return query;
     }
 
-    public List<PriceRangeFilter> getPriceRanges() {
-        return priceRanges;
+    public List<RangeFilter> getRangeFilters() {
+        return rangeFilters;
     }
 
     public List<Long> getRegionIds() {
@@ -73,7 +73,7 @@ public class SearchCriteria {
         start = builder.start;
         categories = builder.categories;
         query = builder.query;
-        priceRanges = builder.priceRanges;
+        rangeFilters = builder.rangeFilters;
         regionIds = builder.regions;
         tagIds = builder.tags;
         facetFields = builder.facetFields;
@@ -84,7 +84,7 @@ public class SearchCriteria {
 
         private List<CategoryEntityDTO> categories = new ArrayList<>();
         private String query = "*:*";
-        private List<PriceRangeFilter> priceRanges = new ArrayList<>();
+        private List<RangeFilter> rangeFilters = new ArrayList<>();
         private List<Long> regions = new ArrayList<>();
         private List<Long> tags = new ArrayList<>();
         private List<Facet> facetFields = new ArrayList<>();
@@ -103,8 +103,8 @@ public class SearchCriteria {
             return this;
         }
 
-        public Builder addPriceRange(PriceRangeFilter range){
-            priceRanges.add(range);
+        public Builder addRangeFilter(RangeFilter range){
+            rangeFilters.add(range);
             return this;
         }
 

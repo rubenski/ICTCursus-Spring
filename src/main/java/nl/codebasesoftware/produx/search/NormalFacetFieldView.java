@@ -12,7 +12,7 @@ public class NormalFacetFieldView extends FacetFieldView {
     private final String value;
 
     public NormalFacetFieldView(String fieldName, String value, long count, String baseUrl) {
-        super(fieldName, count, baseUrl);
+        super(fieldName, count);
         this.value = value;
     }
 
@@ -22,7 +22,7 @@ public class NormalFacetFieldView extends FacetFieldView {
     }
 
     @Override
-    public String getUrl(){
-        return String.format("%s/%s:%s", baseUrl, fieldName, value);
+    public String getUrlToken(){
+        return String.format("%s/%s:%s", fieldName, value);
     }
 }

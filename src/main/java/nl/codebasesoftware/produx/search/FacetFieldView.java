@@ -11,12 +11,10 @@ public abstract class FacetFieldView {
 
     protected final String fieldName;
     protected final long count;
-    protected final String baseUrl;
 
-    protected FacetFieldView(String fieldName, long count, String baseUrl) {
+    protected FacetFieldView(String fieldName, long count) {
         this.fieldName = fieldName;
         this.count = count;
-        this.baseUrl = baseUrl;
     }
 
     public  Long getCount(){
@@ -24,6 +22,6 @@ public abstract class FacetFieldView {
     }
 
     protected abstract String getNameKey();
-    protected abstract String getUrl();
+    protected abstract String getUrlToken();
 
 }

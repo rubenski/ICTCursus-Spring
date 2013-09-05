@@ -35,8 +35,8 @@ public class FilterCreator {
             param += " AND " + createMultiValueFilter(criteria.getRegionIds(), "region_id");
         }
 
-        if(criteria.getPriceRanges().size() > 0){
-            param += " AND " + createRangeFilters(criteria.getPriceRanges(), "price");
+        if(criteria.getRangeFilters().size() > 0){
+            param += " AND " + createRangeFilters(criteria.getRangeFilters(), "price");
         }
 
         params.add("fq", param);

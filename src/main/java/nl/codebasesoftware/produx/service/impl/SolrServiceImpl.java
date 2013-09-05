@@ -50,7 +50,7 @@ public class SolrServiceImpl implements SolrService {
         try {
             response = solrServerFactory.getServer().query(params);
         } catch (SolrServerException e) {
-            throw new ProduxServiceException("Solr server couldn't be reached", e);
+            throw new ProduxServiceException("Solr server at couldn't be reached", e);
         }
 
         return response;

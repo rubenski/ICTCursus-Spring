@@ -7,7 +7,7 @@ package nl.codebasesoftware.produx.search;
  * Time: 14:19
  * To change this template use File | Settings | File Templates.
  */
-public abstract class Facet {
+public class Facet {
 
     protected FacetSortingBehavior sorting;
     protected String field;

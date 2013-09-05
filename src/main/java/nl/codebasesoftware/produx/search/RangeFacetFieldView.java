@@ -11,11 +11,13 @@ public class RangeFacetFieldView extends FacetFieldView {
 
     private final Integer value;
     private final Integer gap;
+    private String baseUrl;
 
     public RangeFacetFieldView(String fieldName, Integer value, long count, Integer gap, String baseUrl) {
-        super(fieldName, count, baseUrl);
+        super(fieldName, count);
         this.value = value;
         this.gap = gap;
+        this.baseUrl = baseUrl;
     }
 
     @Override
@@ -24,7 +26,7 @@ public class RangeFacetFieldView extends FacetFieldView {
     }
 
     @Override
-    public String getUrl(){
+    public String getUrlToken(){
         return String.format("%s/%s:%d-%d", baseUrl, fieldName, value, value + gap);
     }
 }

@@ -38,7 +38,7 @@ public class SearchResult {
             return this;
         }
 
-        public Builder addNormalFacetField(ProduxFacetField produxFacetField){
+        public Builder addFacetField(ProduxFacetField produxFacetField){
             this.produxFacetFields.add(produxFacetField);
             return this;
         }

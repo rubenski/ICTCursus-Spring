@@ -63,16 +63,19 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/{categoryUrlName}", method = RequestMethod.GET)
-    public String showFrontPage(@PathVariable("categoryUrlName") String categoryUrlName, Model model, HttpServletRequest request){
+    public String showFrontPage(@PathVariable("categoryUrlName") String categoryUrlName, Model model, HttpServletRequest request) throws ProduxServiceException {
         return process(model, categoryUrlName, 0, request);
     }
 
-    @RequestMapping(value = "/{categoryUrlName}/{p:[0-9]+}", method = RequestMethod.GET)
-    public String showResultPage(@PathVariable("categoryUrlName") String categoryUrlName, @PathVariable("p") Integer page, Model model, HttpServletRequest request){
+    @RequestMapping(value = "/{categoryUrlName}/{facets:.+}/{p:[0-9]+}", method = RequestMethod.GET)
+    public String showResultPage(@PathVariable("categoryUrlName") String categoryUrlName,
+                                 @PathVariable("p") Integer page,
+                                 @PathVariable("facets") String facets,
+                                 Model model, HttpServletRequest request) throws ProduxServiceException {
         return process(model, categoryUrlName, page, request);
     }
 
-    private String process(Model model, String categoryUrlName, int page, HttpServletRequest request){
+    private String process(Model model, String categoryUrlName, int page, HttpServletRequest request) throws ProduxServiceException {
 
         Category category = categoryService.findByUrlTitle(categoryUrlName);
 
@@ -93,7 +96,21 @@ public class CategoryController {
 
         long start = System.currentTimeMillis();
 
-        SearchResult searchResult = searchService.findCategoryCourses(category, page, request.getRequestURI());
+        int resultsPerPage = properties.getSearchResultsPerPage();
+
+        RangeFacet rangeFacet = new RangeFacet("price", 0, 300000, 50000, FacetSortingBehavior.COUNT);
+        rangeFacet.addOtherBehavior(RangeFacetOtherBehavior.AFTER);
+        rangeFacet.setMinCount(1);
+
+        SearchCriteria criteria = new SearchCriteria.Builder()
+                .addCategory(category.toDTO())
+                .addRangeFacetField(rangeFacet)
+                .setStart(page * resultsPerPage)
+                .setRows(resultsPerPage)
+                .build();
+
+
+        SearchResult  searchResult = searchService.findCategoryCourses(category, criteria, page);
 
         // This prevents users and bots from accessing page numbers beyond the number of pages needed for paging.
         if(searchResult.getCourses().size() == 0){

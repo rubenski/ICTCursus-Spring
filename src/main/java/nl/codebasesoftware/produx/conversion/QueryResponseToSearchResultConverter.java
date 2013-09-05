@@ -1,13 +1,11 @@
 package nl.codebasesoftware.produx.conversion;
 
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
-import nl.codebasesoftware.produx.search.NormalFacetFieldView;
-import nl.codebasesoftware.produx.search.ProduxFacetField;
-import nl.codebasesoftware.produx.search.RangeFacetFieldView;
-import nl.codebasesoftware.produx.search.SearchResult;
+import nl.codebasesoftware.produx.search.*;
 import nl.codebasesoftware.produx.util.Properties;
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.response.*;
+import org.apache.solr.client.solrj.response.RangeFacet;
 import org.apache.solr.common.SolrDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.apache.solr.client.solrj.response.FacetField.Count;
@@ -37,12 +35,12 @@ public class QueryResponseToSearchResultConverter {
         this.properties = properties;
     }
 
-    public SearchResult convert(QueryResponse queryResponse, String baseUrl) {
+    public SearchResult convert(QueryResponse queryResponse, SearchCriteria criteria) {
 
         SearchResult.Builder builder = new SearchResult.Builder();
         addCourses(queryResponse, builder);
-        addNormalFacetFields(queryResponse, builder, baseUrl);
-        addRangeFacetFields(queryResponse, builder, baseUrl);
+        addNormalFacetFields(queryResponse, builder, FacetBaseUrlGenerator.generate(criteria));
+        addRangeFacetFields(queryResponse, builder, FacetBaseUrlGenerator.generate(criteria));
         builder.setTotalFound(queryResponse.getResults().getNumFound());
         builder.setResultsPerPage(properties.getSearchResultsPerPage());
 
@@ -65,7 +63,7 @@ public class QueryResponseToSearchResultConverter {
                 for (Count value : values) {
                     produxFacetField.addValue(new NormalFacetFieldView(facetField.getName(), value.getName(), value.getCount(), baseUrl));
                 }
-                builder.addNormalFacetField(produxFacetField);
+                builder.addFacetField(produxFacetField);
             }
         }
     }
@@ -76,11 +74,11 @@ public class QueryResponseToSearchResultConverter {
                 ProduxFacetField produxFacetField = new ProduxFacetField(rangeFacet.getName());
                 List<RangeFacet.Count> counts = rangeFacet.getCounts();
                 for (RangeFacet.Count value : counts) {
-                    RangeFacetFieldView rangeFacetFieldView = new RangeFacetFieldView(rangeFacet.getName(), Integer.parseInt(value.getValue()), value.getCount(), (Integer)rangeFacet.getGap(), baseUrl);
+                    RangeFacetFieldView rangeFacetFieldView = new RangeFacetFieldView(rangeFacet.getName(),
+                            Integer.parseInt(value.getValue()), value.getCount(), (Integer)rangeFacet.getGap(), baseUrl);
                     produxFacetField.addValue(rangeFacetFieldView);
                 }
-
-                builder.addNormalFacetField(produxFacetField);
+                builder.addFacetField(produxFacetField);
             }
         }
     }
