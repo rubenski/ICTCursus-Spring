@@ -1,5 +1,7 @@
 package nl.codebasesoftware.produx.search;
 
+import org.apache.solr.common.params.ModifiableSolrParams;
+
 /**
  * Created with IntelliJ IDEA.
  * User: rvanloen
@@ -7,31 +9,29 @@ package nl.codebasesoftware.produx.search;
  * Time: 14:02
  * To change this template use File | Settings | File Templates.
  */
-public class RangeFilter<L,R> {
+public class RangeFilter extends Filter {
 
-    private final String field;
-    private final L min;
-    private final R max;
+    private final Range range;
 
-    public RangeFilter(String field, L min, R max) {
+    public RangeFilter(String field, Range range) {
+        super(field);
         this.field = field;
-        this.min = min;
-        this.max = max;
+        this.range = range;
     }
 
-    public String getField() {
-        return field;
+    public Range getRange() {
+        return range;
     }
 
-    public L getMin() {
-        return min;
+    @Override
+    public String getUrlToken() {
+        return String.format("%s:%s-%s", field, range.getLeft(), range.getRight());
     }
 
-    public R getMax() {
-        return max;
-    }
-
-    public String getUrlToken(){
-        return String.format("/%s:%s-%s", field, min, max);
+    @Override
+    public ModifiableSolrParams createSolrParams() {
+        ModifiableSolrParams params = new ModifiableSolrParams();
+        params.add("fq", String.format("%s:[%s TO %s]", field, range.getLeft(), range.getRight()));
+        return params;
     }
 }

@@ -1,4 +1,4 @@
-package nl.codebasesoftware.produx.search.solrquery;
+package nl.codebasesoftware.produx.search;
 
 /**
  * Created with IntelliJ IDEA.
@@ -8,8 +8,6 @@ package nl.codebasesoftware.produx.search.solrquery;
  * To change this template use File | Settings | File Templates.
  */
 public enum RangeFacetOtherBehavior {
-
-
 
     /**
      *

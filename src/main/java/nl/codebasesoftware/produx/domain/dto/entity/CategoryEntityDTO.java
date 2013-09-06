@@ -1,5 +1,9 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
+import nl.codebasesoftware.produx.domain.dto.generic.UrlToken;
+import nl.codebasesoftware.produx.search.SolrParameter;
+import org.apache.solr.common.params.ModifiableSolrParams;
+
 /**
  * Created with IntelliJ IDEA.
  * User: rvanloen

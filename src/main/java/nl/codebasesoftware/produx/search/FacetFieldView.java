@@ -1,27 +1,38 @@
 package nl.codebasesoftware.produx.search;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: rvanloen
- * Date: 4-9-13
- * Time: 12:17
+ * Date: 16-8-13
+ * Time: 9:01
  * To change this template use File | Settings | File Templates.
  */
-public abstract class FacetFieldView {
+public class FacetFieldView {
 
-    protected final String fieldName;
-    protected final long count;
+    String fieldName;
+    List<FacetFilterLink> values = new ArrayList<>();
 
-    protected FacetFieldView(String fieldName, long count) {
+    public FacetFieldView(String fieldName) {
         this.fieldName = fieldName;
-        this.count = count;
     }
 
-    public  Long getCount(){
-        return count;
+    public String getFieldName() {
+        return fieldName;
     }
 
-    protected abstract String getNameKey();
-    protected abstract String getUrlToken();
+    public List<FacetFilterLink> getValues() {
+        return values;
+    }
 
+    public void addValue(FacetFilterLink nameValue) {
+        values.add(nameValue);
+    }
+
+    public String getFieldHeaderKey() {
+        String s = String.format("faceting.header.%s", fieldName);
+        return s;
+    }
 }

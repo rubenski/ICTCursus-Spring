@@ -1,10 +1,11 @@
 package nl.codebasesoftware.produx.conversion;
 
-import nl.codebasesoftware.produx.search.*;
+import nl.codebasesoftware.produx.search.FacetField;
+import nl.codebasesoftware.produx.search.Filter;
+import nl.codebasesoftware.produx.search.SearchCriteria;
+import nl.codebasesoftware.produx.search.SolrParameter;
 import org.apache.solr.common.params.ModifiableSolrParams;
 import org.springframework.core.convert.converter.Converter;
-
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,16 +19,21 @@ public class SearchCriteriaToSolrParams implements Converter<SearchCriteria, Mod
     public ModifiableSolrParams convert(SearchCriteria criteria) {
 
         ModifiableSolrParams params = new ModifiableSolrParams();
-        params.add("q", criteria.getQuery());
-        params.add(FilterCreator.createFilters(criteria));
-        params.add(FacetCreator.createFacets(criteria));
-        params.add("start", "" + criteria.getStart());
-        params.add("rows", "" + criteria.getRows());
 
-        if(criteria.hasFacetting()){
-            params.add("facet", "on");
+        params.add("q", criteria.getQuery());
+
+
+        for (FacetField facet : criteria.getFacetFields()) {
+            params.add(facet.createSolrParams());
         }
 
+        for (Filter filter : criteria.getFilters()) {
+            params.add(filter.createSolrParams());
+        }
+
+        params.add("start", "" + criteria.getStart());
+        params.add("rows", "" + criteria.getRows());
+        params.add("facet", "on");
         return params;
     }
 }

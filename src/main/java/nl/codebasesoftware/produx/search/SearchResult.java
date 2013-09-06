@@ -15,13 +15,13 @@ import java.util.Collection;
 public class SearchResult {
 
     private Collection<ListingCourseDTO> courses = new ArrayList<>();
-    private Collection<ProduxFacetField> produxFacetFields = new ArrayList<>();
+    private Collection<FacetFieldView> facetFieldViews = new ArrayList<>();
     private long totalFound;
     private Integer resultsPerPage;
 
     private SearchResult(Builder builder){
         courses = builder.courses;
-        produxFacetFields = builder.produxFacetFields;
+        facetFieldViews = builder.facetFieldViews;
         totalFound = builder.totalFound;
         resultsPerPage = builder.resultsPerPage;
     }
@@ -29,7 +29,7 @@ public class SearchResult {
     public static class Builder {
 
         private Collection<ListingCourseDTO> courses = new ArrayList<>();
-        private Collection<ProduxFacetField> produxFacetFields = new ArrayList<>();
+        private Collection<FacetFieldView> facetFieldViews = new ArrayList<>();
         private long totalFound;
         private Integer resultsPerPage;
 
@@ -38,8 +38,8 @@ public class SearchResult {
             return this;
         }
 
-        public Builder addFacetField(ProduxFacetField produxFacetField){
-            this.produxFacetFields.add(produxFacetField);
+        public Builder addFacetField(FacetFieldView facetFieldView){
+            this.facetFieldViews.add(facetFieldView);
             return this;
         }
 
@@ -52,8 +52,8 @@ public class SearchResult {
             return this;
         }
 
-        public Builder setProduxFacetFields(Collection<ProduxFacetField> produxFacetFields) {
-            this.produxFacetFields = produxFacetFields;
+        public Builder setFacetFieldViews(Collection<FacetFieldView> facetFieldViews) {
+            this.facetFieldViews = facetFieldViews;
             return this;
         }
 
@@ -67,8 +67,8 @@ public class SearchResult {
         return courses;
     }
 
-    public Collection<ProduxFacetField> getProduxFacetFields() {
-        return produxFacetFields;
+    public Collection<FacetFieldView> getFacetFieldViews() {
+        return facetFieldViews;
     }
 
     public long getTotalFound() {

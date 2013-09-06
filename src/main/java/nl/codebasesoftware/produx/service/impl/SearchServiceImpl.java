@@ -38,17 +38,10 @@ public class SearchServiceImpl implements SearchService {
         this.properties = properties;
     }
 
-    public SearchResult findCategoryCourses(Category category, SearchCriteria criteria, int page) throws ProduxServiceException {
-
-        QueryResponse response = findCourses(criteria);
-        SearchResult convert = converter.convert(response, criteria);
-        return convert;
-    }
-
-
-    private QueryResponse findCourses(SearchCriteria criteria) throws ProduxServiceException {
+    public SearchResult findCategoryCourses(SearchCriteria criteria, int page) throws ProduxServiceException {
         ModifiableSolrParams modifiableSolrParams = conversionService.convert(criteria, ModifiableSolrParams.class);
         QueryResponse response = solrService.search(modifiableSolrParams);
-        return response;
+        return converter.convert(response, criteria);
     }
+
 }

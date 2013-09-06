@@ -7,12 +7,7 @@ import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
-import nl.codebasesoftware.produx.search.FacetSortingBehavior;
-import nl.codebasesoftware.produx.search.RangeFacet;
-import nl.codebasesoftware.produx.search.SearchCriteria;
-import nl.codebasesoftware.produx.search.SearchResult;
-import nl.codebasesoftware.produx.search.solrquery.RangeFacetOtherBehavior;
-import nl.codebasesoftware.produx.search.solrquery.filter.FacetFilter;
+import nl.codebasesoftware.produx.search.*;
 import nl.codebasesoftware.produx.service.*;
 import nl.codebasesoftware.produx.util.Properties;
 import org.apache.log4j.Logger;
@@ -23,7 +18,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,19 +57,26 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/{categoryUrlName}", method = RequestMethod.GET)
-    public String showFrontPage(@PathVariable("categoryUrlName") String categoryUrlName, Model model, HttpServletRequest request) throws ProduxServiceException {
-        return process(model, categoryUrlName, 0, request);
+    public String showFrontPage(@PathVariable("categoryUrlName") String categoryUrlName, Model model) throws ProduxServiceException {
+        return process(model, categoryUrlName, null, 0);
+    }
+
+    @RequestMapping(value = "/{categoryUrlName}/{filters:.+}", method = RequestMethod.GET)
+    public String showFilteredResultPage(@PathVariable("categoryUrlName") String categoryUrlName,
+                                 @PathVariable("filters") String filters,
+                                 Model model) throws ProduxServiceException {
+        return process(model, categoryUrlName, filters, 0);
     }
 
     @RequestMapping(value = "/{categoryUrlName}/{facets:.+}/{p:[0-9]+}", method = RequestMethod.GET)
-    public String showResultPage(@PathVariable("categoryUrlName") String categoryUrlName,
-                                 @PathVariable("p") Integer page,
-                                 @PathVariable("facets") String facets,
-                                 Model model, HttpServletRequest request) throws ProduxServiceException {
-        return process(model, categoryUrlName, page, request);
+    public String showUnfilteredResultPage(@PathVariable("categoryUrlName") String categoryUrlName,
+                                           @PathVariable("filters") String filters,
+                                           @PathVariable("p") Integer p,
+                                           Model model) throws ProduxServiceException {
+        return process(model, categoryUrlName, filters, p);
     }
 
-    private String process(Model model, String categoryUrlName, int page, HttpServletRequest request) throws ProduxServiceException {
+    private String process(Model model, String categoryUrlName, String filters, int page) throws ProduxServiceException {
 
         Category category = categoryService.findByUrlTitle(categoryUrlName);
 
@@ -98,19 +99,22 @@ public class CategoryController {
 
         int resultsPerPage = properties.getSearchResultsPerPage();
 
-        RangeFacet rangeFacet = new RangeFacet("price", 0, 300000, 50000, FacetSortingBehavior.COUNT);
-        rangeFacet.addOtherBehavior(RangeFacetOtherBehavior.AFTER);
-        rangeFacet.setMinCount(1);
+        RangeFacetField rangeFacetField = new RangeFacetField("price", 0, 300000, 50000, FacetSortingBehavior.COUNT);
+        rangeFacetField.addOtherBehavior(RangeFacetOtherBehavior.AFTER);
+        rangeFacetField.setMinCount(1);
+
+        NormalFilter categoryFilter = new NormalFilter("category", category.toDTO().getSolrValue());
+
 
         SearchCriteria criteria = new SearchCriteria.Builder()
-                .addCategory(category.toDTO())
-                .addRangeFacetField(rangeFacet)
+                .addFilter(categoryFilter)
+                .addFacetField(rangeFacetField)
                 .setStart(page * resultsPerPage)
                 .setRows(resultsPerPage)
                 .build();
 
 
-        SearchResult  searchResult = searchService.findCategoryCourses(category, criteria, page);
+        SearchResult  searchResult = searchService.findCategoryCourses(criteria, page);
 
         // This prevents users and bots from accessing page numbers beyond the number of pages needed for paging.
         if(searchResult.getCourses().size() == 0){

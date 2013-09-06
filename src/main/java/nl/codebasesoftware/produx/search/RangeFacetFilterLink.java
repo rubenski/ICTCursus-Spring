@@ -7,13 +7,13 @@ package nl.codebasesoftware.produx.search;
  * Time: 11:39
  * To change this template use File | Settings | File Templates.
  */
-public class RangeFacetFieldView extends FacetFieldView {
+public class RangeFacetFilterLink extends FacetFilterLink {
 
     private final Integer value;
     private final Integer gap;
     private String baseUrl;
 
-    public RangeFacetFieldView(String fieldName, Integer value, long count, Integer gap, String baseUrl) {
+    public RangeFacetFilterLink(String fieldName, Integer value, long count, Integer gap, String baseUrl) {
         super(fieldName, count);
         this.value = value;
         this.gap = gap;

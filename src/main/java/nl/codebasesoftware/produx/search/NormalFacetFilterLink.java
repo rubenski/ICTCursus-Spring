@@ -7,13 +7,15 @@ package nl.codebasesoftware.produx.search;
  * Time: 17:05
  * To change this template use File | Settings | File Templates.
  */
-public class NormalFacetFieldView extends FacetFieldView {
+public class NormalFacetFilterLink extends FacetFilterLink {
 
     private final String value;
+    private String baseUrl;
 
-    public NormalFacetFieldView(String fieldName, String value, long count, String baseUrl) {
+    public NormalFacetFilterLink(String fieldName, String value, long count, String baseUrl) {
         super(fieldName, count);
         this.value = value;
+        this.baseUrl = baseUrl;
     }
 
     @Override
@@ -23,6 +25,6 @@ public class NormalFacetFieldView extends FacetFieldView {
 
     @Override
     public String getUrlToken(){
-        return String.format("%s/%s:%s", fieldName, value);
+        return String.format("%s/%s:%s", baseUrl, fieldName, value);
     }
 }

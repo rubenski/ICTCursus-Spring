@@ -14,81 +14,45 @@ import java.util.List;
  */
 public class SearchCriteria {
 
-    private List<CategoryEntityDTO> categories = new ArrayList<>();
-    private String query;
-    private List<RangeFilter> rangeFilters = new ArrayList<>();
-    private List<Long> regionIds = new ArrayList<>();
-    private List<Long> tagIds = new ArrayList<>();
-    private List<Facet> facetFields = new ArrayList<>();
-    private List<RangeFacet> rangeFacets = new ArrayList<>();
+    private String query = "*:*";
     private Integer start;
     private Integer rows;
-
-    public List<CategoryEntityDTO> getCategories() {
-        return categories;
-    }
+    private List<FacetField> facetFields;
+    private List<Filter> filters;
 
     public String getQuery() {
         return query;
     }
 
-    public List<RangeFilter> getRangeFilters() {
-        return rangeFilters;
-    }
-
-    public List<Long> getRegionIds() {
-        return regionIds;
-    }
-
-    public List<Long> getTagIds() {
-        return tagIds;
-    }
-
-    public List<Facet> getFacetFields() {
+    public List<FacetField> getFacetFields() {
         return facetFields;
     }
 
-    public List<RangeFacet> getRangeFacets() {
-        return rangeFacets;
+    public List<Filter> getFilters() {
+        return filters;
     }
 
-    public int getStart() {
+    public Integer getStart() {
         return start;
     }
 
-    public int getRows() {
+    public Integer getRows() {
         return rows;
-    }
-
-    public boolean hasFacetting(){
-        return rangeFacets.size() > 0 || facetFields.size() > 0;
-    }
-
-    public boolean hasRangeFacetting(){
-        return rangeFacets.size() > 0;
     }
 
     private SearchCriteria(Builder builder){
         rows = builder.rows;
         start = builder.start;
-        categories = builder.categories;
         query = builder.query;
-        rangeFilters = builder.rangeFilters;
-        regionIds = builder.regions;
-        tagIds = builder.tags;
         facetFields = builder.facetFields;
-        rangeFacets = builder.rangeFacets;
+        filters = builder.filters;
     }
 
     public static class Builder {
 
-        private List<CategoryEntityDTO> categories = new ArrayList<>();
         private String query = "*:*";
-        private List<RangeFilter> rangeFilters = new ArrayList<>();
-        private List<Long> regions = new ArrayList<>();
-        private List<Long> tags = new ArrayList<>();
-        private List<Facet> facetFields = new ArrayList<>();
-        private List<RangeFacet> rangeFacets = new ArrayList<>();
+        private List<FacetField> facetFields = new ArrayList<>();
+        private List<Filter> filters = new ArrayList<>();
         private Integer start;
         private Integer rows;
 
@@ -98,33 +62,13 @@ public class SearchCriteria {
             return this;
         }
 
-        public Builder addCategory(CategoryEntityDTO category){
-            this.categories.add(category);
-            return this;
-        }
-
-        public Builder addRangeFilter(RangeFilter range){
-            rangeFilters.add(range);
-            return this;
-        }
-
-        public Builder addRegion(long regionId){
-            this.regions.add(regionId);
-            return this;
-        }
-
-        public Builder addTag(long tagId){
-            this.tags.add(tagId);
-            return this;
-        }
-
-        public Builder addFacetField(Facet facet){
+        public Builder addFacetField(FacetField facet){
             this.facetFields.add(facet);
             return this;
         }
 
-        public Builder addRangeFacetField(RangeFacet rangeFacet){
-            this.rangeFacets.add(rangeFacet);
+        public Builder addFilter(Filter filter){
+            this.filters.add(filter);
             return this;
         }
 
