@@ -17,9 +17,9 @@
     <mvc:resources mapping="/robots.txt" location="classpath:/" />
     -->
 
-    <mvc:resources mapping="/static/**" location="classpath:/static/" />
-    <mvc:resources mapping="/favicon.ico" location="/favicon.ico" order="0"/>
-    <mvc:resources mapping="/robots.txt" location="/" />
+    <mvc:resources mapping="/static/**" location="classpath:/static/" order="-1"/>
+    <mvc:resources mapping="/favicon.ico" location="/favicon.ico" order="-1"/>
+    <mvc:resources mapping="/robots.txt" location="/" order="-1" />
 
     <context:component-scan base-package="nl.codebasesoftware.produx.controller"/>
 
