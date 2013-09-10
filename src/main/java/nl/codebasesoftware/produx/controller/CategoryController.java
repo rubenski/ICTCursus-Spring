@@ -71,7 +71,7 @@ public class CategoryController {
         return process(model, categoryUrlName, filters, 0);
     }
 
-    @RequestMapping(value = "/{categoryUrlName}/{facets:.+}/{p:[0-9]+}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{categoryUrlName}/{facets}/{p:[0-9]+}", method = RequestMethod.GET)
     public String showUnfilteredResultPage(@PathVariable("categoryUrlName") String categoryUrlName,
                                            @PathVariable("filters") String filters,
                                            @PathVariable("p") Integer p,
