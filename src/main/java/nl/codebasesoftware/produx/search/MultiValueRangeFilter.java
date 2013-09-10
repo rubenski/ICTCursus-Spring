@@ -15,7 +15,7 @@ public class MultiValueRangeFilter extends Filter {
 
     private final List<Range> ranges;
 
-    protected MultiValueRangeFilter(String field, List<Range> ranges) {
+    public MultiValueRangeFilter(String field, List<Range> ranges) {
         super(field);
         this.ranges = ranges;
     }
@@ -27,6 +27,7 @@ public class MultiValueRangeFilter extends Filter {
         builder.append(field).append(":").append("(");
         for (int i = 0; i < ranges.size(); i++){
             String s = String.format("[%s TO %s]", ranges.get(i).getLeft(), ranges.get(i).getRight());
+            builder.append(s);
             if(i < ranges.size() -1){
                 builder.append(" OR ");
             }
@@ -41,7 +42,8 @@ public class MultiValueRangeFilter extends Filter {
         StringBuilder builder = new StringBuilder();
         builder.append(field).append(":");
         for (int i = 0; i < ranges.size(); i++){
-            String s = String.format("%s-%s", field, ranges.get(i).getLeft(), ranges.get(i).getRight());
+            String s = String.format("%s-%s", ranges.get(i).getLeft(), ranges.get(i).getRight());
+            builder.append(s);
             if(i < ranges.size() -1){
                 builder.append(",");
             }

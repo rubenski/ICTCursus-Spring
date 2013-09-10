@@ -41,6 +41,10 @@ public class ListingCompanyDTO extends DomainEntityDTO {
         return LogoUrl.getNormalAbsUrl(id);
     }
 
+    public String getSmallLogoUrl(){
+        return LogoUrl.getSmallAbsUrl(id);
+    }
+
     public boolean hasLogo(){
         return logo;
     }

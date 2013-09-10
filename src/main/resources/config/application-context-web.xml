@@ -11,9 +11,16 @@
 
     <mvc:annotation-driven/>
 
+    <!--
     <mvc:resources mapping="/static/**" location="classpath:/static/" />
     <mvc:resources mapping="/favicon.ico" location="classpath:/" />
     <mvc:resources mapping="/robots.txt" location="classpath:/" />
+    -->
+
+    <mvc:resources mapping="/static/**" location="classpath:/static/" />
+    <mvc:resources mapping="/favicon.ico" location="/favicon.ico" order="0"/>
+    <mvc:resources mapping="/robots.txt" location="/" />
+
     <context:component-scan base-package="nl.codebasesoftware.produx.controller"/>
 
 

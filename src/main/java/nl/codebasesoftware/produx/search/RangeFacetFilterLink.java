@@ -27,6 +27,10 @@ public class RangeFacetFilterLink extends FacetFilterLink {
 
     @Override
     public String getUrlToken(){
-        return String.format("%s/%s:%d-%d", baseUrl, fieldName, value, value + gap);
+        String token = "";
+        if(baseUrl.endsWith("/")){
+            return String.format("%s%s:%d-%d", baseUrl, fieldName, value, value + gap);
+        }
+        return String.format("%s_%s:%d-%d", baseUrl, fieldName, value, value + gap);
     }
 }

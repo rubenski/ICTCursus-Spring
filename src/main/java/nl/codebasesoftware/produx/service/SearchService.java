@@ -11,5 +11,5 @@ import nl.codebasesoftware.produx.search.SearchResult;
  * Time: 13:17
  */
 public interface SearchService {
-    SearchResult findCategoryCourses(SearchCriteria criteria, int page) throws ProduxServiceException;
+    SearchResult findCategoryCourses(SearchCriteria criteria, int page, String url) throws ProduxServiceException;
 }

@@ -5,6 +5,7 @@ import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.search.SolrServerFactory;
 import nl.codebasesoftware.produx.service.SolrService;
+import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
@@ -49,6 +50,7 @@ public class SolrServiceImpl implements SolrService {
 
         try {
             response = solrServerFactory.getServer().query(params);
+            solrServerFactory.getServer().query(new SolrQuery().addFilterQuery());
         } catch (SolrServerException e) {
             throw new ProduxServiceException("Solr server at couldn't be reached", e);
         }

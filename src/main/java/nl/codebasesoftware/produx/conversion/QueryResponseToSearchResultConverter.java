@@ -36,12 +36,12 @@ public class QueryResponseToSearchResultConverter {
         this.properties = properties;
     }
 
-    public SearchResult convert(QueryResponse queryResponse, SearchCriteria criteria) {
+    public SearchResult convert(QueryResponse queryResponse, String url) {
 
         SearchResult.Builder builder = new SearchResult.Builder();
         addCourses(queryResponse, builder);
-        addNormalFacetFields(queryResponse, builder, "sometext1");
-        addRangeFacetFields(queryResponse, builder, "sometext2");
+        addNormalFacetFields(queryResponse, builder, url);
+        addRangeFacetFields(queryResponse, builder, url);
         builder.setTotalFound(queryResponse.getResults().getNumFound());
         builder.setResultsPerPage(properties.getSearchResultsPerPage());
 
@@ -49,7 +49,7 @@ public class QueryResponseToSearchResultConverter {
     }
 
     private void addCourses(QueryResponse queryResponse, SearchResult.Builder builder) {
-        List<ListingCourseDTO> listingCourses = new ArrayList<>();
+        final List<ListingCourseDTO> listingCourses = new ArrayList<>();
         for (SolrDocument solrDoc : queryResponse.getResults()) {
             listingCourses.add(conversionService.convert(solrDoc, ListingCourseDTO.class));
         }

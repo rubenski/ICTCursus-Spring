@@ -3,6 +3,9 @@ package nl.codebasesoftware.produx.service.impl;
 import nl.codebasesoftware.produx.comparator.NameComparator;
 import nl.codebasesoftware.produx.dao.CategoryDao;
 import nl.codebasesoftware.produx.domain.Category;
+import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
+import nl.codebasesoftware.produx.search.Filter;
+import nl.codebasesoftware.produx.search.SearchCriteria;
 import nl.codebasesoftware.produx.service.CategoryService;
 import nl.codebasesoftware.produx.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +52,27 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional(readOnly = true)
     public Category findById(Long categoryId) {
         return categoryDao.find(categoryId);
+    }
+
+    @Override
+    public String generateUrl(CategoryEntityDTO cat, SearchCriteria criteria) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("/").append(cat.getUrlTitle()).append("/");
+
+
+        List<Filter> filters = criteria.getFilters();
+        for (int i = 0; i < filters.size(); i++) {
+            Filter filter = filters.get(i);
+            if (!filter.getField().equals("category")) {
+                builder.append(filter.getUrlToken());
+                if (i < filters.size() - 1) {
+                    builder.append("_");
+                }
+            }
+
+        }
+
+        return builder.toString();
     }
 
 

@@ -3,6 +3,7 @@ package nl.codebasesoftware.produx.search;
 import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -19,6 +20,7 @@ public class SearchCriteria {
     private Integer rows;
     private List<FacetField> facetFields;
     private List<Filter> filters;
+
 
     public String getQuery() {
         return query;
@@ -40,6 +42,7 @@ public class SearchCriteria {
         return rows;
     }
 
+
     private SearchCriteria(Builder builder){
         rows = builder.rows;
         start = builder.start;
@@ -48,6 +51,9 @@ public class SearchCriteria {
         filters = builder.filters;
     }
 
+
+
+
     public static class Builder {
 
         private String query = "*:*";
@@ -55,6 +61,7 @@ public class SearchCriteria {
         private List<Filter> filters = new ArrayList<>();
         private Integer start;
         private Integer rows;
+        private String baseUrl;
 
 
         public Builder setQuery(String query) {
@@ -69,6 +76,11 @@ public class SearchCriteria {
 
         public Builder addFilter(Filter filter){
             this.filters.add(filter);
+            return this;
+        }
+
+        public Builder addFilters(Collection<Filter> filters){
+            this.filters.addAll(filters);
             return this;
         }
 

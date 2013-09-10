@@ -12,6 +12,7 @@
                 <tr>
                     <th><spring:message code="generic.userMessage.course"/></th>
                     <th><spring:message code="generic.userMessage.company"/></th>
+                    <th><spring:message code="course.form.category"/></th>
                 </tr>
                 <c:forEach items="${courses}" var="course">
                     <tr>
@@ -20,6 +21,9 @@
                         </td>
                         <td>
                             ${course.company.name}
+                        </td>
+                        <td>
+                            ${course.category.name}
                         </td>
                     </tr>
                 </c:forEach>

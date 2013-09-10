@@ -4,6 +4,7 @@ import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
@@ -11,6 +12,7 @@ import nl.codebasesoftware.produx.search.*;
 import nl.codebasesoftware.produx.service.*;
 import nl.codebasesoftware.produx.util.Properties;
 import org.apache.log4j.Logger;
+import org.apache.solr.client.solrj.SolrQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -61,7 +64,7 @@ public class CategoryController {
         return process(model, categoryUrlName, null, 0);
     }
 
-    @RequestMapping(value = "/{categoryUrlName}/{filters:.+}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{categoryUrlName}/{filters}", method = RequestMethod.GET)
     public String showFilteredResultPage(@PathVariable("categoryUrlName") String categoryUrlName,
                                  @PathVariable("filters") String filters,
                                  Model model) throws ProduxServiceException {
@@ -79,6 +82,7 @@ public class CategoryController {
     private String process(Model model, String categoryUrlName, String filters, int page) throws ProduxServiceException {
 
         Category category = categoryService.findByUrlTitle(categoryUrlName);
+        CategoryEntityDTO cat = category.toDTO();
 
         if(category == null){
             throw new ResourceNotFoundException();
@@ -101,23 +105,24 @@ public class CategoryController {
 
         RangeFacetField rangeFacetField = new RangeFacetField("price", 0, 300000, 50000, FacetSortingBehavior.COUNT);
         rangeFacetField.addOtherBehavior(RangeFacetOtherBehavior.AFTER);
-        rangeFacetField.setMinCount(1);
 
-        NormalFilter categoryFilter = new NormalFilter("category", category.toDTO().getSolrValue());
+        NormalFilter categoryFilter = new NormalFilter("category", cat.getSolrValue());
 
 
         SearchCriteria criteria = new SearchCriteria.Builder()
                 .addFilter(categoryFilter)
+                .addFilters(stringToFilters(filters))
                 .addFacetField(rangeFacetField)
                 .setStart(page * resultsPerPage)
                 .setRows(resultsPerPage)
                 .build();
 
+        String url = categoryService.generateUrl(cat, criteria);
 
-        SearchResult  searchResult = searchService.findCategoryCourses(criteria, page);
+        SearchResult searchResult = searchService.findCategoryCourses(criteria, page, url);
 
-        // This prevents users and bots from accessing page numbers beyond the number of pages needed for paging.
-        if(searchResult.getCourses().size() == 0){
+        // Throw a 404 when someone tries to access a paging page that doesn't exist
+        if(searchResult.getCourses().size() == 0 && page > 0){
             throw new ResourceNotFoundException();
         }
 
@@ -137,6 +142,44 @@ public class CategoryController {
         model.addAttribute("rightColumn", "content/articlelisting");
         model.addAttribute("facetedSearch", true);
         return "main";
+    }
+
+
+    private List<Filter> stringToFilters(String filters){
+
+        if(filters == null || filters.length() == 0){
+            return Collections.EMPTY_LIST;
+        }
+
+        List<Filter> filterList = new ArrayList<>();
+
+        String[] filterStrings = filters.split("_");
+
+        for (String filterString : filterStrings) {
+            String[] nameValue = filterString.split(":");
+            String name = nameValue[0];
+            String values = nameValue[1];
+
+
+            if(name.equals("price")){
+
+                String[] priceRanges = values.split(",");
+                List<Range> ranges = new ArrayList<>();
+                for (String priceRange : priceRanges) {
+                    String[] rangeValues = priceRange.split("-");
+                    int from = Integer.parseInt(rangeValues[0]);
+                    int to = Integer.parseInt(rangeValues[1]);
+                    ranges.add(new Range<>(from, to));
+                }
+
+                MultiValueRangeFilter priceFilter = new MultiValueRangeFilter(name, ranges);
+
+                filterList.add(priceFilter);
+            }
+        }
+
+        return filterList;
+
     }
 
 
