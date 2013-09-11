@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.service;
 
 import nl.codebasesoftware.produx.domain.Category;
+import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.search.SearchCriteria;
 import nl.codebasesoftware.produx.search.SearchResult;
@@ -11,5 +12,5 @@ import nl.codebasesoftware.produx.search.SearchResult;
  * Time: 13:17
  */
 public interface SearchService {
-    SearchResult findCategoryCourses(SearchCriteria criteria, int page, String url) throws ProduxServiceException;
+    SearchResult findCategoryCourses(SearchCriteria criteria, CategoryEntityDTO category) throws ProduxServiceException;
 }

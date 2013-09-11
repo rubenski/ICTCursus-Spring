@@ -1,5 +1,7 @@
 package nl.codebasesoftware.produx.search;
 
+import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
+
 /**
  * Created with IntelliJ IDEA.
  * User: rvanloen
@@ -9,13 +11,17 @@ package nl.codebasesoftware.produx.search;
  */
 public class NormalFacetFilterLink extends FacetFilterLink {
 
+    private final String fieldName;
     private final String value;
-    private String baseUrl;
+    private final long count;
 
-    public NormalFacetFilterLink(String fieldName, String value, long count, String baseUrl) {
-        super(fieldName, count);
+
+
+    public NormalFacetFilterLink(String fieldName, String value, long count, CategoryEntityDTO category, SearchCriteria searchCriteria) {
+        super(fieldName, value, count, category, searchCriteria);
+        this.fieldName = fieldName;
         this.value = value;
-        this.baseUrl = baseUrl;
+        this.count = count;
     }
 
     @Override
@@ -24,7 +30,7 @@ public class NormalFacetFilterLink extends FacetFilterLink {
     }
 
     @Override
-    public String getUrlToken(){
-        return String.format("%s/%s:%s", baseUrl, fieldName, value);
+    public String getUrl(){
+        return "";
     }
 }

@@ -29,4 +29,9 @@ public class NormalFilter extends Filter {
         params.add("fq", String.format("%s:\"%s\"", field, value));
         return params;
     }
+
+    @Override
+    protected boolean equalsFilterLink(FacetFilterLink link) {
+        return link.getFieldName().equals(getTaggedField()) && link.getValue().equals(value);
+    }
 }

@@ -13,7 +13,7 @@ import java.util.List;
 public class FacetFieldView {
 
     String fieldName;
-    List<FacetFilterLink> values = new ArrayList<>();
+    List<FacetFilterLink> filterLinks = new ArrayList<>();
 
     public FacetFieldView(String fieldName) {
         this.fieldName = fieldName;
@@ -23,12 +23,12 @@ public class FacetFieldView {
         return fieldName;
     }
 
-    public List<FacetFilterLink> getValues() {
-        return values;
+    public List<FacetFilterLink> getFilterLinks() {
+        return filterLinks;
     }
 
     public void addValue(FacetFilterLink nameValue) {
-        values.add(nameValue);
+        filterLinks.add(nameValue);
     }
 
     public String getFieldHeaderKey() {

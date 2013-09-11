@@ -20,7 +20,7 @@ public class MultiValueNormalFilter extends Filter {
         super(field);
 
         if(values.size() == 0){
-            throw new IllegalArgumentException("No values found in filter");
+            throw new IllegalArgumentException("No filterLinks found in filter");
         }
 
         this.values = values;
@@ -40,7 +40,12 @@ public class MultiValueNormalFilter extends Filter {
             valueString += (i != 0 && i != size - 1 ? condition.getValue() : "") + values.get(i);
         }
 
-        String filter = String.format("%s:(\"%s\")", field, valueString);
+        // fq={!tag=dt}doctype:pdf
+        // TODO: implement this for all createSolrParams / filters
+        String filter = String.format("%s:(\"%s\")", getTaggedField(), valueString);
+        if(tag != null){
+            filter = String.format("{!tag=%s}", tag, filter);
+        }
 
         params.add("fq", filter);
         return params;
@@ -58,5 +63,17 @@ public class MultiValueNormalFilter extends Filter {
         }
 
         return token.toString();
+    }
+
+    @Override
+    public boolean equalsFilterLink(FacetFilterLink link) {
+        if(link.getFieldName().equals(field)){
+            for (Object value : values) {
+                if(value.equals(link.getValue())){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

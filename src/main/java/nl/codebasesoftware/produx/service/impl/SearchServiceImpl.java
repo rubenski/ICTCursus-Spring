@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.service.impl;
 
 import nl.codebasesoftware.produx.conversion.QueryResponseToSearchResultConverter;
+import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.search.SearchCriteria;
 import nl.codebasesoftware.produx.search.SearchResult;
@@ -38,10 +39,10 @@ public class SearchServiceImpl implements SearchService {
         this.properties = properties;
     }
 
-    public SearchResult findCategoryCourses(SearchCriteria criteria, int page, String url) throws ProduxServiceException {
+    public SearchResult findCategoryCourses(SearchCriteria criteria, CategoryEntityDTO category) throws ProduxServiceException {
         ModifiableSolrParams modifiableSolrParams = conversionService.convert(criteria, SolrQuery.class);
         QueryResponse response = solrService.search(modifiableSolrParams);
-        SearchResult convert = converter.convert(response, url);
+        SearchResult convert = converter.convert(response, criteria, category);
         return convert;
     }
 

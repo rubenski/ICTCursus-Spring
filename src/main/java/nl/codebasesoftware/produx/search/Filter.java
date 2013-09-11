@@ -12,6 +12,7 @@ import nl.codebasesoftware.produx.domain.dto.generic.UrlToken;
 public abstract class Filter implements UrlToken, SolrParameter {
 
     protected String field;
+    protected String tag;
 
     protected Filter(String field) {
         this.field = field;
@@ -20,4 +21,19 @@ public abstract class Filter implements UrlToken, SolrParameter {
     public String getField() {
         return field;
     }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    protected String getTaggedField(){
+        if(tag != null && tag.length() > 0){
+            return String.format("{!tag=%s}%s", tag, field);
+        }
+        return field;
+    }
+
+    protected abstract boolean equalsFilterLink(FacetFilterLink link);
 }
+
+

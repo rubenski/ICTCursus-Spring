@@ -1,5 +1,8 @@
 package nl.codebasesoftware.produx.search;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: rvanloen
@@ -12,6 +15,7 @@ public abstract class FacetField implements SolrParameter {
     protected String field;
     protected int minCount;
     protected FacetSortingBehavior sorting;
+    protected List<String> excludedFilters = new ArrayList<>();
 
     protected FacetField(String field, FacetSortingBehavior sorting) {
         this.field = field;
@@ -32,5 +36,9 @@ public abstract class FacetField implements SolrParameter {
 
     public FacetSortingBehavior getSorting() {
         return sorting;
+    }
+
+    public void addExcludeFilter(String exclude){
+        excludedFilters.add(exclude);
     }
 }

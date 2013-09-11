@@ -31,7 +31,12 @@ public class RangeFilter extends Filter {
     @Override
     public ModifiableSolrParams createSolrParams() {
         ModifiableSolrParams params = new ModifiableSolrParams();
-        params.add("fq", String.format("%s:[%s TO %s]", field, range.getLeft(), range.getRight()));
+        params.add("fq", String.format("%s:[%s TO %s]", getTaggedField(), range.getLeft(), range.getRight()));
         return params;
+    }
+
+    @Override
+    protected boolean equalsFilterLink(FacetFilterLink link) {
+        return link.getFieldName().equals(field) && link.getValue().equals(range.getLeft());
     }
 }

@@ -54,12 +54,21 @@ public class RangeFacetField extends FacetField {
     public ModifiableSolrParams createSolrParams() {
         ModifiableSolrParams params = new ModifiableSolrParams();
 
+        // &facet.field={!ex=dt}doctype
+
+        StringBuilder excludedFiltersPrefix = new StringBuilder();
+        for (String excludedFilter : excludedFilters) {
+            excludedFiltersPrefix.append("{!ex=").append(excludedFilter).append("}");
+        }
+
+        String fieldWithExclusions = String.format("%s%s", excludedFiltersPrefix, field);
+
         String fieldStart = String.format("f.%s.facet.range.", field);
 
         params.add(fieldStart +  "start", start.toString());
         params.add(fieldStart +  "end", end.toString());
         params.add(fieldStart +  "gap", gap.toString());
-        params.add("facet.range", field.toString());
+        params.add("facet.range", fieldWithExclusions);
         params.add(String.format("f.%s.facet.sort", field.toString()), sorting.getValue());
         params.add(String.format("f.%s.facet.mincount", field), "" + minCount);
 

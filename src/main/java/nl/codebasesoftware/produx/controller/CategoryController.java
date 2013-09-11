@@ -105,6 +105,7 @@ public class CategoryController {
 
         RangeFacetField rangeFacetField = new RangeFacetField("price", 0, 300000, 50000, FacetSortingBehavior.COUNT);
         rangeFacetField.addOtherBehavior(RangeFacetOtherBehavior.AFTER);
+        rangeFacetField.addExcludeFilter("_price");
 
         NormalFilter categoryFilter = new NormalFilter("category", cat.getSolrValue());
 
@@ -119,7 +120,7 @@ public class CategoryController {
 
         String url = categoryService.generateUrl(cat, criteria);
 
-        SearchResult searchResult = searchService.findCategoryCourses(criteria, page, url);
+        SearchResult searchResult = searchService.findCategoryCourses(criteria, cat);
 
         // Throw a 404 when someone tries to access a paging page that doesn't exist
         if(searchResult.getCourses().size() == 0 && page > 0){
@@ -173,8 +174,9 @@ public class CategoryController {
                 }
 
                 MultiValueRangeFilter priceFilter = new MultiValueRangeFilter(name, ranges);
-
+                priceFilter.setTag("_price");
                 filterList.add(priceFilter);
+
             }
         }
 

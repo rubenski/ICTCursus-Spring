@@ -51,7 +51,14 @@ public class SearchCriteria {
         filters = builder.filters;
     }
 
-
+    public boolean isFilterApplied(FacetFilterLink link){
+        for (Filter filter : filters) {
+            if(filter.equalsFilterLink(link)){
+                return true;
+            }
+        }
+        return false;
+    }
 
 
     public static class Builder {

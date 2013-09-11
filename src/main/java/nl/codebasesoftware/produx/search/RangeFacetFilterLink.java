@@ -1,5 +1,8 @@
 package nl.codebasesoftware.produx.search;
 
+
+import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
+
 /**
  * Created with IntelliJ IDEA.
  * User: rvanloen
@@ -9,28 +12,47 @@ package nl.codebasesoftware.produx.search;
  */
 public class RangeFacetFilterLink extends FacetFilterLink {
 
-    private final Integer value;
-    private final Integer gap;
-    private String baseUrl;
 
-    public RangeFacetFilterLink(String fieldName, Integer value, long count, Integer gap, String baseUrl) {
-        super(fieldName, count);
+    private final int gap;
+    private final int value;
+
+
+    public RangeFacetFilterLink(String fieldName, int value, int count, Integer gap, CategoryEntityDTO categoryEntityDTO, SearchCriteria criteria) {
+        super(fieldName, value, count, categoryEntityDTO, criteria);
         this.value = value;
         this.gap = gap;
-        this.baseUrl = baseUrl;
     }
 
+
     @Override
-    public String getNameKey(){
+    public String getNameKey() {
         return String.format("rangefacet.%s.%d", fieldName, value);
     }
 
     @Override
-    public String getUrlToken(){
-        String token = "";
-        if(baseUrl.endsWith("/")){
-            return String.format("%s%s:%d-%d", baseUrl, fieldName, value, value + gap);
+    public String getUrl() {
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("/").append(category.getUrlTitle()).append("/");
+
+        for (Filter filter : criteria.getFilters()) {
+            if(!filter.equalsFilterLink(this) && !filter.getField().equals("category")){
+                builder.append(filter.getUrlToken()).append(CommonParams.SPLIT_FILTERS);
+            }
         }
-        return String.format("%s_%s:%d-%d", baseUrl, fieldName, value, value + gap);
+
+        if(!criteria.isFilterApplied(this)){
+            builder.append(fieldName).append(CommonParams.SPLIT_FIELD_VALUE).append(value).append(CommonParams.SPLIT_RANGE_VALUES).append(value + gap);
+        } else{
+            builder.deleteCharAt(builder.length() - 1);
+        }
+
+
+
+        return builder.toString();
     }
+
+
+
+
 }

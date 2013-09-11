@@ -24,7 +24,7 @@ public class MultiValueRangeFilter extends Filter {
     public ModifiableSolrParams createSolrParams() {
         ModifiableSolrParams params = new ModifiableSolrParams();
         StringBuilder builder = new StringBuilder();
-        builder.append(field).append(":").append("(");
+        builder.append(getTaggedField()).append(":").append("(");
         for (int i = 0; i < ranges.size(); i++){
             String s = String.format("[%s TO %s]", ranges.get(i).getLeft(), ranges.get(i).getRight());
             builder.append(s);
@@ -33,6 +33,7 @@ public class MultiValueRangeFilter extends Filter {
             }
         }
         builder.append(")");
+
         params.add("fq", builder.toString());
         return params;
     }
@@ -49,5 +50,17 @@ public class MultiValueRangeFilter extends Filter {
             }
         }
         return builder.toString();
+    }
+
+    @Override
+    protected boolean equalsFilterLink(FacetFilterLink link) {
+        if(link.getFieldName().equals(field)) {
+            for (Range range : ranges) {
+                if(link.getValue().equals(range.getLeft())){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

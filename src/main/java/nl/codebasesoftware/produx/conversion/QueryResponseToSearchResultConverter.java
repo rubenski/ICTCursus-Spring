@@ -1,5 +1,6 @@
 package nl.codebasesoftware.produx.conversion;
 
+import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 import nl.codebasesoftware.produx.search.*;
 import nl.codebasesoftware.produx.util.Properties;
@@ -29,6 +30,10 @@ public class QueryResponseToSearchResultConverter {
 
     private ConversionService conversionService;
     private Properties properties;
+    private QueryResponse queryResponse;
+    private SearchCriteria criteria;
+    private CategoryEntityDTO categoryEntityDTO;
+    private SearchResult.Builder builder;
 
     @Autowired
     public QueryResponseToSearchResultConverter(ConversionService conversionService, Properties properties) {
@@ -36,19 +41,22 @@ public class QueryResponseToSearchResultConverter {
         this.properties = properties;
     }
 
-    public SearchResult convert(QueryResponse queryResponse, String url) {
+    public SearchResult convert(QueryResponse queryResponse, SearchCriteria criteria, CategoryEntityDTO categoryEntityDTO) {
+        this.queryResponse = queryResponse;
+        this.criteria = criteria;
+        this.categoryEntityDTO = categoryEntityDTO;
 
-        SearchResult.Builder builder = new SearchResult.Builder();
-        addCourses(queryResponse, builder);
-        addNormalFacetFields(queryResponse, builder, url);
-        addRangeFacetFields(queryResponse, builder, url);
+        builder = new SearchResult.Builder();
+        addCourses();
+        addNormalFacetFields();
+        addRangeFacetFields();
         builder.setTotalFound(queryResponse.getResults().getNumFound());
         builder.setResultsPerPage(properties.getSearchResultsPerPage());
 
         return builder.build();
     }
 
-    private void addCourses(QueryResponse queryResponse, SearchResult.Builder builder) {
+    private void addCourses() {
         final List<ListingCourseDTO> listingCourses = new ArrayList<>();
         for (SolrDocument solrDoc : queryResponse.getResults()) {
             listingCourses.add(conversionService.convert(solrDoc, ListingCourseDTO.class));
@@ -56,27 +64,27 @@ public class QueryResponseToSearchResultConverter {
         builder.setCourses(listingCourses);
     }
 
-    private void addNormalFacetFields(QueryResponse queryResponse, SearchResult.Builder builder, String baseUrl) {
+    private void addNormalFacetFields() {
         if (queryResponse.getFacetFields() != null) {
             for (FacetField facetField : queryResponse.getFacetFields()) {
                 FacetFieldView facetFieldView = new FacetFieldView(facetField.getName());
                 List<Count> values = facetField.getValues();
                 for (Count value : values) {
-                    facetFieldView.addValue(new NormalFacetFilterLink(facetField.getName(), value.getName(), value.getCount(), baseUrl));
+                    facetFieldView.addValue(new NormalFacetFilterLink(facetField.getName(), value.getName(), value.getCount(), categoryEntityDTO, criteria));
                 }
                 builder.addFacetField(facetFieldView);
             }
         }
     }
 
-    private void addRangeFacetFields(QueryResponse queryResponse, SearchResult.Builder builder, String baseUrl) {
+    private void addRangeFacetFields() {
         if (queryResponse.getFacetRanges() != null) {
             for (RangeFacet rangeFacet : queryResponse.getFacetRanges()) {
                 FacetFieldView facetFieldView = new FacetFieldView(rangeFacet.getName());
                 List<RangeFacet.Count> counts = rangeFacet.getCounts();
                 for (RangeFacet.Count value : counts) {
                     RangeFacetFilterLink rangeFacetFilterLink = new RangeFacetFilterLink(rangeFacet.getName(),
-                            Integer.parseInt(value.getValue()), value.getCount(), (Integer)rangeFacet.getGap(), baseUrl);
+                            Integer.parseInt(value.getValue()), value.getCount(), (Integer)rangeFacet.getGap(), categoryEntityDTO, criteria);
                     facetFieldView.addValue(rangeFacetFilterLink);
                 }
                 builder.addFacetField(facetFieldView);

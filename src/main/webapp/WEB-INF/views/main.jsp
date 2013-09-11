@@ -11,7 +11,7 @@
     <link href="/static/style/shared.css" rel="stylesheet"/>
     <link href="/static/style/style.css" rel="stylesheet"/>
 
-    <c:if test="${showLightboxLink or includeCourseJs or includeHighlighter}">
+    <c:if test="${showLightboxLink or includeCourseJs or includeHighlighter or facetedSearch}">
         <script type="text/javascript" src="/static/javascript/jquery-1.8.3.min.js"></script>
     </c:if>
     <c:if test="${includeCourseJs}">
@@ -19,6 +19,9 @@
     </c:if>
     <c:if test="${showLightboxLink}">
         <script type="text/javascript" src="/static/javascript/lightbox.js"></script>
+    </c:if>
+    <c:if test="${facetedSearch}">
+        <script type="text/javascript" src="/static/javascript/facets.js"></script>
     </c:if>
     <c:if test="${includeHighlighter}">
         <link rel="stylesheet" href="/static/libs/highlight.js/styles/idea.css">

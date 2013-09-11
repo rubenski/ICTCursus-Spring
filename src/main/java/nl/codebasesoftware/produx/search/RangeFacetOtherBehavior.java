@@ -11,9 +11,9 @@ public enum RangeFacetOtherBehavior {
 
     /**
      *
-     * before - all records with field values lower then lower bound of the first range
-       after - all records with field values greater then the upper bound of the last range
-       between - all records with field values between the start and end bounds of all ranges
+     * before - all records with field filterLinks lower then lower bound of the first range
+       after - all records with field filterLinks greater then the upper bound of the last range
+       between - all records with field filterLinks between the start and end bounds of all ranges
        none - compute none of this information
        all - shortcut for before, between, and after
      */

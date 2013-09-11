@@ -1,5 +1,7 @@
 package nl.codebasesoftware.produx.search;
 
+import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
+
 /**
  * Created with IntelliJ IDEA.
  * User: rvanloen
@@ -10,18 +12,32 @@ package nl.codebasesoftware.produx.search;
 public abstract class FacetFilterLink {
 
     protected final String fieldName;
+    private Object value;
     protected final long count;
+    protected final CategoryEntityDTO category;
+    protected final SearchCriteria criteria;
 
-    protected FacetFilterLink(String fieldName, long count) {
+    protected FacetFilterLink(String fieldName, Object value, long count, CategoryEntityDTO category, SearchCriteria criteria) {
         this.fieldName = fieldName;
+        this.value = value;
         this.count = count;
+        this.category = category;
+        this.criteria = criteria;
     }
 
     public  Long getCount(){
         return count;
     }
 
+    public String getFieldName() {
+        return fieldName;
+    }
+
+    public Object getValue() {
+        return value;
+    }
+
     protected abstract String getNameKey();
-    protected abstract String getUrlToken();
+    protected abstract String getUrl();
 
 }

@@ -22,7 +22,14 @@ public class NormalFacetField extends FacetField {
     @Override
     public ModifiableSolrParams createSolrParams() {
         ModifiableSolrParams params = new ModifiableSolrParams();
-        params.add("facet.field", field);
+        // &facet.field={!ex=dt}doctype
+
+        StringBuilder excludedFiltersPrefix = new StringBuilder();
+        for (String excludedFilter : excludedFilters) {
+            excludedFiltersPrefix.append("{!ex=").append(excludedFilter).append("}");
+        }
+
+        params.add("facet.field", String.format("%s%s", excludedFiltersPrefix, field));
         params.add(String.format("f.%s.facet.sort", field), sorting.getValue());
         params.add(String.format("f.%s.facet.mincount", field), "" + minCount);
         return params;
