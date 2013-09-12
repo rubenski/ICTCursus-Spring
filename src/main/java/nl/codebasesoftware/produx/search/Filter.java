@@ -1,6 +1,6 @@
 package nl.codebasesoftware.produx.search;
 
-import nl.codebasesoftware.produx.domain.dto.generic.UrlToken;
+import nl.codebasesoftware.produx.domain.dto.generic.UrlTokenizable;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,7 +9,7 @@ import nl.codebasesoftware.produx.domain.dto.generic.UrlToken;
  * Time: 21:42
  * To change this template use File | Settings | File Templates.
  */
-public abstract class Filter implements UrlToken, SolrParameter {
+public abstract class Filter implements UrlTokenizable, SolrParameter {
 
     protected String field;
     protected String tag;
@@ -33,7 +33,8 @@ public abstract class Filter implements UrlToken, SolrParameter {
         return field;
     }
 
-    protected abstract boolean equalsFilterLink(FacetFilterLink link);
+
+
 }
 
 

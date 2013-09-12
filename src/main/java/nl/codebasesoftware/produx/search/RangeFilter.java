@@ -2,6 +2,9 @@ package nl.codebasesoftware.produx.search;
 
 import org.apache.solr.common.params.ModifiableSolrParams;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: rvanloen
@@ -24,8 +27,8 @@ public class RangeFilter extends Filter {
     }
 
     @Override
-    public String getUrlToken() {
-        return String.format("%s:%s-%s", field, range.getLeft(), range.getRight());
+    public List<String> getUrlTokens() {
+        return Arrays.asList(String.format("%s:%s-%s", field, range.getLeft(), range.getRight()));
     }
 
     @Override
@@ -33,10 +36,5 @@ public class RangeFilter extends Filter {
         ModifiableSolrParams params = new ModifiableSolrParams();
         params.add("fq", String.format("%s:[%s TO %s]", getTaggedField(), range.getLeft(), range.getRight()));
         return params;
-    }
-
-    @Override
-    protected boolean equalsFilterLink(FacetFilterLink link) {
-        return link.getFieldName().equals(field) && link.getValue().equals(range.getLeft());
     }
 }

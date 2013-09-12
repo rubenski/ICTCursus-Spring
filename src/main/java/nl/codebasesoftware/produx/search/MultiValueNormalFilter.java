@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.search;
 
 import org.apache.solr.common.params.ModifiableSolrParams;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public class MultiValueNormalFilter extends Filter {
     public MultiValueNormalFilter(String field, List<Object> values, FilterConditions condition) {
         super(field);
 
-        if(values.size() == 0){
+        if (values.size() == 0) {
             throw new IllegalArgumentException("No filterLinks found in filter");
         }
 
@@ -43,7 +44,7 @@ public class MultiValueNormalFilter extends Filter {
         // fq={!tag=dt}doctype:pdf
         // TODO: implement this for all createSolrParams / filters
         String filter = String.format("%s:(\"%s\")", getTaggedField(), valueString);
-        if(tag != null){
+        if (tag != null) {
             filter = String.format("{!tag=%s}", tag, filter);
         }
 
@@ -52,28 +53,15 @@ public class MultiValueNormalFilter extends Filter {
     }
 
     @Override
-    public String getUrlToken() {
+    public List<String> getUrlTokens() {
+        List<String> tokens = new ArrayList<>();
         StringBuilder token = new StringBuilder();
-        token.append(field).append(":");
-        for (int i = 0; i < values.size(); i++) {
-            token.append(values.get(i));
-            if(i < values.size() -1){
-                token.append(",");
-            }
+
+        for (Object value : values) {
+            tokens.add(token.append(field).append(":").append(value).toString());
         }
 
-        return token.toString();
+        return tokens;
     }
 
-    @Override
-    public boolean equalsFilterLink(FacetFilterLink link) {
-        if(link.getFieldName().equals(field)){
-            for (Object value : values) {
-                if(value.equals(link.getValue())){
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 }

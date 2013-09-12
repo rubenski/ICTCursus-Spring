@@ -1,5 +1,9 @@
 package nl.codebasesoftware.produx.domain.dto.generic;
 
+import nl.codebasesoftware.produx.search.FacetFilterLink;
+
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: rvanloen
@@ -7,6 +11,6 @@ package nl.codebasesoftware.produx.domain.dto.generic;
  * Time: 21:50
  * To change this template use File | Settings | File Templates.
  */
-public interface UrlToken {
-    String getUrlToken();
+public interface UrlTokenizable {
+    List<String> getUrlTokens();
 }

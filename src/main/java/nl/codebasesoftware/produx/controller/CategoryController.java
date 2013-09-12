@@ -10,6 +10,7 @@ import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.search.*;
 import nl.codebasesoftware.produx.service.*;
+import nl.codebasesoftware.produx.service.business.SearchQueryProcessor;
 import nl.codebasesoftware.produx.util.Properties;
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrQuery;
@@ -20,9 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * User: rvanloen
@@ -109,16 +108,13 @@ public class CategoryController {
 
         NormalFilter categoryFilter = new NormalFilter("category", cat.getSolrValue());
 
-
         SearchCriteria criteria = new SearchCriteria.Builder()
                 .addFilter(categoryFilter)
-                .addFilters(stringToFilters(filters))
+                .addFilters(SearchQueryProcessor.stringToFilters(filters))
                 .addFacetField(rangeFacetField)
                 .setStart(page * resultsPerPage)
                 .setRows(resultsPerPage)
                 .build();
-
-        String url = categoryService.generateUrl(cat, criteria);
 
         SearchResult searchResult = searchService.findCategoryCourses(criteria, cat);
 
@@ -141,48 +137,13 @@ public class CategoryController {
         model.addAttribute("category", category);
         model.addAttribute("mainContent", "content/category");
         model.addAttribute("rightColumn", "content/articlelisting");
+        model.addAttribute("dir", category.getUrlTitle());
         model.addAttribute("facetedSearch", true);
         return "main";
     }
 
 
-    private List<Filter> stringToFilters(String filters){
 
-        if(filters == null || filters.length() == 0){
-            return Collections.EMPTY_LIST;
-        }
-
-        List<Filter> filterList = new ArrayList<>();
-
-        String[] filterStrings = filters.split("_");
-
-        for (String filterString : filterStrings) {
-            String[] nameValue = filterString.split(":");
-            String name = nameValue[0];
-            String values = nameValue[1];
-
-
-            if(name.equals("price")){
-
-                String[] priceRanges = values.split(",");
-                List<Range> ranges = new ArrayList<>();
-                for (String priceRange : priceRanges) {
-                    String[] rangeValues = priceRange.split("-");
-                    int from = Integer.parseInt(rangeValues[0]);
-                    int to = Integer.parseInt(rangeValues[1]);
-                    ranges.add(new Range<>(from, to));
-                }
-
-                MultiValueRangeFilter priceFilter = new MultiValueRangeFilter(name, ranges);
-                priceFilter.setTag("_price");
-                filterList.add(priceFilter);
-
-            }
-        }
-
-        return filterList;
-
-    }
 
 
 }

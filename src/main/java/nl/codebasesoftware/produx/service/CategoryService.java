@@ -17,5 +17,4 @@ public interface CategoryService {
     Category findByUrlTitle(String name);
     List<Category> findAll();
     Category findById(Long categoryId);
-    String generateUrl(CategoryEntityDTO cat, SearchCriteria criteria);
 }

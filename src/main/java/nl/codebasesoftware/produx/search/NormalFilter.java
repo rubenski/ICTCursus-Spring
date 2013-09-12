@@ -2,6 +2,9 @@ package nl.codebasesoftware.produx.search;
 
 import org.apache.solr.common.params.ModifiableSolrParams;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: rvanloen
@@ -19,8 +22,8 @@ public class NormalFilter extends Filter {
     }
 
     @Override
-    public String getUrlToken(){
-        return String.format("%s:%s", field, value);
+    public List<String> getUrlTokens() {
+        return Arrays.asList(String.format("%s:%s", field, value));
     }
 
     @Override
@@ -30,8 +33,4 @@ public class NormalFilter extends Filter {
         return params;
     }
 
-    @Override
-    protected boolean equalsFilterLink(FacetFilterLink link) {
-        return link.getFieldName().equals(getTaggedField()) && link.getValue().equals(value);
-    }
 }

@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.search;
 
 import org.apache.solr.common.params.ModifiableSolrParams;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,28 +40,16 @@ public class MultiValueRangeFilter extends Filter {
     }
 
     @Override
-    public String getUrlToken() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(field).append(":");
-        for (int i = 0; i < ranges.size(); i++){
-            String s = String.format("%s-%s", ranges.get(i).getLeft(), ranges.get(i).getRight());
-            builder.append(s);
-            if(i < ranges.size() -1){
-                builder.append(",");
-            }
+    public List<String> getUrlTokens() {
+        List<String> tokens = new ArrayList<>();
+        StringBuilder token = new StringBuilder();
+        for (Range range : ranges) {
+            token.append(field).append(":");
+            String value = String.format("%s-%s", range.getLeft(), range.getRight());
+            token.append(value);
+            tokens.add(token.toString());
         }
-        return builder.toString();
+        return tokens;
     }
 
-    @Override
-    protected boolean equalsFilterLink(FacetFilterLink link) {
-        if(link.getFieldName().equals(field)) {
-            for (Range range : ranges) {
-                if(link.getValue().equals(range.getLeft())){
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 }

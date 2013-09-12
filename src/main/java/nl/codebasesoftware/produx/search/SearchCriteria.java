@@ -1,7 +1,5 @@
 package nl.codebasesoftware.produx.search;
 
-import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -43,7 +41,7 @@ public class SearchCriteria {
     }
 
 
-    private SearchCriteria(Builder builder){
+    private SearchCriteria(Builder builder) {
         rows = builder.rows;
         start = builder.start;
         query = builder.query;
@@ -51,13 +49,27 @@ public class SearchCriteria {
         filters = builder.filters;
     }
 
-    public boolean isFilterApplied(FacetFilterLink link){
+    public String getFacetingUrlParameters(FacetFilterLink link) {
+        StringBuilder builder = new StringBuilder();
+        // Add already applied filters
+        boolean linkApplied = false;
         for (Filter filter : filters) {
-            if(filter.equalsFilterLink(link)){
-                return true;
+            if (!filter.getField().equals("category")) {
+                for (String tokens : filter.getUrlTokens()) {
+                    if (!tokens.equals(link.asUrlToken())) {
+                        builder.append(tokens).append("~");
+                    } else {
+                        linkApplied = true;
+                    }
+                }
             }
         }
-        return false;
+
+        if(!linkApplied){
+            builder.append(link.asUrlToken());
+        }
+
+        return builder.toString();
     }
 
 
@@ -68,7 +80,6 @@ public class SearchCriteria {
         private List<Filter> filters = new ArrayList<>();
         private Integer start;
         private Integer rows;
-        private String baseUrl;
 
 
         public Builder setQuery(String query) {
@@ -76,17 +87,17 @@ public class SearchCriteria {
             return this;
         }
 
-        public Builder addFacetField(FacetField facet){
+        public Builder addFacetField(FacetField facet) {
             this.facetFields.add(facet);
             return this;
         }
 
-        public Builder addFilter(Filter filter){
+        public Builder addFilter(Filter filter) {
             this.filters.add(filter);
             return this;
         }
 
-        public Builder addFilters(Collection<Filter> filters){
+        public Builder addFilters(Collection<Filter> filters) {
             this.filters.addAll(filters);
             return this;
         }
@@ -101,7 +112,7 @@ public class SearchCriteria {
             return this;
         }
 
-        public SearchCriteria build(){
+        public SearchCriteria build() {
             return new SearchCriteria(this);
         }
     }

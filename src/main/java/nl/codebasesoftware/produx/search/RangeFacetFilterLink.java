@@ -31,28 +31,11 @@ public class RangeFacetFilterLink extends FacetFilterLink {
 
     @Override
     public String getUrl() {
-
-        StringBuilder builder = new StringBuilder();
-        builder.append("/").append(category.getUrlTitle()).append("/");
-
-        for (Filter filter : criteria.getFilters()) {
-            if(!filter.equalsFilterLink(this) && !filter.getField().equals("category")){
-                builder.append(filter.getUrlToken()).append(CommonParams.SPLIT_FILTERS);
-            }
-        }
-
-        if(!criteria.isFilterApplied(this)){
-            builder.append(fieldName).append(CommonParams.SPLIT_FIELD_VALUE).append(value).append(CommonParams.SPLIT_RANGE_VALUES).append(value + gap);
-        } else{
-            builder.deleteCharAt(builder.length() - 1);
-        }
-
-
-
-        return builder.toString();
+        return criteria.getFacetingUrlParameters(this);
     }
 
-
-
-
+    @Override
+    protected String asUrlToken() {
+        return String.format("%s:%s-%s", fieldName, value, value + gap);
+    }
 }

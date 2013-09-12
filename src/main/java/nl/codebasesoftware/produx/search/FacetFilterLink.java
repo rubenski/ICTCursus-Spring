@@ -39,5 +39,6 @@ public abstract class FacetFilterLink {
 
     protected abstract String getNameKey();
     protected abstract String getUrl();
+    protected abstract String asUrlToken();
 
 }

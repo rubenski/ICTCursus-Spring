@@ -54,26 +54,6 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryDao.find(categoryId);
     }
 
-    @Override
-    public String generateUrl(CategoryEntityDTO cat, SearchCriteria criteria) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("/").append(cat.getUrlTitle()).append("/");
-
-
-        List<Filter> filters = criteria.getFilters();
-        for (int i = 0; i < filters.size(); i++) {
-            Filter filter = filters.get(i);
-            if (!filter.getField().equals("category")) {
-                builder.append(filter.getUrlToken());
-                if (i < filters.size() - 1) {
-                    builder.append("_");
-                }
-            }
-
-        }
-
-        return builder.toString();
-    }
 
 
 }
