@@ -35,7 +35,7 @@ public class RangeFacetFilterLink extends FacetFilterLink {
     }
 
     @Override
-    protected String asUrlToken() {
+    public String asUrlToken() {
         return String.format("%s:%s-%s", fieldName, value, value + gap);
     }
 }

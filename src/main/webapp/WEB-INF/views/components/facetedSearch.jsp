@@ -5,9 +5,8 @@
     <c:forEach items="${searchResult.facetFieldViews}" var="view">
         <h2><spring:message key="${view.getFieldHeaderKey()}"/></h2>
         <c:forEach items="${view.filterLinks}" var="link" varStatus="loop">
-            <c:set var="id" value="${link.fieldName}-${link.value}"/>
-            <input type="checkbox" name="price" id="${id}" value="/${dir}/${link.getUrl()}"/>
-                <label for="${id}">
+            <input type="checkbox" name="price" id="${link.asUrlToken()}" value="/${dir}/${link.getUrl()}"/>
+                <label for="${link.asUrlToken()}">
                     <spring:message key="${link.getNameKey()}"/></label> (${link.getCount()})<br>
         </c:forEach>
     </c:forEach>

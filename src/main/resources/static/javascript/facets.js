@@ -14,13 +14,21 @@ $(document).ready(function() {
 
     for (var i = 0; i < filters.length; i++) {
         var filter = filters[i];
-        alert(filter);
+        checkCheckBox(filter);
     }
 });
 
+function checkCheckBox(id){
+    $("#" + escapeColon(id)).prop('checked', true);
+}
+
 function forward(id){
-    var url = $("#" + id).val();
+    var url = $("#" + escapeColon(id)).val();
     window.location.href =  url;
+}
+
+function escapeColon(id){
+    return id.replace(":", "\\:");
 }
 
 

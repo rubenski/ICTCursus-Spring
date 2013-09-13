@@ -42,8 +42,8 @@ public class MultiValueRangeFilter extends Filter {
     @Override
     public List<String> getUrlTokens() {
         List<String> tokens = new ArrayList<>();
-        StringBuilder token = new StringBuilder();
         for (Range range : ranges) {
+            StringBuilder token = new StringBuilder();
             token.append(field).append(":");
             String value = String.format("%s-%s", range.getLeft(), range.getRight());
             token.append(value);

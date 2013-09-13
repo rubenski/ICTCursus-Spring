@@ -51,13 +51,14 @@ public class SearchCriteria {
 
     public String getFacetingUrlParameters(FacetFilterLink link) {
         StringBuilder builder = new StringBuilder();
-        // Add already applied filters
+
         boolean linkApplied = false;
         for (Filter filter : filters) {
             if (!filter.getField().equals("category")) {
-                for (String tokens : filter.getUrlTokens()) {
-                    if (!tokens.equals(link.asUrlToken())) {
-                        builder.append(tokens).append("~");
+                for (String token : filter.getUrlTokens()) {
+                    String linkAsToken = link.asUrlToken();
+                    if (!token.equals(linkAsToken)) {
+                        builder.append(token).append("~");
                     } else {
                         linkApplied = true;
                     }
@@ -67,6 +68,10 @@ public class SearchCriteria {
 
         if(!linkApplied){
             builder.append(link.asUrlToken());
+        }
+
+        if(builder.lastIndexOf("~") == builder.length() -1 && builder.lastIndexOf("~") > 1){
+            builder.deleteCharAt(builder.length() -1);
         }
 
         return builder.toString();

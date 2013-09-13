@@ -35,7 +35,7 @@ public class NormalFacetFilterLink extends FacetFilterLink {
     }
 
     @Override
-    protected String asUrlToken() {
+    public String asUrlToken() {
         return String.format("%s:%s", fieldName, value);
     }
 }
