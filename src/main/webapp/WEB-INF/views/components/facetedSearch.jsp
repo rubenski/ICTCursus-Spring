@@ -12,7 +12,7 @@
                 </c:if>
 
                 <c:set var="label" value="${link.value}"/>
-                <c:if test="${useSpringMessagesForValues}">
+                <c:if test="${view.useSpringMessagesForValues}">
                     <spring:message key="${link.getNameKey()}" var="label"/>
                 </c:if>
 

@@ -1,8 +1,6 @@
 package nl.codebasesoftware.produx.service.business;
 
-import nl.codebasesoftware.produx.search.criteria.filter.Filter;
-import nl.codebasesoftware.produx.search.criteria.filter.MultiValueRangeFilter;
-import nl.codebasesoftware.produx.search.criteria.filter.Range;
+import nl.codebasesoftware.produx.search.criteria.filter.*;
 
 import java.util.*;
 
@@ -42,9 +40,29 @@ public class SearchQueryProcessor {
 
         }
 
-        filterList.add(extractPriceFilter(filterMap));
+        Filter priceFilter = extractPriceFilter(filterMap);
+        if(priceFilter != null){
+            filterList.add(priceFilter);
+        }
+
+        Filter regionsFilter = extractRegionsFilter(filterMap);
+        if(regionsFilter != null){
+            filterList.add(regionsFilter);
+        }
 
         return filterList;
+    }
+
+    private static Filter extractRegionsFilter(Map<String, List<String>> filters) {
+
+        List<String> regions = filters.get("regions");
+        if(regions == null || regions.size() == 0){
+            return null;
+        }
+
+        MultiValueNormalFilter regionsFilter = new MultiValueNormalFilter("regions", regions, FilterConditions.OR);
+
+        return  regionsFilter;
     }
 
     private static Filter extractPriceFilter(Map<String, List<String>> filters){

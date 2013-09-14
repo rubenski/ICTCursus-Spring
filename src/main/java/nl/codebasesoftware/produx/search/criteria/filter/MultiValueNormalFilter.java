@@ -14,10 +14,10 @@ import java.util.List;
  */
 public class MultiValueNormalFilter extends Filter {
 
-    private final List<Object> values;
+    private final List<? extends Object> values;
     private final FilterConditions condition;
 
-    public MultiValueNormalFilter(String field, List<Object> values, FilterConditions condition) {
+    public MultiValueNormalFilter(String field, List<? extends Object> values, FilterConditions condition) {
         super(field);
 
         if (values.size() == 0) {
