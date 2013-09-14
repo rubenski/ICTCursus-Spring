@@ -11,8 +11,8 @@
         </c:if>
 
         <c:forEach items="${view.filterLinks}" var="link" varStatus="loop">
-            <input type="checkbox" name="price" id="${link.asUrlToken()}" value="/${dir}/${link.getUrl()}"/>
-                <label for="${link.asUrlToken()}">
+            <input type="checkbox" name="price" id="${link.getUrlToken()}" value="/${dir}/${link.getCompleteUrl()}"/>
+                <label for="${link.getUrlToken()}">
                     <spring:message key="${link.getNameKey()}"/></label> (${link.getCount()})<br>
         </c:forEach>
     </c:forEach>

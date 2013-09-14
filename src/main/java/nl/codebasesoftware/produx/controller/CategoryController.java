@@ -192,11 +192,6 @@ public class CategoryController {
         long end10 = System.currentTimeMillis();
         LOG.debug(end10 - start10);
 
-        EntityManagerFactoryInfo entityManagerFactoryInfo = (EntityManagerFactoryInfo) applicationContext.getBean("entityManagerFactory");
-        EntityManagerFactory emf = entityManagerFactoryInfo.getNativeEntityManagerFactory();
-        EntityManagerFactoryImpl emfImp = (EntityManagerFactoryImpl) emf;
-        Statistics statistics = emfImp.getSessionFactory().getStatistics();
-        LOG.debug(statistics);
         return "main";
     }
 

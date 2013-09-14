@@ -60,7 +60,7 @@ public class SearchCriteria {
         for (Filter filter : filters) {
             if (!filter.getField().equals("category")) {
                 for (String token : filter.getUrlTokens()) {
-                    String linkAsToken = link.asUrlToken();
+                    String linkAsToken = link.getUrlToken();
                     if (!token.equals(linkAsToken)) {
                         builder.append(token).append("~");
                     } else {
@@ -71,7 +71,7 @@ public class SearchCriteria {
         }
 
         if(!linkApplied){
-            builder.append(link.asUrlToken());
+            builder.append(link.getUrlToken());
         }
 
         if(builder.lastIndexOf("~") == builder.length() -1 && builder.lastIndexOf("~") > 1){

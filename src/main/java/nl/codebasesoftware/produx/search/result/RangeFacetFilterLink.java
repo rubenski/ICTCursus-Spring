@@ -3,14 +3,11 @@ package nl.codebasesoftware.produx.search.result;
 
 import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
 import nl.codebasesoftware.produx.search.criteria.SearchCriteria;
-import nl.codebasesoftware.produx.search.result.FacetFilterLink;
 
 /**
- * Created with IntelliJ IDEA.
  * User: rvanloen
  * Date: 4-9-13
  * Time: 11:39
- * To change this template use File | Settings | File Templates.
  */
 public class RangeFacetFilterLink extends FacetFilterLink {
 
@@ -32,12 +29,12 @@ public class RangeFacetFilterLink extends FacetFilterLink {
     }
 
     @Override
-    public String getUrl() {
+    public String getCompleteUrl() {
         return criteria.getFacetingUrlParameters(this);
     }
 
     @Override
-    public String asUrlToken() {
+    public String getUrlToken() {
         return String.format("%s:%s-%s", fieldName, value, value + gap);
     }
 }

@@ -4,11 +4,9 @@ import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
 import nl.codebasesoftware.produx.search.criteria.SearchCriteria;
 
 /**
- * Created with IntelliJ IDEA.
  * User: rvanloen
  * Date: 4-9-13
  * Time: 12:17
- * To change this template use File | Settings | File Templates.
  */
 public abstract class FacetFilterLink {
 
@@ -39,7 +37,7 @@ public abstract class FacetFilterLink {
     }
 
     protected abstract String getNameKey();
-    protected abstract String getUrl();
-    public abstract String asUrlToken();
+    protected abstract String getCompleteUrl();
+    public abstract String getUrlToken();
 
 }

@@ -129,16 +129,6 @@
             <version>4.3.1.Final</version>
         </dependency>
 
-        <!-- ehcache -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-ehcache</artifactId>
-            <version>${hibernate.version}</version>
-        </dependency>
-
-
-
-
         <!-- Other data related dependencies -->
         <dependency>
             <groupId>org.apache.openjpa</groupId>
