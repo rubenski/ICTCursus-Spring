@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.service;
 
 import nl.codebasesoftware.produx.domain.*;
+import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
@@ -14,8 +15,6 @@ import java.util.List;
  */
 public interface CourseService {
     List<CourseEntityDTO> findByCompany(Company company);
-
-    List<Category> findFirstLevelCategories();
 
     CourseEntityDTO findFull(Long id);
 

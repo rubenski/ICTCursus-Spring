@@ -1,5 +1,7 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
+import nl.codebasesoftware.produx.comparator.NameComparable;
+
 /**
  * Created with IntelliJ IDEA.
  * User: rvanloen
@@ -7,7 +9,7 @@ package nl.codebasesoftware.produx.domain.dto.entity;
  * Time: 12:03
  * To change this template use File | Settings | File Templates.
  */
-public class CategoryEntityDTO extends DomainEntityDTO {
+public class CategoryEntityDTO extends DomainEntityDTO implements NameComparable {
 
     private  static final String SOLR_NAME_SEPARATOR = "---";
 
@@ -24,6 +26,7 @@ public class CategoryEntityDTO extends DomainEntityDTO {
         this.id = id;
     }
 
+    @Override
     public String getName() {
         return name;
     }

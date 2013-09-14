@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.service;
 
 import nl.codebasesoftware.produx.domain.Category;
+import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
 
 import java.util.List;
 
@@ -13,4 +14,5 @@ public interface CategoryService {
     Category findByUrlTitle(String name);
     List<Category> findAll();
     Category findById(Long categoryId);
+    List<CategoryEntityDTO> findFlattenedCategories();
 }

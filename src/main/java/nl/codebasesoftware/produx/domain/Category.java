@@ -117,4 +117,8 @@ public class Category implements DomainEntity, NameComparable {
         category.setUrlTitle(urlTitle);
         return category;
     }
+
+    public boolean hasChildren(){
+        return children.size() > 0;
+    }
 }

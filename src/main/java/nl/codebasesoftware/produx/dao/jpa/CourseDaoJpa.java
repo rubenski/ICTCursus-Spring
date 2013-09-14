@@ -26,12 +26,7 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
         super(Course.class);
     }
 
-    @Override
-    public List<Category> findFirstLevelCategories() {
-        Query query = entityManager.createQuery("select distinct c from Category c left join fetch c.children ch where c.parent is null order by c.name");
-        query.setHint("org.hibernate.cacheable", true);
-        return query.getResultList();
-    }
+
 
     @Override
     public List<Course> findForListing(List<Long> ids) {

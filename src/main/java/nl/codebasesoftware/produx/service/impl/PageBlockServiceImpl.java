@@ -2,6 +2,8 @@ package nl.codebasesoftware.produx.service.impl;
 
 import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
+import nl.codebasesoftware.produx.service.CategoryService;
 import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.service.PageBlockService;
 import nl.codebasesoftware.produx.service.support.CurrentUser;
@@ -21,10 +23,12 @@ import java.util.List;
 public class PageBlockServiceImpl implements PageBlockService {
 
     private CourseService courseService;
+    private CategoryService categoryService;
 
     @Autowired
-    public PageBlockServiceImpl(CourseService courseService) {
+    public PageBlockServiceImpl(CourseService courseService, CategoryService categoryService) {
         this.courseService = courseService;
+        this.categoryService = categoryService;
     }
 
     @Override
@@ -47,7 +51,7 @@ public class PageBlockServiceImpl implements PageBlockService {
 
     @Transactional(readOnly = true)
     private void setCategories(Model model){
-        List<Category> firstLevelCategories = courseService.findFirstLevelCategories();
+        List<CategoryEntityDTO> firstLevelCategories = categoryService.findFlattenedCategories();
         model.addAttribute("categories", firstLevelCategories);
     }
 }

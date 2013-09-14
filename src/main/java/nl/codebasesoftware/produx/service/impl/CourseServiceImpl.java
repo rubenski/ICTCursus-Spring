@@ -1,10 +1,13 @@
 package nl.codebasesoftware.produx.service.impl;
 
-import nl.codebasesoftware.produx.dao.*;
+import nl.codebasesoftware.produx.comparator.NameComparator;
+import nl.codebasesoftware.produx.dao.CompanyDao;
+import nl.codebasesoftware.produx.dao.CourseDao;
 import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.Time;
+import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
@@ -45,14 +48,6 @@ public class CourseServiceImpl implements CourseService {
         this.companyDao = companyDao;
         this.solrService = solrService;
     }
-
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Category> findFirstLevelCategories() {
-        return courseDao.findFirstLevelCategories();
-    }
-
 
     @Override
     @Transactional(readOnly = true)
@@ -147,7 +142,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Course> findCoursesForCompanyAndCategory(long categoryId, long companyId){
+    public List<Course> findCoursesForCompanyAndCategory(long categoryId, long companyId) {
         return courseDao.findCoursesForCompanyAndCategory(categoryId, companyId);
     }
 
@@ -163,7 +158,7 @@ public class CourseServiceImpl implements CourseService {
         return asCourseDTOs(courseDao.findAllWithCompany());
     }
 
-    private List<ListingCourseDTO> asListingCourses(List<Course> courses){
+    private List<ListingCourseDTO> asListingCourses(List<Course> courses) {
         List<ListingCourseDTO> dtos = new ArrayList<>();
         for (Course course : courses) {
             dtos.add(course.toListingCourseDTO());
