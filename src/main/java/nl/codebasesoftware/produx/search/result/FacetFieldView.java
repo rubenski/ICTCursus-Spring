@@ -4,16 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
  * User: rvanloen
  * Date: 16-8-13
  * Time: 9:01
- * To change this template use File | Settings | File Templates.
  */
 public class FacetFieldView {
 
-    String fieldName;
-    List<FacetFilterLink> filterLinks = new ArrayList<>();
+    private String fieldName;
+    private List<FacetFilterLink> filterLinks = new ArrayList<>();
+    private boolean provideClearLink;
 
     public FacetFieldView(String fieldName) {
         this.fieldName = fieldName;
@@ -34,5 +33,13 @@ public class FacetFieldView {
     public String getFieldHeaderKey() {
         String s = String.format("faceting.header.%s", fieldName);
         return s;
+    }
+
+    public boolean getProvideClearLink() {
+        return provideClearLink;
+    }
+
+    public void setProvideClearLink(boolean provideClearLink) {
+        this.provideClearLink = provideClearLink;
     }
 }

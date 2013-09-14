@@ -27,7 +27,7 @@ import java.util.List;
  * Time: 16:11
  * To change this template use File | Settings | File Templates.
  */
-
+@SuppressWarnings("unchecked")
 public class QueryResponseToSearchResultConverter {
 
     private static final Logger LOG = Logger.getLogger(QueryResponseToSearchResultConverter.class);
@@ -85,6 +85,7 @@ public class QueryResponseToSearchResultConverter {
         if (queryResponse.getFacetRanges() != null) {
             for (RangeFacet rangeFacet : queryResponse.getFacetRanges()) {
                 FacetFieldView facetFieldView = new FacetFieldView(rangeFacet.getName());
+                facetFieldView.setProvideClearLink(true);
                 List<RangeFacet.Count> counts = rangeFacet.getCounts();
                 for (RangeFacet.Count value : counts) {
                     RangeFacetFilterLink rangeFacetFilterLink = new RangeFacetFilterLink(rangeFacet.getName(),
