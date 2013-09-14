@@ -6,10 +6,17 @@
         <div class="facet">
             <h2><spring:message key="${view.getFieldHeaderKey()}"/></h2>
             <c:forEach items="${view.filterLinks}" var="link">
-                <c:if test="${!link.hasDocuments()}">
-                    <c:set var="disable" value="disabled=\"disabled\""/>
-                    <c:set var="disableClass" value="class=\"disabled\""/>
-                </c:if>
+
+                <c:choose>
+                    <c:when test="${!link.hasDocuments()}">
+                        <c:set var="disable" value="disabled=\"disabled\""/>
+                        <c:set var="disableClass" value="class=\"disabled\""/>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="disable" value=""/>
+                        <c:set var="disableClass" value=""/>
+                    </c:otherwise>
+                </c:choose>
 
                 <c:set var="label" value="${link.value}"/>
                 <c:if test="${view.useSpringMessagesForValues}">
