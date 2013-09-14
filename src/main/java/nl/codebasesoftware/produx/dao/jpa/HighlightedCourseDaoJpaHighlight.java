@@ -14,6 +14,7 @@ import java.util.List;
  * Time: 11:08
  */
 @Repository
+@SuppressWarnings("unchecked")
 public class HighlightedCourseDaoJpaHighlight extends GenericDaoJpa<HighlightedCoursePeriod> implements CategoryHighlightPeriodDao {
 
 

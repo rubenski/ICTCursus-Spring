@@ -12,7 +12,8 @@ import java.util.List;
  * Time: 18:57
  */
 @Repository
-public class RolesAndRightsDaoJpa extends GenericDaoJpa<Role> implements RolesAndRightsDao{
+@SuppressWarnings("unchecked")
+public class RolesAndRightsDaoJpa extends GenericDaoJpa<Role> implements RolesAndRightsDao {
 
     public RolesAndRightsDaoJpa() {
         super(Role.class);

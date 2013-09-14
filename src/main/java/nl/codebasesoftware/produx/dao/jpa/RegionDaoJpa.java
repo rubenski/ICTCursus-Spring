@@ -13,6 +13,7 @@ import java.util.List;
  * Time: 14:12
  */
 @Repository
+@SuppressWarnings("unchecked")
 public class RegionDaoJpa extends GenericDaoJpa<Region> implements RegionDao {
 
     public RegionDaoJpa() {

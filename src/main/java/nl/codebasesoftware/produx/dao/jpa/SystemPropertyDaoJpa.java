@@ -13,6 +13,7 @@ import javax.persistence.Query;
  * Time: 18:45
  */
 @Repository
+@SuppressWarnings("unchecked")
 public class SystemPropertyDaoJpa extends GenericDaoJpa<SystemProperty> implements SystemPropertyDao {
 
     public SystemPropertyDaoJpa() {

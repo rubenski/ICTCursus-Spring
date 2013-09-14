@@ -15,6 +15,7 @@ import java.util.List;
  * Time: 1:43
  */
 @Repository
+@SuppressWarnings("unchecked")
 public class TagDaoJpa extends GenericDaoJpa<Tag> implements TagDao {
 
     public TagDaoJpa() {

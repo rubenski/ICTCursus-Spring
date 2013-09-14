@@ -13,6 +13,7 @@ import java.util.List;
  * Time: 21:44
  */
 @Repository
+@SuppressWarnings("unchecked")
 public class ArticleDaoJpa extends GenericDaoJpa<Article> implements ArticleDao {
 
     public ArticleDaoJpa() {

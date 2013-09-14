@@ -13,6 +13,7 @@ import java.util.List;
  * Time: 21:45
  */
 @Repository
+@SuppressWarnings("unchecked")
 public class CourseOptionDaoJpa extends GenericDaoJpa<CourseOption> implements CourseOptionDao {
 
 

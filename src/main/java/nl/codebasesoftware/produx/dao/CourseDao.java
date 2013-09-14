@@ -16,7 +16,7 @@ public interface CourseDao extends GenericDao<Course> {
     List<Course> findCourses(Company company);
     Course findFull(Long id);
     List<Long> findIndexableCourseIds(Calendar lastIndexDate);
-    List<Course> findForListing(List<Long> id);
+    List findForListing(List<Long> ids);
     List<Time> findCourseTimes();
     Time getCourseTime(long id);
 

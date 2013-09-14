@@ -11,12 +11,10 @@ import javax.persistence.Query;
 import java.util.List;
 
 
-
 public class GenericDaoJpa<T extends DomainEntity> implements GenericDao<T> {
 
     private Class<T> type;
     protected EntityManager entityManager;
-    private static final Logger LOG = LoggerFactory.getLogger(GenericDaoJpa.class);
 
 
     @PersistenceContext(name = "mysqlPersistenceUnit")
@@ -49,7 +47,7 @@ public class GenericDaoJpa<T extends DomainEntity> implements GenericDao<T> {
     }
 
     @Override
-    public void flush(){
+    public void flush() {
         entityManager.flush();
     }
 
@@ -69,10 +67,10 @@ public class GenericDaoJpa<T extends DomainEntity> implements GenericDao<T> {
         entityManager.refresh(object);
     }
 
-    // Replaces silly getSingleResult behaviour (throws an exception when nothing is found)
+    @SuppressWarnings("unchecked")
     protected T getSingleResult(Query query) {
         List<T> resultList = query.getResultList();
-        if(resultList.size() > 1){
+        if (resultList.size() > 1) {
             throw new IllegalArgumentException("Multiple results were found when expecting a single result");
         }
         return resultList.isEmpty() ? null : resultList.get(0);

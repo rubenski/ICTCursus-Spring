@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
  * Time: 22:50
  */
 @Repository
+@SuppressWarnings("unchecked")
 public class ArticlePageDaoJpa extends GenericDaoJpa<ArticlePage> implements ArticlePageDao {
 
     public ArticlePageDaoJpa() {

@@ -12,6 +12,7 @@ import java.util.List;
  * Time: 16:31
  */
 @Repository
+@SuppressWarnings("unchecked")
 public class AccountRequestDaoJpa extends GenericDaoJpa<AccountRequest> implements AccountRequestDao {
 
     public AccountRequestDaoJpa() {
@@ -29,7 +30,7 @@ public class AccountRequestDaoJpa extends GenericDaoJpa<AccountRequest> implemen
         return findRequests(true);
     }
 
-    private List<AccountRequest> findRequests(boolean evaluated){
-         return entityManager.createQuery("from AccountRequest ar where ar.evaluated = :evaluated").setParameter("evaluated", evaluated).getResultList();
+    private List<AccountRequest> findRequests(boolean evaluated) {
+        return entityManager.createQuery("from AccountRequest ar where ar.evaluated = :evaluated").setParameter("evaluated", evaluated).getResultList();
     }
 }

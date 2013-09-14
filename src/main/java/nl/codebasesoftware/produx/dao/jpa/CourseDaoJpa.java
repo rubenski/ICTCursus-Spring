@@ -1,7 +1,10 @@
 package nl.codebasesoftware.produx.dao.jpa;
 
 import nl.codebasesoftware.produx.dao.CourseDao;
-import nl.codebasesoftware.produx.domain.*;
+import nl.codebasesoftware.produx.domain.Category;
+import nl.codebasesoftware.produx.domain.Company;
+import nl.codebasesoftware.produx.domain.Course;
+import nl.codebasesoftware.produx.domain.Time;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
@@ -16,6 +19,7 @@ import java.util.List;
  * Time: 17:41
  */
 @Repository
+@SuppressWarnings("unchecked")
 public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
 
     public CourseDaoJpa() {
@@ -56,8 +60,7 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
     public List<Course> findCourses(Company company) {
         Query query = entityManager.createQuery("select c from Course c where c.company = :company");
         query.setParameter("company", company);
-        List resultList = query.getResultList();
-        return resultList;
+        return query.getResultList();
     }
 
     @Override
@@ -75,8 +78,7 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
                 "left join fetch c.highlightedCoursePeriods " +
                 "where c.id = :id");
         query.setParameter("id", id);
-        Course result = getSingleResult(query);
-        return result;
+        return getSingleResult(query);
     }
 
     @Override
@@ -111,11 +113,10 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
                 "   or cats.category.id <> :categoryId " +
                 "   or (cats.category.id = :categoryId and :today not between cats.startTime and cats.endTime))" +
                 "and c.published = true";
-        List resultList = entityManager.createQuery(query)
+
+        return entityManager.createQuery(query)
                 .setParameter("categoryId", categoryId)
                 .setParameter("today", currentDate, TemporalType.DATE).getResultList();
-
-        return resultList;
     }
 
     @Override
@@ -129,10 +130,10 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
                 "and cats.startTime <= :time " +
                 "and cats.endTime > :time " +
                 "and c.published = true";
-        List resultList = entityManager.createQuery(query)
+
+        return entityManager.createQuery(query)
                 .setParameter("categoryId", categoryId)
                 .setParameter("time", time, TemporalType.DATE).getResultList();
-        return resultList;
     }
 
     @Override

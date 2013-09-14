@@ -13,6 +13,7 @@ import java.util.List;
  * Time: 18:45
  */
 @Repository
+@SuppressWarnings("unchecked")
 public class CategoryDaoJpa extends GenericDaoJpa<Category> implements CategoryDao {
 
     public CategoryDaoJpa() {

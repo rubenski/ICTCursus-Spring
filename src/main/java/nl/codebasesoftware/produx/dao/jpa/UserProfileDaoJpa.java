@@ -12,6 +12,7 @@ import java.util.List;
 
 
 @Repository
+@SuppressWarnings("unchecked")
 public class UserProfileDaoJpa extends GenericDaoJpa<UserProfile> implements UserProfileDao {
 
     Logger log = Logger.getLogger(UserProfileDaoJpa.class);
@@ -21,7 +22,7 @@ public class UserProfileDaoJpa extends GenericDaoJpa<UserProfile> implements Use
     }
 
     public UserProfile findByEmail(String email) throws DataAccessException, EntityNotFoundException {
-        List<UserProfile> results = null;
+        List<UserProfile> results;
         Query query = entityManager.createQuery("from UserProfile as up where up.email = :email");
         query.setParameter("email", email);
         results = query.getResultList();

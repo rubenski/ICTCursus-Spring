@@ -13,6 +13,7 @@ import java.util.List;
  * Time: 22:32
  */
 @Repository
+@SuppressWarnings("unchecked")
 public class ArticleSuggestionDaoJpa extends GenericDaoJpa<ArticleSuggestion> implements ArticleSuggestionDao {
 
     public ArticleSuggestionDaoJpa() {
@@ -21,8 +22,7 @@ public class ArticleSuggestionDaoJpa extends GenericDaoJpa<ArticleSuggestion> im
 
     @Override
     public List<ArticleSuggestion> findForUser(UserProfile user) {
-        List resultList = entityManager.createQuery("from ArticleSuggestion a where a.suggester = :user").setParameter("user", user).getResultList();
-        return resultList;
+        return entityManager.createQuery("from ArticleSuggestion a where a.suggester = :user").setParameter("user", user).getResultList();
     }
 
     @Override

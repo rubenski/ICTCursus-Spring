@@ -12,6 +12,7 @@ import java.util.List;
  * Time: 21:49
  */
 @Repository
+@SuppressWarnings("unchecked")
 public class UserInvitationDaoJpa extends GenericDaoJpa<UserInvitation> implements UserInvitationDao {
 
     public UserInvitationDaoJpa() {
