@@ -61,6 +61,7 @@ public class SearchQueryProcessor {
         }
 
         MultiValueNormalFilter regionsFilter = new MultiValueNormalFilter("regions", regions, FilterConditions.OR);
+        regionsFilter.setTag("_regions");
 
         return  regionsFilter;
     }

@@ -38,15 +38,10 @@ public class MultiValueNormalFilter extends Filter {
         String valueString = "";
 
         for (int i = 0; i < size; i++) {
-            valueString += (i != 0 && i != size - 1 ? condition.getValue() : "") + values.get(i);
+            valueString += (i != 0  ? String.format(" %s ", condition.getValue()) : "") + "\"" + values.get(i) + "\"";
         }
 
-        // fq={!tag=dt}doctype:pdf
-        // TODO: implement this for all createSolrParams / filters
-        String filter = String.format("%s:(\"%s\")", getTaggedField(), valueString);
-        if (tag != null) {
-            filter = String.format("{!tag=%s}", tag, filter);
-        }
+        String filter = String.format("%s:(%s)", tag != null ? getTaggedField() : field, valueString);
 
         params.add("fq", filter);
         return params;
@@ -55,9 +50,8 @@ public class MultiValueNormalFilter extends Filter {
     @Override
     public List<String> getUrlTokens() {
         List<String> tokens = new ArrayList<>();
-        StringBuilder token = new StringBuilder();
-
         for (Object value : values) {
+            StringBuilder token = new StringBuilder();
             tokens.add(token.append(field).append(":").append(value).toString());
         }
 

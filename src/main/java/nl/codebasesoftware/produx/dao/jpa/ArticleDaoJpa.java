@@ -34,7 +34,7 @@ public class ArticleDaoJpa extends GenericDaoJpa<Article> implements ArticleDao 
 
     @Override
     public List<Article> findByCategory(Long categoryId) {
-        return entityManager.createQuery("from Article a inner join fetch a.category c where a.category.id = :id and a.published = :published")
+        return entityManager.createQuery("from Article a where a.category.id = :id and a.published = :published")
                 .setParameter("id", categoryId)
                 .setParameter("published", true)
                 .getResultList();

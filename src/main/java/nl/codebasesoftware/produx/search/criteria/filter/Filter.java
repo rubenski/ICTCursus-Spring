@@ -35,7 +35,6 @@ public abstract class Filter implements UrlTokenizable, SolrParameter {
     }
 
 
-
 }
 
 

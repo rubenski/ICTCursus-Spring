@@ -40,7 +40,7 @@ public abstract class FacetField implements SolrParameter {
         return sorting;
     }
 
-    public void addExcludeFilter(String exclude){
+    public void addExcludedFilter(String exclude){
         excludedFilters.add(exclude);
     }
 }

@@ -19,18 +19,14 @@ import nl.codebasesoftware.produx.service.*;
 import nl.codebasesoftware.produx.service.business.SearchQueryProcessor;
 import nl.codebasesoftware.produx.util.Properties;
 import org.apache.log4j.Logger;
-import org.hibernate.ejb.EntityManagerFactoryImpl;
-import org.hibernate.stat.Statistics;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.orm.jpa.EntityManagerFactoryInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.persistence.EntityManagerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -138,10 +134,12 @@ public class CategoryController {
         long start5 = System.currentTimeMillis();
         RangeFacetField priceFacet = new RangeFacetField("price", 0, 300000, 50000, FacetSortingBehavior.NATURAL_ORDER);
         priceFacet.addOtherBehavior(RangeFacetOtherBehavior.AFTER);
-        priceFacet.addExcludeFilter("_price");
+        priceFacet.addExcludedFilter("_price");
 
-        NormalFacetField regionFacet = new NormalFacetField("regions", FacetSortingBehavior.COUNT);
+        NormalFacetField regionFacet = new NormalFacetField("regions", FacetSortingBehavior.NATURAL_ORDER);
+        regionFacet.addExcludedFilter("_regions");
         regionFacet.setMinCount(1);
+
         long end5 = System.currentTimeMillis();
         LOG.debug("aaa: " + (end5 - start5));
 

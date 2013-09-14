@@ -11,6 +11,7 @@ import nl.codebasesoftware.produx.formdata.ArticlePageFormData;
 import nl.codebasesoftware.produx.formdata.EditArticleFormData;
 import nl.codebasesoftware.produx.service.ArticleService;
 import nl.codebasesoftware.produx.service.UserProfileService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +28,8 @@ import java.util.List;
  */
 @Service
 public class ArticleServiceImpl implements ArticleService {
+
+    Logger LOG = Logger.getLogger(ArticleServiceImpl.class);
 
     private ArticleDao articleDao;
     private UserProfileService userProfileService;
@@ -181,7 +184,13 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional(readOnly = true)
     public List<ArticleEntityDTO> findByCategory(long catgeoryId) {
-        return asArticleEntityDTOs(articleDao.findByCategory(catgeoryId));
+        long start = System.currentTimeMillis();
+        List<Article> categories = articleDao.findByCategory(catgeoryId);
+        LOG.debug("getting cats: " + (System.currentTimeMillis() - start));
+        long start1 = System.currentTimeMillis();
+        List<ArticleEntityDTO> articleEntityDTOs = asArticleEntityDTOs(categories);
+        LOG.debug("converting cats: " + (System.currentTimeMillis() - start1));
+        return articleEntityDTOs;
     }
 
     @Override

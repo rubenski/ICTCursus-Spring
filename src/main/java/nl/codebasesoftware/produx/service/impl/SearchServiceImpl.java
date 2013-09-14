@@ -41,6 +41,8 @@ public class SearchServiceImpl implements SearchService {
 
     public SearchResult findCategoryCourses(SearchCriteria criteria, CategoryEntityDTO category) throws ProduxServiceException {
         ModifiableSolrParams modifiableSolrParams = conversionService.convert(criteria, SolrQuery.class);
+        LOG.debug("Firing Solr query");
+        LOG.debug(modifiableSolrParams);
         QueryResponse response = solrService.search(modifiableSolrParams);
         SearchResult convert = converter.convert(response, criteria, category);
         return convert;
