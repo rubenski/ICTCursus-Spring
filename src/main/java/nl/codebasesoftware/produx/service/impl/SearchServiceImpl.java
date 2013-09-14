@@ -29,14 +29,12 @@ public class SearchServiceImpl implements SearchService {
     private SolrService solrService;
     private ConversionService conversionService;
     private QueryResponseToSearchResultConverter converter;
-    private Properties properties;
 
     @Autowired
     public SearchServiceImpl(SolrService solrService, ConversionService conversionService, QueryResponseToSearchResultConverter converter, Properties properties) {
         this.solrService = solrService;
         this.conversionService = conversionService;
         this.converter = converter;
-        this.properties = properties;
     }
 
     public SearchResult findCategoryCourses(SearchCriteria criteria, CategoryEntityDTO category) throws ProduxServiceException {
@@ -44,8 +42,7 @@ public class SearchServiceImpl implements SearchService {
         LOG.debug("Firing Solr query");
         LOG.debug(modifiableSolrParams);
         QueryResponse response = solrService.search(modifiableSolrParams);
-        SearchResult convert = converter.convert(response, criteria, category);
-        return convert;
+        return converter.convert(response, criteria, category);
     }
 
 }
