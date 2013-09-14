@@ -12,7 +12,7 @@ public class FacetFieldView {
 
     private String fieldName;
     private List<FacetFilterLink> filterLinks = new ArrayList<>();
-    private boolean provideClearLink;
+    private boolean useSpringMessagesForValues;
 
     public FacetFieldView(String fieldName) {
         this.fieldName = fieldName;
@@ -35,11 +35,11 @@ public class FacetFieldView {
         return s;
     }
 
-    public boolean getProvideClearLink() {
-        return provideClearLink;
+    public boolean getUseSpringMessagesForValues() {
+        return useSpringMessagesForValues;
     }
 
-    public void setProvideClearLink(boolean provideClearLink) {
-        this.provideClearLink = provideClearLink;
+    public void setUseSpringMessagesForValues(boolean useSpringMessagesForValues) {
+        this.useSpringMessagesForValues = useSpringMessagesForValues;
     }
 }

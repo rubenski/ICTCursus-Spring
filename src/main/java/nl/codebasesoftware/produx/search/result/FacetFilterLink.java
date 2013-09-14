@@ -36,6 +36,10 @@ public abstract class FacetFilterLink {
         return value;
     }
 
+    public boolean hasDocuments(){
+        return count > 0;
+    }
+
     protected abstract String getNameKey();
     protected abstract String getCompleteUrl();
     public abstract String getUrlToken();

@@ -124,6 +124,14 @@ body {
     text-decoration: none;
 }
 
+#facets label.disabled {
+    color: gray;
+}
+
+#facets .facet {
+    margin-bottom: 20px;
+}
+
 #main a:hover {
     color: #6b0c0c;
     text-decoration: underline;
@@ -354,6 +362,8 @@ input, select, textarea {
 #courseRequest {
     margin-top: 15px;
 }
+
+
 
 
 

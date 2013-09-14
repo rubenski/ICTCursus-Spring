@@ -11,7 +11,7 @@ import org.apache.solr.common.params.ModifiableSolrParams;
  */
 public class NormalFacetField extends FacetField {
 
-    protected NormalFacetField(String field, FacetSortingBehavior sorting) {
+    public NormalFacetField(String field, FacetSortingBehavior sorting) {
         super(field, sorting);
     }
 

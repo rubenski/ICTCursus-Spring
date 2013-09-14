@@ -10,6 +10,7 @@ import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.search.criteria.SearchCriteria;
 import nl.codebasesoftware.produx.search.criteria.facet.FacetSortingBehavior;
+import nl.codebasesoftware.produx.search.criteria.facet.NormalFacetField;
 import nl.codebasesoftware.produx.search.criteria.facet.RangeFacetField;
 import nl.codebasesoftware.produx.search.criteria.facet.RangeFacetOtherBehavior;
 import nl.codebasesoftware.produx.search.criteria.filter.NormalFilter;
@@ -135,9 +136,12 @@ public class CategoryController {
         LOG.debug("ppp: " + (end4 - start4));
 
         long start5 = System.currentTimeMillis();
-        RangeFacetField rangeFacetField = new RangeFacetField("price", 0, 300000, 50000, FacetSortingBehavior.COUNT);
-        rangeFacetField.addOtherBehavior(RangeFacetOtherBehavior.AFTER);
-        rangeFacetField.addExcludeFilter("_price");
+        RangeFacetField priceFacet = new RangeFacetField("price", 0, 300000, 50000, FacetSortingBehavior.NATURAL_ORDER);
+        priceFacet.addOtherBehavior(RangeFacetOtherBehavior.AFTER);
+        priceFacet.addExcludeFilter("_price");
+
+        NormalFacetField regionFacet = new NormalFacetField("regions", FacetSortingBehavior.COUNT);
+        regionFacet.setMinCount(1);
         long end5 = System.currentTimeMillis();
         LOG.debug("aaa: " + (end5 - start5));
 
@@ -147,7 +151,8 @@ public class CategoryController {
         SearchCriteria criteria = new SearchCriteria.Builder()
                 .addFilter(categoryFilter)
                 .addFilters(SearchQueryProcessor.stringToFilters(filters))
-                .addFacetField(rangeFacetField)
+                .addFacetField(priceFacet)
+                .addFacetField(regionFacet)
                 .setStart(page * resultsPerPage)
                 .setRows(resultsPerPage)
                 .build();

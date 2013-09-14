@@ -85,7 +85,7 @@ public class QueryResponseToSearchResultConverter {
         if (queryResponse.getFacetRanges() != null) {
             for (RangeFacet rangeFacet : queryResponse.getFacetRanges()) {
                 FacetFieldView facetFieldView = new FacetFieldView(rangeFacet.getName());
-                facetFieldView.setProvideClearLink(true);
+                facetFieldView.setUseSpringMessagesForValues(true);
                 List<RangeFacet.Count> counts = rangeFacet.getCounts();
                 for (RangeFacet.Count value : counts) {
                     RangeFacetFilterLink rangeFacetFilterLink = new RangeFacetFilterLink(rangeFacet.getName(),

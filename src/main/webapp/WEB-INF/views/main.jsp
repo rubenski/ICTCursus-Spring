@@ -67,6 +67,9 @@
     </div>
 </header>
 
+<div style="margin: 0 auto">
+    <h2>${requestTime} ms</h2>
+</div>
 
 <div id="main">
     <div id="innermain">
@@ -79,7 +82,7 @@
 </div>
 
 <footer id="site-footer">
-    ${requestTime} ms
+    footer
 </footer>
 
 
