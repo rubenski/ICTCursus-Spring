@@ -13,18 +13,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
  */
 public class CurrentUser {
 
-    private static Logger LOG = LoggerFactory.getLogger(CurrentUser.class);
-
     public static UserProfile get(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        try {
+        Object user = authentication.getPrincipal();
+
+        if(user instanceof UserProfile){
             UserProfile userProfile = (UserProfile) authentication.getPrincipal();
             return userProfile;
-        } catch (ClassCastException exception){
-            LOG.error("THERE IS NO LOGGED IN USER");
         }
-
 
         return null;
     }

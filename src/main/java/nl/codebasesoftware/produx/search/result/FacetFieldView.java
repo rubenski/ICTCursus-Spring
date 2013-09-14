@@ -1,4 +1,4 @@
-package nl.codebasesoftware.produx.search;
+package nl.codebasesoftware.produx.search.result;
 
 import java.util.ArrayList;
 import java.util.List;

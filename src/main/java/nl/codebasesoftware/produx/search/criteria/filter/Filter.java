@@ -1,6 +1,7 @@
-package nl.codebasesoftware.produx.search;
+package nl.codebasesoftware.produx.search.criteria.filter;
 
 import nl.codebasesoftware.produx.domain.dto.generic.UrlTokenizable;
+import nl.codebasesoftware.produx.search.criteria.SolrParameter;
 
 /**
  * Created with IntelliJ IDEA.

@@ -1,7 +1,7 @@
 package nl.codebasesoftware.produx.service;
 
 import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
-import nl.codebasesoftware.produx.search.SearchResult;
+import nl.codebasesoftware.produx.search.result.SearchResult;
 
 /**
  * Created with IntelliJ IDEA.

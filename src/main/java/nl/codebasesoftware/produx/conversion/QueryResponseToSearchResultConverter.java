@@ -2,7 +2,11 @@ package nl.codebasesoftware.produx.conversion;
 
 import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
-import nl.codebasesoftware.produx.search.*;
+import nl.codebasesoftware.produx.search.criteria.SearchCriteria;
+import nl.codebasesoftware.produx.search.result.FacetFieldView;
+import nl.codebasesoftware.produx.search.result.NormalFacetFilterLink;
+import nl.codebasesoftware.produx.search.result.RangeFacetFilterLink;
+import nl.codebasesoftware.produx.search.result.SearchResult;
 import nl.codebasesoftware.produx.util.Properties;
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.response.*;

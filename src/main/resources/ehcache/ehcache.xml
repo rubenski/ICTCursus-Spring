@@ -1,0 +1,6 @@
+<cache name="samples.Employee"
+       maxElementsInMemory="2000"
+       eternal="false"
+       timeToIdleSeconds="1800"
+       timeToLiveSeconds="3600"
+       overflowToDisk="false"/>

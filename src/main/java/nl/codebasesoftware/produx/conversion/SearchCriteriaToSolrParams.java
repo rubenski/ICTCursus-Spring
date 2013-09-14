@@ -1,9 +1,8 @@
 package nl.codebasesoftware.produx.conversion;
 
-import nl.codebasesoftware.produx.search.FacetField;
-import nl.codebasesoftware.produx.search.Filter;
-import nl.codebasesoftware.produx.search.SearchCriteria;
-import nl.codebasesoftware.produx.search.SolrParameter;
+import nl.codebasesoftware.produx.search.criteria.facet.FacetField;
+import nl.codebasesoftware.produx.search.criteria.filter.Filter;
+import nl.codebasesoftware.produx.search.criteria.SearchCriteria;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.common.params.ModifiableSolrParams;
 import org.springframework.core.convert.converter.Converter;

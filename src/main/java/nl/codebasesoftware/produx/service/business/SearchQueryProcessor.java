@@ -1,8 +1,8 @@
 package nl.codebasesoftware.produx.service.business;
 
-import nl.codebasesoftware.produx.search.Filter;
-import nl.codebasesoftware.produx.search.MultiValueRangeFilter;
-import nl.codebasesoftware.produx.search.Range;
+import nl.codebasesoftware.produx.search.criteria.filter.Filter;
+import nl.codebasesoftware.produx.search.criteria.filter.MultiValueRangeFilter;
+import nl.codebasesoftware.produx.search.criteria.filter.Range;
 
 import java.util.*;
 

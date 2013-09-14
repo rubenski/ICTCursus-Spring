@@ -79,7 +79,7 @@
 </div>
 
 <footer id="site-footer">
-    hallo
+    ${requestTime} ms
 </footer>
 
 

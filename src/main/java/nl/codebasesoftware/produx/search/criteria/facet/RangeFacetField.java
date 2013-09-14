@@ -1,4 +1,4 @@
-package nl.codebasesoftware.produx.search;
+package nl.codebasesoftware.produx.search.criteria.facet;
 
 import org.apache.solr.common.params.ModifiableSolrParams;
 

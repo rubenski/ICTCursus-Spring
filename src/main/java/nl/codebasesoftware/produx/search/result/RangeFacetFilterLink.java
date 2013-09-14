@@ -1,7 +1,9 @@
-package nl.codebasesoftware.produx.search;
+package nl.codebasesoftware.produx.search.result;
 
 
 import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
+import nl.codebasesoftware.produx.search.criteria.SearchCriteria;
+import nl.codebasesoftware.produx.search.result.FacetFilterLink;
 
 /**
  * Created with IntelliJ IDEA.

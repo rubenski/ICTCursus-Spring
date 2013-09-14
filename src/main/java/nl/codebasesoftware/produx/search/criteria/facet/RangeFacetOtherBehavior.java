@@ -1,4 +1,4 @@
-package nl.codebasesoftware.produx.search;
+package nl.codebasesoftware.produx.search.criteria.facet;
 
 /**
  * Created with IntelliJ IDEA.

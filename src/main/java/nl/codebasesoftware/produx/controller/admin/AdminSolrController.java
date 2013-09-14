@@ -1,23 +1,11 @@
 package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.Company;
-import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
-import nl.codebasesoftware.produx.search.solrquery.SolrQuery;
-import nl.codebasesoftware.produx.search.solrquery.queryitems.FacetFieldParameter;
-import nl.codebasesoftware.produx.search.solrquery.queryitems.FacetFieldRangeParameter;
-import nl.codebasesoftware.produx.search.solrquery.queryitems.SearchPhraseParameter;
 import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.service.SolrService;
 import org.apache.log4j.Logger;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.HttpSolrServer;
-import org.apache.solr.client.solrj.response.QueryResponse;
-import org.apache.solr.client.solrj.response.RangeFacet;
-import org.apache.solr.common.SolrDocumentList;
-import org.apache.solr.common.SolrInputDocument;
-import org.apache.solr.common.params.ModifiableSolrParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Controller;
@@ -27,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**

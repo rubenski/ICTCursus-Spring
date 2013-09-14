@@ -1,4 +1,4 @@
-package nl.codebasesoftware.produx.search;
+package nl.codebasesoftware.produx.search.result;
 
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 

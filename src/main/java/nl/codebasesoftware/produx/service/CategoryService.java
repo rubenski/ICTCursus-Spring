@@ -1,10 +1,6 @@
 package nl.codebasesoftware.produx.service;
 
 import nl.codebasesoftware.produx.domain.Category;
-import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
-import nl.codebasesoftware.produx.domain.support.DateRange;
-import nl.codebasesoftware.produx.search.SearchCriteria;
-import nl.codebasesoftware.produx.search.SearchResult;
 
 import java.util.List;
 

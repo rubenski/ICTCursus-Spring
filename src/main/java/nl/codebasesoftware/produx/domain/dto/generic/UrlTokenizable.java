@@ -1,7 +1,5 @@
 package nl.codebasesoftware.produx.domain.dto.generic;
 
-import nl.codebasesoftware.produx.search.FacetFilterLink;
-
 import java.util.List;
 
 /**

@@ -11,7 +11,7 @@
 
     <properties>
         <spring.version>3.1.1.RELEASE</spring.version>
-        <hibernate.version>4.1.1.Final</hibernate.version>
+        <hibernate.version>4.2.5.Final</hibernate.version>
         <tiles.version>3.0.0</tiles.version>
         <tomcat.dir>C:\tomcat6</tomcat.dir>
         <jettyVersion>6.1.2</jettyVersion>
@@ -126,8 +126,17 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>4.3.0.Final</version>
+            <version>4.3.1.Final</version>
         </dependency>
+
+        <!-- ehcache -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-ehcache</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+
 
 
         <!-- Other data related dependencies -->
@@ -272,7 +281,6 @@
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
-
 
     </dependencies>
 

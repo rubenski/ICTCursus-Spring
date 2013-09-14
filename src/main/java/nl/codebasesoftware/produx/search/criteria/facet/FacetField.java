@@ -1,4 +1,6 @@
-package nl.codebasesoftware.produx.search;
+package nl.codebasesoftware.produx.search.criteria.facet;
+
+import nl.codebasesoftware.produx.search.criteria.SolrParameter;
 
 import java.util.ArrayList;
 import java.util.List;

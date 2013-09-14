@@ -1,4 +1,8 @@
-package nl.codebasesoftware.produx.search;
+package nl.codebasesoftware.produx.search.criteria;
+
+import nl.codebasesoftware.produx.search.criteria.facet.FacetField;
+import nl.codebasesoftware.produx.search.criteria.filter.Filter;
+import nl.codebasesoftware.produx.search.result.FacetFilterLink;
 
 import java.util.ArrayList;
 import java.util.Collection;

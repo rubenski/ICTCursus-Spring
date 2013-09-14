@@ -1,6 +1,7 @@
-package nl.codebasesoftware.produx.search;
+package nl.codebasesoftware.produx.search.result;
 
 import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
+import nl.codebasesoftware.produx.search.criteria.SearchCriteria;
 
 /**
  * Created with IntelliJ IDEA.
@@ -39,6 +40,6 @@ public abstract class FacetFilterLink {
 
     protected abstract String getNameKey();
     protected abstract String getUrl();
-    protected abstract String asUrlToken();
+    public abstract String asUrlToken();
 
 }
