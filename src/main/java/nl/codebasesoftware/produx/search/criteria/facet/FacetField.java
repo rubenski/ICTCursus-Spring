@@ -1,6 +1,6 @@
 package nl.codebasesoftware.produx.search.criteria.facet;
 
-import nl.codebasesoftware.produx.search.criteria.SolrParameter;
+import nl.codebasesoftware.produx.search.criteria.SolrParameters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  * Time: 21:19
  * To change this template use File | Settings | File Templates.
  */
-public abstract class FacetField implements SolrParameter {
+public abstract class FacetField implements SolrParameters {
 
     protected String field;
     protected int minCount;

@@ -1,7 +1,7 @@
 package nl.codebasesoftware.produx.search.criteria.filter;
 
 import nl.codebasesoftware.produx.domain.dto.generic.UrlTokenizable;
-import nl.codebasesoftware.produx.search.criteria.SolrParameter;
+import nl.codebasesoftware.produx.search.criteria.SolrParameters;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,7 +10,7 @@ import nl.codebasesoftware.produx.search.criteria.SolrParameter;
  * Time: 21:42
  * To change this template use File | Settings | File Templates.
  */
-public abstract class Filter implements UrlTokenizable, SolrParameter {
+public abstract class Filter implements UrlTokenizable, SolrParameters {
 
     protected String field;
     protected String tag;

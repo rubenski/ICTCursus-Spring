@@ -1,5 +1,6 @@
 package nl.codebasesoftware.produx.search.criteria;
 
+import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.common.params.ModifiableSolrParams;
 
 /**
@@ -9,6 +10,7 @@ import org.apache.solr.common.params.ModifiableSolrParams;
  * Time: 23:39
  * To change this template use File | Settings | File Templates.
  */
-public interface SolrParameter {
+public interface SolrParameters {
     ModifiableSolrParams createSolrParams();
+    //String createSolrString();
 }

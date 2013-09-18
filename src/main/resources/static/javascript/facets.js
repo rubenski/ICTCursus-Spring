@@ -16,6 +16,8 @@ $(document).ready(function() {
         var filter = filters[i];
         checkCheckBox(filter);
     }
+
+    uncheckCheckboxes();
 });
 
 function checkCheckBox(id){
@@ -29,6 +31,14 @@ function forward(id){
 
 function escapeColon(id){
     return id.replace(":", "\\:");
+}
+
+function uncheckCheckboxes(){
+    $(".facet input[type='checkbox']").each(function(){
+        if($(this).prop('checked') && $(this).prop('disabled')){
+            $(this).prop('checked', false);
+        }
+    });
 }
 
 

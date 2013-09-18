@@ -29,7 +29,7 @@ public class NormalFilter extends Filter {
     @Override
     public ModifiableSolrParams createSolrParams() {
         ModifiableSolrParams params = new ModifiableSolrParams();
-        params.add("fq", String.format("%s:\"%s\"", field, value));
+        params.add("fq", String.format("%s:\"%s\"", getTaggedField(), value));
         return params;
     }
 

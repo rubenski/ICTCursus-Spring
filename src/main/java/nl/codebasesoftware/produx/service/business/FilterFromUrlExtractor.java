@@ -11,7 +11,7 @@ import java.util.*;
  * Time: 13:51
  * To change this template use File | Settings | File Templates.
  */
-public class SearchQueryProcessor {
+public class FilterFromUrlExtractor {
 
     public static List<Filter> stringToFilters(String filters){
 
@@ -45,25 +45,29 @@ public class SearchQueryProcessor {
             filterList.add(priceFilter);
         }
 
-        Filter regionsFilter = extractRegionsFilter(filterMap);
+        Filter regionsFilter = extractMultiValueNormalFilter(filterMap, "regions", FilterConditions.OR);
         if(regionsFilter != null){
             filterList.add(regionsFilter);
+        }
+
+        Filter tagsFilter = extractMultiValueNormalFilter(filterMap, "tags", FilterConditions.OR);
+        if(tagsFilter != null){
+            filterList.add(tagsFilter);
         }
 
         return filterList;
     }
 
-    private static Filter extractRegionsFilter(Map<String, List<String>> filters) {
 
-        List<String> regions = filters.get("regions");
-        if(regions == null || regions.size() == 0){
+
+    private static Filter extractMultiValueNormalFilter(Map<String, List<String>> filters, String field, FilterConditions filterCondition){
+        List<String> values = filters.get(field);
+        if(values == null || values.size() == 0){
             return null;
         }
-
-        MultiValueNormalFilter regionsFilter = new MultiValueNormalFilter("regions", regions, FilterConditions.OR);
-        regionsFilter.setTag("_regions");
-
-        return  regionsFilter;
+        MultiValueNormalFilter filter = new MultiValueNormalFilter(field, values, filterCondition);
+        filter.setTag(String.format("_%s", field));
+        return filter;
     }
 
     private static Filter extractPriceFilter(Map<String, List<String>> filters){

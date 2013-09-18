@@ -68,7 +68,7 @@
 </header>
 
 <div style="margin: 0 auto">
-    <h2>${requestTime} ms</h2>
+    <h1 style="color: #008800">>> ${requestTime} ms <<</h1>
 </div>
 
 <div id="main">

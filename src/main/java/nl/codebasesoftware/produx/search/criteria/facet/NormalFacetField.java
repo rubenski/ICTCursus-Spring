@@ -1,5 +1,6 @@
 package nl.codebasesoftware.produx.search.criteria.facet;
 
+import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.common.params.ModifiableSolrParams;
 
 /**
@@ -21,8 +22,8 @@ public class NormalFacetField extends FacetField {
 
     @Override
     public ModifiableSolrParams createSolrParams() {
+        SolrQuery query = new SolrQuery();
         ModifiableSolrParams params = new ModifiableSolrParams();
-        // &facet.field={!ex=dt}doctype
 
         StringBuilder excludedFiltersPrefix = new StringBuilder();
         for (String excludedFilter : excludedFilters) {
@@ -32,6 +33,9 @@ public class NormalFacetField extends FacetField {
         params.add("facet.field", String.format("%s%s", excludedFiltersPrefix, field));
         params.add(String.format("f.%s.facet.sort", field), sorting.getValue());
         params.add(String.format("f.%s.facet.mincount", field), "" + minCount);
-        return params;
+
+        query.add(params);
+        return query;
     }
+
 }

@@ -13,10 +13,11 @@ import nl.codebasesoftware.produx.search.criteria.facet.FacetSortingBehavior;
 import nl.codebasesoftware.produx.search.criteria.facet.NormalFacetField;
 import nl.codebasesoftware.produx.search.criteria.facet.RangeFacetField;
 import nl.codebasesoftware.produx.search.criteria.facet.RangeFacetOtherBehavior;
+import nl.codebasesoftware.produx.search.criteria.filter.Filter;
 import nl.codebasesoftware.produx.search.criteria.filter.NormalFilter;
 import nl.codebasesoftware.produx.search.result.SearchResult;
 import nl.codebasesoftware.produx.service.*;
-import nl.codebasesoftware.produx.service.business.SearchQueryProcessor;
+import nl.codebasesoftware.produx.service.business.FilterFromUrlExtractor;
 import nl.codebasesoftware.produx.util.Properties;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -132,13 +133,28 @@ public class CategoryController {
         LOG.debug("ppp: " + (end4 - start4));
 
         long start5 = System.currentTimeMillis();
+
+
+        List<Filter> filterList = FilterFromUrlExtractor.stringToFilters(filters);
+
         RangeFacetField priceFacet = new RangeFacetField("price", 0, 300000, 50000, FacetSortingBehavior.NATURAL_ORDER);
         priceFacet.addOtherBehavior(RangeFacetOtherBehavior.AFTER);
-        priceFacet.addExcludedFilter("_price");
+        for (Filter filter : filterList) {
+            if(filter.getField().equals("price")){
+                priceFacet.addExcludedFilter("_price");
+            }
+        }
 
         NormalFacetField regionFacet = new NormalFacetField("regions", FacetSortingBehavior.NATURAL_ORDER);
-        regionFacet.addExcludedFilter("_regions");
+        for (Filter filter : filterList) {
+            if(filter.getField().equals("regions")){
+                regionFacet.addExcludedFilter("_regions");
+            }
+        }
+
         regionFacet.setMinCount(1);
+
+        NormalFacetField tagsFacet = new NormalFacetField("tags", FacetSortingBehavior.NATURAL_ORDER);
 
         long end5 = System.currentTimeMillis();
         LOG.debug("aaa: " + (end5 - start5));
@@ -148,12 +164,15 @@ public class CategoryController {
 
         SearchCriteria criteria = new SearchCriteria.Builder()
                 .addFilter(categoryFilter)
-                .addFilters(SearchQueryProcessor.stringToFilters(filters))
+                .addFilters(filterList)
                 .addFacetField(priceFacet)
                 .addFacetField(regionFacet)
+                .addFacetField(tagsFacet)
                 .setStart(page * resultsPerPage)
                 .setRows(resultsPerPage)
                 .build();
+
+
         long end6 = System.currentTimeMillis();
         LOG.debug("bbb: " + (end6 - start6));
 
