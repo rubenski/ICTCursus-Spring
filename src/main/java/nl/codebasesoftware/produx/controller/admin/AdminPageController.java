@@ -113,7 +113,7 @@ public class AdminPageController {
     private void setFormData(ArticlePageFormData formData, Model model) {
         model.addAttribute("articlePageFormData", formData);
         model.addAttribute("mainContent", "forms/articlepage");
-        model.addAttribute("articleform", true);
+        model.addAttribute("richtext", true);
     }
 
     @RequestMapping(value = "/admin/articles/page/{pageId}", method = RequestMethod.GET)
@@ -130,7 +130,7 @@ public class AdminPageController {
         model.addAttribute("articlePage", true);
         model.addAttribute("articlePageFormData", formData);
         model.addAttribute("mainContent", "forms/articlepage");
-        model.addAttribute("articleform", true);
+        model.addAttribute("articleForm", true);
         return "adminMain";
     }
 

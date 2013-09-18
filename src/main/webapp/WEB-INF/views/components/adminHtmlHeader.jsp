@@ -12,11 +12,20 @@
 
 <c:if test="${courseForm}">
     <script type="text/javascript" src="/static/javascript/admin/courseform.js"></script>
+    <script type="text/javascript" src="/static/libs/ckeditor/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            CKEDITOR.replace('longDescription',
+                    {
+                        customConfig: '/static/libs/ckeditor/produx_custom_config/produx_config.js',
+                        height: '800px'
+                    }
+            );
+        };
+    </script>
 </c:if>
-<c:if test="${companyform}">
-    <script type="text/javascript" src="/static/javascript/admin/file-upload.js"></script>
-</c:if>
-<c:if test="${articleform}">
+
+<c:if test="${articleForm}">
     <script type="text/javascript" src="/static/javascript/admin/article.js"></script>
     <script type="text/javascript" src="/static/libs/ckeditor/ckeditor/ckeditor.js"></script>
     <script type="text/javascript">
@@ -30,6 +39,11 @@
         };
     </script>
 </c:if>
+
+<c:if test="${companyform}">
+    <script type="text/javascript" src="/static/javascript/admin/file-upload.js"></script>
+</c:if>
+
 <c:if test="${articlePage}">
     <script type="text/javascript" src="/static/javascript/admin/articlepage.js"></script>
 </c:if>

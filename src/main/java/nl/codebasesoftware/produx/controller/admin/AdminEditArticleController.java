@@ -131,7 +131,7 @@ public class AdminEditArticleController {
         model.addAttribute("mainContent", "forms/editarticle");
         model.addAttribute("numberOfPages", pages.size());
         model.addAttribute("pages", pages);
-        model.addAttribute("articleform", true);
+        model.addAttribute("articleForm", true);
         model.addAttribute("headerText", messageSource.getMessage("admin.articles.header.editarticle", new Object[]{}, locale));
     }
 
