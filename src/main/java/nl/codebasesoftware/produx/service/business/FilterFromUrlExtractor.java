@@ -77,7 +77,7 @@ public class FilterFromUrlExtractor {
             solrTargetField = field;
         }
 
-        MultiValueNormalFilter filter = new MultiValueNormalFilter(solrTargetField, values, filterCondition);
+        MultiValueNormalFilter filter = new MultiValueNormalFilter(solrTargetField, field, values, filterCondition);
         filter.setTag(String.format("_%s", field));
         return filter;
     }
@@ -98,7 +98,7 @@ public class FilterFromUrlExtractor {
             ranges.add(new Range<>(from, to));
         }
 
-        MultiValueRangeFilter priceFilter = new MultiValueRangeFilter("price", ranges);
+        MultiValueRangeFilter priceFilter = new MultiValueRangeFilter("price", "price", ranges);
         priceFilter.setTag("_price");
 
         return priceFilter;

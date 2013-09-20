@@ -144,6 +144,14 @@ public class CourseEntityDTO extends DomainEntityDTO implements WebVisitable {
         return tags;
     }
 
+    public List<Long> getTagsIds(){
+        List<Long> ids = new ArrayList<>();
+        for (TagEntityDTO tag : tags) {
+            ids.add(tag.getId());
+        }
+        return ids;
+    }
+
     public void setTags(List<TagEntityDTO> tags) {
         this.tags = tags;
     }

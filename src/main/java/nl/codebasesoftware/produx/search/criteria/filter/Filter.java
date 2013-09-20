@@ -12,26 +12,32 @@ import nl.codebasesoftware.produx.search.criteria.SolrParameters;
  */
 public abstract class Filter implements UrlTokenizable, SolrParameters {
 
-    protected String field;
+    protected String solrFieldName;
     protected String tag;
+    protected String urlField;
 
-    protected Filter(String field) {
-        this.field = field;
+    protected Filter(String solrFieldName, String urlField) {
+        this.solrFieldName = solrFieldName;
+        this.urlField = urlField;
     }
 
-    public String getField() {
-        return field;
+    public String getSolrFieldName() {
+        return solrFieldName;
     }
 
     public void setTag(String tag) {
         this.tag = tag;
     }
 
+    public String getTag() {
+        return tag;
+    }
+
     protected String getTaggedField(){
         if(tag != null && tag.length() > 0){
-            return String.format("{!tag=%s}%s", tag, field);
+            return String.format("{!tag=%s}%s", tag, solrFieldName);
         }
-        return field;
+        return solrFieldName;
     }
 
 

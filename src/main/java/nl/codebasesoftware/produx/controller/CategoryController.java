@@ -117,14 +117,14 @@ public class CategoryController {
         RangeFacetField priceFacet = new RangeFacetField("price", 0, 300000, 50000, FacetSortingBehavior.NATURAL_ORDER);
         priceFacet.addOtherBehavior(RangeFacetOtherBehavior.AFTER);
         for (Filter filter : filterList) {
-            if(filter.getField().equals("price")){
+            if(filter.getTag().equals("_price")){
                 priceFacet.addExcludedFilter("_price");
             }
         }
 
         NormalFacetField regionFacet = new NormalFacetField("regions", FacetSortingBehavior.NATURAL_ORDER);
         for (Filter filter : filterList) {
-            if(filter.getField().equals("regions")){
+            if(filter.getTag().equals("_regions")){
                 regionFacet.addExcludedFilter("_regions");
             }
         }
@@ -132,7 +132,7 @@ public class CategoryController {
 
         NormalFacetField tagsFacet = new NormalFacetField("tags", FacetSortingBehavior.COUNT);
 
-        NormalFilter categoryFilter = new NormalFilter("category", cat.getSolrValue());
+        NormalFilter categoryFilter = new NormalFilter("category", cat.getSolrValue(), cat.getSolrValue());
 
         SearchCriteria criteria = new SearchCriteria.Builder()
                 .addFilter(categoryFilter)

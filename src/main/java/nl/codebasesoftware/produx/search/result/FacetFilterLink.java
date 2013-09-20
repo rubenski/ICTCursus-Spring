@@ -11,7 +11,7 @@ import nl.codebasesoftware.produx.search.criteria.SearchCriteria;
 public abstract class FacetFilterLink {
 
     protected String value;
-    protected String field;
+    public String field;
     protected long count;
     protected CategoryEntityDTO category;
     protected SearchCriteria criteria;

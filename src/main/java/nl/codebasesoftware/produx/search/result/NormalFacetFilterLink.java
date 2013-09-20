@@ -22,7 +22,8 @@ public class NormalFacetFilterLink extends FacetFilterLink {
 
     @Override
     public String getCompleteUrl() {
-        return criteria.getFacetingUrlParameters(this);
+        String facetingUrlParameters = criteria.getFacetingUrlParameters(this);
+        return facetingUrlParameters;
     }
 
     @Override

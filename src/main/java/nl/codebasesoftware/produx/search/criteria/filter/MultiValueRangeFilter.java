@@ -16,8 +16,8 @@ public class MultiValueRangeFilter extends Filter {
 
     private final List<Range> ranges;
 
-    public MultiValueRangeFilter(String field, List<Range> ranges) {
-        super(field);
+    public MultiValueRangeFilter(String solrField, String urlField, List<Range> ranges) {
+        super(solrField, urlField);
         this.ranges = ranges;
     }
 
@@ -44,7 +44,7 @@ public class MultiValueRangeFilter extends Filter {
         List<String> tokens = new ArrayList<>();
         for (Range range : ranges) {
             StringBuilder token = new StringBuilder();
-            token.append(field).append(":");
+            token.append(urlField).append(":");
             String value = String.format("%s-%s", range.getLeft(), range.getRight());
             token.append(value);
             tokens.add(token.toString());

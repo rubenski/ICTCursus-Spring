@@ -36,7 +36,7 @@ public class CourseToSolrInputDocument implements Converter<CourseEntityDTO, Sol
         // Tags
         solrInputDocument.addField("tag_names", course.getTagNames());
         solrInputDocument.addField("tags", course.getTagNamesAndIds());
-
+        solrInputDocument.addField("tag_ids", course.getTagsIds());
 
         solrInputDocument.addField("certificate", course.isCertificate());
 

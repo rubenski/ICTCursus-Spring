@@ -58,7 +58,7 @@ public class SearchCriteria {
 
         boolean linkApplied = false;
         for (Filter filter : filters) {
-            if (!filter.getField().equals("category")) {
+            if (!filter.getSolrFieldName().equals("category")) {
                 for (String token : filter.getUrlTokens()) {
                     String linkAsToken = link.getUrlToken();
                     if (!token.equals(linkAsToken)) {

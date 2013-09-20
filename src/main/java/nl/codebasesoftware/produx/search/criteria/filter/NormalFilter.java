@@ -16,14 +16,14 @@ public class NormalFilter extends Filter {
 
     private final Object value;
 
-    public NormalFilter(String field, Object value) {
-        super(field);
+    public NormalFilter(String solrField, String urlField, Object value) {
+        super(solrField, urlField);
         this.value = value;
     }
 
     @Override
     public List<String> getUrlTokens() {
-        return Arrays.asList(String.format("%s:%s", field, value));
+        return Arrays.asList(String.format("%s:%s", urlField, value));
     }
 
     @Override

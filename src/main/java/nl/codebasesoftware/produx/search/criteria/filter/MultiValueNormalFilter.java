@@ -17,8 +17,10 @@ public class MultiValueNormalFilter extends Filter {
     private final List<? extends Object> values;
     private final FilterConditions condition;
 
-    public MultiValueNormalFilter(String field, List<? extends Object> values, FilterConditions condition) {
-        super(field);
+
+    public MultiValueNormalFilter(String solrField, String urlField, List<? extends Object> values, FilterConditions condition) {
+        super(solrField, urlField);
+
 
         if (values.size() == 0) {
             throw new IllegalArgumentException("No filterLinks found in filter");
@@ -41,7 +43,7 @@ public class MultiValueNormalFilter extends Filter {
             valueString += (i != 0  ? String.format(" %s ", condition.getValue()) : "") + "\"" + values.get(i) + "\"";
         }
 
-        String filter = String.format("%s:(%s)", tag != null ? getTaggedField() : field, valueString);
+        String filter = String.format("%s:(%s)", tag != null ? getTaggedField() : solrFieldName, valueString);
 
         params.add("fq", filter);
         return params;
@@ -52,7 +54,7 @@ public class MultiValueNormalFilter extends Filter {
         List<String> tokens = new ArrayList<>();
         for (Object value : values) {
             StringBuilder token = new StringBuilder();
-            tokens.add(token.append(field).append(":").append(value).toString());
+            tokens.add(token.append(urlField).append(":").append(value).toString());
         }
 
         return tokens;
