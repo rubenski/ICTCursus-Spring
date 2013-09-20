@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
 import nl.codebasesoftware.produx.comparator.NameComparable;
+import nl.codebasesoftware.produx.search.SolrNameAndId;
 
 /**
  * Created with IntelliJ IDEA.
@@ -46,6 +47,8 @@ public class CategoryEntityDTO extends DomainEntityDTO implements NameComparable
     public String getSolrValue(){
         return String.format("%d%s%s%s%s", id, SOLR_NAME_SEPARATOR, urlTitle, SOLR_NAME_SEPARATOR, name);
     }
+
+
 
     public static CategoryEntityDTO fromSolrValue(String solrValue){
         String[] strings = solrValue.split(SOLR_NAME_SEPARATOR);

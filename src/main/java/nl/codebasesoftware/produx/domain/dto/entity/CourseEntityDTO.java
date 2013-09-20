@@ -206,8 +206,16 @@ public class CourseEntityDTO extends DomainEntityDTO implements WebVisitable {
     }
 
 
+    public List<String> getRegionNamesAndIds() {
+        List<String> regionsAndIds = new ArrayList<>();
+        for (RegionEntityDTO region : regions) {
+            regionsAndIds.add(region.getSolrIdName());
+        }
+        return regionsAndIds;
+    }
+
     public List<Long> getRegionIds() {
-        List<Long> regionIds = new ArrayList<Long>();
+        List<Long> regionIds = new ArrayList<>();
         for (RegionEntityDTO region : regions) {
             regionIds.add(region.getId());
         }
@@ -225,15 +233,14 @@ public class CourseEntityDTO extends DomainEntityDTO implements WebVisitable {
         return names;
     }
 
-    public List<Long> getTagIds() {
-        List<Long> tagIds = new ArrayList<Long>();
-        Iterator<TagEntityDTO> tagIterator = tags.iterator();
-        for (int i = 0; tagIterator.hasNext(); i++) {
-            TagEntityDTO tag = tagIterator.next();
-            tagIds.add(tag.getId());
+    public List<String> getTagNamesAndIds(){
+        List<String> tagNamesAndIds = new ArrayList<>();
+        for (TagEntityDTO tag : tags) {
+            tagNamesAndIds.add(tag.getSolrIdName());
         }
-        return tagIds;
+        return tagNamesAndIds;
     }
+
 
     @Override
     public String getUrl() {

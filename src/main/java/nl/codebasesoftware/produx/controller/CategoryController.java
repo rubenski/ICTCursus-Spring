@@ -92,50 +92,27 @@ public class CategoryController {
 
     private String process(Model model, String categoryUrlName, String filters, int page) throws ProduxServiceException {
 
-        // TODO: fix performance
-        long start = System.currentTimeMillis();
         Category category = categoryService.findByUrlTitle(categoryUrlName);
-        long end = System.currentTimeMillis();
-        LOG.debug("1: " + (end - start));
-
-        long start1a = System.currentTimeMillis();
         CategoryEntityDTO cat = category.toDTO();
-        long end1a = System.currentTimeMillis();
-        LOG.debug("000: " + (end1a - start1a));
 
         if (category == null) {
             throw new ResourceNotFoundException();
         }
 
-        long start1 = System.currentTimeMillis();
         Company currentlyLoggedInCompany = companyService.getCurrentlyLoggedInCompany();
-        long end1 = System.currentTimeMillis();
-        LOG.debug("lll: " + (end1 - start1));
 
-        long start2 = System.currentTimeMillis();
         List<Course> companyCoursesForCategory = new ArrayList<>();
         if (currentlyLoggedInCompany != null) {
             companyCoursesForCategory = courseService.findCoursesForCompanyAndCategory(category.getId(), currentlyLoggedInCompany.getId());
         }
-        long end2 = System.currentTimeMillis();
-        LOG.debug("bla2: " + (end2 - start2));
 
-        long start3 = System.currentTimeMillis();
         pageBlockService.setCourseCategoriesInLeftColumn(model);
         pageBlockService.setEmptyRightColumn(model);
         pageBlockService.setAuthentication(model);
-        long end3 = System.currentTimeMillis();
-        LOG.debug("bla: " + (end3 - start3));
 
-        long start4 = System.currentTimeMillis();
         int resultsPerPage = properties.getSearchResultsPerPage();
-        long end4 = System.currentTimeMillis();
-        LOG.debug("ppp: " + (end4 - start4));
 
-        long start5 = System.currentTimeMillis();
-
-
-        List<Filter> filterList = FilterFromUrlExtractor.stringToFilters(filters);
+        List<Filter> filterList = new FilterFromUrlExtractor().stringToFilters(filters);
 
         RangeFacetField priceFacet = new RangeFacetField("price", 0, 300000, 50000, FacetSortingBehavior.NATURAL_ORDER);
         priceFacet.addOtherBehavior(RangeFacetOtherBehavior.AFTER);
@@ -151,15 +128,10 @@ public class CategoryController {
                 regionFacet.addExcludedFilter("_regions");
             }
         }
-
         regionFacet.setMinCount(1);
 
-        NormalFacetField tagsFacet = new NormalFacetField("tags", FacetSortingBehavior.NATURAL_ORDER);
+        NormalFacetField tagsFacet = new NormalFacetField("tags", FacetSortingBehavior.COUNT);
 
-        long end5 = System.currentTimeMillis();
-        LOG.debug("aaa: " + (end5 - start5));
-
-        long start6 = System.currentTimeMillis();
         NormalFilter categoryFilter = new NormalFilter("category", cat.getSolrValue());
 
         SearchCriteria criteria = new SearchCriteria.Builder()
@@ -173,14 +145,7 @@ public class CategoryController {
                 .build();
 
 
-        long end6 = System.currentTimeMillis();
-        LOG.debug("bbb: " + (end6 - start6));
-
-        // TODO: fix performance
-        long start7 = System.currentTimeMillis();
         SearchResult searchResult = searchService.findCategoryCourses(criteria, cat);
-        long end7 = System.currentTimeMillis();
-        LOG.debug("fff: " + (end7 - start7));
 
         // Throw a 404 when someone tries to access a paging page that doesn't exist
         if (searchResult.getCourses().size() == 0 && page > 0) {

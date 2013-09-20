@@ -18,14 +18,8 @@
                     </c:otherwise>
                 </c:choose>
 
-                <c:set var="label" value="${link.value}"/>
-                <c:if test="${view.useSpringMessagesForValues}">
-                    <spring:message key="${link.getNameKey()}" var="label"/>
-                </c:if>
-
-                <input type="checkbox" name="price" id="${link.getUrlToken()}"
-                       value="/${dir}/${link.getCompleteUrl()}" ${disable}/>
-                <label for="${link.getUrlToken()}" ${disableClass}> ${label} </label> (${link.getCount()})<br>
+                <input type="checkbox" name="price" id="${link.getUrlToken()}" value="/${dir}/${link.getCompleteUrl()}" ${disable}/>
+                <label for="${link.getUrlToken()}" ${disableClass}> ${link.getLabel()} </label> (${link.getCount()})<br>
             </c:forEach>
         </div>
     </c:forEach>

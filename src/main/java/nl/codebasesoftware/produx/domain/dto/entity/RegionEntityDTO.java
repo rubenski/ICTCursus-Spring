@@ -1,5 +1,8 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
+import nl.codebasesoftware.produx.search.SolrIdName;
+import nl.codebasesoftware.produx.search.SolrNameAndId;
+
 /**
  * Created with IntelliJ IDEA.
  * User: rvanloen
@@ -7,7 +10,7 @@ package nl.codebasesoftware.produx.domain.dto.entity;
  * Time: 8:32
  * To change this template use File | Settings | File Templates.
  */
-public class RegionEntityDTO extends DomainEntityDTO {
+public class RegionEntityDTO extends DomainEntityDTO implements SolrNameAndId {
 
     private Long id;
     private String name;
@@ -27,5 +30,10 @@ public class RegionEntityDTO extends DomainEntityDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String getSolrIdName(){
+        return SolrIdName.createForSolr(id, name);
     }
 }

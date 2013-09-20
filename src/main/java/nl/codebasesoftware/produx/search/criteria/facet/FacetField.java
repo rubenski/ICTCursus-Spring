@@ -43,4 +43,5 @@ public abstract class FacetField implements SolrParameters {
     public void addExcludedFilter(String exclude){
         excludedFilters.add(exclude);
     }
+
 }

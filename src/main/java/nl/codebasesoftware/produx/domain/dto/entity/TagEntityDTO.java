@@ -1,13 +1,14 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
-import java.io.Serializable;
+import nl.codebasesoftware.produx.search.SolrIdName;
+import nl.codebasesoftware.produx.search.SolrNameAndId;
 
 /**
  * User: rvanloen
  * Date: 21-12-12
  * Time: 16:45
  */
-public class TagEntityDTO extends DomainEntityDTO {
+public class TagEntityDTO extends DomainEntityDTO implements SolrNameAndId {
     private Long id;
     private String name;
 
@@ -25,5 +26,10 @@ public class TagEntityDTO extends DomainEntityDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String getSolrIdName() {
+        return SolrIdName.createForSolr(id, name);
     }
 }

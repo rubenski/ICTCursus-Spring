@@ -13,7 +13,15 @@ import java.util.*;
  */
 public class FilterFromUrlExtractor {
 
-    public static List<Filter> stringToFilters(String filters){
+
+    private Map<String, String> urlToSorlFieldMapping = new HashMap<>();
+
+    public FilterFromUrlExtractor() {
+        urlToSorlFieldMapping.put("regions", "region_ids");
+        urlToSorlFieldMapping.put("tags", "tag_ids");
+    }
+
+    public List<Filter> stringToFilters(String filters){
 
         if(filters == null || filters.length() == 0){
             return Collections.EMPTY_LIST;
@@ -58,14 +66,18 @@ public class FilterFromUrlExtractor {
         return filterList;
     }
 
-
-
-    private static Filter extractMultiValueNormalFilter(Map<String, List<String>> filters, String field, FilterConditions filterCondition){
+    private Filter extractMultiValueNormalFilter(Map<String, List<String>> filters, String field, FilterConditions filterCondition){
         List<String> values = filters.get(field);
         if(values == null || values.size() == 0){
             return null;
         }
-        MultiValueNormalFilter filter = new MultiValueNormalFilter(field, values, filterCondition);
+
+        String solrTargetField = urlToSorlFieldMapping.get(field);
+        if(solrTargetField == null){
+            solrTargetField = field;
+        }
+
+        MultiValueNormalFilter filter = new MultiValueNormalFilter(solrTargetField, values, filterCondition);
         filter.setTag(String.format("_%s", field));
         return filter;
     }

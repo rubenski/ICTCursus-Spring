@@ -22,14 +22,22 @@ public class CourseToSolrInputDocument implements Converter<CourseEntityDTO, Sol
         solrInputDocument.addField("longdescription", course.getLongDescription());
         solrInputDocument.addField("shortdescription", course.getListDescription());
         solrInputDocument.addField("price", course.getPrice());
-        solrInputDocument.addField("category", course.getCategory().getSolrValue());
+
         solrInputDocument.addField("company_name", course.getCompany().getName());
         solrInputDocument.addField("company_id", course.getCompany().getId());
         solrInputDocument.addField("company_has_logo", course.getCompany().hasLogo() ? 1 : 0);
-        solrInputDocument.addField("regions", course.getRegionNames());
+
+        // Category
+        solrInputDocument.addField("category", course.getCategory().getSolrValue());
+        // Regions
+        solrInputDocument.addField("region_names", course.getRegionNames());
+        solrInputDocument.addField("regions", course.getRegionNamesAndIds());
         solrInputDocument.addField("region_ids", course.getRegionIds());
-        solrInputDocument.addField("tags", course.getTagNames());
-        solrInputDocument.addField("tag_ids", course.getTagIds());
+        // Tags
+        solrInputDocument.addField("tag_names", course.getTagNames());
+        solrInputDocument.addField("tags", course.getTagNamesAndIds());
+
+
         solrInputDocument.addField("certificate", course.isCertificate());
 
         return solrInputDocument;

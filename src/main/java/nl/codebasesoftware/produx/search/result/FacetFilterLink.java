@@ -10,38 +10,34 @@ import nl.codebasesoftware.produx.search.criteria.SearchCriteria;
  */
 public abstract class FacetFilterLink {
 
-    protected final String fieldName;
-    private Object value;
-    protected final long count;
-    protected final CategoryEntityDTO category;
-    protected final SearchCriteria criteria;
-
-    protected FacetFilterLink(String fieldName, Object value, long count, CategoryEntityDTO category, SearchCriteria criteria) {
-        this.fieldName = fieldName;
-        this.value = value;
-        this.count = count;
-        this.category = category;
-        this.criteria = criteria;
-    }
+    protected String value;
+    protected String field;
+    protected long count;
+    protected CategoryEntityDTO category;
+    protected SearchCriteria criteria;
 
     public  Long getCount(){
         return count;
     }
 
-    public String getFieldName() {
-        return fieldName;
-    }
-
-    public Object getValue() {
-        return value;
+    public String getField() {
+        return field;
     }
 
     public boolean hasDocuments(){
         return count > 0;
     }
 
-    protected abstract String getNameKey();
-    protected abstract String getCompleteUrl();
+    public String getHeaderNameKey() {
+        return String.format("facet.field.header.%s", field.toLowerCase());
+    }
+
+    public abstract String getCompleteUrl();
     public abstract String getUrlToken();
+    public abstract String getLabel();
+    public abstract String getHrefValue();
+
+
+
 
 }

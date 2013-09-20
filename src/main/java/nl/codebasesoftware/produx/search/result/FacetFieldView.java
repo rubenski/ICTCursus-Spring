@@ -12,7 +12,6 @@ public class FacetFieldView {
 
     private String fieldName;
     private List<FacetFilterLink> filterLinks = new ArrayList<>();
-    private boolean useSpringMessagesForValues;
 
     public FacetFieldView(String fieldName) {
         this.fieldName = fieldName;
@@ -26,7 +25,7 @@ public class FacetFieldView {
         return filterLinks;
     }
 
-    public void addValue(FacetFilterLink nameValue) {
+    public void addFilterLink(FacetFilterLink nameValue) {
         filterLinks.add(nameValue);
     }
 
@@ -35,11 +34,4 @@ public class FacetFieldView {
         return s;
     }
 
-    public boolean getUseSpringMessagesForValues() {
-        return useSpringMessagesForValues;
-    }
-
-    public void setUseSpringMessagesForValues(boolean useSpringMessagesForValues) {
-        this.useSpringMessagesForValues = useSpringMessagesForValues;
-    }
 }

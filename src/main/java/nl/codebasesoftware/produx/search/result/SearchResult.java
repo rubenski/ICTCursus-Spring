@@ -33,8 +33,8 @@ public class SearchResult {
         private long totalFound;
         private Integer resultsPerPage;
 
-        public Builder setCourses(Collection<ListingCourseDTO> courses){
-            this.courses = courses;
+        public Builder addCourse(ListingCourseDTO course){
+            this.courses.add(course);
             return this;
         }
 

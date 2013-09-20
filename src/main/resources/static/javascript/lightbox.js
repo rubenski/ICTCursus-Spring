@@ -24,6 +24,7 @@ $(document).ready(function() {
 });
 
 function setIframeHeight(iframe) {
+    alert("this is ruining the faceted search");
     if (iframe) {
         var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
         if (iframeWin.document.body) {
