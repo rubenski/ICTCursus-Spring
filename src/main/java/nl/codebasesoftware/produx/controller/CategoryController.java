@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,26 +72,29 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/{categoryUrlName}", method = RequestMethod.GET)
-    public String showFrontPage(@PathVariable("categoryUrlName") String categoryUrlName, Model model) throws ProduxServiceException {
-        return process(model, categoryUrlName, null, 0);
+    public String showFrontPage(@PathVariable("categoryUrlName") String categoryUrlName, Model model,
+                                HttpServletRequest request) throws ProduxServiceException {
+        return process(model, categoryUrlName, null, 0, request);
     }
 
     @RequestMapping(value = "/{categoryUrlName}/{filters}", method = RequestMethod.GET)
     public String showFilteredResultPage(@PathVariable("categoryUrlName") String categoryUrlName,
                                          @PathVariable("filters") String filters,
-                                         Model model) throws ProduxServiceException {
-        return process(model, categoryUrlName, filters, 0);
+                                         Model model,
+                                         HttpServletRequest request) throws ProduxServiceException {
+        return process(model, categoryUrlName, filters, 0, request);
     }
 
     @RequestMapping(value = "/{categoryUrlName}/{facets}/{p:[0-9]+}", method = RequestMethod.GET)
     public String showUnfilteredResultPage(@PathVariable("categoryUrlName") String categoryUrlName,
                                            @PathVariable("filters") String filters,
                                            @PathVariable("p") Integer p,
-                                           Model model) throws ProduxServiceException {
-        return process(model, categoryUrlName, filters, p);
+                                           Model model,
+                                           HttpServletRequest request) throws ProduxServiceException {
+        return process(model, categoryUrlName, filters, p, request);
     }
 
-    private String process(Model model, String categoryUrlName, String filters, int page) throws ProduxServiceException {
+    private String process(Model model, String categoryUrlName, String filters, int page, HttpServletRequest req) throws ProduxServiceException {
 
         Category category = categoryService.findByUrlTitle(categoryUrlName);
         CategoryEntityDTO cat = category.toDTO();
@@ -106,7 +110,6 @@ public class CategoryController {
             companyCoursesForCategory = courseService.findCoursesForCompanyAndCategory(category.getId(), currentlyLoggedInCompany.getId());
         }
 
-        pageBlockService.setCourseCategoriesInLeftColumn(model);
         pageBlockService.setEmptyRightColumn(model);
         pageBlockService.setAuthentication(model);
 
@@ -152,19 +155,9 @@ public class CategoryController {
             throw new ResourceNotFoundException();
         }
 
-        long start8 = System.currentTimeMillis();
         List<ListingCourseDTO> highlightedCourses = courseService.findHighlightedCourses(category.getId());
-        long end8 = System.currentTimeMillis();
-        LOG.debug("ggg: " + (end8 - start8));
-
-
-        long start9 = System.currentTimeMillis();
         List<ArticleEntityDTO> categoryArticles = articleService.findByCategory(category.getId());
-        long end9 = System.currentTimeMillis();
-        LOG.debug("cat articles: " + (end9 - start9));
 
-
-        long start10 = System.currentTimeMillis();
         model.addAttribute("articles", categoryArticles);
         model.addAttribute("showLightboxLink", companyCoursesForCategory.size() > 0);
         model.addAttribute("showHighlighted", page == 0);
@@ -176,8 +169,6 @@ public class CategoryController {
         model.addAttribute("rightColumn", "content/articlelisting");
         model.addAttribute("dir", category.getUrlTitle());
         model.addAttribute("facetedSearch", true);
-        long end10 = System.currentTimeMillis();
-        LOG.debug(end10 - start10);
 
         return "main";
     }
