@@ -46,7 +46,7 @@ public class SearchResult {
 
     public int getNumberOfResultPages() {
         double l = (double) totalFound / resultsPerPage;
-        double pages = Math.ceil(l - 1);
+        double pages = Math.ceil(l - 1) + 1;
         return (int) pages;
     }
 

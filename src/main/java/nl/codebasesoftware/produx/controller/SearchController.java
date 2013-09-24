@@ -108,10 +108,9 @@ public class SearchController {
 
         listingBuilder.setCriteria(criteria).setSearchResult(result);
 
-        if (StringUtil.isNullOrEmpty(filters)) {
+        if (!StringUtil.isNullOrEmpty(filters)) {
             listingBuilder.setFilters(filters);
         }
-
 
         ResultListing listing = listingBuilder.build();
 
