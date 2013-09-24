@@ -1,16 +1,16 @@
 package nl.codebasesoftware.produx.search.result;
 
+import com.google.common.base.Joiner;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
  * User: rvanloen
  * Date: 13-8-13
  * Time: 23:47
- * To change this template use File | Settings | File Templates.
  */
 public class SearchResult {
 
@@ -18,49 +18,14 @@ public class SearchResult {
     private Collection<FacetFieldView> facetFieldViews = new ArrayList<>();
     private long totalFound;
     private Integer resultsPerPage;
+    private List<String> baseDirs;
 
-    private SearchResult(Builder builder){
+    private SearchResult(Builder builder) {
         courses = builder.courses;
         facetFieldViews = builder.facetFieldViews;
         totalFound = builder.totalFound;
         resultsPerPage = builder.resultsPerPage;
-    }
-
-    public static class Builder {
-
-        private Collection<ListingCourseDTO> courses = new ArrayList<>();
-        private Collection<FacetFieldView> facetFieldViews = new ArrayList<>();
-        private long totalFound;
-        private Integer resultsPerPage;
-
-        public Builder addCourse(ListingCourseDTO course){
-            this.courses.add(course);
-            return this;
-        }
-
-        public Builder addFacetField(FacetFieldView facetFieldView){
-            this.facetFieldViews.add(facetFieldView);
-            return this;
-        }
-
-        public SearchResult build(){
-            return new SearchResult(this);
-        }
-
-        public Builder setTotalFound(long totalFound) {
-            this.totalFound = totalFound;
-            return this;
-        }
-
-        public Builder setFacetFieldViews(Collection<FacetFieldView> facetFieldViews) {
-            this.facetFieldViews = facetFieldViews;
-            return this;
-        }
-
-        public Builder setResultsPerPage(int resultsPerPage){
-            this.resultsPerPage = resultsPerPage;
-            return this;
-        }
+        baseDirs = builder.baseDirs;
     }
 
     public Collection<ListingCourseDTO> getCourses() {
@@ -79,7 +44,51 @@ public class SearchResult {
         return resultsPerPage;
     }
 
-    public int getNumberOfResultPages(){
-        return (int) Math.ceil(totalFound / resultsPerPage);
+    public int getNumberOfResultPages() {
+        double l = (double) totalFound / resultsPerPage;
+        double pages = Math.ceil(l - 1);
+        return (int) pages;
+    }
+
+    public String getBasePath() {
+        return Joiner.on("/").join(baseDirs);
+    }
+
+    public static class Builder {
+
+        private Collection<ListingCourseDTO> courses = new ArrayList<>();
+        private Collection<FacetFieldView> facetFieldViews = new ArrayList<>();
+        private long totalFound;
+        private Integer resultsPerPage;
+        private List<String> baseDirs;
+
+        public Builder addCourse(ListingCourseDTO course) {
+            this.courses.add(course);
+            return this;
+        }
+
+        public Builder addFacetField(FacetFieldView facetFieldView) {
+            this.facetFieldViews.add(facetFieldView);
+            return this;
+        }
+
+        public Builder setBaseDirs(List<String> baseDirs) {
+            this.baseDirs = baseDirs;
+            return this;
+        }
+
+        public SearchResult build() {
+            return new SearchResult(this);
+        }
+
+        public Builder setTotalFound(long totalFound) {
+            this.totalFound = totalFound;
+            return this;
+        }
+
+        public Builder setResultsPerPage(int resultsPerPage) {
+            this.resultsPerPage = resultsPerPage;
+            return this;
+        }
     }
 }

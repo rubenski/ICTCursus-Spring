@@ -1,9 +1,7 @@
 package nl.codebasesoftware.produx.search.result;
 
 import com.google.common.base.Joiner;
-import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
 import nl.codebasesoftware.produx.search.SolrIdName;
-import nl.codebasesoftware.produx.search.SolrNameAndId;
 import nl.codebasesoftware.produx.search.criteria.SearchCriteria;
 
 import java.util.ArrayList;
@@ -18,12 +16,10 @@ public class NormalFacetFilterLink extends FacetFilterLink {
 
     private NormalFacetFilterLink(){}
 
-    private String value;
 
     @Override
     public String getCompleteUrl() {
-        String facetingUrlParameters = criteria.getFacetingUrlParameters(this);
-        return facetingUrlParameters;
+        return criteria.getUrlFilterParameters(this);
     }
 
     @Override
@@ -54,15 +50,12 @@ public class NormalFacetFilterLink extends FacetFilterLink {
 
         private String field;
         private Long count;
-        private CategoryEntityDTO category;
         private SearchCriteria criteria;
         private String value;
-
 
         public NormalFacetFilterLink build() {
             validate();
             NormalFacetFilterLink link = new NormalFacetFilterLink();
-            link.category = this.category;
             link.count = this.count;
             link.criteria = this.criteria;
             link.field = this.field;
@@ -72,9 +65,7 @@ public class NormalFacetFilterLink extends FacetFilterLink {
 
         public void validate(){
             List<String> erroneousFields = new ArrayList<>();
-            if(category == null){
-                erroneousFields.add("category");
-            }
+
             if(count == null){
                 erroneousFields.add("count");
             }
@@ -104,14 +95,8 @@ public class NormalFacetFilterLink extends FacetFilterLink {
             return this;
         }
 
-
         public Builder setCount(long count) {
             this.count = count;
-            return this;
-        }
-
-        public Builder setCategory(CategoryEntityDTO category) {
-            this.category = category;
             return this;
         }
 
@@ -120,8 +105,7 @@ public class NormalFacetFilterLink extends FacetFilterLink {
             return this;
         }
 
+
     }
-
-
 
 }

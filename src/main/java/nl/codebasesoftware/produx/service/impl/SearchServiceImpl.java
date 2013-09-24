@@ -4,6 +4,8 @@ import nl.codebasesoftware.produx.conversion.QueryResponseToSearchResultConverte
 import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.search.criteria.SearchCriteria;
+import nl.codebasesoftware.produx.search.criteria.facet.*;
+import nl.codebasesoftware.produx.search.criteria.filter.Filter;
 import nl.codebasesoftware.produx.search.result.SearchResult;
 import nl.codebasesoftware.produx.service.SearchService;
 import nl.codebasesoftware.produx.service.SolrService;
@@ -15,6 +17,8 @@ import org.apache.solr.common.params.ModifiableSolrParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * User: rvanloen
@@ -37,10 +41,41 @@ public class SearchServiceImpl implements SearchService {
         this.converter = converter;
     }
 
-    public SearchResult findCategoryCourses(SearchCriteria criteria, CategoryEntityDTO category) throws ProduxServiceException {
+    @Override
+    public SearchResult findCourses(SearchCriteria criteria, List<String> baseDirs) throws ProduxServiceException {
         ModifiableSolrParams modifiableSolrParams = conversionService.convert(criteria, SolrQuery.class);
         QueryResponse response = solrService.search(modifiableSolrParams);
-        return converter.convert(response, criteria, category);
+        return converter.convert(response, criteria, baseDirs);
     }
+
+    public FacetField createPriceFacet(List<Filter> filterList){
+        RangeFacetField priceFacet = new RangeFacetField("price", 0, 300000, 50000, FacetSortingBehavior.NATURAL_ORDER);
+        priceFacet.addOtherBehavior(RangeFacetOtherBehavior.AFTER);
+        for (Filter filter : filterList) {
+            if(filter.getTag().equals("_price")){
+                priceFacet.addExcludedFilter("_price");
+            }
+        }
+        return priceFacet;
+    }
+
+    public FacetField createTagsFacet(){
+        NormalFacetField tagsFacet = new NormalFacetField("tags", FacetSortingBehavior.COUNT);
+        tagsFacet.setMinCount(1);
+        return tagsFacet;
+    }
+
+    public FacetField createRegionsFacet(List<Filter> filterList){
+        NormalFacetField regionFacet = new NormalFacetField("regions", FacetSortingBehavior.NATURAL_ORDER);
+        for (Filter filter : filterList) {
+            if(filter.getTag().equals("_regions")){
+                regionFacet.addExcludedFilter("_regions");
+            }
+        }
+        regionFacet.setMinCount(1);
+        return regionFacet;
+    }
+
+
 
 }

@@ -9,10 +9,9 @@ import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.search.criteria.SearchCriteria;
+import nl.codebasesoftware.produx.search.criteria.facet.FacetField;
 import nl.codebasesoftware.produx.search.criteria.facet.FacetSortingBehavior;
 import nl.codebasesoftware.produx.search.criteria.facet.NormalFacetField;
-import nl.codebasesoftware.produx.search.criteria.facet.RangeFacetField;
-import nl.codebasesoftware.produx.search.criteria.facet.RangeFacetOtherBehavior;
 import nl.codebasesoftware.produx.search.criteria.filter.Filter;
 import nl.codebasesoftware.produx.search.criteria.filter.NormalFilter;
 import nl.codebasesoftware.produx.search.result.SearchResult;
@@ -30,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -72,29 +72,33 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/{categoryUrlName}", method = RequestMethod.GET)
-    public String showFrontPage(@PathVariable("categoryUrlName") String categoryUrlName, Model model,
-                                HttpServletRequest request) throws ProduxServiceException {
-        return process(model, categoryUrlName, null, 0, request);
+    public String showFrontPage(@PathVariable("categoryUrlName") String categoryUrlName, Model model) throws ProduxServiceException {
+        return process(model, categoryUrlName, null, 0);
     }
 
     @RequestMapping(value = "/{categoryUrlName}/{filters}", method = RequestMethod.GET)
     public String showFilteredResultPage(@PathVariable("categoryUrlName") String categoryUrlName,
                                          @PathVariable("filters") String filters,
-                                         Model model,
-                                         HttpServletRequest request) throws ProduxServiceException {
-        return process(model, categoryUrlName, filters, 0, request);
+                                         Model model) throws ProduxServiceException {
+        return process(model, categoryUrlName, filters, 0);
     }
 
-    @RequestMapping(value = "/{categoryUrlName}/{facets}/{p:[0-9]+}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{categoryUrlName}/{filters}/p{p:[0-9]+}", method = RequestMethod.GET)
     public String showUnfilteredResultPage(@PathVariable("categoryUrlName") String categoryUrlName,
                                            @PathVariable("filters") String filters,
                                            @PathVariable("p") Integer p,
-                                           Model model,
-                                           HttpServletRequest request) throws ProduxServiceException {
-        return process(model, categoryUrlName, filters, p, request);
+                                           Model model) throws ProduxServiceException {
+        return process(model, categoryUrlName, filters, p);
     }
 
-    private String process(Model model, String categoryUrlName, String filters, int page, HttpServletRequest req) throws ProduxServiceException {
+    @RequestMapping(value = "/{categoryUrlName}/p{p:[0-9]+}", method = RequestMethod.GET)
+    public String showUnfilteredPagedResultPage(@PathVariable("categoryUrlName") String categoryUrlName,
+                                           @PathVariable("p") Integer p,
+                                           Model model) throws ProduxServiceException {
+        return process(model, categoryUrlName, null, p);
+    }
+
+    private String process(Model model, String categoryUrlName, String filters, int page) throws ProduxServiceException {
 
         Category category = categoryService.findByUrlTitle(categoryUrlName);
         CategoryEntityDTO cat = category.toDTO();
@@ -117,23 +121,9 @@ public class CategoryController {
 
         List<Filter> filterList = new FilterFromUrlExtractor().stringToFilters(filters);
 
-        RangeFacetField priceFacet = new RangeFacetField("price", 0, 300000, 50000, FacetSortingBehavior.NATURAL_ORDER);
-        priceFacet.addOtherBehavior(RangeFacetOtherBehavior.AFTER);
-        for (Filter filter : filterList) {
-            if(filter.getTag().equals("_price")){
-                priceFacet.addExcludedFilter("_price");
-            }
-        }
-
-        NormalFacetField regionFacet = new NormalFacetField("regions", FacetSortingBehavior.NATURAL_ORDER);
-        for (Filter filter : filterList) {
-            if(filter.getTag().equals("_regions")){
-                regionFacet.addExcludedFilter("_regions");
-            }
-        }
-        regionFacet.setMinCount(1);
-
-        NormalFacetField tagsFacet = new NormalFacetField("tags", FacetSortingBehavior.COUNT);
+        FacetField priceFacet = searchService.createPriceFacet(filterList);
+        FacetField regionsFacet = searchService.createRegionsFacet(filterList);
+        FacetField tagsFacet = searchService.createTagsFacet();
 
         NormalFilter categoryFilter = new NormalFilter("category", cat.getSolrValue(), cat.getSolrValue());
 
@@ -141,14 +131,14 @@ public class CategoryController {
                 .addFilter(categoryFilter)
                 .addFilters(filterList)
                 .addFacetField(priceFacet)
-                .addFacetField(regionFacet)
+                .addFacetField(regionsFacet)
                 .addFacetField(tagsFacet)
                 .setStart(page * resultsPerPage)
                 .setRows(resultsPerPage)
                 .build();
 
 
-        SearchResult searchResult = searchService.findCategoryCourses(criteria, cat);
+        SearchResult searchResult = searchService.findCourses(criteria, Arrays.asList(categoryUrlName));
 
         // Throw a 404 when someone tries to access a paging page that doesn't exist
         if (searchResult.getCourses().size() == 0 && page > 0) {
@@ -169,6 +159,7 @@ public class CategoryController {
         model.addAttribute("rightColumn", "content/articlelisting");
         model.addAttribute("dir", category.getUrlTitle());
         model.addAttribute("facetedSearch", true);
+        model.addAttribute("filters", "/" + filters);
 
         return "main";
     }

@@ -2,7 +2,6 @@ package nl.codebasesoftware.produx.search.result;
 
 
 import com.google.common.base.Joiner;
-import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
 import nl.codebasesoftware.produx.search.criteria.SearchCriteria;
 
 import java.util.ArrayList;
@@ -18,13 +17,12 @@ public class RangeFacetFilterLink extends FacetFilterLink {
     private Object gap;
     private RangeFilterLinkStrategy rangeLinkStrategy;
 
-
     private RangeFacetFilterLink(){}
 
 
     @Override
     public String getCompleteUrl() {
-        return criteria.getFacetingUrlParameters(this);
+        return criteria.getUrlFilterParameters(this);
     }
 
     @Override
@@ -52,7 +50,6 @@ public class RangeFacetFilterLink extends FacetFilterLink {
 
     public static class Builder {
 
-        private CategoryEntityDTO category;
         private Integer count;
         private SearchCriteria criteria;
         private String field;
@@ -63,7 +60,6 @@ public class RangeFacetFilterLink extends FacetFilterLink {
         public RangeFacetFilterLink build() {
             validate();
             RangeFacetFilterLink link = new RangeFacetFilterLink();
-            link.category = this.category;
             link.count = this.count;
             link.criteria = this.criteria;
             link.field = this.field;
@@ -76,9 +72,7 @@ public class RangeFacetFilterLink extends FacetFilterLink {
 
         public void validate(){
             List<String> erroneousFields = new ArrayList<>();
-            if(category == null){
-                erroneousFields.add("category");
-            }
+
             if(count == null){
                 erroneousFields.add("count");
             }
@@ -114,11 +108,6 @@ public class RangeFacetFilterLink extends FacetFilterLink {
             return this;
         }
 
-        public Builder setCategory(CategoryEntityDTO category) {
-            this.category = category;
-            return this;
-        }
-
         public Builder setCount(int count) {
             this.count = count;
             return this;
@@ -138,6 +127,5 @@ public class RangeFacetFilterLink extends FacetFilterLink {
             this.value = value;
             return this;
         }
-
     }
 }

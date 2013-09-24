@@ -70,7 +70,7 @@ public class ProduxValidator {
     }
 
     public static boolean isArticleTeaserLongEnough(String articleTeaser) {
-        return articleTeaser == null ? false : articleTeaser.length() > 100;
+        return articleTeaser == null ? false : articleTeaser.length() > 40;
     }
 
     public static boolean isArticleTeaserValid(String articleTeaser) {

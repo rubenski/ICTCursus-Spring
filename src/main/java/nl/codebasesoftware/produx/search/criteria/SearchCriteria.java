@@ -1,8 +1,10 @@
 package nl.codebasesoftware.produx.search.criteria;
 
+import com.google.common.base.Joiner;
 import nl.codebasesoftware.produx.search.criteria.facet.FacetField;
 import nl.codebasesoftware.produx.search.criteria.filter.Filter;
 import nl.codebasesoftware.produx.search.result.FacetFilterLink;
+import nl.codebasesoftware.produx.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -53,7 +55,7 @@ public class SearchCriteria {
         filters = builder.filters;
     }
 
-    public String getFacetingUrlParameters(FacetFilterLink link) {
+    public String getUrlFilterParameters(FacetFilterLink link) {
         StringBuilder builder = new StringBuilder();
 
         boolean linkApplied = false;
@@ -78,9 +80,18 @@ public class SearchCriteria {
             builder.deleteCharAt(builder.length() -1);
         }
 
+        // TODO: fix this. It binds this class to your specific use
+        if(query != "*:*"){
+            builder.append("?for=" + query);
+        }
+
         return builder.toString();
     }
 
+
+    public boolean hasQuery(){
+        return !StringUtil.isNullOrEmpty(query);
+    }
 
     public static class Builder {
 

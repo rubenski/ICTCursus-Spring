@@ -30,36 +30,11 @@
     </div>
 </c:forEach>
 
-<c:forEach items="${searchResult.courses}" var="course" varStatus="loop">
+<jsp:include page="courselisting.jsp">
+    <jsp:param name="courses" value="${searchResult}"/>
+</jsp:include>
 
-    <c:if test="${loop.last}">
-        <c:set var="lastClass" value="last"/>
-    </c:if>
 
-    <div class="course-list-item ${lastClass}">
-        <div class="description">
-            <a href="${course.url}" class="courselink"><h2>${course.name}</h2></a>
-            <p>
-                    ${course.listDescription}
-            </p>
-        </div>
-        <div class="logo">
-            <c:if test="${course.company.hasLogo()}">
-                <img src="${course.company.getSmallLogoUrl()}"
-                     title="<spring:message code='course.listing.courseby'/> ${course.company.name}"/>
-            </c:if>
-        </div>
-    </div>
-</c:forEach>
-
-<c:if test="${searchResult.getNumberOfResultPages() > 1}">
-    <ul class="horizontal-list">
-        <li><a href="/${category.urlTitle}">1</a></li>
-    <c:forEach begin="1" end="${searchResult.getNumberOfResultPages()}" varStatus="loop">
-        <li><a href="/${category.urlTitle}/${loop.count}">${loop.count + 1}</a></li>
-    </c:forEach>
-    </ul>
-</c:if>
 
 
 

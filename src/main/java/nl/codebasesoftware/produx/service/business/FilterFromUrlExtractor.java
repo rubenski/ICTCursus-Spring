@@ -5,11 +5,9 @@ import nl.codebasesoftware.produx.search.criteria.filter.*;
 import java.util.*;
 
 /**
- * Created with IntelliJ IDEA.
  * User: rvanloen
  * Date: 11-9-13
  * Time: 13:51
- * To change this template use File | Settings | File Templates.
  */
 public class FilterFromUrlExtractor {
 

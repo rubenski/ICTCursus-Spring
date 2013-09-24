@@ -18,7 +18,7 @@
                     </c:otherwise>
                 </c:choose>
 
-                <input type="checkbox" name="price" id="${link.getUrlToken()}" value="/${dir}/${link.getCompleteUrl()}" ${disable}/>
+                <input type="checkbox" name="price" id="${link.getUrlToken()}" value="/${searchResult.getBasePath()}/${link.getCompleteUrl()}" ${disable}/>
                 <label for="${link.getUrlToken()}" ${disableClass}> ${link.getLabel()} </label> (${link.getCount()})<br>
             </c:forEach>
         </div>

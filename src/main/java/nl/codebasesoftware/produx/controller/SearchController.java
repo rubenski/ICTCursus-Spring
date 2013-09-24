@@ -1,20 +1,27 @@
 package nl.codebasesoftware.produx.controller;
 
 
-import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
-import nl.codebasesoftware.produx.service.CourseService;
+import nl.codebasesoftware.produx.exception.ProduxServiceException;
+import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
+import nl.codebasesoftware.produx.search.criteria.SearchCriteria;
+import nl.codebasesoftware.produx.search.criteria.facet.FacetField;
+import nl.codebasesoftware.produx.search.criteria.filter.Filter;
+import nl.codebasesoftware.produx.search.result.ResultListing;
+import nl.codebasesoftware.produx.search.result.SearchResult;
+import nl.codebasesoftware.produx.service.PageBlockService;
 import nl.codebasesoftware.produx.service.SearchService;
-import org.apache.solr.client.solrj.response.FacetField;
-import org.apache.solr.client.solrj.response.QueryResponse;
-import org.apache.solr.common.SolrDocument;
+import nl.codebasesoftware.produx.service.business.FilterFromUrlExtractor;
+import nl.codebasesoftware.produx.util.Properties;
+import nl.codebasesoftware.produx.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -26,47 +33,94 @@ import java.util.List;
 public class SearchController {
 
     private SearchService searchService;
-    private CourseService courseService;
+    private Properties properties;
+    private PageBlockService pageBlockService;
 
 
     @Autowired
-    public SearchController(SearchService searchService, CourseService courseService) {
+    public SearchController(SearchService searchService, Properties properties, PageBlockService pageBlockService) {
         this.searchService = searchService;
-        this.courseService = courseService;
+        this.properties = properties;
+        this.pageBlockService = pageBlockService;
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String search(@RequestParam("for") String terms, Model model) {
+    public String filterPageBla(@RequestParam("for") String terms, Model model) {
+        return process(model, terms, "", 0);
+    }
 
-        QueryResponse response = null;
+    @RequestMapping(value = "/search/{filters}", method = RequestMethod.GET)
+    public String filterPage(@RequestParam(value = "for", required = false) String terms, @PathVariable("filters") String filters, Model model) {
+        if (StringUtil.isNullOrEmpty(terms)) {
+            throw new ResourceNotFoundException();
+        }
+        return process(model, terms, filters, 0);
+    }
 
-        List<Long> ids = new ArrayList<Long>();
-        for (SolrDocument solrDocument : response.getResults()) {
-            String idString =  (String) solrDocument.get("id");
-            long id = Long.parseLong(idString);
-            ids.add(id);
+
+    @RequestMapping(value = "/search/p{page:[0-9]+}", method = RequestMethod.GET)
+    public String search(@RequestParam(value = "for", required = false) String terms,
+                         @PathVariable("page") Integer page, Model model) {
+        if (terms == null) {
+            throw new ResourceNotFoundException();
+        }
+        return process(model, terms, null, page);
+    }
+
+    @RequestMapping(value = "/search/{filters}/p{page:[0-9]+}", method = RequestMethod.GET)
+    public String search(@RequestParam(value = "for", required = false) String terms,
+                         @PathVariable("filters") String filters,
+                         @PathVariable("page") Integer page, Model model) {
+        if (terms == null) {
+            throw new ResourceNotFoundException();
+        }
+        return process(model, terms, filters, page);
+    }
+
+    private String process(Model model, String terms, String filters, int page) {
+
+        int resultsPerPage = properties.getSearchResultsPerPage();
+
+        List<Filter> filterList = new FilterFromUrlExtractor().stringToFilters(filters);
+
+        FacetField regionsFacet = searchService.createRegionsFacet(filterList);
+        FacetField priceFacet = searchService.createPriceFacet(filterList);
+        FacetField tagsFacet = searchService.createTagsFacet();
+
+        SearchCriteria criteria = new SearchCriteria.Builder()
+                .addFilters(filterList)
+                .addFacetField(priceFacet)
+                .addFacetField(regionsFacet)
+                .addFacetField(tagsFacet)
+                .setStart(page * resultsPerPage)
+                .setRows(resultsPerPage)
+                .setQuery(terms)
+                .build();
+
+        SearchResult result = null;
+        try {
+            result = searchService.findCourses(criteria, Arrays.asList("search"));
+        } catch (ProduxServiceException e) {
+            e.printStackTrace();
         }
 
-        List<ListingCourseDTO> courses = courseService.findForListing(ids);
+        ResultListing.Builder listingBuilder = new ResultListing.Builder();
 
-        FacetField categoryFacet = response.getFacetField("category");
-        FacetField tagsFacet = response.getFacetField("tags");
-        FacetField regionsFacet = response.getFacetField("regions");
-        FacetField incompanyFacet = response.getFacetField("incompany");
-        FacetField certificateFacet = response.getFacetField("certificate");
+        listingBuilder.setCriteria(criteria).setSearchResult(result);
 
-        FacetField priceFacet = response.getFacetField("price");
+        if (StringUtil.isNullOrEmpty(filters)) {
+            listingBuilder.setFilters(filters);
+        }
 
-        model.addAttribute("categoryFacets", categoryFacet);
-        model.addAttribute("regionFacets", regionsFacet);
-        model.addAttribute("tagFacets", tagsFacet);
-        model.addAttribute("incompanyFacets", incompanyFacet);
-        model.addAttribute("certificateFacets", certificateFacet);
-        model.addAttribute("priceFacets", priceFacet);
-        model.addAttribute("response", response);
-        model.addAttribute("courses", courses);
-        model.addAttribute("terms", terms);
+
+        ResultListing listing = listingBuilder.build();
+
+        pageBlockService.setEmptyRightColumn(model);
+        model.addAttribute("facetedSearch", true);
         model.addAttribute("mainContent", "content/searchResults");
+        model.addAttribute("dir", "search");
+        model.addAttribute("resultListing", listing);
+        model.addAttribute("searchResult", result);
         return "main";
     }
 

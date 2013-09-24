@@ -1,17 +1,16 @@
 package nl.codebasesoftware.produx.conversion;
 
-import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 import nl.codebasesoftware.produx.search.criteria.SearchCriteria;
 import nl.codebasesoftware.produx.search.result.*;
 import nl.codebasesoftware.produx.util.Properties;
 import org.apache.log4j.Logger;
-import org.apache.solr.client.solrj.response.*;
 import org.apache.solr.client.solrj.response.FacetField;
+import org.apache.solr.client.solrj.response.FacetField.Count;
+import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.client.solrj.response.RangeFacet;
 import org.apache.solr.common.SolrDocument;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.apache.solr.client.solrj.response.FacetField.Count;
 import org.springframework.core.convert.ConversionService;
 
 import java.util.List;
@@ -32,7 +31,7 @@ public class QueryResponseToSearchResultConverter {
     private Properties properties;
     private QueryResponse queryResponse;
     private SearchCriteria criteria;
-    private CategoryEntityDTO categoryEntityDTO;
+
 
     @Autowired
     public QueryResponseToSearchResultConverter(ConversionService conversionService, Properties properties) {
@@ -40,10 +39,10 @@ public class QueryResponseToSearchResultConverter {
         this.properties = properties;
     }
 
-    public SearchResult convert(QueryResponse queryResponse, SearchCriteria criteria, CategoryEntityDTO categoryEntityDTO) {
+    public SearchResult convert(QueryResponse queryResponse, SearchCriteria criteria, List<String> baseDirs) {
         this.queryResponse = queryResponse;
         this.criteria = criteria;
-        this.categoryEntityDTO = categoryEntityDTO;
+
 
         SearchResult.Builder searchResultBuilder = new SearchResult.Builder();
         addCourses(searchResultBuilder);
@@ -51,6 +50,7 @@ public class QueryResponseToSearchResultConverter {
         addRangeFacetFields(searchResultBuilder);
         searchResultBuilder.setTotalFound(queryResponse.getResults().getNumFound());
         searchResultBuilder.setResultsPerPage(properties.getSearchResultsPerPage());
+        searchResultBuilder.setBaseDirs(baseDirs);
 
         return searchResultBuilder.build();
     }
@@ -66,21 +66,21 @@ public class QueryResponseToSearchResultConverter {
             for (FacetField facetField : queryResponse.getFacetFields()) {
 
                 FacetFieldView facetFieldView = new FacetFieldView(facetField.getName());
-
+                boolean hasValues = false;
                 for (Count value : facetField.getValues()) {
-
+                    hasValues = true;
                     NormalFacetFilterLink.Builder linkBuilder = new NormalFacetFilterLink.Builder();
 
-                    linkBuilder.setCategory(categoryEntityDTO)
-                            .setCount(value.getCount())
+                    linkBuilder.setCount(value.getCount())
                             .setCriteria(criteria)
                             .setField(facetField.getName())
                             .setValue(value.getName());
 
                     facetFieldView.addFilterLink(linkBuilder.build());
                 }
-                searchResultBuilder.addFacetField(facetFieldView);
-
+                if (hasValues) {
+                    searchResultBuilder.addFacetField(facetFieldView);
+                }
             }
         }
     }
@@ -93,7 +93,7 @@ public class QueryResponseToSearchResultConverter {
                 List<RangeFacet.Count> counts = rangeFacet.getCounts();
 
                 RangeFilterLinkStrategy labelStrategy = null;
-                if(rangeFacet.getName().equals("price")){
+                if (rangeFacet.getName().equals("price")) {
                     labelStrategy = new CentPriceRangeStrategy();
                 }
 
@@ -103,14 +103,11 @@ public class QueryResponseToSearchResultConverter {
                     RangeFacetFilterLink.Builder builder = new RangeFacetFilterLink.Builder();
 
                     builder.setCount(value.getCount())
-                            .setCategory(categoryEntityDTO)
                             .setCriteria(criteria)
                             .setField(rangeFacet.getName())
                             .setValue(value.getValue())
                             .setGap(rangeFacet.getGap())
                             .setRangeLinkStrategy(labelStrategy);
-
-
 
                     facetFieldView.addFilterLink(builder.build());
                 }
