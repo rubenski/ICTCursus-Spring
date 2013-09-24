@@ -90,7 +90,7 @@ public class SearchCriteria {
 
 
     public boolean hasQuery(){
-        return !StringUtil.isNullOrEmpty(query);
+        return !query.equals("*:*");
     }
 
     public static class Builder {

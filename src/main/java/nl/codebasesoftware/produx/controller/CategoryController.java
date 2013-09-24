@@ -14,6 +14,7 @@ import nl.codebasesoftware.produx.search.criteria.facet.FacetSortingBehavior;
 import nl.codebasesoftware.produx.search.criteria.facet.NormalFacetField;
 import nl.codebasesoftware.produx.search.criteria.filter.Filter;
 import nl.codebasesoftware.produx.search.criteria.filter.NormalFilter;
+import nl.codebasesoftware.produx.search.result.ResultListing;
 import nl.codebasesoftware.produx.search.result.SearchResult;
 import nl.codebasesoftware.produx.service.*;
 import nl.codebasesoftware.produx.service.business.FilterFromUrlExtractor;
@@ -148,6 +149,9 @@ public class CategoryController {
         List<ListingCourseDTO> highlightedCourses = courseService.findHighlightedCourses(category.getId());
         List<ArticleEntityDTO> categoryArticles = articleService.findByCategory(category.getId());
 
+        ResultListing.Builder listingBuilder = new ResultListing.Builder();
+        ResultListing listing = listingBuilder.setFilters(filters).setSearchResult(searchResult).setCriteria(criteria).build();
+
         model.addAttribute("articles", categoryArticles);
         model.addAttribute("showLightboxLink", companyCoursesForCategory.size() > 0);
         model.addAttribute("showHighlighted", page == 0);
@@ -160,6 +164,7 @@ public class CategoryController {
         model.addAttribute("dir", category.getUrlTitle());
         model.addAttribute("facetedSearch", true);
         model.addAttribute("filters", "/" + filters);
+        model.addAttribute("resultListing", listing);
 
         return "main";
     }
