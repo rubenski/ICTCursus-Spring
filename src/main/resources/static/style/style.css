@@ -1,7 +1,10 @@
 @font-face
 {
     font-family: headingFont;
+    /* C:\Projects\ictcursus.nl\src\main\resources\static\font */
     src: url('/static/font/DistProTh.otf');
+
+
 }
 
 body {
@@ -71,6 +74,11 @@ body {
     padding: 10px 0 10px 0;
 }
 
+#site-header #search #innersearch input[type='submit'] {
+    background-color: #24418F;
+    color: white;
+}
+
 #main {
     background-color: #dddddd;
     padding: 30px 0 50px 0;
@@ -132,7 +140,7 @@ body {
 
 
 #facets label.disabled {
-    color: #bfbfbf;
+    color: #aaaaaa;
 }
 
 #facets .facet {
@@ -166,9 +174,10 @@ body {
      margin-top: 35px;
 }
 
-#left h2, #maincontent h2, #right h2 {
-    font-size: 1.1em;
+#maincontent h2, #right header, #left header {
+    font-size: 1.2em;
     margin-bottom: 12px;
+    font-weight: bold;
 }
 
 #maincontent a h2 {
@@ -222,9 +231,11 @@ body {
 #main #innermain #maincontent .course-list-item {
     overflow: auto;
     position: relative;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #dad9d9;
+    margin-bottom: 15px;
     min-height: 100px;
+    background-image: url('/static/img/dash.gif');
+    background-repeat: repeat-x;
+    background-position: bottom left;
 }
 
 #main #innermain #maincontent .course-list-item.last {

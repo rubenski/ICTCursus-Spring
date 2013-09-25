@@ -4,7 +4,7 @@
 <div class="whitebox" id="facets">
     <c:forEach items="${searchResult.facetFieldViews}" var="view">
         <div class="facet">
-            <h2><spring:message key="${view.getFieldHeaderKey()}"/></h2>
+            <header><spring:message key="${view.getFieldHeaderKey()}"/></header>
             <c:forEach items="${view.filterLinks}" var="link">
                 <c:choose>
                     <c:when test="${!link.hasDocuments()}">
