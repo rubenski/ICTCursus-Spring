@@ -1,16 +1,25 @@
+@font-face
+{
+    font-family: headingFont;
+    src: url('/static/font/DistProTh.otf');
+}
+
 body {
-    font-size: 0.80em;
-    font-family: Arial;
+    font-size:0.8em;
+    font-family: Arial, sans-serif;
     text-align: center; /* used to center lightbox div in IE */
 }
 
 #site-header {
     width: 100%;
-    background-image: url('/static/img/topbg.gif');
-    background-repeat: repeat-x;
-    padding: 10px 0px 0px 0px;
+    /* background-image: url('/static/img/topbg.gif');
+    background-repeat: repeat-x; */
+    background-color: #24418F;
+    padding: 10px 0 0 0;
     text-align: left; /*resets text alignment from body tag */
 }
+
+
 
 #innerheader, #innersearch, #innermain {
     width: 1000px;
@@ -40,7 +49,7 @@ body {
 #site-header #innerheader #topnav {
     position: absolute;
     bottom: 8px;
-    right: 0px;
+    right: 0;
 }
 
 #site-header #innerheader #topnav a {
@@ -53,17 +62,18 @@ body {
 }
 
 #site-header #search {
-    background-color: #000;
+    background-color: #fff;
+    border-bottom: 1px solid gray;
 }
 
 #site-header #search #innersearch {
     text-align: center;
-    padding: 10px 0px 10px 0px;
+    padding: 10px 0 10px 0;
 }
 
 #main {
     background-color: #dddddd;
-    padding: 30px 0px 50px 0px;
+    padding: 30px 0 50px 0;
     text-align: left; /*resets text alignment from body tag */
 }
 
@@ -119,22 +129,28 @@ body {
 }
 
 
-#main a, #facets label {
-    color: #ee4141;
-    text-decoration: none;
-}
+
 
 #facets label.disabled {
-    color: gray;
+    color: #bfbfbf;
 }
 
 #facets .facet {
     margin-bottom: 20px;
 }
 
+#facets .facet div {
+    margin-bottom: 5px;
+}
+
 #main a:hover {
-    color: #6b0c0c;
+    color: #4e9c1d;
     text-decoration: underline;
+}
+
+#main a, #facets label {
+    color: #4e9c1d;
+    text-decoration: none;
 }
 
 #main #innermain #left {
@@ -193,7 +209,8 @@ body {
 #main #innermain #maincontent h1 {
     padding: 3px 0px 30px 0px;
     font-weight: normal;
-    font-size: 1.9em;
+    font-size: 2.4em;
+    font-family: headingFont, sans-serif;
 }
 
 #site-footer {
@@ -235,6 +252,11 @@ body {
     float: left;
     padding-right: 10px;
     width: 475px;
+}
+
+#main #innermain #maincontent .course-list-item .description b {
+    padding-top: 8px;
+    display: block;
 }
 
 #main #innermain #maincontent .course-list-item .logo img {
@@ -363,6 +385,32 @@ input, select, textarea {
     margin-top: 15px;
 }
 
+input[type=checkbox].css-checkbox {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height:1px;
+    width:1px;
+    margin:-1px;
+    padding:0;
+    border:0;
+}
+
+input[type=checkbox].css-checkbox + label.css-label {
+    padding-left:20px;
+    height:15px;
+    display:inline-block;
+    background-repeat:no-repeat;
+    background-position: 0 0;
+    vertical-align:middle;
+    cursor:pointer;
+}
+
+input[type=checkbox].css-checkbox:checked + label.css-label {
+    background-position: 0 -15px;
+}
+
+.css-label{ background-image:url(http://csscheckbox.com/checkboxes/lite-green-check.png); }
 
 
 

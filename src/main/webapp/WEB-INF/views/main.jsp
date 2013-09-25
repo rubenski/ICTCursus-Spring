@@ -67,11 +67,6 @@
     </div>
 </header>
 
-
-<div style="margin: 0 auto">
-    <h1 style="color: #008800">>> ${requestTime} ms <<</h1>
-</div>
-
 <div id="main">
     <div id="innermain">
         <jsp:include page="left.jsp"/>
@@ -83,8 +78,11 @@
 </div>
 
 <footer id="site-footer">
-    footer
+    <div style="margin: 0 auto">
+        <h1 style="color: #008800">>> ${requestTime} ms <<</h1>
+    </div>
 </footer>
+
 
 
 </body>

@@ -6,7 +6,7 @@
     <c:forEach items="${articles}" var="article">
         <div class="course-list-item">
             <div class="description">
-                <a href="${article.url}" class="courselink"><h3>${article.title}</h3></a>
+                <a href="${article.url}"><h3>${article.title}</h3></a>
                 <p>${article.teaser}</p>
             </div>
         </div>

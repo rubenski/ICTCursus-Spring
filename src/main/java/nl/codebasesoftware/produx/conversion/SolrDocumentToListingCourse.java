@@ -1,11 +1,14 @@
 package nl.codebasesoftware.produx.conversion;
 
+import com.google.common.base.Joiner;
 import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCompanyDTO;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 import org.apache.solr.common.SolrDocument;
 import org.springframework.core.convert.converter.Converter;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,8 +24,10 @@ public class SolrDocumentToListingCourse implements Converter<SolrDocument, List
         ListingCourseDTO dto = new ListingCourseDTO();
 
         dto.setId((Long)solrDoc.getFieldValue("course_id"));
-        dto.setName((String)solrDoc.getFieldValue("name"));
+        dto.setName((String) solrDoc.getFieldValue("name"));
         dto.setCategory(CategoryEntityDTO.fromSolrValue((String) solrDoc.getFieldValue("category")));
+        dto.setTagList(getTagsAsCSV(solrDoc));
+
         ListingCompanyDTO listingCompany = new ListingCompanyDTO();
 
         listingCompany.setId((Long)solrDoc.getFieldValue("company_id"));
@@ -33,5 +38,11 @@ public class SolrDocumentToListingCourse implements Converter<SolrDocument, List
         dto.setCompany(listingCompany);
         dto.setListDescription((String)solrDoc.getFieldValue("shortdescription"));
         return dto;
+    }
+
+    private String getTagsAsCSV(SolrDocument solrDoc){
+        List tags = (List) solrDoc.getFieldValue("tag_names");
+        if(tags == null) return "";
+        return Joiner.on(", ").join(tags);
     }
 }

@@ -16,7 +16,7 @@
 <c:forEach items="${highlighted}" var="course">
     <div class="course-list-item highlighted">
         <div class="description">
-            <a href="${course.url}" class="courselink"><h2>${course.name}</h2></a>
+            <a href="${course.url}"><h2>${course.name}</h2></a>
             <p>
                     ${course.listDescription}
             </p>
