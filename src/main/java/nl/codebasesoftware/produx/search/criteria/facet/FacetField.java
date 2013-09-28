@@ -32,7 +32,7 @@ public abstract class FacetField implements SolrParameters {
         return minCount;
     }
 
-    public void setMinCount(int minCount){
+    public void setMinCount(int minCount) {
         this.minCount = minCount;
     }
 
@@ -40,7 +40,7 @@ public abstract class FacetField implements SolrParameters {
         return sorting;
     }
 
-    public void addExcludedFilter(String exclude){
+    public void addExcludedFilter(String exclude) {
         excludedFilters.add(exclude);
     }
 

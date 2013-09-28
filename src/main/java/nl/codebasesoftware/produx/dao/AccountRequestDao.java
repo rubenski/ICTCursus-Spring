@@ -9,7 +9,7 @@ import java.util.List;
  * Date: 20-4-13
  * Time: 16:31
  */
-public interface AccountRequestDao extends GenericDao<AccountRequest>{
+public interface AccountRequestDao extends GenericDao<AccountRequest> {
     List<AccountRequest> findNonEvaluated();
 
     List<AccountRequest> findEvaluated();

@@ -27,8 +27,10 @@ public class AdminTagController {
         this.tagService = tagService;
     }
 
-    @RequestMapping(value= "/tag/search/{tagName}")
-    public @ResponseBody List<TagEntityDTO> search(@PathVariable String tagName){
+    @RequestMapping(value = "/tag/search/{tagName}")
+    public
+    @ResponseBody
+    List<TagEntityDTO> search(@PathVariable String tagName) {
         List<Tag> tags = tagService.findBySubString(tagName);
         List<TagEntityDTO> tagEntityDTOs = new ArrayList<TagEntityDTO>();
         for (Tag tag : tags) {
@@ -37,9 +39,10 @@ public class AdminTagController {
         return tagEntityDTOs;
     }
 
-    @RequestMapping(value= "/tag/byname/{tagName}")
-    public @ResponseBody
-    TagEntityDTO byName(@PathVariable String tagName){
+    @RequestMapping(value = "/tag/byname/{tagName}")
+    public
+    @ResponseBody
+    TagEntityDTO byName(@PathVariable String tagName) {
         Tag tag = tagService.findByName(tagName);
         return tag == null ? null : tag.toDTO();
     }

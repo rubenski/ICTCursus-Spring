@@ -1,6 +1,5 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
-import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.InvoiceRecord;
 
 import java.util.Calendar;

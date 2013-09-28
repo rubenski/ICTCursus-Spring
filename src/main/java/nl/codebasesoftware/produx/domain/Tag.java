@@ -48,7 +48,7 @@ public class Tag implements DomainEntity {
     }
 
     @Transient
-    public TagEntityDTO toDTO(){
+    public TagEntityDTO toDTO() {
         TagEntityDTO tagEntityDTO = new TagEntityDTO();
         tagEntityDTO.setId(id);
         tagEntityDTO.setName(name);

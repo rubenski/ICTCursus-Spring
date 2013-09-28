@@ -26,7 +26,7 @@ public class RolesAndRightsServiceImpl implements RolesAndRightService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Role> findUserAssignableRoles(){
+    public List<Role> findUserAssignableRoles() {
         return rolesAndRightsDao.findUserAssignableRoles();
     }
 

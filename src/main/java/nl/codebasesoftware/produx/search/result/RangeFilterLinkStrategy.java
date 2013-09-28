@@ -7,5 +7,6 @@ package nl.codebasesoftware.produx.search.result;
  */
 public interface RangeFilterLinkStrategy {
     String createLabel(String value, Object gap);
+
     String createUrlToken(String field, String value, Object gap);
 }

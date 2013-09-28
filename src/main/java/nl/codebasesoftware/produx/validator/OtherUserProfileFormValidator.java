@@ -1,9 +1,9 @@
 package nl.codebasesoftware.produx.validator;
 
 import nl.codebasesoftware.produx.formdata.OtherUserProfileFormData;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import org.springframework.stereotype.Component;
 
 /**
  * User: rvanloen
@@ -23,7 +23,7 @@ public class OtherUserProfileFormValidator implements Validator {
     public void validate(Object o, Errors errors) {
         OtherUserProfileFormData formData = (OtherUserProfileFormData) o;
 
-        if(formData.getRoles() == null || formData.getRoles().size() == 0){
+        if (formData.getRoles() == null || formData.getRoles().size() == 0) {
             errors.rejectValue("roles", "error.user.zeroroles");
         }
     }

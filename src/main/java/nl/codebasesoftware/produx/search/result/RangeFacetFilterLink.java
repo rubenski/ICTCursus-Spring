@@ -17,7 +17,8 @@ public class RangeFacetFilterLink extends FacetFilterLink {
     private Object gap;
     private RangeFilterLinkStrategy rangeLinkStrategy;
 
-    private RangeFacetFilterLink(){}
+    private RangeFacetFilterLink() {
+    }
 
 
     @Override
@@ -70,28 +71,28 @@ public class RangeFacetFilterLink extends FacetFilterLink {
         }
 
 
-        public void validate(){
+        public void validate() {
             List<String> erroneousFields = new ArrayList<>();
 
-            if(count == null){
+            if (count == null) {
                 erroneousFields.add("count");
             }
-            if(criteria == null){
+            if (criteria == null) {
                 erroneousFields.add("criteria");
             }
-            if(field == null){
+            if (field == null) {
                 erroneousFields.add("field");
             }
-            if(gap == null){
+            if (gap == null) {
                 erroneousFields.add("gap");
             }
-            if(rangeLinkStrategy == null){
+            if (rangeLinkStrategy == null) {
                 erroneousFields.add("rangeLinkStrategy");
             }
-            if(value == null){
+            if (value == null) {
                 erroneousFields.add("value");
             }
-            if(erroneousFields.size() > 0){
+            if (erroneousFields.size() > 0) {
                 Joiner joiner = Joiner.on(", ");
                 String s = joiner.join(erroneousFields);
                 throw new IllegalArgumentException("The following fields must be set: " + s);
@@ -123,7 +124,7 @@ public class RangeFacetFilterLink extends FacetFilterLink {
             return this;
         }
 
-        public Builder setValue(String value){
+        public Builder setValue(String value) {
             this.value = value;
             return this;
         }

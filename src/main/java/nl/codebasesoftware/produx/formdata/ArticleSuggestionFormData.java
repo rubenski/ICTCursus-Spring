@@ -82,7 +82,7 @@ public class ArticleSuggestionFormData {
         this.suggesterId = suggesterId;
     }
 
-    public boolean isUsed(){
+    public boolean isUsed() {
         return articleId != null;
     }
 }

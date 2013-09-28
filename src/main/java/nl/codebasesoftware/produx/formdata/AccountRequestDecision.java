@@ -10,7 +10,8 @@ public class AccountRequestDecision {
     int decision = -1;
     long articleRequestId;
 
-    public AccountRequestDecision() {}
+    public AccountRequestDecision() {
+    }
 
     public AccountRequestDecision(long articleRequestId) {
         this.articleRequestId = articleRequestId;

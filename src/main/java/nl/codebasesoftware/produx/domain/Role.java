@@ -101,9 +101,9 @@ public class Role implements DomainEntity {
     }
 
     @Transient
-    public boolean hasRight(String rightName){
+    public boolean hasRight(String rightName) {
         for (Right right : rights) {
-            if(right.getAuthority().equals(rightName)){
+            if (right.getAuthority().equals(rightName)) {
                 return true;
             }
         }
@@ -123,7 +123,7 @@ public class Role implements DomainEntity {
     }
 
     @Transient
-    private List<RightEntityDTO> getRightDTOs(){
+    private List<RightEntityDTO> getRightDTOs() {
         List<RightEntityDTO> righDTOs = new ArrayList<>();
         for (Right right : rights) {
             righDTOs.add(right.toDTO());

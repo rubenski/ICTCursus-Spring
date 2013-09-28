@@ -43,7 +43,7 @@ public class Region implements DomainEntity {
         return name;
     }
 
-    public RegionEntityDTO toDTO(){
+    public RegionEntityDTO toDTO() {
         RegionEntityDTO regionEntityDTO = new RegionEntityDTO();
         regionEntityDTO.setId(id);
         regionEntityDTO.setName(name);

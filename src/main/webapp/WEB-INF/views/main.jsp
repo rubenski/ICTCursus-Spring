@@ -28,8 +28,10 @@
         <script src="/static/libs/highlight.js/highlight.pack.js"></script>
         <script>hljs.initHighlightingOnLoad();</script>
         <script>
-            $(document).ready(function() {
-                $('pre').each(function(i, e) {hljs.highlightBlock(e)});
+            $(document).ready(function () {
+                $('pre').each(function (i, e) {
+                    hljs.highlightBlock(e)
+                });
             });
         </script>
     </c:if>
@@ -45,7 +47,7 @@
         <a href="/"><span id="logo">ICTCursus</span></a>
         <nav id="topnav">
             <ul>
-                <li><a href="#">Voor cursusaanbieders</a></li>
+                <li><a href="/page/cursusaanbieders">Voor cursusaanbieders</a></li>
                 <c:choose>
                     <c:when test="${loggedIn}">
                         <li><a href="/admin">Admin</a></li>
@@ -68,12 +70,14 @@
 </header>
 
 <div id="main">
-    <div id="innermain">
-        <jsp:include page="left.jsp"/>
-        <div id="maincontent" class="whitebox">
-            <jsp:include page="${mainContent}.jsp"/>
+    <div id="outermain">
+        <div id="innermain">
+            <jsp:include page="left.jsp"/>
+            <div id="maincontent" class="whitebox">
+                <jsp:include page="${mainContent}.jsp"/>
+            </div>
+            <jsp:include page="${rightColumn}.jsp"/>
         </div>
-        <jsp:include page="${rightColumn}.jsp"/>
     </div>
 </div>
 
@@ -82,7 +86,6 @@
         <h1 style="color: #008800">>> ${requestTime} ms <<</h1>
     </div>
 </footer>
-
 
 
 </body>

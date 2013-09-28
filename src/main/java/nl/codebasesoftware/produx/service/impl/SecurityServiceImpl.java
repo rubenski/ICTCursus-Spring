@@ -31,7 +31,7 @@ public class SecurityServiceImpl implements SecurityService {
     }
 
     @Override
-    public String getHash(String text){
+    public String getHash(String text) {
         return SecurityUtil.createShaHash(text);
     }
 }

@@ -120,6 +120,7 @@ public class SearchController {
         model.addAttribute("dir", "search");
         model.addAttribute("resultListing", listing);
         model.addAttribute("searchResult", result);
+        model.addAttribute("title", "ICT Cursus : " + terms);
         return "main";
     }
 

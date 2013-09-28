@@ -3,8 +3,6 @@
     font-family: headingFont;
     /* C:\Projects\ictcursus.nl\src\main\resources\static\font */
     src: url('/static/font/DistProTh.otf');
-
-
 }
 
 body {
@@ -24,10 +22,26 @@ body {
 
 
 
+#outermain {
+    width: 1350px;
+    margin: 0 auto;
+    position: relative;
+    overflow: auto;
+    background-image: url('/static/img/bgdisk_small.jpg');
+    background-position: 100% 10%;
+    background-repeat: no-repeat;
+}
+
+#innermain {
+    padding-top: 70px;
+}
+
 #innerheader, #innersearch, #innermain {
     width: 1000px;
     margin: 0 auto;
     position: relative;
+    overflow: auto;
+
 }
 
 #site-header #innerheader #logo {
@@ -81,12 +95,8 @@ body {
 
 #main {
     background-color: #dddddd;
-    padding: 30px 0 50px 0;
+    padding-bottom: 100px;
     text-align: left; /*resets text alignment from body tag */
-}
-
-#main #innermain {
-    overflow: auto;
 }
 
 #main #innermain pre {
@@ -161,6 +171,27 @@ body {
     text-decoration: none;
 }
 
+.whitebox {
+    margin-bottom: 30px;
+    padding: 20px 20px 10px 20px;
+    text-align: left;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+#main #innermain #maincontent.whitebox {
+    padding-bottom: 25px;
+}
+
+.whitebox {
+    background-color:rgba(255,255,255,0.75);
+}
+
+#maincontent.whitebox {
+    background-color:white;
+}
+
 #main #innermain #left {
     width: 200px;
 }
@@ -171,13 +202,13 @@ body {
 
 #right, #left {
      float: left;
-     margin-top: 35px;
 }
 
-#maincontent h2, #right header, #left header {
+#maincontent h2, .header {
     font-size: 1.2em;
     margin-bottom: 12px;
     font-weight: bold;
+    display: block;
 }
 
 #maincontent a h2 {
@@ -198,7 +229,7 @@ body {
     float: left;
     width: 550px;
     line-height: 20px;
-    margin: 35px 14px 0px 14px;
+    margin: 0px 14px 0px 14px;
 
 }
 
@@ -287,16 +318,6 @@ div.pretty {
     margin-top: 15px;
     padding: 15px;
     background-color: #eaeaea;
-    text-align: left;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-}
-
-.whitebox {
-    margin-bottom: 30px;
-    padding: 20px 20px 10px 20px;
-    background-color: #fff;
     text-align: left;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;

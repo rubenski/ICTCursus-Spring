@@ -2,7 +2,6 @@ package nl.codebasesoftware.produx.domain;
 
 import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.ArticlePageEntityDTO;
-import nl.codebasesoftware.produx.service.business.ArticleUrl;
 
 import javax.persistence.*;
 import java.util.*;
@@ -128,7 +127,7 @@ public class Article implements DomainEntity {
     }
 
     @Transient
-    public boolean hasPages(){
+    public boolean hasPages() {
         return pages.size() > 0;
     }
 
@@ -150,7 +149,7 @@ public class Article implements DomainEntity {
     }
 
     @Transient
-    private List<ArticlePageEntityDTO> getPagesAsDTOs(){
+    private List<ArticlePageEntityDTO> getPagesAsDTOs() {
         List<ArticlePageEntityDTO> pageDTOs = new ArrayList<>();
         for (ArticlePage page : pages) {
             pageDTOs.add(page.toDTO());

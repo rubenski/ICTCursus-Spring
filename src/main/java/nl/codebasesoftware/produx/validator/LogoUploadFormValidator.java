@@ -37,19 +37,19 @@ public class LogoUploadFormValidator implements Validator {
         int maxKBs = Integer.parseInt(maxKBsString);
 
 
-        if(bindableLogoUpload.getFileData().getFileItem().getName().equals("")){
+        if (bindableLogoUpload.getFileData().getFileItem().getName().equals("")) {
             errors.rejectValue("fileData", "errors.fileupload.nofile");
             return;
         }
 
         String contentType = bindableLogoUpload.getFileData().getContentType();
-        if(!contentType.equals("image/jpeg") && !contentType.equals("image/png") && !contentType.equals("image/gif") && !contentType.equals("image/pjpeg")){
+        if (!contentType.equals("image/jpeg") && !contentType.equals("image/png") && !contentType.equals("image/gif") && !contentType.equals("image/pjpeg")) {
             errors.rejectValue("fileData", "errors.fileupload.wrongtype");
             return;
         }
 
         int maxBytes = maxKBs * 1024;
-        if(bindableLogoUpload.getFileData().getBytes().length > maxBytes){
+        if (bindableLogoUpload.getFileData().getBytes().length > maxBytes) {
             errors.rejectValue("fileData", "errors.fileupload.toolarge");
             return;
         }

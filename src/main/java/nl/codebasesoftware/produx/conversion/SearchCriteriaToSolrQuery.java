@@ -13,7 +13,7 @@ import java.util.List;
  * User: rvanloen
  * Date: 10-8-13
  * Time: 13:28
- *
+ * <p/>
  * Turns my pretty Solr abstraction into Solrj's less pretty (but still useful) Solr abstraction
  */
 public class SearchCriteriaToSolrQuery implements Converter<SearchCriteria, SolrQuery> {

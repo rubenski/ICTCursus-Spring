@@ -12,8 +12,6 @@ public interface PageBlockService {
 
     void setAuthentication(Model model);
 
-
-
     void setEmptyRightColumn(Model model);
 
 

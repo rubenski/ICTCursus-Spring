@@ -1,14 +1,11 @@
 package nl.codebasesoftware.produx.domain;
 
-import nl.codebasesoftware.produx.domain.dto.entity.DomainEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.InvoiceEntityDTO;
-import nl.codebasesoftware.produx.domain.dto.entity.InvoiceRecordEntityDTO;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -60,7 +57,7 @@ public class Invoice implements DomainEntity {
 
     @Transient
     @Override
-    public InvoiceEntityDTO toDTO(){
+    public InvoiceEntityDTO toDTO() {
         InvoiceEntityDTO dto = new InvoiceEntityDTO();
         dto.setId(id);
         dto.setCompany(company.toDTO());

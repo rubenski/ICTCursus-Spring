@@ -1,6 +1,5 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
-import nl.codebasesoftware.produx.domain.Article;
 import nl.codebasesoftware.produx.service.business.ArticlePageUrl;
 
 /**

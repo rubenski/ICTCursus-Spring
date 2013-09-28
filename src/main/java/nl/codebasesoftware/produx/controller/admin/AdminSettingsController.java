@@ -27,14 +27,14 @@ public class AdminSettingsController {
     private CompanySettingsValidator validator;
 
     @Autowired
-    public AdminSettingsController(CompanyService companyService, MessageSource messageSource, CompanySettingsValidator validator){
+    public AdminSettingsController(CompanyService companyService, MessageSource messageSource, CompanySettingsValidator validator) {
         this.companyService = companyService;
         this.messageSource = messageSource;
         this.validator = validator;
     }
 
-    @RequestMapping(value="/admin/settings", method = RequestMethod.GET)
-    public String showSettings(Model model, Locale locale){
+    @RequestMapping(value = "/admin/settings", method = RequestMethod.GET)
+    public String showSettings(Model model, Locale locale) {
         CompanySettingsFormData settingsDto = companyService.getCompanySettingsForCurrentCompany();
         model.addAttribute("settings", settingsDto);
         model.addAttribute("mainContent", "forms/admincompanysettings");
@@ -42,13 +42,13 @@ public class AdminSettingsController {
         return "adminMain";
     }
 
-    @RequestMapping(value="/admin/settings", method = RequestMethod.POST)
-    public String saveSettings(@ModelAttribute("settings") CompanySettingsFormData settingsDto, BindingResult result, Model model, Locale locale){
+    @RequestMapping(value = "/admin/settings", method = RequestMethod.POST)
+    public String saveSettings(@ModelAttribute("settings") CompanySettingsFormData settingsDto, BindingResult result, Model model, Locale locale) {
 
         validator.validate(settingsDto, result);
         String valid = "false";
 
-        if(!result.hasErrors()){
+        if (!result.hasErrors()) {
             companyService.saveSettings(settingsDto);
             valid = "true";
         }

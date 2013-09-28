@@ -1,8 +1,5 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
-import nl.codebasesoftware.produx.domain.Article;
-import nl.codebasesoftware.produx.domain.UserProfile;
-
 import java.util.Calendar;
 
 /**

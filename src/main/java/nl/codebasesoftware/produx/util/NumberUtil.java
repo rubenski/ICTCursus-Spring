@@ -9,7 +9,7 @@ import java.util.Random;
  */
 public class NumberUtil {
 
-    public static int randomInt(int min, int max){
+    public static int randomInt(int min, int max) {
         Random rand = new Random();
         int randomNumber = rand.nextInt(max - min + 1) + min;
         return randomNumber;

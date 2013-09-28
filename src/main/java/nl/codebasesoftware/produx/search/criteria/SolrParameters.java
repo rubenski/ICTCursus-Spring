@@ -1,6 +1,5 @@
 package nl.codebasesoftware.produx.search.criteria;
 
-import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.common.params.ModifiableSolrParams;
 
 /**

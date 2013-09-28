@@ -85,7 +85,7 @@ public class Category implements DomainEntity, NameComparable {
         this.children = children;
     }
 
-    @OneToMany(fetch = FetchType.LAZY,  mappedBy = "category", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", orphanRemoval = true)
     public Set<HighlightedCoursePeriod> getHighlightedCourses() {
         return highlightedCourses;
     }
@@ -110,7 +110,7 @@ public class Category implements DomainEntity, NameComparable {
         return id != null ? id.hashCode() : 0;
     }
 
-    public CategoryEntityDTO toDTO(){
+    public CategoryEntityDTO toDTO() {
         CategoryEntityDTO category = new CategoryEntityDTO();
         category.setId(id);
         category.setName(name);
@@ -118,7 +118,7 @@ public class Category implements DomainEntity, NameComparable {
         return category;
     }
 
-    public boolean hasChildren(){
+    public boolean hasChildren() {
         return children.size() > 0;
     }
 }

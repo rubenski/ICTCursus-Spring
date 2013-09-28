@@ -38,9 +38,8 @@ public class SysAdminUserProfileController {
     }
 
 
-
     @RequestMapping(value = "/admin/sys/userprofiles")
-    public String getUserProfiles(Model model, Locale locale){
+    public String getUserProfiles(Model model, Locale locale) {
         List<UserProfile> userProfiles = userProfileService.findAll();
         model.addAttribute("userProfiles", userProfiles);
         model.addAttribute("mainContent", "content/sysAdminUserProfiles");
@@ -50,7 +49,7 @@ public class SysAdminUserProfileController {
 
     @Secured("hasAnyRole('ROLE_PERM_access_sysadmin_screens')")
     @RequestMapping(value = "/admin/sys/userprofile/{id}", method = RequestMethod.GET)
-    public String getUserProfile(@PathVariable("id") Long id, Model model, Locale locale){
+    public String getUserProfile(@PathVariable("id") Long id, Model model, Locale locale) {
 
         UserProfile userProfile = userProfileService.findWithCompany(id);
 
@@ -67,16 +66,16 @@ public class SysAdminUserProfileController {
 
     @Secured("hasAnyRole('ROLE_PERM_access_sysadmin_screens')")
     @RequestMapping(value = "/admin/sys/userprofile/{id}", method = RequestMethod.POST)
-    public String updateUserProfile(@ModelAttribute("userProfile") BindableSysAdminUserProfile bindableSysAdminUserProfile, Model model, Locale locale){
+    public String updateUserProfile(@ModelAttribute("userProfile") BindableSysAdminUserProfile bindableSysAdminUserProfile, Model model, Locale locale) {
 
         UserProfile userProfile = userProfileService.findWithCompany(bindableSysAdminUserProfile.getId());
 
         String valid = "false";
 
-        if(bindableSysAdminUserProfile.getRemove() == 1){
+        if (bindableSysAdminUserProfile.getRemove() == 1) {
             userProfileService.removeProfile(bindableSysAdminUserProfile.getId());
             return "redirect:/admin/sys/userprofiles";
-        }else {
+        } else {
             userProfileService.update(bindableSysAdminUserProfile);
             valid = "true";
         }
@@ -88,7 +87,7 @@ public class SysAdminUserProfileController {
         return "sysAdminMain";
     }
 
-    private void setDefaultFormData(Model model, Locale locale, BindableSysAdminUserProfile bindableSysAdminUserProfile, UserProfile userProfile){
+    private void setDefaultFormData(Model model, Locale locale, BindableSysAdminUserProfile bindableSysAdminUserProfile, UserProfile userProfile) {
         String headerText = messageSource.getMessage("user.edit.header.start", new Object[]{}, locale) + " " + userProfile.getFullNameInformal();
         model.addAttribute("userProfile", bindableSysAdminUserProfile);
         model.addAttribute("mainContent", "forms/sysadminuserprofile");

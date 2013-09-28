@@ -27,8 +27,8 @@ public class ProduxAuthority implements GrantedAuthority {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == null) return false;
-        if(!(obj instanceof ProduxAuthority)) return false;
+        if (obj == null) return false;
+        if (!(obj instanceof ProduxAuthority)) return false;
         return ((ProduxAuthority) obj).getAuthority().equals(authority);
     }
 }

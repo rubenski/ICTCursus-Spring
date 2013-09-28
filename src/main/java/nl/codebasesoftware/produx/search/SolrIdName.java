@@ -17,15 +17,15 @@ public class SolrIdName {
         this.name = name;
     }
 
-    public static String createForSolr(long id, String name){
+    public static String createForSolr(long id, String name) {
         return String.format("%d%s%s", id, ID_NAME_SEPARATOR, name);
     }
 
-    public static boolean isIdAndName(String value){
+    public static boolean isIdAndName(String value) {
         return value.contains(ID_NAME_SEPARATOR);
     }
 
-    public static SolrIdName createFromSolr(String solrIdName){
+    public static SolrIdName createFromSolr(String solrIdName) {
         String[] parts = solrIdName.split(ID_NAME_SEPARATOR);
         return new SolrIdName(Long.parseLong(parts[0]), parts[1]);
     }

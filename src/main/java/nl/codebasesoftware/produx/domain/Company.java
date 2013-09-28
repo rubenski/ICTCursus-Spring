@@ -238,7 +238,7 @@ public class Company implements DomainEntity, Serializable {
         return id.hashCode();
     }
 
-    public ListingCompanyDTO toListingCompanyDTO(){
+    public ListingCompanyDTO toListingCompanyDTO() {
         ListingCompanyDTO dto = new ListingCompanyDTO();
         dto.setId(id);
         dto.setName(name);

@@ -12,6 +12,8 @@ import java.util.List;
  */
 public interface CategoryDao extends GenericDao<Category> {
     Category findByUrlTitle(String name);
+
     List<Category> findSubCategories(Category category);
+
     List<Category> findFirstLevelCategories();
 }

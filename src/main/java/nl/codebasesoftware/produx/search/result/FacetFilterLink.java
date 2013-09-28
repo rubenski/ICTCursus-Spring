@@ -1,10 +1,6 @@
 package nl.codebasesoftware.produx.search.result;
 
-import com.google.common.base.Joiner;
-import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
 import nl.codebasesoftware.produx.search.criteria.SearchCriteria;
-
-import java.util.List;
 
 /**
  * User: rvanloen
@@ -18,7 +14,7 @@ public abstract class FacetFilterLink {
     protected long count;
     protected SearchCriteria criteria;
 
-    public  Long getCount(){
+    public Long getCount() {
         return count;
     }
 
@@ -26,7 +22,7 @@ public abstract class FacetFilterLink {
         return field;
     }
 
-    public boolean hasDocuments(){
+    public boolean hasDocuments() {
         return count > 0;
     }
 
@@ -35,11 +31,12 @@ public abstract class FacetFilterLink {
     }
 
     public abstract String getCompleteUrl();
+
     public abstract String getUrlToken();
+
     public abstract String getLabel();
+
     public abstract String getHrefValue();
-
-
 
 
 }

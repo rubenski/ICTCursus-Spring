@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -199,7 +198,7 @@ public class ArticleServiceImpl implements ArticleService {
         return articleDao.findFull(id).toDTO();
     }
 
-    private List<ArticleEntityDTO> asArticleEntityDTOs(List<Article> articles){
+    private List<ArticleEntityDTO> asArticleEntityDTOs(List<Article> articles) {
         List<ArticleEntityDTO> dtos = new ArrayList<>();
         for (Article article : articles) {
             dtos.add(article.toDTO());

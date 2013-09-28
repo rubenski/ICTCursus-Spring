@@ -1,7 +1,6 @@
 package nl.codebasesoftware.produx.domain;
 
 import nl.codebasesoftware.produx.domain.dto.entity.*;
-import nl.codebasesoftware.produx.domain.dto.entity.TagEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 import nl.codebasesoftware.produx.service.business.CourseUrl;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -327,7 +326,8 @@ public class Course implements DomainEntity {
         dto.setListDescription(listDescription);
         dto.setLongDescription(longDescription);
         dto.setName(name);
-        dto.setOptions(getOptionsAsDTOs());
+        dto.setOptionCategories(getOptionCategories());
+        dto.setOptions(getOptionDTOs());
         dto.setPrice(price);
         dto.setPublished(published);
         dto.setRegions(getRegionsAsDTOs());
@@ -356,13 +356,28 @@ public class Course implements DomainEntity {
     }
 
     @Transient
-    private List<CourseOptionEntityDTO> getOptionsAsDTOs() {
-        List<CourseOptionEntityDTO> optionDTOs = new ArrayList<>();
+    private List<OptionCategoryEntityDTO> getOptionCategories() {
+        // This method inverts options and categories and therefore returns categories instead of options
+        List<OptionCategoryEntityDTO> cats = new ArrayList<>();
+        Set<OptionCategory> uniqueCategories = new HashSet<>();
         for (CourseOption option : options) {
-            optionDTOs.add(option.toDTO());
+            uniqueCategories.add(option.getCategory());
         }
 
-        return optionDTOs;
+        for (OptionCategory uniqueCategory : uniqueCategories) {
+            cats.add(uniqueCategory.toDTO());
+        }
+
+        return cats;
+    }
+
+    @Transient
+    private List<CourseOptionEntityDTO> getOptionDTOs() {
+        List<CourseOptionEntityDTO> optionList = new ArrayList<>();
+        for (CourseOption option : options) {
+            optionList.add(option.toDTO());
+        }
+        return optionList;
     }
 
     @Transient
@@ -384,7 +399,7 @@ public class Course implements DomainEntity {
     }
 
     @Transient
-    private List<TimeEntityDTO> getTimesAsDTOs(){
+    private List<TimeEntityDTO> getTimesAsDTOs() {
         List<TimeEntityDTO> timeDTOs = new ArrayList<>();
         for (Time time : times) {
             timeDTOs.add(time.toDTO());

@@ -9,7 +9,7 @@ package nl.codebasesoftware.produx.domain.dto.entity;
  */
 public class IdHashCode {
 
-    public static <T extends DomainEntityDTO> int hashCode(T dto){
+    public static <T extends DomainEntityDTO> int hashCode(T dto) {
         return dto.getId().hashCode();
     }
 }

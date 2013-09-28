@@ -81,7 +81,7 @@ public class ArticlePageFormData {
         this.remove = remove;
     }
 
-    public boolean removeClicked(){
+    public boolean removeClicked() {
         return this.remove != null && this.remove.equals("Verwijderen");
     }
 

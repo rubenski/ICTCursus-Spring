@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class SysAdminHomeController {
 
     @RequestMapping(value = "/admin/sys", method = RequestMethod.GET)
-    public String sysAdminHome(Model model){
+    public String sysAdminHome(Model model) {
         model.addAttribute("mainContent", "sysAdminHome");
         return "sysAdminMain";
     }

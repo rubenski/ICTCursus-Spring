@@ -1,13 +1,11 @@
 package nl.codebasesoftware.produx.service.impl;
 
-import nl.codebasesoftware.produx.comparator.NameComparator;
 import nl.codebasesoftware.produx.dao.CompanyDao;
 import nl.codebasesoftware.produx.dao.CourseDao;
 import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.Time;
-import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
@@ -20,7 +18,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * User: rvanloen

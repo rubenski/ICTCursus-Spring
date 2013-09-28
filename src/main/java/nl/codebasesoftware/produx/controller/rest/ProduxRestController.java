@@ -27,7 +27,9 @@ public class ProduxRestController {
     }
 
     @RequestMapping(value = "/regions/{input}")
-    public @ResponseBody List<Region> getRegionsBySubstring(@PathVariable("input") String input, Model model){
+    public
+    @ResponseBody
+    List<Region> getRegionsBySubstring(@PathVariable("input") String input, Model model) {
         List<Region> regions = regionService.findRegionsBySubstring(input);
         return regions;
     }

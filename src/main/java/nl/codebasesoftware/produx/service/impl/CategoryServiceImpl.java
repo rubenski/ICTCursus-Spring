@@ -64,13 +64,12 @@ public class CategoryServiceImpl implements CategoryService {
     private Set<CategoryEntityDTO> flattenCategories(List<Category> categories, SortedSet<CategoryEntityDTO> result) {
         for (Category category : categories) {
             result.add(category.toDTO());
-            if(category.hasChildren()){
+            if (category.hasChildren()) {
                 flattenCategories(category.getChildren(), result);
             }
         }
         return result;
     }
-
 
 
 }

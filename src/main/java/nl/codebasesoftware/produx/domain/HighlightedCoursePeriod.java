@@ -69,7 +69,7 @@ public class HighlightedCoursePeriod implements DomainEntity {
         this.startTime = startTime;
     }
 
-    @Temporal(value=TemporalType.TIMESTAMP)
+    @Temporal(value = TemporalType.TIMESTAMP)
     @Column(nullable = false)
     public Calendar getCreated() {
         return created;

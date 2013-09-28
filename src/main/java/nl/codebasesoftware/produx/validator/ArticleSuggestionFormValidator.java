@@ -1,9 +1,9 @@
 package nl.codebasesoftware.produx.validator;
 
 import nl.codebasesoftware.produx.formdata.ArticleSuggestionFormData;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import org.springframework.stereotype.Component;
 
 /**
  * User: rvanloen
@@ -26,23 +26,23 @@ public class ArticleSuggestionFormValidator implements Validator {
 
         ArticleSuggestionFormData formData = (ArticleSuggestionFormData) o;
 
-        if(!ProduxValidator.isValidArticleTitle(formData.getTitle())){
+        if (!ProduxValidator.isValidArticleTitle(formData.getTitle())) {
             errors.rejectValue("title", "article.error.wrongtitle");
         }
 
-        if(!ProduxValidator.isValidNormalText(formData.getDescription())){
+        if (!ProduxValidator.isValidNormalText(formData.getDescription())) {
             errors.rejectValue("description", "articlesuggestion.invalidtext");
         }
 
-        if(ProduxValidator.isLongerThan(formData.getDescription(), MAXIMAL_SUGGESTION_LENGTH)){
+        if (ProduxValidator.isLongerThan(formData.getDescription(), MAXIMAL_SUGGESTION_LENGTH)) {
             errors.rejectValue("description", "error.texttoolong", new Object[]{MAXIMAL_SUGGESTION_LENGTH}, "");
         }
 
-        if(ProduxValidator.isShorterThan(formData.getDescription(), MINIMAL_SUGGESTION_LENGTH)){
+        if (ProduxValidator.isShorterThan(formData.getDescription(), MINIMAL_SUGGESTION_LENGTH)) {
             errors.rejectValue("description", "error.texttooshort", new Object[]{MINIMAL_SUGGESTION_LENGTH}, "");
         }
 
-        if(!ProduxValidator.isValidEmail(formData.getEmail())){
+        if (!ProduxValidator.isValidEmail(formData.getEmail())) {
             errors.rejectValue("email", "error.email.invalid");
         }
     }

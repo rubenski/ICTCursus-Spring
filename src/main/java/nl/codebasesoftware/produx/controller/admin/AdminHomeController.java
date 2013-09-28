@@ -35,7 +35,7 @@ public class AdminHomeController {
 
         UserProfile profile = CurrentUser.get();
 
-        if(profile.hasRole(RoleName.SYS_ADMIN)){
+        if (profile.hasRole(RoleName.SYS_ADMIN)) {
             return "redirect:/admin/sys/";
         }
         model.addAttribute("headerText", messageSource.getMessage("admin.home.header", new Object[]{}, locale));

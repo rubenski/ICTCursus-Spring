@@ -1,9 +1,9 @@
 package nl.codebasesoftware.produx.validator;
 
 import nl.codebasesoftware.produx.formdata.AccountRequestDecision;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import org.springframework.stereotype.Component;
 
 /**
  * User: rvanloen
@@ -20,7 +20,7 @@ public class AccountRequestDecisionValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         AccountRequestDecision decision = (AccountRequestDecision) o;
-        if(decision.getDecision() == -1){
+        if (decision.getDecision() == -1) {
             errors.rejectValue("decision", "accountrequest.decision.error");
         }
     }

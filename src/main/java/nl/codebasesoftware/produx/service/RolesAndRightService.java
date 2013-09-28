@@ -12,5 +12,6 @@ import java.util.List;
 public interface RolesAndRightService {
 
     List<Role> findByIds(List<Long> roleIds);
+
     List<Role> findUserAssignableRoles();
 }

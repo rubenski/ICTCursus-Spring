@@ -48,7 +48,7 @@ public class CourseDate implements DomainEntity {
         this.course = course;
     }
 
-    public CourseDateEntityDTO toDTO(){
+    public CourseDateEntityDTO toDTO() {
         CourseDateEntityDTO dto = new CourseDateEntityDTO();
         dto.setId(id);
         dto.setStartDate(startDate);

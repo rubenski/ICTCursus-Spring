@@ -41,7 +41,7 @@ public class AdminMyUserProfileController {
     }
 
     @RequestMapping(value = {"/admin/myprofile", "/admin/sys/myprofile"}, method = RequestMethod.GET)
-    public String myProfileForm(Model model, Locale locale){
+    public String myProfileForm(Model model, Locale locale) {
         UserProfile userProfile = userProfileService.findById(CurrentUser.get().getId());
         String headerText = messageSource.getMessage("user.edit.myprofile", new Object[]{}, locale);
 
@@ -57,14 +57,14 @@ public class AdminMyUserProfileController {
     }
 
     @RequestMapping(value = {"/admin/myprofile", "/admin/sys/myprofile"}, method = RequestMethod.POST)
-    public String submitMyProfileForm(@ModelAttribute("myUserProfile")BindableMyUserProfile profile, BindingResult result,
-                                      Model model, Locale locale){
+    public String submitMyProfileForm(@ModelAttribute("myUserProfile") BindableMyUserProfile profile, BindingResult result,
+                                      Model model, Locale locale) {
         UserProfile userProfile = userProfileService.findById(profile.getId());
         String headerText = messageSource.getMessage("user.edit.myprofile", new Object[]{}, locale);
         String valid = "false";
         myUserProfileValidator.validate(profile, result);
 
-        if(!result.hasErrors()){
+        if (!result.hasErrors()) {
             valid = "true";
             userProfileService.update(profile);
         }

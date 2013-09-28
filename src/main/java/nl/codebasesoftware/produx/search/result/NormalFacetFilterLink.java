@@ -14,7 +14,8 @@ import java.util.List;
  */
 public class NormalFacetFilterLink extends FacetFilterLink {
 
-    private NormalFacetFilterLink(){}
+    private NormalFacetFilterLink() {
+    }
 
 
     @Override
@@ -30,7 +31,7 @@ public class NormalFacetFilterLink extends FacetFilterLink {
     @Override
     public String getLabel() {
         boolean b = SolrIdName.isIdAndName(value);
-        if(b) {
+        if (b) {
             return SolrIdName.createFromSolr(value).getName();
         }
         return value;
@@ -39,14 +40,14 @@ public class NormalFacetFilterLink extends FacetFilterLink {
     @Override
     public String getHrefValue() {
         boolean b = SolrIdName.isIdAndName(value);
-        if(b) {
+        if (b) {
             return SolrIdName.createFromSolr(value).getId();
         }
         return value;
     }
 
 
-    public static class Builder  {
+    public static class Builder {
 
         private String field;
         private Long count;
@@ -63,34 +64,34 @@ public class NormalFacetFilterLink extends FacetFilterLink {
             return link;
         }
 
-        public void validate(){
+        public void validate() {
             List<String> erroneousFields = new ArrayList<>();
 
-            if(count == null){
+            if (count == null) {
                 erroneousFields.add("count");
             }
-            if(criteria == null){
+            if (criteria == null) {
                 erroneousFields.add("criteria");
             }
-            if(field == null){
+            if (field == null) {
                 erroneousFields.add("field");
             }
-            if(value == null){
+            if (value == null) {
                 erroneousFields.add("value");
             }
-            if(erroneousFields.size() > 0){
+            if (erroneousFields.size() > 0) {
                 Joiner joiner = Joiner.on(", ");
                 String s = joiner.join(erroneousFields);
                 throw new IllegalArgumentException("The following fields must be set: " + s);
             }
         }
 
-        public Builder setValue(String value){
+        public Builder setValue(String value) {
             this.value = value;
             return this;
         }
 
-        public Builder setField(String field){
+        public Builder setField(String field) {
             this.field = field;
             return this;
         }

@@ -7,5 +7,6 @@ package nl.codebasesoftware.produx.service;
  */
 public interface SecurityService {
     String getRandomPassword();
+
     String getHash(String text);
 }

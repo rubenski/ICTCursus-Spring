@@ -110,7 +110,7 @@ public class UserProfile implements DomainEntity, UserDetails {
 
     // Note: CascadeType.ALL does not remove orphans from the database on a many-to-many relationship, unfortunately
     // http://stackoverflow.com/questions/3055407/how-do-i-delete-orphan-entities-using-hibernate-and-jpa-on-a-many-to-many-relati
-    @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     public Set<Role> getRoles() {
         return roles;
     }
@@ -178,17 +178,17 @@ public class UserProfile implements DomainEntity, UserDetails {
     }
 
     @Transient
-    public String getFullNameFormal(){
+    public String getFullNameFormal() {
         return preposition != null ? String.format("%s, %s  %s", lastName, firstName, preposition) : String.format("%s, %s", lastName, firstName);
     }
 
     @Transient
-    public String getFullNameInformal(){
+    public String getFullNameInformal() {
         return preposition != null ? String.format("%s %s %s", firstName, preposition, lastName) : String.format("%s %s", firstName, lastName);
     }
 
     @Transient
-    public List<Long> getRoleIds(){
+    public List<Long> getRoleIds() {
         List<Long> ids = new ArrayList<Long>();
         for (Role role : roles) {
             ids.add(role.getId());
@@ -197,9 +197,9 @@ public class UserProfile implements DomainEntity, UserDetails {
     }
 
     @Transient
-    public boolean hasRole(RoleName roleName){
+    public boolean hasRole(RoleName roleName) {
         for (Role role : roles) {
-            if(roleName.equals(role.getSystemName())){
+            if (roleName.equals(role.getSystemName())) {
                 return true;
             }
         }

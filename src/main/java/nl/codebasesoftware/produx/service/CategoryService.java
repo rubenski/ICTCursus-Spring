@@ -12,7 +12,10 @@ import java.util.List;
  */
 public interface CategoryService {
     Category findByUrlTitle(String name);
+
     List<Category> findAll();
+
     Category findById(Long categoryId);
+
     List<CategoryEntityDTO> findFlattenedCategories();
 }

@@ -9,7 +9,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
  */
 public class BindableFileUpload {
 
-	private CommonsMultipartFile fileData;
+    private CommonsMultipartFile fileData;
 
     public CommonsMultipartFile getFileData() {
         return fileData;

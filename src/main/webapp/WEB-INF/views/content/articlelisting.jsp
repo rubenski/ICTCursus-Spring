@@ -1,8 +1,7 @@
-<%--@elvariable id="category" type="nl.codebasesoftware.produx.domain.dto.entity."--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div id="right" class="whitebox">
-    <header>Online cursussen en artikelen over ${category.name}</header>
+    <span class="header">Online cursussen en artikelen over ${category.name}</span>
 
     <c:forEach items="${articles}" var="article">
         <div class="course-list-item">
@@ -12,4 +11,5 @@
             </div>
         </div>
     </c:forEach>
+
 </div>

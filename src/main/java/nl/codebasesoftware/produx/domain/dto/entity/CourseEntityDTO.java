@@ -3,7 +3,11 @@ package nl.codebasesoftware.produx.domain.dto.entity;
 import nl.codebasesoftware.produx.domain.dto.generic.WebVisitable;
 import nl.codebasesoftware.produx.service.business.CourseUrl;
 
-import java.util.*;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,10 +34,11 @@ public class CourseEntityDTO extends DomainEntityDTO implements WebVisitable {
     private List<TagEntityDTO> tags = new ArrayList<>();
     private List<CourseDateEntityDTO> dates = new ArrayList<>();
     private List<TimeEntityDTO> times = new ArrayList<>();
-    private List<CourseOptionEntityDTO> options = new ArrayList<>();
     private List<RegionEntityDTO> regions = new ArrayList<>();
     private boolean published;
     private List<HighlightedCourseOnCategoryEntityDTO> highlightedOnCategories = new ArrayList<>();
+    private List<OptionCategoryEntityDTO> optionCategories = new ArrayList<>();
+    private List<CourseOptionEntityDTO> options = new ArrayList<>();
 
     @Override
     public Long getId() {
@@ -144,7 +149,7 @@ public class CourseEntityDTO extends DomainEntityDTO implements WebVisitable {
         return tags;
     }
 
-    public List<Long> getTagsIds(){
+    public List<Long> getTagsIds() {
         List<Long> ids = new ArrayList<>();
         for (TagEntityDTO tag : tags) {
             ids.add(tag.getId());
@@ -172,14 +177,6 @@ public class CourseEntityDTO extends DomainEntityDTO implements WebVisitable {
         this.times = times;
     }
 
-    public List<CourseOptionEntityDTO> getOptions() {
-        return options;
-    }
-
-    public void setOptions(List<CourseOptionEntityDTO> options) {
-        this.options = options;
-    }
-
     public List<RegionEntityDTO> getRegions() {
         return regions;
     }
@@ -204,6 +201,21 @@ public class CourseEntityDTO extends DomainEntityDTO implements WebVisitable {
         this.highlightedOnCategories = highlightedOnCategories;
     }
 
+    public List<OptionCategoryEntityDTO> getOptionCategories() {
+        return optionCategories;
+    }
+
+    public void setOptionCategories(List<OptionCategoryEntityDTO> optionCategories) {
+        this.optionCategories = optionCategories;
+    }
+
+    public List<CourseOptionEntityDTO> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<CourseOptionEntityDTO> options) {
+        this.options = options;
+    }
 
     public List<String> getRegionNames() {
         List<String> regionNames = new ArrayList<String>();
@@ -241,7 +253,7 @@ public class CourseEntityDTO extends DomainEntityDTO implements WebVisitable {
         return names;
     }
 
-    public List<String> getTagNamesAndIds(){
+    public List<String> getTagNamesAndIds() {
         List<String> tagNamesAndIds = new ArrayList<>();
         for (TagEntityDTO tag : tags) {
             tagNamesAndIds.add(tag.getSolrIdName());
@@ -249,6 +261,12 @@ public class CourseEntityDTO extends DomainEntityDTO implements WebVisitable {
         return tagNamesAndIds;
     }
 
+    public String getEuroPrice() {
+        NumberFormat format = NumberFormat.getCurrencyInstance();
+        format.setMinimumFractionDigits(2);
+        format.setMaximumFractionDigits(2);
+        return format.format(price / 100);
+    }
 
     @Override
     public String getUrl() {

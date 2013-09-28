@@ -22,7 +22,8 @@ public class ResultListing {
     private String filters;
 
 
-    private ResultListing() {}
+    private ResultListing() {
+    }
 
 
     public static class Builder {
@@ -32,31 +33,30 @@ public class ResultListing {
         private String filters;
         private Integer page;
 
-        public Builder setSearchResult(SearchResult result){
+        public Builder setSearchResult(SearchResult result) {
             this.searchResult = result;
             return this;
         }
 
-        public Builder setCriteria(SearchCriteria criteria){
+        public Builder setCriteria(SearchCriteria criteria) {
             this.criteria = criteria;
             return this;
         }
 
-        public Builder setFilters(String filters){
+        public Builder setFilters(String filters) {
             this.filters = filters;
             return this;
         }
 
 
-
-        public ResultListing build(){
+        public ResultListing build() {
             ResultListing listing = new ResultListing();
 
-            if(this.criteria == null){
+            if (this.criteria == null) {
                 throw new IllegalArgumentException("Please set criteria before building a result listing. It is required");
             }
 
-            if(this.searchResult == null){
+            if (this.searchResult == null) {
                 throw new IllegalArgumentException("Please set search result before building a result listing. It is required");
             }
 
@@ -70,25 +70,25 @@ public class ResultListing {
     }
 
 
-    public Collection<ListingCourseDTO> getCourses(){
+    public Collection<ListingCourseDTO> getCourses() {
         return searchResult.getCourses();
     }
 
-    public List<String> getPagingUrls(){
+    public List<String> getPagingUrls() {
 
         List<String> list = new ArrayList<>();
-        for(int i = 0; i < searchResult.getNumberOfResultPages(); i++){
+        for (int i = 0; i < searchResult.getNumberOfResultPages(); i++) {
             String link = "/" + searchResult.getBasePath();
 
-            if(!StringUtil.isNullOrEmpty(filters)){
+            if (!StringUtil.isNullOrEmpty(filters)) {
                 link += "/" + filters;
             }
 
-            if(i > 0){
+            if (i > 0) {
                 link += "/p" + i;
             }
 
-            if(criteria.hasQuery()){
+            if (criteria.hasQuery()) {
                 try {
                     link += "?for=" + URLEncoder.encode(criteria.getQuery(), "UTF-8");
                 } catch (UnsupportedEncodingException e) {
@@ -101,7 +101,7 @@ public class ResultListing {
         return list;
     }
 
-    public boolean hasPaging(){
+    public boolean hasPaging() {
         return searchResult.getNumberOfResultPages() > 0;
     }
 

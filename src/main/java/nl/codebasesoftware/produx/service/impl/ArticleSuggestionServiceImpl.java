@@ -42,8 +42,8 @@ public class ArticleSuggestionServiceImpl implements ArticleSuggestionService {
     }
 
     @Override
-    @Transactional (readOnly = true)
-    public List<ArticleSuggestion> findForUser(UserProfile user){
+    @Transactional(readOnly = true)
+    public List<ArticleSuggestion> findForUser(UserProfile user) {
         return articleSuggestionDao.findForUser(user);
     }
 
@@ -62,7 +62,7 @@ public class ArticleSuggestionServiceImpl implements ArticleSuggestionService {
         }
 
         // If there is an article id in the form data, than set the article on the suggestion
-        if(formData.getArticleId() != null){
+        if (formData.getArticleId() != null) {
             Article article = articleDao.find(formData.getArticleId());
             suggestion.setArticle(article);
         }

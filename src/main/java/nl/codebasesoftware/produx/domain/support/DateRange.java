@@ -24,11 +24,11 @@ public class DateRange {
         return startDate;
     }
 
-    public boolean isInRange(Calendar calendar){
+    public boolean isInRange(Calendar calendar) {
         return sameDay(calendar, startDate) || (calendar.after(startDate) && calendar.before(endDate)) || sameDay(calendar, endDate);
     }
 
-    private boolean sameDay(Calendar one, Calendar two){
+    private boolean sameDay(Calendar one, Calendar two) {
         return one.get(Calendar.YEAR) == two.get(Calendar.YEAR) && one.get(Calendar.DAY_OF_YEAR) == two.get(Calendar.DAY_OF_YEAR);
     }
 }

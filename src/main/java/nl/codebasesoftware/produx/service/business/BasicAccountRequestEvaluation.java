@@ -12,8 +12,6 @@ import java.util.List;
  * User: rvanloen
  * Date: 24-4-13
  * Time: 21:45
- *
- *
  */
 
 
@@ -116,7 +114,7 @@ public class BasicAccountRequestEvaluation {
         return userEmailExists;
     }
 
-    public boolean isOk(){
+    public boolean isOk() {
         return (!request.isEvaluated() && potentiallyExistingCompanies.size() == 0 && existingUserProfile == null) ||
                 (request.isEvaluated() && !request.isGranted());
     }

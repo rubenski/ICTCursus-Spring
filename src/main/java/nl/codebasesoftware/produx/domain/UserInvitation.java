@@ -103,7 +103,7 @@ public class UserInvitation implements DomainEntity {
         this.invitedBy = invitedBy;
     }
 
-    @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public Set<Role> getRoles() {
         return roles;
     }
@@ -131,13 +131,13 @@ public class UserInvitation implements DomainEntity {
     }
 
     @Transient
-    public String getFullNameFormal(){
+    public String getFullNameFormal() {
         return preposition != null ? String.format("%s, %s  %s", lastName, firstName, preposition) : String.format("%s, %s", lastName, firstName);
     }
 
     @Override
     @Transient
-    public UserInvitationEntityDTO toDTO(){
+    public UserInvitationEntityDTO toDTO() {
         UserInvitationEntityDTO dto = new UserInvitationEntityDTO();
         dto.setActivated(activated);
         dto.setCompany(company.toDTO());
@@ -155,8 +155,8 @@ public class UserInvitation implements DomainEntity {
     }
 
     @Transient
-    private List<RoleEntityDTO> getRolesAsDTOs(){
-        List<RoleEntityDTO> roleDTOs  = new ArrayList<>();
+    private List<RoleEntityDTO> getRolesAsDTOs() {
+        List<RoleEntityDTO> roleDTOs = new ArrayList<>();
         for (Role role : roles) {
             roleDTOs.add(role.toDTO());
         }

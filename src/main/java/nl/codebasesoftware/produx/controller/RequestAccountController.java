@@ -45,7 +45,7 @@ public class RequestAccountController {
         this.pageBlockService = pageBlockService;
     }
 
-    @RequestMapping(value= "/requestaccount", method = RequestMethod.GET)
+    @RequestMapping(value = "/requestaccount", method = RequestMethod.GET)
     public String setupForm(Model model, Locale locale) {
         setDefaultPageBlock(model);
         AccountRequestFormData accountRequestFormData = new AccountRequestFormData();
@@ -57,7 +57,7 @@ public class RequestAccountController {
     }
 
 
-    @RequestMapping(value= "/requestaccount", method = RequestMethod.POST)
+    @RequestMapping(value = "/requestaccount", method = RequestMethod.POST)
     public String submitForm(@ModelAttribute("accountRequestFormData") AccountRequestFormData accountRequestFormData, BindingResult result,
                              Model model, Locale locale) {
         validator.validate(accountRequestFormData, result);
@@ -73,16 +73,16 @@ public class RequestAccountController {
         return "main";
     }
 
-    @RequestMapping(value= "/requestaccount/success", method = RequestMethod.GET)
+    @RequestMapping(value = "/requestaccount/success", method = RequestMethod.GET)
     public String success(@ModelAttribute("accountRequestFormData") AccountRequestFormData accountRequestFormData,
-                            Model model, Locale locale) {
+                          Model model, Locale locale) {
         setPageTitle(model, locale, "pagetitle.requestaccount.success");
         model.addAttribute("mainContent", "content/requestaccountsuccess");
         setDefaultPageBlock(model);
         return "main";
     }
 
-    private void setPageTitle(Model model, Locale locale, String titleCode){
+    private void setPageTitle(Model model, Locale locale, String titleCode) {
         String title = messageSource.getMessage(titleCode, new Object[]{}, locale);
         model.addAttribute("title", title);
     }

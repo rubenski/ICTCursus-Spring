@@ -16,6 +16,8 @@ import java.util.Collection;
  */
 public interface SolrService {
     QueryResponse search(SolrParams params) throws ProduxServiceException;
+
     int addOrUpdate(Collection<CourseEntityDTO> courses);
+
     int addOrUpdate(CourseEntityDTO course);
 }

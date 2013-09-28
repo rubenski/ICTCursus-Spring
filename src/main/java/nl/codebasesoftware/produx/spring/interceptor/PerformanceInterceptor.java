@@ -24,7 +24,7 @@ public class PerformanceInterceptor extends HandlerInterceptorAdapter {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         long start = (Long) request.getAttribute("startTime");
-        if(modelAndView != null){
+        if (modelAndView != null) {
             modelAndView.addObject("requestTime", System.currentTimeMillis() - start);
         }
     }

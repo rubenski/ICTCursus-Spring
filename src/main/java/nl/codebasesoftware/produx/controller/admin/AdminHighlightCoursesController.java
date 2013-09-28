@@ -1,9 +1,9 @@
 package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.Category;
-import nl.codebasesoftware.produx.domain.HighlightedCoursePeriod;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
+import nl.codebasesoftware.produx.domain.HighlightedCoursePeriod;
 import nl.codebasesoftware.produx.domain.optionlists.NumberOfMonthsHighlighting;
 import nl.codebasesoftware.produx.domain.support.DateRange;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;

@@ -2,11 +2,8 @@ package nl.codebasesoftware.produx.domain.dto.listing;
 
 import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.DomainEntityDTO;
-import nl.codebasesoftware.produx.domain.dto.entity.TagEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.generic.WebVisitable;
 import nl.codebasesoftware.produx.service.business.CourseUrl;
-
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.

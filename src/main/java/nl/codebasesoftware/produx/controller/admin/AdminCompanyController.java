@@ -5,7 +5,6 @@ import nl.codebasesoftware.produx.domain.optionlists.ListOptions;
 import nl.codebasesoftware.produx.formdata.BindableCompany;
 import nl.codebasesoftware.produx.formdata.BindableFileUpload;
 import nl.codebasesoftware.produx.service.CompanyService;
-import nl.codebasesoftware.produx.service.SolrService;
 import nl.codebasesoftware.produx.validator.CompanyFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -45,7 +44,7 @@ public class AdminCompanyController {
 
     }
 
-    @RequestMapping(value= "/admin/company", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/company", method = RequestMethod.GET)
     public String getCompanyForm(Model model, Locale locale) {
 
         Company company = companyService.getCurrentlyLoggedInCompany();
@@ -60,7 +59,7 @@ public class AdminCompanyController {
         return "adminMain";
     }
 
-    @RequestMapping(value= "/admin/company", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/company", method = RequestMethod.POST)
     public String updateCompany(@ModelAttribute("bindableCompany") BindableCompany bindableCompany, BindingResult result, Model model, Locale locale) {
 
         validator.validate(bindableCompany, result);
@@ -82,13 +81,13 @@ public class AdminCompanyController {
         return "adminMain";
     }
 
-    @RequestMapping(value="/company/getcurrent", method = RequestMethod.GET)
-    public @ResponseBody BindableCompany getCompany(){
+    @RequestMapping(value = "/company/getcurrent", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    BindableCompany getCompany() {
         Company company = companyService.getCurrentlyLoggedInCompany();
         return company.toBindableCompany();
     }
-
-
 
 
 }

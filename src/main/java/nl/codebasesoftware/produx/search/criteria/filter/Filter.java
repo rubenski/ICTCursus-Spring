@@ -33,8 +33,8 @@ public abstract class Filter implements UrlTokenizable, SolrParameters {
         return tag;
     }
 
-    protected String getTaggedField(){
-        if(tag != null && tag.length() > 0){
+    protected String getTaggedField() {
+        if (tag != null && tag.length() > 0) {
             return String.format("{!tag=%s}%s", tag, solrFieldName);
         }
         return solrFieldName;

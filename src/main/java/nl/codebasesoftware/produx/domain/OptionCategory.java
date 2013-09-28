@@ -1,6 +1,5 @@
 package nl.codebasesoftware.produx.domain;
 
-import nl.codebasesoftware.produx.domain.dto.entity.DomainEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.OptionCategoryEntityDTO;
 import nl.codebasesoftware.produx.formdata.BindableOptionCategory;
 
@@ -85,6 +84,11 @@ public class OptionCategory implements DomainEntity {
         dto.setId(id);
         dto.setName(name);
         dto.setDisplayRank(displayRank);
+
+        for (CourseOption option : options) {
+            dto.addOption(option.toDTO());
+        }
+
         return dto;
     }
 }

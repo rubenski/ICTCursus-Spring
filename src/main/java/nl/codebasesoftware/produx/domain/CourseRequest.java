@@ -1,7 +1,6 @@
 package nl.codebasesoftware.produx.domain;
 
 import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
-import nl.codebasesoftware.produx.domain.dto.entity.DomainEntityDTO;
 
 import javax.persistence.*;
 import java.util.Calendar;

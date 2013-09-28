@@ -28,7 +28,6 @@ public class CompanyEntityDTO extends ListingCompanyDTO {
     private byte[] smallLogo;
 
 
-
     public String getEmail() {
         return email;
     }

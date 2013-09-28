@@ -1,7 +1,6 @@
 package nl.codebasesoftware.produx.service.impl;
 
 import nl.codebasesoftware.produx.conversion.QueryResponseToSearchResultConverter;
-import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.search.criteria.SearchCriteria;
 import nl.codebasesoftware.produx.search.criteria.facet.*;
@@ -48,34 +47,33 @@ public class SearchServiceImpl implements SearchService {
         return converter.convert(response, criteria, baseDirs);
     }
 
-    public FacetField createPriceFacet(List<Filter> filterList){
+    public FacetField createPriceFacet(List<Filter> filterList) {
         RangeFacetField priceFacet = new RangeFacetField("price", 0, 300000, 50000, FacetSortingBehavior.NATURAL_ORDER);
         priceFacet.addOtherBehavior(RangeFacetOtherBehavior.AFTER);
         for (Filter filter : filterList) {
-            if(filter.getTag().equals("_price")){
+            if (filter.getTag().equals("_price")) {
                 priceFacet.addExcludedFilter("_price");
             }
         }
         return priceFacet;
     }
 
-    public FacetField createTagsFacet(){
+    public FacetField createTagsFacet() {
         NormalFacetField tagsFacet = new NormalFacetField("tags", FacetSortingBehavior.COUNT);
         tagsFacet.setMinCount(1);
         return tagsFacet;
     }
 
-    public FacetField createRegionsFacet(List<Filter> filterList){
+    public FacetField createRegionsFacet(List<Filter> filterList) {
         NormalFacetField regionFacet = new NormalFacetField("regions", FacetSortingBehavior.NATURAL_ORDER);
         for (Filter filter : filterList) {
-            if(filter.getTag().equals("_regions")){
+            if (filter.getTag().equals("_regions")) {
                 regionFacet.addExcludedFilter("_regions");
             }
         }
         regionFacet.setMinCount(1);
         return regionFacet;
     }
-
 
 
 }

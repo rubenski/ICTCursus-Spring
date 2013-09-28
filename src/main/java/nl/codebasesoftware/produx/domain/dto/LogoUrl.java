@@ -9,11 +9,11 @@ package nl.codebasesoftware.produx.domain.dto;
  */
 public class LogoUrl {
 
-    public static String getSmallAbsUrl(long id){
+    public static String getSmallAbsUrl(long id) {
         return String.format("/logo/small/%d-cursus-logo.png", id);
     }
 
-    public static String getNormalAbsUrl(long id){
+    public static String getNormalAbsUrl(long id) {
         return String.format("/logo/normal/%d-logo.png", id);
     }
 }

@@ -1,9 +1,11 @@
 package nl.codebasesoftware.produx.domain;
 
-import nl.codebasesoftware.produx.domain.dto.entity.DomainEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.ExperienceEntityDTO;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  * User: rvanloen

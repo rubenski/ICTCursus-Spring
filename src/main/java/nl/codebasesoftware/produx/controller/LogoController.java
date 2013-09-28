@@ -80,7 +80,7 @@ public class LogoController {
 
         ServletOutputStream outputStream = null;
 
-        if(logo != null){
+        if (logo != null) {
             try {
                 outputStream = response.getOutputStream();
                 outputStream.write(logo);
@@ -95,13 +95,13 @@ public class LogoController {
 
     @RequestMapping(value = "/admin/logo/remove/{companyId}", method = RequestMethod.POST)
     @ResponseBody
-    public void removeLogo(@PathVariable(value = "companyId") long companyId){
+    public void removeLogo(@PathVariable(value = "companyId") long companyId) {
         companyService.removeLogo(companyId);
     }
 
     @RequestMapping(value = "/admin/logo/has/{companyId}", method = RequestMethod.POST)
     @ResponseBody
-    public boolean hasLogo(@PathVariable(value = "companyId") long companyId){
+    public boolean hasLogo(@PathVariable(value = "companyId") long companyId) {
         Company company = companyService.findById(companyId);
         return company.hasLogo();
     }

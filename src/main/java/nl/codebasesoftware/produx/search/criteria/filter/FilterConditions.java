@@ -14,11 +14,11 @@ public enum FilterConditions {
 
     private final String condition;
 
-    private FilterConditions(String condition){
+    private FilterConditions(String condition) {
         this.condition = condition;
     }
 
-    public String getValue(){
+    public String getValue() {
         return condition;
     }
 }

@@ -1,6 +1,5 @@
 package nl.codebasesoftware.produx.service.impl;
 
-import nl.codebasesoftware.produx.conversion.QueryResponseToSearchResultConverter;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.search.SolrServerFactory;

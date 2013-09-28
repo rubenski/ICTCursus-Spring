@@ -67,14 +67,13 @@ public class InvitationMailer {
         mailSender.send(preparator);
     }
 
-    private String createLink(UserInvitation invitation, String protocol, String host, String port){
+    private String createLink(UserInvitation invitation, String protocol, String host, String port) {
         String portInUrl = "";
-        if(Integer.parseInt(port) != DEFAULT_PORT){
+        if (Integer.parseInt(port) != DEFAULT_PORT) {
             portInUrl = String.format(":%s", port);
         }
         return String.format("%s://%s%s/users/activate/%s", protocol, host, portInUrl, invitation.getSecurityCode());
     }
-
 
 
 }

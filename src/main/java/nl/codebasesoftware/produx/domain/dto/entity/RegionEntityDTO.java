@@ -33,7 +33,7 @@ public class RegionEntityDTO extends DomainEntityDTO implements SolrNameAndId {
     }
 
     @Override
-    public String getSolrIdName(){
+    public String getSolrIdName() {
         return SolrIdName.createForSolr(id, name);
     }
 }

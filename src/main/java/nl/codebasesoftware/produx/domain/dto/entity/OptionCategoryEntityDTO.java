@@ -1,9 +1,9 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
-import nl.codebasesoftware.produx.domain.CourseOption;
+import nl.codebasesoftware.produx.comparator.RankOrderable;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,11 +12,12 @@ import java.util.Set;
  * Time: 16:31
  * To change this template use File | Settings | File Templates.
  */
-public class OptionCategoryEntityDTO extends DomainEntityDTO {
+public class OptionCategoryEntityDTO extends DomainEntityDTO implements RankOrderable {
 
     private Long id;
     private String name;
     private int displayRank;
+    private List<CourseOptionEntityDTO> options = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -34,6 +35,15 @@ public class OptionCategoryEntityDTO extends DomainEntityDTO {
         this.name = name;
     }
 
+    public List<CourseOptionEntityDTO> getOptions() {
+        return options;
+    }
+
+    public void addOption(CourseOptionEntityDTO option) {
+        this.options.add(option);
+    }
+
+    @Override
     public int getDisplayRank() {
         return displayRank;
     }

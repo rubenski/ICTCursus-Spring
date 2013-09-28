@@ -32,50 +32,50 @@ public class CompanyFormValidator implements Validator {
         Pattern defaultPattern = Pattern.compile(defaultRegex);
 
         Matcher matcher = defaultPattern.matcher(bindableCompany.getName());
-        if(!matcher.matches()){
+        if (!matcher.matches()) {
             errors.rejectValue("name", "errors.company.name");
         }
 
         matcher = defaultPattern.matcher(bindableCompany.getAddress());
-        if(!matcher.matches()){
+        if (!matcher.matches()) {
             errors.rejectValue("address", "errors.company.address");
         }
 
-        if(!ProduxValidator.isValidZipCode(bindableCompany.getZipCode())){
+        if (!ProduxValidator.isValidZipCode(bindableCompany.getZipCode())) {
             errors.rejectValue("zipCode", "errors.company.zipcode");
         }
 
         String cityRegex = "[A-Za-z '&()-]{2,25}";
         Pattern cityPattern = Pattern.compile(cityRegex);
         matcher = cityPattern.matcher(bindableCompany.getCity());
-        if(!matcher.matches()){
+        if (!matcher.matches()) {
             errors.rejectValue("city", "errors.company.city");
         }
 
-        if(bindableCompany.getCountry().equals("-1")){
+        if (bindableCompany.getCountry().equals("-1")) {
             errors.rejectValue("country", "errors.company.country");
         }
 
         String emailRegex = "[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
         Pattern emailPattern = Pattern.compile(emailRegex);
         matcher = emailPattern.matcher(bindableCompany.getEmail());
-        if(!matcher.matches()){
+        if (!matcher.matches()) {
             errors.rejectValue("email", "errors.invalid.email");
         }
 
         String phoneRegex = "[0-9 ]{10,12}";
         Pattern phonePattern = Pattern.compile(phoneRegex);
         matcher = phonePattern.matcher(bindableCompany.getPhone());
-        if(!matcher.matches()){
+        if (!matcher.matches()) {
             errors.rejectValue("phone", "errors.company.phone");
         }
 
-        if(!ProduxValidator.isValidVatNumber(bindableCompany.getVatNumber())){
+        if (!ProduxValidator.isValidVatNumber(bindableCompany.getVatNumber())) {
             errors.rejectValue("vatNumber", "errors.company.vatnumber");
         }
 
 
-        if(!ProduxValidator.isValidTradeNumber(bindableCompany.getChamberOfCommerceNumber())){
+        if (!ProduxValidator.isValidTradeNumber(bindableCompany.getChamberOfCommerceNumber())) {
             errors.rejectValue("chamberOfCommerceNumber", "errors.company.chamberofcommercenumber");
         }
     }

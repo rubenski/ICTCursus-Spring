@@ -3,8 +3,8 @@ package nl.codebasesoftware.produx.service.impl;
 import nl.codebasesoftware.produx.dao.CategoryDao;
 import nl.codebasesoftware.produx.dao.CategoryHighlightPeriodDao;
 import nl.codebasesoftware.produx.domain.Category;
-import nl.codebasesoftware.produx.domain.HighlightedCoursePeriod;
 import nl.codebasesoftware.produx.domain.Course;
+import nl.codebasesoftware.produx.domain.HighlightedCoursePeriod;
 import nl.codebasesoftware.produx.domain.support.DateRange;
 import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.service.HighlightedCoursePeriodService;
@@ -91,7 +91,7 @@ public class HighlightedCoursePeriodServiceImpl implements HighlightedCoursePeri
         return new DateRange(startDate, endDate);
     }
 
-    public List<HighlightedCoursePeriod> findCurrentAndFutureHighlightedCoursesForCompany(long categoryId, long companyId){
+    public List<HighlightedCoursePeriod> findCurrentAndFutureHighlightedCoursesForCompany(long categoryId, long companyId) {
         return categoryHighlightPeriodDao.findCurrentAndFutureHighlightedCoursesForCompany(categoryId, companyId, Calendar.getInstance());
     }
 
@@ -99,7 +99,7 @@ public class HighlightedCoursePeriodServiceImpl implements HighlightedCoursePeri
         Calendar startDate = Calendar.getInstance();
         if (currentAndFutureHighlightedCourses.size() == highlightedCoursesPerCategory) {
             for (HighlightedCoursePeriod highlightedCourse : currentAndFutureHighlightedCourses) {
-                if(highlightedCourse.getEndTime().before(startDate)){
+                if (highlightedCourse.getEndTime().before(startDate)) {
                     startDate = highlightedCourse.getEndTime();
                 }
             }

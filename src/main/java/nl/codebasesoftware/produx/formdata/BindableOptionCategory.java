@@ -27,16 +27,16 @@ public class BindableOptionCategory {
         return options;
     }
 
-    public void addOption(BindableCourseOption option){
+    public void addOption(BindableCourseOption option) {
         options.add(option);
     }
 
-    public boolean equals(Object o){
-        if(!(o instanceof BindableOptionCategory)) return false;
+    public boolean equals(Object o) {
+        if (!(o instanceof BindableOptionCategory)) return false;
         return ((BindableOptionCategory) o).displayName.equals(displayName);
     }
 
-    public int hashCode(){
+    public int hashCode() {
         return displayName.hashCode();
     }
 }

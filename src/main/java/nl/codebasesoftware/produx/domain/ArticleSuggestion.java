@@ -54,7 +54,7 @@ public class ArticleSuggestion implements DomainEntity {
     }
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name="article_id", nullable = true)
+    @JoinColumn(name = "article_id", nullable = true)
     public Article getArticle() {
         return article;
     }
@@ -63,7 +63,7 @@ public class ArticleSuggestion implements DomainEntity {
         this.article = article;
     }
 
-    @ManyToOne (fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "suggested_by", nullable = false)
     public UserProfile getSuggester() {
         return suggester;
@@ -100,7 +100,7 @@ public class ArticleSuggestion implements DomainEntity {
     }
 
     @Transient
-    public boolean isUsed(){
+    public boolean isUsed() {
         return article != null;
     }
 

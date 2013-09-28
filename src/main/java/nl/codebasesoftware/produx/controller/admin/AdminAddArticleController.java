@@ -33,7 +33,7 @@ import java.util.Locale;
 public class AdminAddArticleController {
 
 
-    @Resource (name = "addArticleValidator")
+    @Resource(name = "addArticleValidator")
     private AddArticleFormValidator formValidator;
 
     private ArticleSuggestionService articleSuggestionService;
@@ -53,12 +53,11 @@ public class AdminAddArticleController {
     }
 
 
-
     @RequestMapping(value = "/admin/articles/suggested/add/{suggestionId}", method = RequestMethod.GET)
     public String addArticleForm(@PathVariable("suggestionId") Long suggestiondId, Model model, Locale locale) {
         ArticleSuggestion suggestion = articleSuggestionService.findById(suggestiondId);
 
-        if (suggestion == null || !suggestion.getSuggester().equals(CurrentUser.get()) || !suggestion.isApproved() || suggestion.isUsed() ) {
+        if (suggestion == null || !suggestion.getSuggester().equals(CurrentUser.get()) || !suggestion.isApproved() || suggestion.isUsed()) {
             throw new ResourceNotFoundException();
         }
 
@@ -86,7 +85,7 @@ public class AdminAddArticleController {
         return "adminMain";
     }
 
-    private void setAddArticleFormData(Model model, Locale locale, AddArticleFormData formData){
+    private void setAddArticleFormData(Model model, Locale locale, AddArticleFormData formData) {
         List<Category> categories = categoryService.findAll();
         model.addAttribute("categories", categories);
         model.addAttribute("headerText", messageSource.getMessage("admin.articles.header.newarticle", new Object[]{}, locale));

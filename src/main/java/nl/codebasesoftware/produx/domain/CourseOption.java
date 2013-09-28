@@ -1,7 +1,6 @@
 package nl.codebasesoftware.produx.domain;
 
 import nl.codebasesoftware.produx.domain.dto.entity.CourseOptionEntityDTO;
-import nl.codebasesoftware.produx.domain.dto.entity.DomainEntityDTO;
 import nl.codebasesoftware.produx.formdata.BindableCourseOption;
 
 import javax.persistence.*;
@@ -58,12 +57,12 @@ public class CourseOption implements DomainEntity {
         this.displayRank = displayRank;
     }
 
-    public boolean equals(Object o){
-        if(!(o instanceof CourseOption)) return false;
-        return ((CourseOption)o).id.equals(id);
+    public boolean equals(Object o) {
+        if (!(o instanceof CourseOption)) return false;
+        return ((CourseOption) o).id.equals(id);
     }
 
-    public int hashCode(){
+    public int hashCode() {
         return (int) (id * 17);
     }
 
@@ -79,7 +78,6 @@ public class CourseOption implements DomainEntity {
     public CourseOptionEntityDTO toDTO() {
         CourseOptionEntityDTO dto = new CourseOptionEntityDTO();
         dto.setId(id);
-        dto.setCategory(category.toDTO());
         dto.setDisplayRank(displayRank);
         dto.setDisplayName(displayName);
         return dto;

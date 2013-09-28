@@ -29,7 +29,7 @@ public class ProduxValidator {
     }
 
     public static boolean isValidName(String name) {
-        if(name == null || name.length() == 0){
+        if (name == null || name.length() == 0) {
             return false;
         }
         Pattern p = Pattern.compile("[a-zA-Z ']{2,20}");
@@ -91,17 +91,17 @@ public class ProduxValidator {
     }
 
 
-    public static boolean isValidTradeNumber(String tradeNumber){
+    public static boolean isValidTradeNumber(String tradeNumber) {
         Pattern p = Pattern.compile("[0-9]{8}");
         Matcher m = p.matcher(tradeNumber);
         return m.matches();
     }
 
-    public static boolean isShorterThan(String text, int length){
+    public static boolean isShorterThan(String text, int length) {
         return text.length() < length;
     }
 
-    public static boolean isLongerThan(String text, int length){
+    public static boolean isLongerThan(String text, int length) {
         return text.length() > length;
     }
 
@@ -154,18 +154,18 @@ public class ProduxValidator {
         String zipCodeRegex = "[0-9]{4}[A-Za-z]{0,2}";
         Pattern zipCodePattern = Pattern.compile(zipCodeRegex);
         Matcher matcher = zipCodePattern.matcher(zip);
-        return  matcher.matches();
+        return matcher.matches();
     }
 
     public static boolean isValidBudgetTriggerAmount(Integer budgetTriggerAmount) {
-        if(budgetTriggerAmount == null){
+        if (budgetTriggerAmount == null) {
             return true;
         }
 
         Pattern p = Pattern.compile("[1-9]{1}[0-9]{1,3}");
         Matcher matcher = p.matcher(budgetTriggerAmount.toString());
         boolean match = matcher.matches();
-        if(!match){
+        if (!match) {
             return false;
         }
 
@@ -177,8 +177,8 @@ public class ProduxValidator {
     }
 
     public static boolean isValidNumberOfParticipants(int numberOfParticipants) {
-        for(int i = 0; i < NumberOfParticipants.NUMBERS.length; i++){
-            if(numberOfParticipants == NumberOfParticipants.NUMBERS[i]){
+        for (int i = 0; i < NumberOfParticipants.NUMBERS.length; i++) {
+            if (numberOfParticipants == NumberOfParticipants.NUMBERS[i]) {
                 return true;
             }
         }

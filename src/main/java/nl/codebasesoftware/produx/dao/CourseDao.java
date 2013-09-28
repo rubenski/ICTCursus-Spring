@@ -1,6 +1,8 @@
 package nl.codebasesoftware.produx.dao;
 
-import nl.codebasesoftware.produx.domain.*;
+import nl.codebasesoftware.produx.domain.Company;
+import nl.codebasesoftware.produx.domain.Course;
+import nl.codebasesoftware.produx.domain.Time;
 
 import java.util.Calendar;
 import java.util.List;
@@ -13,10 +15,15 @@ import java.util.List;
 public interface CourseDao extends GenericDao<Course> {
 
     List<Course> findCourses(Company company);
+
     Course findFull(Long id);
+
     List<Long> findIndexableCourseIds(Calendar lastIndexDate);
+
     List findForListing(List<Long> ids);
+
     List<Time> findCourseTimes();
+
     Time getCourseTime(long id);
 
     List<Course> findCoursesForCompanyAndCategory(Long companyId, Long categoryId);

@@ -19,9 +19,9 @@ public class FilterFromUrlExtractor {
         urlToSorlFieldMapping.put("tags", "tag_ids");
     }
 
-    public List<Filter> stringToFilters(String filters){
+    public List<Filter> stringToFilters(String filters) {
 
-        if(filters == null || filters.length() == 0){
+        if (filters == null || filters.length() == 0) {
             return Collections.EMPTY_LIST;
         }
 
@@ -37,7 +37,7 @@ public class FilterFromUrlExtractor {
             String value = nameValue[1];
 
             List<String> filterValues = filterMap.get(name);
-            if(filterValues == null){
+            if (filterValues == null) {
                 filterValues = new ArrayList<>();
                 filterMap.put(name, filterValues);
             }
@@ -47,31 +47,31 @@ public class FilterFromUrlExtractor {
         }
 
         Filter priceFilter = extractPriceFilter(filterMap);
-        if(priceFilter != null){
+        if (priceFilter != null) {
             filterList.add(priceFilter);
         }
 
         Filter regionsFilter = extractMultiValueNormalFilter(filterMap, "regions", FilterConditions.OR);
-        if(regionsFilter != null){
+        if (regionsFilter != null) {
             filterList.add(regionsFilter);
         }
 
         Filter tagsFilter = extractMultiValueNormalFilter(filterMap, "tags", FilterConditions.OR);
-        if(tagsFilter != null){
+        if (tagsFilter != null) {
             filterList.add(tagsFilter);
         }
 
         return filterList;
     }
 
-    private Filter extractMultiValueNormalFilter(Map<String, List<String>> filters, String field, FilterConditions filterCondition){
+    private Filter extractMultiValueNormalFilter(Map<String, List<String>> filters, String field, FilterConditions filterCondition) {
         List<String> values = filters.get(field);
-        if(values == null || values.size() == 0){
+        if (values == null || values.size() == 0) {
             return null;
         }
 
         String solrTargetField = urlToSorlFieldMapping.get(field);
-        if(solrTargetField == null){
+        if (solrTargetField == null) {
             solrTargetField = field;
         }
 
@@ -80,11 +80,11 @@ public class FilterFromUrlExtractor {
         return filter;
     }
 
-    private static Filter extractPriceFilter(Map<String, List<String>> filters){
+    private static Filter extractPriceFilter(Map<String, List<String>> filters) {
 
         List<String> priceRanges = filters.get("price");
 
-        if(priceRanges == null || priceRanges.size() == 0){
+        if (priceRanges == null || priceRanges.size() == 0) {
             return null;
         }
 

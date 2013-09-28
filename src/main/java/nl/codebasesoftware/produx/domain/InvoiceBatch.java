@@ -1,6 +1,5 @@
 package nl.codebasesoftware.produx.domain;
 
-import nl.codebasesoftware.produx.domain.dto.entity.DomainEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.InvoiceBatchEntityDTO;
 
 import javax.persistence.GeneratedValue;

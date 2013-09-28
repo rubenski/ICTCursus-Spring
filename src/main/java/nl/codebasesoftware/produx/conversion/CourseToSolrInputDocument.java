@@ -12,7 +12,6 @@ import org.springframework.core.convert.converter.Converter;
 public class CourseToSolrInputDocument implements Converter<CourseEntityDTO, SolrInputDocument> {
 
 
-
     @Override
     public SolrInputDocument convert(CourseEntityDTO course) {
 

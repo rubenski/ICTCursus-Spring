@@ -1,6 +1,5 @@
 package nl.codebasesoftware.produx.controller;
 
-import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.service.PageBlockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,29 +9,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * User: rvanloen
- * Date: 15-8-12
- * Time: 11:24
+ * Date: 25-9-13
+ * Time: 13:43
  */
 @Controller
-public class LoginFormController {
+public class PageController {
+
 
     private PageBlockService pageBlockService;
 
     @Autowired
-    public LoginFormController(PageBlockService pageBlockService) {
+    public PageController(PageBlockService pageBlockService) {
         this.pageBlockService = pageBlockService;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String createLoginForm(Model model) {
-        pageBlockService.setCourseCategoriesInLeftColumn(model);
+
+    @RequestMapping(value = "/page/cursusaanbieders", method = RequestMethod.GET)
+    public String getVoorCursusaanbieders(Model model) {
+
         pageBlockService.setEmptyRightColumn(model);
-        model.addAttribute("mainContent", "forms/springLogin");
-        UserProfile userProfile = new UserProfile();
-        model.addAttribute("userProfile", userProfile);
-        model.addAttribute("title", "ICT Cursus : inloggen");
+        pageBlockService.setCourseCategoriesInLeftColumn(model);
+        model.addAttribute("title", "ICT Cursus voor cursusaanbieders");
+        model.addAttribute("mainContent", "content/forcompanies");
         return "main";
     }
-
-
 }

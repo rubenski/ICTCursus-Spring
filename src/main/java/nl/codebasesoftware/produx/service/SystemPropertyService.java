@@ -9,5 +9,6 @@ import java.util.Calendar;
  */
 public interface SystemPropertyService {
     Calendar lastSolrUpdateDate();
+
     String findByKey(String key);
 }

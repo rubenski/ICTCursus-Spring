@@ -2,7 +2,6 @@ package nl.codebasesoftware.produx.domain;
 
 import nl.codebasesoftware.produx.comparator.RankOrderable;
 import nl.codebasesoftware.produx.domain.dto.entity.ArticlePageEntityDTO;
-import nl.codebasesoftware.produx.service.business.ArticlePageUrl;
 
 import javax.persistence.*;
 

@@ -32,10 +32,10 @@ public abstract class InvoiceRecord implements DomainEntity {
         this.id = id;
     }
 
-    @ElementCollection (fetch=FetchType.EAGER)
-    @CollectionTable(name="invoicerecord_sourcefields" , joinColumns=@JoinColumn(name="id"))
-    @MapKeyColumn(name="fieldname")
-    @Column(name="value")
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "invoicerecord_sourcefields", joinColumns = @JoinColumn(name = "id"))
+    @MapKeyColumn(name = "fieldname")
+    @Column(name = "value")
     public Map<String, String> getSourceFields() {
         return sourceFields;
     }

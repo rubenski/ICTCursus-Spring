@@ -154,7 +154,7 @@ public class AccountRequestFormData {
         this.vatNumber = vatNumber;
     }
 
-    public boolean isPersisted(){
+    public boolean isPersisted() {
         return id != null;
     }
 

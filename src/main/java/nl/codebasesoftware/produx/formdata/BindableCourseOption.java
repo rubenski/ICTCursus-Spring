@@ -37,12 +37,12 @@ public class BindableCourseOption implements RankOrderable {
         this.displayRank = displayRank;
     }
 
-    public boolean equals(Object o){
-        if(!(o instanceof BindableCourseOption)) return false;
+    public boolean equals(Object o) {
+        if (!(o instanceof BindableCourseOption)) return false;
         return ((BindableCourseOption) o).id.equals(id);
     }
 
-    public int hashCode(){
+    public int hashCode() {
         return (int) (id * 17);
     }
 }

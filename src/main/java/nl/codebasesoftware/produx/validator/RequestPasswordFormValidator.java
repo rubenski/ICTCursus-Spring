@@ -34,13 +34,14 @@ public class RequestPasswordFormValidator implements Validator {
         BindableForgotPassword forgotPassword = (BindableForgotPassword) target;
 
 
-        if(!ProduxValidator.isValidEmail(forgotPassword.getEmail())){
+        if (!ProduxValidator.isValidEmail(forgotPassword.getEmail())) {
             errors.rejectValue("email", "error.email.invalid");
+            return;
         }
 
         UserProfile profile = userProfileService.findByEmail(forgotPassword.getEmail());
 
-        if(profile == null){
+        if (profile == null) {
             errors.rejectValue("email", "error.email.nonexistent");
         }
     }

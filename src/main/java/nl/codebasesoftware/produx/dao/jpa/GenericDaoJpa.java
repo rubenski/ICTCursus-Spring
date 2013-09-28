@@ -2,8 +2,6 @@ package nl.codebasesoftware.produx.dao.jpa;
 
 import nl.codebasesoftware.produx.dao.GenericDao;
 import nl.codebasesoftware.produx.domain.DomainEntity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

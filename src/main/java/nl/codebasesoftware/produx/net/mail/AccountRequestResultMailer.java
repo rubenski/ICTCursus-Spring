@@ -32,7 +32,7 @@ public class AccountRequestResultMailer {
     @Resource
     private Properties properties;
 
-    public void sendRejectionMail(final AccountRequest request, Locale locale)  {
+    public void sendRejectionMail(final AccountRequest request, Locale locale) {
 
         final String fromEmail = properties.getProperty("email.from.address");
         final String subject = TextProperties.getTextProperty("account.request.rejected.subject", locale.getLanguage());

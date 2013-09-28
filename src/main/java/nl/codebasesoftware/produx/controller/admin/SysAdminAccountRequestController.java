@@ -39,7 +39,7 @@ public class SysAdminAccountRequestController {
     @Autowired
     public SysAdminAccountRequestController(AccountRequestService accountRequestService, MessageSource messageSource,
                                             RequestAccountFormValidator validator, ConversionService conversionService,
-                                            ListOptions options){
+                                            ListOptions options) {
         this.accountRequestService = accountRequestService;
         this.messageSource = messageSource;
         this.validator = validator;
@@ -47,22 +47,22 @@ public class SysAdminAccountRequestController {
         this.options = options;
     }
 
-    @RequestMapping(value="/admin/sys/accountrequests", method = RequestMethod.GET)
-    public String overview(Model model, Locale locale){
+    @RequestMapping(value = "/admin/sys/accountrequests", method = RequestMethod.GET)
+    public String overview(Model model, Locale locale) {
         setAccountRequestsPageData(model, locale);
         return "sysAdminMain";
     }
 
-    @RequestMapping(value="/admin/sys/accountrequests/{id}", method = RequestMethod.GET)
-    public String showRequestForm(@PathVariable("id") Long id, Model model, Locale locale){
+    @RequestMapping(value = "/admin/sys/accountrequests/{id}", method = RequestMethod.GET)
+    public String showRequestForm(@PathVariable("id") Long id, Model model, Locale locale) {
         AccountRequest request = accountRequestService.find(id);
         AccountRequestFormData requestFormData = conversionService.convert(request, AccountRequestFormData.class);
         setAccountRequestData(model, locale, requestFormData, "");
         return "sysAdminMain";
     }
 
-    @RequestMapping(value="/admin/sys/accountrequests/acceptreject", method = RequestMethod.POST)
-    public String submit(HttpServletRequest request, Model model, Locale locale){
+    @RequestMapping(value = "/admin/sys/accountrequests/acceptreject", method = RequestMethod.POST)
+    public String submit(HttpServletRequest request, Model model, Locale locale) {
         setAccountRequestsPageData(model, locale);
         String id = request.getParameter("id");
         String message = request.getParameter("adminMessage");
@@ -70,25 +70,24 @@ public class SysAdminAccountRequestController {
         String reject = request.getParameter("reject");
         long requestId = Long.parseLong(id);
 
-        if(StringUtils.isNotEmpty(accept)){
+        if (StringUtils.isNotEmpty(accept)) {
             accountRequestService.grant(requestId, message, locale);
-        }else if(StringUtils.isNotEmpty(reject)){
+        } else if (StringUtils.isNotEmpty(reject)) {
             accountRequestService.reject(requestId, message, locale);
         }
-
 
 
         return "redirect:/admin/sys/accountrequests";
     }
 
 
-    @RequestMapping(value="/admin/sys/accountrequests/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/sys/accountrequests/{id}", method = RequestMethod.POST)
     public String submitRequestForm(@ModelAttribute("accountRequestFormData") AccountRequestFormData formData, Model model,
-                                    BindingResult result, Locale locale){
+                                    BindingResult result, Locale locale) {
 
         validator.validate(formData, result);
         String valid = "false";
-        if(!result.hasErrors()){
+        if (!result.hasErrors()) {
             accountRequestService.save(formData);
             valid = "true";
         }
@@ -97,7 +96,7 @@ public class SysAdminAccountRequestController {
         return "sysAdminMain";
     }
 
-    private void setAccountRequestData(Model model, Locale locale, AccountRequestFormData requestFormData, String valid){
+    private void setAccountRequestData(Model model, Locale locale, AccountRequestFormData requestFormData, String valid) {
         model.addAttribute("accountRequestFormData", requestFormData);
         model.addAttribute("headerText", messageSource.getMessage("sysadmin.sections.accountrequest", new Object[]{}, locale));
         model.addAttribute("mainContent", "forms/adminaccountrequest");
@@ -105,7 +104,7 @@ public class SysAdminAccountRequestController {
         model.addAttribute("valid", valid);
     }
 
-    private void setAccountRequestsPageData(Model model, Locale locale){
+    private void setAccountRequestsPageData(Model model, Locale locale) {
         List<BasicAccountRequestEvaluation> unevaluatedRequests = accountRequestService.findNonEvaluated();
         List<BasicAccountRequestEvaluation> evaluatedRequests = accountRequestService.findEvaluated();
         model.addAttribute("headerText", messageSource.getMessage("sysadmin.sections.accountrequests", new Object[]{}, locale));

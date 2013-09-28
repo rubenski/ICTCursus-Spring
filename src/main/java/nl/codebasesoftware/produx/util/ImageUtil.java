@@ -5,7 +5,6 @@ import org.apache.commons.io.IOUtils;
 import org.imgscalr.Scalr;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
@@ -36,7 +35,7 @@ public class ImageUtil {
         return new ImageDimensions(newWidth, newHeight);
     }
 
-    public static byte[] resizeWithImgScalr(InputStream imageData, int maxLength){
+    public static byte[] resizeWithImgScalr(InputStream imageData, int maxLength) {
         BufferedImage result = null;
         try {
             BufferedImage source = ImageIO.read(imageData);
@@ -64,7 +63,7 @@ public class ImageUtil {
         return imageBytes;
     }
 
-    public static void saveImage(byte[] bytes, String filePath){
+    public static void saveImage(byte[] bytes, String filePath) {
 
         try {
             File f = new File(filePath);

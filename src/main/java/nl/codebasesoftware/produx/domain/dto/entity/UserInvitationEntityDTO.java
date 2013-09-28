@@ -1,12 +1,7 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
-import nl.codebasesoftware.produx.domain.Company;
-import nl.codebasesoftware.produx.domain.Role;
-import nl.codebasesoftware.produx.domain.UserProfile;
-
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.

@@ -35,13 +35,13 @@ public class ProduxAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         UserProfile profile = userProfileService.findByEmail(authentication.getPrincipal().toString());
 
-        if(profile == null){
+        if (profile == null) {
             throw new UsernameNotFoundException(String.format("Invalid credentials", authentication.getPrincipal()));
         }
 
         String suppliedPasswordHash = SecurityUtil.createShaHash(authentication.getCredentials().toString());
 
-        if(!profile.getPasswordHash().equals(suppliedPasswordHash)){
+        if (!profile.getPasswordHash().equals(suppliedPasswordHash)) {
             throw new BadCredentialsException("Invalid credentials");
         }
 

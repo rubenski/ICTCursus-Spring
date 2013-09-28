@@ -46,7 +46,7 @@ public class Time implements DomainEntity {
 
     @Override
     @Transient
-    public TimeEntityDTO toDTO(){
+    public TimeEntityDTO toDTO() {
         TimeEntityDTO dto = new TimeEntityDTO();
         dto.setName(name);
         dto.setId(id);

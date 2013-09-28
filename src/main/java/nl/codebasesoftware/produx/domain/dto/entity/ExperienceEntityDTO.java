@@ -1,7 +1,5 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
-import nl.codebasesoftware.produx.domain.Course;
-
 /**
  * Created with IntelliJ IDEA.
  * User: rvanloen

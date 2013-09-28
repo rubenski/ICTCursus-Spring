@@ -1,6 +1,5 @@
 package nl.codebasesoftware.produx.controller.admin;
 
-import nl.codebasesoftware.produx.domain.Article;
 import nl.codebasesoftware.produx.domain.ArticlePage;
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;

@@ -40,7 +40,7 @@ public class MultiValueNormalFilter extends Filter {
         String valueString = "";
 
         for (int i = 0; i < size; i++) {
-            valueString += (i != 0  ? String.format(" %s ", condition.getValue()) : "") + "\"" + values.get(i) + "\"";
+            valueString += (i != 0 ? String.format(" %s ", condition.getValue()) : "") + "\"" + values.get(i) + "\"";
         }
 
         String filter = String.format("%s:(%s)", tag != null ? getTaggedField() : solrFieldName, valueString);

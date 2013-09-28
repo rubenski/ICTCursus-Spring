@@ -1,6 +1,5 @@
 package nl.codebasesoftware.produx.conversion;
 
-import nl.codebasesoftware.produx.domain.*;
 import nl.codebasesoftware.produx.domain.dto.entity.*;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
 import org.springframework.core.convert.converter.Converter;
@@ -53,7 +52,7 @@ public class CourseEntityDTOToBindableCourse implements Converter<CourseEntityDT
         return bindableOptions;
     }
 
-    private List<String> getCourseDates(CourseEntityDTO course){
+    private List<String> getCourseDates(CourseEntityDTO course) {
         List<String> dates = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         for (CourseDateEntityDTO courseDate : course.getDates()) {
@@ -63,7 +62,7 @@ public class CourseEntityDTOToBindableCourse implements Converter<CourseEntityDT
         return dates;
     }
 
-    private List<Long> getTimeIds(CourseEntityDTO course){
+    private List<Long> getTimeIds(CourseEntityDTO course) {
         List<Long> idList = new ArrayList<>();
         Iterator<TimeEntityDTO> timeIterator = course.getTimes().iterator();
         for (int i = 0; timeIterator.hasNext(); i++) {

@@ -16,7 +16,7 @@ public class HighlightCourseResultDto {
         return errors;
     }
 
-    public void addError(String error){
+    public void addError(String error) {
         this.errors.add(error);
     }
 

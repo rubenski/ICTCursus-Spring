@@ -1,6 +1,5 @@
 package nl.codebasesoftware.produx.dao;
 
-import nl.codebasesoftware.produx.domain.Article;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
 

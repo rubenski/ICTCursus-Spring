@@ -14,7 +14,7 @@ public enum FacetSortingBehavior {
 
     private final String value;
 
-    private FacetSortingBehavior(String value){
+    private FacetSortingBehavior(String value) {
         this.value = value;
     }
 

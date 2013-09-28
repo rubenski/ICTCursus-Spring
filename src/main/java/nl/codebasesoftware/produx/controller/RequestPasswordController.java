@@ -3,6 +3,7 @@ package nl.codebasesoftware.produx.controller;
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.formdata.BindableForgotPassword;
 import nl.codebasesoftware.produx.net.mail.PasswordMailer;
+import nl.codebasesoftware.produx.service.PageBlockService;
 import nl.codebasesoftware.produx.service.SecurityService;
 import nl.codebasesoftware.produx.service.UserProfileService;
 import nl.codebasesoftware.produx.util.SecurityUtil;
@@ -32,28 +33,36 @@ public class RequestPasswordController implements ApplicationContextAware {
     private UserProfileService userProfileService;
     private PasswordMailer passwordMailer;
     private SecurityService securityService;
+    private PageBlockService pageBlockService;
     private ApplicationContext applicationContext;
-
-
 
     @Autowired
     public RequestPasswordController(RequestPasswordFormValidator validator, UserProfileService userProfileService, PasswordMailer passwordMailer,
-                                     SecurityService securityService) {
+                                     SecurityService securityService, PageBlockService pageBlockService) {
         this.validator = validator;
         this.userProfileService = userProfileService;
         this.passwordMailer = passwordMailer;
         this.securityService = securityService;
+        this.pageBlockService = pageBlockService;
     }
 
     @RequestMapping(value = "/login/requestpassword", method = RequestMethod.GET)
     public String createPasswordForm(Model model) {
+        pageBlockService.setCourseCategoriesInLeftColumn(model);
+        pageBlockService.setEmptyRightColumn(model);
         model.addAttribute("mainContent", "forms/requestPassword");
         model.addAttribute("forgotPassword", new BindableForgotPassword());
+        model.addAttribute("title", "ICT Cursus: wachtwoord vergeten");
         return "main";
     }
 
     @RequestMapping(value = "/login/requestpassword", method = RequestMethod.POST)
     public String submitPasswordForm(@ModelAttribute("forgotPassword") BindableForgotPassword forgotPassword, Model model, Locale locale, BindingResult result) {
+
+
+        pageBlockService.setCourseCategoriesInLeftColumn(model);
+        pageBlockService.setEmptyRightColumn(model);
+
         validator.validate(forgotPassword, result);
 
         if (result.hasErrors()) {
@@ -69,6 +78,8 @@ public class RequestPasswordController implements ApplicationContextAware {
             model.addAttribute("mainMessage", applicationContext.getMessage("password.sent", null, locale));
 
         }
+
+        model.addAttribute("title", "ICT Cursus: wachtwoord vergeten");
 
         return "main";
     }

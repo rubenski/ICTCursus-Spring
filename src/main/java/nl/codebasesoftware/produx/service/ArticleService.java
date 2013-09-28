@@ -16,13 +16,22 @@ import java.util.List;
  */
 public interface ArticleService {
     List<Article> findByCompany(long companyId);
+
     Article addArticle(AddArticleFormData formData, long authorProfileId);
+
     Article findById(long id);
+
     List<ArticlePage> findPages(Article article);
+
     long saveArticlePage(ArticlePageFormData formData, long articleId);
+
     ArticlePage findPage(long pageId);
+
     void updateArticle(EditArticleFormData formData);
+
     void removePage(long pageId);
+
     List<ArticleEntityDTO> findByCategory(long catgeoryId);
+
     ArticleEntityDTO findFull(long id);
 }

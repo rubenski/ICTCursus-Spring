@@ -1,16 +1,16 @@
 package nl.codebasesoftware.produx.validator;
 
 import nl.codebasesoftware.produx.formdata.AddArticleFormData;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import org.springframework.stereotype.Component;
 
 /**
  * User: rvanloen
  * Date: 8-4-13
  * Time: 9:59
  */
-@Component (value = "addArticleValidator")
+@Component(value = "addArticleValidator")
 public class AddArticleFormValidator implements Validator {
 
     public boolean supports(Class<?> aClass) {
@@ -33,7 +33,7 @@ public class AddArticleFormValidator implements Validator {
             }
         }
 
-        if(formData.getCategory() == -1){
+        if (formData.getCategory() == -1) {
             errors.rejectValue("category", "errors.category.invalid");
         }
     }

@@ -32,35 +32,35 @@ public class CourseFormValidator implements Validator {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(bindableCourse.getFormattedPrice());
 
-        if(bindableCourse.getName().length() <= 3){
+        if (bindableCourse.getName().length() <= 3) {
             errors.rejectValue("name", "errors.name.invalid");
         }
 
-        if(bindableCourse.getShortDescription().length() < 10){
+        if (bindableCourse.getShortDescription().length() < 10) {
             errors.rejectValue("shortDescription", "errors.shortdescription.invalid");
         }
 
-        if(bindableCourse.getLongDescription().length() < 20){
+        if (bindableCourse.getLongDescription().length() < 20) {
             errors.rejectValue("longDescription", "errors.longdescription.invalid");
         }
 
-        if(bindableCourse.getCategory() == -1){
+        if (bindableCourse.getCategory() == -1) {
             errors.rejectValue("category", "errors.category.invalid");
         }
 
-        if(bindableCourse.getDuration().length() < 5){
+        if (bindableCourse.getDuration().length() < 5) {
             errors.rejectValue("duration", "errors.duration.invalid");
         }
 
-        if(bindableCourse.getRegions() == null || bindableCourse.getRegions().size() == 0){
+        if (bindableCourse.getRegions() == null || bindableCourse.getRegions().size() == 0) {
             errors.rejectValue("regions", "errors.regions.invalid");
         }
 
-        if(!matcher.matches()){
+        if (!matcher.matches()) {
             errors.rejectValue("formattedPrice", "errors.formattedPrice.invalid");
         }
 
-        if(bindableCourse.getDuration().length() > 255){
+        if (bindableCourse.getDuration().length() > 255) {
             errors.rejectValue("duration", "errors.duration.too.long");
         }
 

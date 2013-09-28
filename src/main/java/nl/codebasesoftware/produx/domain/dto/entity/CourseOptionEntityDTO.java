@@ -1,7 +1,5 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
-import nl.codebasesoftware.produx.domain.OptionCategory;
-
 /**
  * Created with IntelliJ IDEA.
  * User: rvanloen

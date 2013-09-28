@@ -1,10 +1,8 @@
 package nl.codebasesoftware.produx.service.impl;
 
-import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
 import nl.codebasesoftware.produx.service.CategoryService;
-import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.service.PageBlockService;
 import nl.codebasesoftware.produx.service.support.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +20,11 @@ import java.util.List;
 @Service
 public class PageBlockServiceImpl implements PageBlockService {
 
-    private CourseService courseService;
+
     private CategoryService categoryService;
 
     @Autowired
-    public PageBlockServiceImpl(CourseService courseService, CategoryService categoryService) {
-        this.courseService = courseService;
+    public PageBlockServiceImpl(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 
@@ -50,7 +47,7 @@ public class PageBlockServiceImpl implements PageBlockService {
     }
 
     @Transactional(readOnly = true)
-    private void setCategories(Model model){
+    private void setCategories(Model model) {
         List<CategoryEntityDTO> firstLevelCategories = categoryService.findFlattenedCategories();
         model.addAttribute("categories", firstLevelCategories);
     }

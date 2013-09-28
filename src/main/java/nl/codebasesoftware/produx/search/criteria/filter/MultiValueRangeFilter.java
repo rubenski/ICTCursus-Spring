@@ -26,10 +26,10 @@ public class MultiValueRangeFilter extends Filter {
         ModifiableSolrParams params = new ModifiableSolrParams();
         StringBuilder builder = new StringBuilder();
         builder.append(getTaggedField()).append(":").append("(");
-        for (int i = 0; i < ranges.size(); i++){
+        for (int i = 0; i < ranges.size(); i++) {
             String s = String.format("[%s TO %s]", ranges.get(i).getLeft(), ranges.get(i).getRight());
             builder.append(s);
-            if(i < ranges.size() -1){
+            if (i < ranges.size() - 1) {
                 builder.append(" OR ");
             }
         }

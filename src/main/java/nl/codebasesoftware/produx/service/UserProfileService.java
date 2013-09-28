@@ -16,18 +16,31 @@ import java.util.Locale;
  */
 public interface UserProfileService {
     UserProfile findByEmail(String email);
+
     void update(BindableMyUserProfile profile);
+
     void update(BindableSysAdminUserProfile bindableSysAdminUserProfile);
+
     List<UserProfile> findOthersInCompany(long companyId, UserProfile userProfile);
+
     UserProfile findById(long id);
+
     void update(UserProfile profile);
+
     void update(OtherUserProfileFormData profile);
+
     UserProfile findAuthorByArticle(long articleId);
+
     UserProfile findAuthorByPage(long pageId);
+
     List<UserProfile> findAll();
+
     UserProfile findWithCompany(Long id);
+
     List<ProfileStatus> getProfileStatuses(Locale locale);
+
     void removeProfile(Long id);
+
     UserProfile getCurrentlyLoggedInUser();
 
 

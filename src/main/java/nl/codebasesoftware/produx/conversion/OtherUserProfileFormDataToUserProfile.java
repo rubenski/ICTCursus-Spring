@@ -26,7 +26,7 @@ public class OtherUserProfileFormDataToUserProfile implements Converter<OtherUse
 
 
     @Autowired
-    public OtherUserProfileFormDataToUserProfile(UserProfileService userProfileService, RolesAndRightService rolesAndRightService){
+    public OtherUserProfileFormDataToUserProfile(UserProfileService userProfileService, RolesAndRightService rolesAndRightService) {
         this.rolesAndRightService = rolesAndRightService;
         this.userProfileService = userProfileService;
     }

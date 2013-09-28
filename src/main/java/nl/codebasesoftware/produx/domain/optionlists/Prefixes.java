@@ -12,16 +12,16 @@ public enum Prefixes {
     private final String prefix;
     private final int id;
 
-    Prefixes(int id, String prefix){
+    Prefixes(int id, String prefix) {
         this.prefix = prefix;
         this.id = id;
     }
 
-    public String getPrefix(){
+    public String getPrefix() {
         return this.prefix;
     }
 
-    public int getId(){
+    public int getId() {
         return this.id;
     }
 }

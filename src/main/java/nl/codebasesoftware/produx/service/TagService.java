@@ -11,6 +11,7 @@ import java.util.List;
  */
 public interface TagService {
     Tag findByName(String tagName);
+
     List<Tag> findBySubString(String tagName);
 }
 

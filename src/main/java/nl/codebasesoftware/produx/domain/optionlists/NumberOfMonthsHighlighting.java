@@ -6,5 +6,5 @@ package nl.codebasesoftware.produx.domain.optionlists;
  * Time: 15:07
  */
 public class NumberOfMonthsHighlighting {
-    public static final int[] NUMBERS = new int[]{1,2,3,4,5,6,7,8,9,10,11,12};
+    public static final int[] NUMBERS = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
 }

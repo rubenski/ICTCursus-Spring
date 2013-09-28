@@ -10,7 +10,7 @@ import java.util.List;
  * Date: 12-4-13
  * Time: 22:31
  */
-public interface ArticleSuggestionDao extends GenericDao<ArticleSuggestion>  {
+public interface ArticleSuggestionDao extends GenericDao<ArticleSuggestion> {
 
 
     List<ArticleSuggestion> findForUser(UserProfile user);

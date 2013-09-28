@@ -1,12 +1,8 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
-import nl.codebasesoftware.produx.domain.Right;
-import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.domain.optionlists.RoleName;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.

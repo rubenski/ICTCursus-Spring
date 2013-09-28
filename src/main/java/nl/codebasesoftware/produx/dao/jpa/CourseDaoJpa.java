@@ -1,7 +1,6 @@
 package nl.codebasesoftware.produx.dao.jpa;
 
 import nl.codebasesoftware.produx.dao.CourseDao;
-import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.Time;
@@ -25,7 +24,6 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
     public CourseDaoJpa() {
         super(Course.class);
     }
-
 
 
     @Override

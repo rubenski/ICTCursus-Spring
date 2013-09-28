@@ -1,7 +1,9 @@
 package nl.codebasesoftware.produx.service;
 
-import nl.codebasesoftware.produx.domain.*;
-import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
+import nl.codebasesoftware.produx.domain.Category;
+import nl.codebasesoftware.produx.domain.Company;
+import nl.codebasesoftware.produx.domain.Course;
+import nl.codebasesoftware.produx.domain.Time;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 import nl.codebasesoftware.produx.formdata.BindableCourse;

@@ -6,9 +6,9 @@ import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
+import nl.codebasesoftware.produx.formdata.BindableCompany;
 import nl.codebasesoftware.produx.formdata.BindableFileUpload;
 import nl.codebasesoftware.produx.formdata.CompanySettingsFormData;
-import nl.codebasesoftware.produx.formdata.BindableCompany;
 import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.service.SolrService;
 import nl.codebasesoftware.produx.service.support.CurrentUser;
@@ -73,7 +73,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Transactional(readOnly = true)
     public Company getCurrentlyLoggedInCompany() {
         UserProfile user = CurrentUser.get();
-        if(user == null){
+        if (user == null) {
             return null;
         }
         Company company = user.getCompany();
@@ -152,7 +152,7 @@ public class CompanyServiceImpl implements CompanyService {
         company.setSmallLogo(null);
     }
 
-    public List<CourseEntityDTO> asCourseEntities(Collection<Course> courses){
+    public List<CourseEntityDTO> asCourseEntities(Collection<Course> courses) {
         List<CourseEntityDTO> courseEntities = new ArrayList<>();
         for (Course course : courses) {
             courseEntities.add(course.toDTO());

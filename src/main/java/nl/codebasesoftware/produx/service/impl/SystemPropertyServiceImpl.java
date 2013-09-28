@@ -37,7 +37,7 @@ public class SystemPropertyServiceImpl implements SystemPropertyService {
             } else {
                 sdf.parse("1970-01-01 00:00:00.000");
             }
-        } catch(ParseException e){
+        } catch (ParseException e) {
             e.printStackTrace();
         }
 
@@ -47,7 +47,7 @@ public class SystemPropertyServiceImpl implements SystemPropertyService {
     @Override
     public String findByKey(String key) {
         SystemProperty property = systemPropertyDao.findByKey(key);
-        if(property != null){
+        if (property != null) {
             return property.getValue();
         }
 

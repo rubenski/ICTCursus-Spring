@@ -1,7 +1,6 @@
 package nl.codebasesoftware.produx.domain;
 
 import nl.codebasesoftware.produx.domain.dto.entity.AccountRequestEntityDTO;
-import nl.codebasesoftware.produx.domain.dto.entity.DomainEntityDTO;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
@@ -246,30 +245,30 @@ public class AccountRequest implements DomainEntity {
     }
 
     @Transient
-    public String getFullNameFormal(){
+    public String getFullNameFormal() {
         return preposition != null ? String.format("%s, %s  %s", lastName, firstName, preposition) : String.format("%s, %s", lastName, firstName);
     }
 
     @Transient
-    public String getFullNameInformal(){
+    public String getFullNameInformal() {
         return preposition != null ? String.format("%s %s %s", firstName, preposition, lastName) : String.format("%s %s", firstName, lastName);
     }
 
     @Transient
-    public void reject(String rejectMessage){
+    public void reject(String rejectMessage) {
         this.granted = false;
         this.evaluated = true;
         this.adminMessage = rejectMessage;
     }
 
     @Transient
-    public void grant(){
+    public void grant() {
         granted = true;
         evaluated = true;
     }
 
     @Transient
-    public String getFormattedDate(){
+    public String getFormattedDate() {
         return new SimpleDateFormat("dd-MM-yyyy").format(requestDate.getTime());
     }
 }

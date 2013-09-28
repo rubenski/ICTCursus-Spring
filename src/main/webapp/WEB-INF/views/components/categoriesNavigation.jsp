@@ -4,7 +4,7 @@
 
 
 <nav class="whitebox">
-    <h2><spring:message code="mainsite.label.topics"/></h2>
+    <span class="header"><spring:message code="mainsite.label.topics"/></span>
     <ul>
         <c:forEach items="${categories}" var="category">
             <li><a href="/${category.urlTitle}">${category.name}</a></li>

@@ -32,10 +32,10 @@ public class SolrServerFactory {
         this.systemPropertyService = systemPropertyService;
     }
 
-    public SolrServer getServer(){
-        if(server == null){
+    public SolrServer getServer() {
+        if (server == null) {
             String url = systemPropertyService.findByKey("solr.url");
-            if(url == null){
+            if (url == null) {
                 throw new IllegalArgumentException("'solr.url' not found in the system properties table!");
             }
             server = new HttpSolrServer(url);

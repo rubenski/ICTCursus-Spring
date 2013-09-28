@@ -14,9 +14,14 @@ import java.util.Locale;
  */
 public interface AccountRequestService {
     void save(AccountRequestFormData formData);
+
     List<BasicAccountRequestEvaluation> findNonEvaluated();
+
     AccountRequest find(long id);
+
     void grant(long accountRequestId, String message, Locale locale);
+
     void reject(long requestId, String message, Locale locale);
+
     List<BasicAccountRequestEvaluation> findEvaluated();
 }

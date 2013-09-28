@@ -20,7 +20,7 @@ public class RangeFacetField extends FacetField {
     private List<RangeFacetOtherBehavior> otherBehaviors = new ArrayList<>();
 
     public RangeFacetField(String field, Integer start, Integer end, Integer gap, FacetSortingBehavior sorting) {
-        super(field,sorting);
+        super(field, sorting);
         this.start = start;
         this.end = end;
         this.gap = gap;
@@ -46,7 +46,7 @@ public class RangeFacetField extends FacetField {
         return gap;
     }
 
-    public boolean hasOther(){
+    public boolean hasOther() {
         return this.otherBehaviors.size() > 0;
     }
 
@@ -65,15 +65,15 @@ public class RangeFacetField extends FacetField {
 
         String fieldStart = String.format("f.%s.facet.range.", field);
 
-        params.add(fieldStart +  "start", start.toString());
-        params.add(fieldStart +  "end", end.toString());
-        params.add(fieldStart +  "gap", gap.toString());
+        params.add(fieldStart + "start", start.toString());
+        params.add(fieldStart + "end", end.toString());
+        params.add(fieldStart + "gap", gap.toString());
         params.add("facet.range", fieldWithExclusions);
         params.add(String.format("f.%s.facet.sort", field.toString()), sorting.getValue());
         params.add(String.format("f.%s.facet.mincount", field), "" + minCount);
 
-        if(hasOther()){
-            for(RangeFacetOtherBehavior otherBehavior : otherBehaviors){
+        if (hasOther()) {
+            for (RangeFacetOtherBehavior otherBehavior : otherBehaviors) {
                 params.add(fieldStart + "other", otherBehavior.getValue());
             }
         }

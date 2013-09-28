@@ -1,7 +1,5 @@
 package nl.codebasesoftware.produx.controller;
 
-import nl.codebasesoftware.produx.domain.Article;
-import nl.codebasesoftware.produx.domain.ArticlePage;
 import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.ArticlePageEntityDTO;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
@@ -45,7 +43,7 @@ public class ArticleController {
         String url = article.getUrl();
         String requestUri = request.getRequestURI();
 
-        if(!requestUri.equals(url)){
+        if (!requestUri.equals(url)) {
             throw new ResourceNotFoundException();
         }
 
@@ -76,7 +74,6 @@ public class ArticleController {
 
         return "main";
     }
-
 
 
     private void setData(Model model, ArticleEntityDTO article, ArticlePageEntityDTO page) {

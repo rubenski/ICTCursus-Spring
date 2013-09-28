@@ -49,7 +49,7 @@ public class CourseToBindableCourse implements Converter<Course, BindableCourse>
         return bindableOptions;
     }
 
-    private List<String> getCourseDates(Course course){
+    private List<String> getCourseDates(Course course) {
         List<String> dates = new ArrayList<String>();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         for (CourseDate courseDate : course.getDates()) {
@@ -59,7 +59,7 @@ public class CourseToBindableCourse implements Converter<Course, BindableCourse>
         return dates;
     }
 
-    private List<Long> getTimeIds(Course course){
+    private List<Long> getTimeIds(Course course) {
         List<Long> idList = new ArrayList<Long>();
         Iterator<Time> timeIterator = course.getTimes().iterator();
         for (int i = 0; timeIterator.hasNext(); i++) {

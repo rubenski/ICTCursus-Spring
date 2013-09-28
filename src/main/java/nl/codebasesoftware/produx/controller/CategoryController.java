@@ -10,8 +10,6 @@ import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.search.criteria.SearchCriteria;
 import nl.codebasesoftware.produx.search.criteria.facet.FacetField;
-import nl.codebasesoftware.produx.search.criteria.facet.FacetSortingBehavior;
-import nl.codebasesoftware.produx.search.criteria.facet.NormalFacetField;
 import nl.codebasesoftware.produx.search.criteria.filter.Filter;
 import nl.codebasesoftware.produx.search.criteria.filter.NormalFilter;
 import nl.codebasesoftware.produx.search.result.ResultListing;
@@ -28,7 +26,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -94,8 +91,8 @@ public class CategoryController {
 
     @RequestMapping(value = "/{categoryUrlName}/p{p:[0-9]+}", method = RequestMethod.GET)
     public String showUnfilteredPagedResultPage(@PathVariable("categoryUrlName") String categoryUrlName,
-                                           @PathVariable("p") Integer p,
-                                           Model model) throws ProduxServiceException {
+                                                @PathVariable("p") Integer p,
+                                                Model model) throws ProduxServiceException {
         return process(model, categoryUrlName, null, p);
     }
 
@@ -155,7 +152,7 @@ public class CategoryController {
         model.addAttribute("articles", categoryArticles);
         model.addAttribute("showLightboxLink", companyCoursesForCategory.size() > 0);
         model.addAttribute("showHighlighted", page == 0);
-        model.addAttribute("title", "Cursussen " + category.getName() + " - ICT Cursus");
+        model.addAttribute("title", "Cursussen " + category.getName() + " : ICT Cursus");
         model.addAttribute("searchResult", searchResult);
         model.addAttribute("highlighted", highlightedCourses);
         model.addAttribute("category", category);

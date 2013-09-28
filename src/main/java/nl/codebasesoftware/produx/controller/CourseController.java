@@ -1,6 +1,5 @@
 package nl.codebasesoftware.produx.controller;
 
-import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 import nl.codebasesoftware.produx.domain.optionlists.NumberOfParticipants;
 import nl.codebasesoftware.produx.domain.optionlists.Prefixes;
@@ -43,15 +42,14 @@ public class CourseController {
         this.courseRequestService = courseRequestService;
     }
 
-    @RequestMapping(value = "/{category}/c{id:[0-9]}-{title}", method = RequestMethod.GET)
-    public String get(@PathVariable("title") String title, @PathVariable("id") Long id, Model model) {
-
-
+    @RequestMapping(value = "/{category}/{id:[\\d]+}/{title}", method = RequestMethod.GET)
+    public String get(@PathVariable("title") String title,
+                      @PathVariable("category") String category,
+                      @PathVariable("id") Long id,
+                      Model model) {
         CourseRequestFormData courseRequestFormData = new CourseRequestFormData();
         courseRequestFormData.setCourseId(id);
-
-        setFormData(model, courseRequestFormData, id);
-
+        setData(model, courseRequestFormData, id);
         return "main";
     }
 
@@ -64,26 +62,26 @@ public class CourseController {
             courseRequestService.saveRequest(request);
             model.addAttribute("courseRequestSubmitSuccess", true);
         }
-        setFormData(model, request, request.getCourseId());
+        setData(model, request, request.getCourseId());
         model.addAttribute("includeCourseJs", true);
         model.addAttribute("scrolldown", true);
         return "main";
     }
 
-    private void setFormData(Model model, CourseRequestFormData formData, Long courseId) {
+    private void setData(Model model, CourseRequestFormData formData, Long courseId) {
         CourseEntityDTO course = courseService.findFull(courseId);
 
         if (course == null) {
             throw new ResourceNotFoundException();
         }
 
+        model.addAttribute("rightColumn", "content/coursedetails");
         model.addAttribute("title", course.getName() + "- ICT Cursus");
         model.addAttribute("course", course);
         model.addAttribute("mainContent", "content/course");
         model.addAttribute("courseRequest", formData);
         model.addAttribute("prefixes", Arrays.asList(Prefixes.values()));
         model.addAttribute("numberOfParticipants", NumberOfParticipants.NUMBERS);
-        pageBlockService.setEmptyRightColumn(model);
         pageBlockService.setCourseCategoriesInLeftColumn(model);
     }
 

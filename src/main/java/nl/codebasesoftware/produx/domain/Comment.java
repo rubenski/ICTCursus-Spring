@@ -1,7 +1,6 @@
 package nl.codebasesoftware.produx.domain;
 
 import nl.codebasesoftware.produx.domain.dto.entity.CommentEntityDTO;
-import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -76,7 +75,7 @@ public class Comment implements DomainEntity {
 
     @Override
     @Transient
-    public CommentEntityDTO toDTO(){
+    public CommentEntityDTO toDTO() {
         CommentEntityDTO dto = new CommentEntityDTO();
         dto.setId(id);
         dto.setName(name);

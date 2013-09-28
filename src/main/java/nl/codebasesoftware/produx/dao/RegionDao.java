@@ -11,5 +11,6 @@ import java.util.List;
  */
 public interface RegionDao extends GenericDao<Region> {
     List<Region> findRegionsBySubstring(String substring);
+
     List<Region> findAll();
 }
