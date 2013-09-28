@@ -17,7 +17,7 @@ public class OptionCategory implements DomainEntity {
 
     private Long id;
     private String name;
-    private Set<CourseOption> options = new HashSet<CourseOption>();
+    private Set<CourseOption> options = new HashSet<>();
     private int displayRank;
 
     @Override
@@ -59,18 +59,9 @@ public class OptionCategory implements DomainEntity {
         this.displayRank = displayRank;
     }
 
-    public BindableOptionCategory toBindable() {
-        BindableOptionCategory bindableOptionCategory = new BindableOptionCategory();
-        bindableOptionCategory.setDisplayName(name);
-        for (CourseOption option : options) {
-            bindableOptionCategory.addOption(option.toBindable());
-        }
-        return bindableOptionCategory;
-    }
 
     public boolean equals(Object o) {
-        if (!(o instanceof OptionCategory)) return false;
-        return ((OptionCategory) o).id.equals(id);
+        return o instanceof OptionCategory && ((OptionCategory) o).id.equals(id);
     }
 
     public int hashCode() {
@@ -79,6 +70,7 @@ public class OptionCategory implements DomainEntity {
 
     @Override
     @Transient
+    @SuppressWarnings("unchecked")
     public OptionCategoryEntityDTO toDTO() {
         OptionCategoryEntityDTO dto = new OptionCategoryEntityDTO();
         dto.setId(id);
