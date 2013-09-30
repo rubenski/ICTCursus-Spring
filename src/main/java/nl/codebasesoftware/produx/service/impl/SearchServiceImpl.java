@@ -41,11 +41,19 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public SearchResult findCourses(SearchCriteria criteria, List<String> baseDirs) throws ProduxServiceException {
+    public SearchResult findCoursesForFacets(SearchCriteria criteria, List<String> baseDirs) throws ProduxServiceException {
         ModifiableSolrParams modifiableSolrParams = conversionService.convert(criteria, SolrQuery.class);
         QueryResponse response = solrService.search(modifiableSolrParams);
-        return converter.convert(response, criteria, baseDirs);
+        return converter.convertWithFacets(response, criteria, baseDirs);
     }
+
+    @Override
+    public SearchResult findCourses(SearchCriteria criteria) throws ProduxServiceException {
+        ModifiableSolrParams modifiableSolrParams = conversionService.convert(criteria, SolrQuery.class);
+        QueryResponse response = solrService.search(modifiableSolrParams);
+        return converter.convert(response, criteria);
+    }
+
 
     public FacetField createPriceFacet(List<Filter> filterList) {
         RangeFacetField priceFacet = new RangeFacetField("price", 0, 300000, 50000, FacetSortingBehavior.NATURAL_ORDER);

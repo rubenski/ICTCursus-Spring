@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 
-<div class="whitebox" itemscope itemtype="http://schema.org/Article">
+<div class="roundedbox" itemscope itemtype="http://schema.org/Article">
 
     <h1 itemprop="headLine">${currentArticlePage.title}</h1>
 

@@ -24,9 +24,6 @@ public class CompanyEntityDTO extends ListingCompanyDTO {
     private Integer budgetTriggerAmount;
     private String courseRequestEmailAddress;
     private boolean allCoursesDeactivated;
-    private byte[] normalLogo;
-    private byte[] smallLogo;
-
 
     public String getEmail() {
         return email;
@@ -124,19 +121,5 @@ public class CompanyEntityDTO extends ListingCompanyDTO {
         this.allCoursesDeactivated = allCoursesDeactivated;
     }
 
-    public byte[] getNormalLogo() {
-        return normalLogo;
-    }
 
-    public void setNormalLogo(byte[] normalLogo) {
-        this.normalLogo = normalLogo;
-    }
-
-    public byte[] getSmallLogo() {
-        return smallLogo;
-    }
-
-    public void setSmallLogo(byte[] smallLogo) {
-        this.smallLogo = smallLogo;
-    }
 }

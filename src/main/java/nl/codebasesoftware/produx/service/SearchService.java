@@ -14,11 +14,13 @@ import java.util.List;
  * Time: 13:17
  */
 public interface SearchService {
-    SearchResult findCourses(SearchCriteria criteria, List<String> baseDirs) throws ProduxServiceException;
+    SearchResult findCoursesForFacets(SearchCriteria criteria, List<String> baseDirs) throws ProduxServiceException;
 
     FacetField createTagsFacet();
 
     FacetField createPriceFacet(List<Filter> filterList);
 
     FacetField createRegionsFacet(List<Filter> filterList);
+
+    SearchResult findCourses(SearchCriteria criteria)  throws ProduxServiceException;
 }

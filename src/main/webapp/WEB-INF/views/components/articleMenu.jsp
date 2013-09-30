@@ -3,7 +3,7 @@
 
 <h2>Pagina's</h2>
 
-<nav class="whitebox">
+<nav class="roundedbox">
     <ul>
         <li><a href="${article.url}">${article.title}</a></li>
         <c:forEach items="${article.pages}" var="page">

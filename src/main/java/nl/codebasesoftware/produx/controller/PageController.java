@@ -28,7 +28,7 @@ public class PageController {
     public String getVoorCursusaanbieders(Model model) {
 
         pageBlockService.setEmptyRightColumn(model);
-        pageBlockService.setCourseCategoriesInLeftColumn(model);
+        pageBlockService.setAboutIctCursusMenuInLeftColumn(model);
         model.addAttribute("title", "ICT Cursus voor cursusaanbieders");
         model.addAttribute("mainContent", "content/forcompanies");
         return "main";

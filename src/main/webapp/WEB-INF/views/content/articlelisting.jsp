@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div id="right" class="whitebox">
+<div id="right" class="roundedbox">
     <span class="header">Online cursussen en artikelen over ${category.name}</span>
 
     <c:forEach items="${articles}" var="article">

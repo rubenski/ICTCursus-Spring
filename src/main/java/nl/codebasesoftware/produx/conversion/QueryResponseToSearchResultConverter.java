@@ -39,11 +39,21 @@ public class QueryResponseToSearchResultConverter {
         this.properties = properties;
     }
 
-    public SearchResult convert(QueryResponse queryResponse, SearchCriteria criteria, List<String> baseDirs) {
+    public SearchResult convert(QueryResponse queryResponse, SearchCriteria criteria) {
         this.queryResponse = queryResponse;
         this.criteria = criteria;
+        SearchResult.Builder searchResultBuilder = new SearchResult.Builder();
+        addCourses(searchResultBuilder);
+        addNormalFacetFields(searchResultBuilder);
+        addRangeFacetFields(searchResultBuilder);
+        searchResultBuilder.setTotalFound(queryResponse.getResults().getNumFound());
+        searchResultBuilder.setResultsPerPage(properties.getSearchResultsPerPage());
+        return searchResultBuilder.build();
+    }
 
-
+    public SearchResult convertWithFacets(QueryResponse queryResponse, SearchCriteria criteria, List<String> baseDirs) {
+        this.queryResponse = queryResponse;
+        this.criteria = criteria;
         SearchResult.Builder searchResultBuilder = new SearchResult.Builder();
         addCourses(searchResultBuilder);
         addNormalFacetFields(searchResultBuilder);
@@ -51,7 +61,6 @@ public class QueryResponseToSearchResultConverter {
         searchResultBuilder.setTotalFound(queryResponse.getResults().getNumFound());
         searchResultBuilder.setResultsPerPage(properties.getSearchResultsPerPage());
         searchResultBuilder.setBaseDirs(baseDirs);
-
         return searchResultBuilder.build();
     }
 

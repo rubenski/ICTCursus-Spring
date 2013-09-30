@@ -51,4 +51,9 @@ public class PageBlockServiceImpl implements PageBlockService {
         List<CategoryEntityDTO> firstLevelCategories = categoryService.findFlattenedCategories();
         model.addAttribute("categories", firstLevelCategories);
     }
+
+    @Override
+    public void setAboutIctCursusMenuInLeftColumn(Model model) {
+        model.addAttribute("aboutIctCursusPage", true);
+    }
 }

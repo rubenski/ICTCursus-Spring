@@ -1,10 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<div class="whitebox" id="facets">
+<div class="roundedbox" id="facets">
     <c:forEach items="${searchResult.facetFieldViews}" var="view">
         <div class="facet">
-            <header><spring:message key="${view.getFieldHeaderKey()}"/></header>
+            <span class="header"><spring:message key="${view.getFieldHeaderKey()}"/></span>
             <c:forEach items="${view.filterLinks}" var="link">
                 <c:choose>
                     <c:when test="${!link.hasDocuments()}">

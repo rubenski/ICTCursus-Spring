@@ -13,18 +13,6 @@
 
         ${course.longDescription}
 
-        <h3><spring:message code="course.field.duration"/></h3>
-        <p>${course.duration}</p>
-
-        <h3><spring:message code="course.field.price"/></h3>
-        <p>&#0128; <fmt:formatNumber value="${course.price / 100}" pattern="#####.##"/></p>
-
-        <h3><spring:message code="course.field.regions.header"/></h3>
-        <p>
-            <c:forEach items="${course.regions}" var="region" varStatus="status" >
-                ${region}<c:if test="${!status.last}">,</c:if>
-            </c:forEach>
-        </p>
 
         <c:if test="${scrolldown}">
             <span id="scrollhere"/>
@@ -37,7 +25,6 @@
             <form:hidden path="courseId"/>
             <form:hidden path="courseName" value="${course.name}"/>
 
-            <%-- error / success feedback --%>
             <jsp:include page="../forms/submitmessage.jsp"/>
 
             <div class="default-block">
@@ -93,7 +80,7 @@
     </c:when>
     <c:otherwise>
 
-        <div class="whitebox">
+        <div class="roundedbox">
             <p><spring:message code="submit.request.success" arguments="${course.company.name},${courseRequest.email}"/></p>
         </div>
 

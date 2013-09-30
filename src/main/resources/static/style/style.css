@@ -146,8 +146,9 @@ body {
     list-style-type: circle;
 }
 
-
-
+#main #innermain #left .roundedbox img {
+    padding: 15px 0 15px 0;
+}
 
 #facets label.disabled {
     color: #aaaaaa;
@@ -171,25 +172,29 @@ body {
     text-decoration: none;
 }
 
-.whitebox {
+.roundedbox {
     margin-bottom: 30px;
-    padding: 20px 20px 10px 20px;
+    padding: 20px 20px 20px 20px;
     text-align: left;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
 }
 
-#main #innermain #maincontent.whitebox {
+#main #innermain #maincontent.roundedbox {
     padding-bottom: 25px;
 }
 
-.whitebox {
+.roundedbox {
     background-color:rgba(255,255,255,0.75);
 }
 
-#maincontent.whitebox {
+#maincontent.roundedbox {
     background-color:white;
+}
+
+.text {
+    line-height: 18px;
 }
 
 #main #innermain #left {
@@ -443,6 +448,10 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
 }
 
 .css-label{ background-image:url(http://csscheckbox.com/checkboxes/lite-green-check.png); }
+
+.white {
+    background-color: white;
+}
 
 
 

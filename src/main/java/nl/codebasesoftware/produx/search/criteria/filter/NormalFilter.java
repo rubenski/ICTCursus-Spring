@@ -21,8 +21,16 @@ public class NormalFilter extends Filter {
         this.value = value;
     }
 
+    public NormalFilter(String solrField,  Object value) {
+        super(solrField);
+        this.value = value;
+    }
+
     @Override
     public List<String> getUrlTokens() {
+        if(urlField == null){
+            throw new IllegalArgumentException("The url field is not set, so I cannot create url tokens for you");
+        }
         return Arrays.asList(String.format("%s:%s", urlField, value));
     }
 

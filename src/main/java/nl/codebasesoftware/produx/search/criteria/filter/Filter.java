@@ -21,6 +21,10 @@ public abstract class Filter implements UrlTokenizable, SolrParameters {
         this.urlField = urlField;
     }
 
+    protected Filter(String solrFieldName) {
+        this.solrFieldName = solrFieldName;
+    }
+
     public String getSolrFieldName() {
         return solrFieldName;
     }

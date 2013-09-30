@@ -136,7 +136,7 @@ public class CategoryController {
                 .build();
 
 
-        SearchResult searchResult = searchService.findCourses(criteria, Arrays.asList(categoryUrlName));
+        SearchResult searchResult = searchService.findCoursesForFacets(criteria, Arrays.asList(categoryUrlName));
 
         // Throw a 404 when someone tries to access a paging page that doesn't exist
         if (searchResult.getCourses().size() == 0 && page > 0) {

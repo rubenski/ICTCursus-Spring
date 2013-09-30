@@ -73,7 +73,7 @@
     <div id="outermain">
         <div id="innermain">
             <jsp:include page="left.jsp"/>
-            <div id="maincontent" class="whitebox">
+            <div id="maincontent" class="roundedbox">
                 <jsp:include page="${mainContent}.jsp"/>
             </div>
             <jsp:include page="${rightColumn}.jsp"/>

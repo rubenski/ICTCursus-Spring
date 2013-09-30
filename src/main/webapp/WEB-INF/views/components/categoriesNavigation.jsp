@@ -3,7 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
-<nav class="whitebox">
+<nav class="roundedbox">
     <span class="header"><spring:message code="mainsite.label.topics"/></span>
     <ul>
         <c:forEach items="${categories}" var="category">

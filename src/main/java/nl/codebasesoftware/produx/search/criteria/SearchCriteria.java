@@ -131,6 +131,9 @@ public class SearchCriteria {
         }
 
         public SearchCriteria build() {
+            if(rows == null || start == null){
+                throw new IllegalStateException("Both start and rows must be set on a SearchCriteria.Builder before build() is called");
+            }
             return new SearchCriteria(this);
         }
     }

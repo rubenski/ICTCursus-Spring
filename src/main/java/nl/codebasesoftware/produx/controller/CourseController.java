@@ -3,11 +3,17 @@ package nl.codebasesoftware.produx.controller;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 import nl.codebasesoftware.produx.domain.optionlists.NumberOfParticipants;
 import nl.codebasesoftware.produx.domain.optionlists.Prefixes;
+import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.formdata.CourseRequestFormData;
+import nl.codebasesoftware.produx.search.criteria.SearchCriteria;
+import nl.codebasesoftware.produx.search.criteria.filter.Filter;
+import nl.codebasesoftware.produx.search.criteria.filter.NormalFilter;
+import nl.codebasesoftware.produx.search.result.SearchResult;
 import nl.codebasesoftware.produx.service.CourseRequestService;
 import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.service.PageBlockService;
+import nl.codebasesoftware.produx.service.SearchService;
 import nl.codebasesoftware.produx.validator.CourseRequestValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,24 +35,22 @@ import java.util.Arrays;
 public class CourseController {
 
     private CourseService courseService;
-    private PageBlockService pageBlockService;
     private CourseRequestValidator courseRequestValidator;
     private CourseRequestService courseRequestService;
+    private SearchService searchService;
 
     @Autowired
-    public CourseController(CourseService courseService, PageBlockService pageBlockService, CourseRequestValidator courseRequestValidator,
-                            CourseRequestService courseRequestService) {
+    public CourseController(CourseService courseService, CourseRequestValidator courseRequestValidator,
+                            CourseRequestService courseRequestService, SearchService searchService) {
         this.courseService = courseService;
-        this.pageBlockService = pageBlockService;
         this.courseRequestValidator = courseRequestValidator;
         this.courseRequestService = courseRequestService;
+        this.searchService = searchService;
     }
 
     @RequestMapping(value = "/{category}/{id:[\\d]+}/{title}", method = RequestMethod.GET)
-    public String get(@PathVariable("title") String title,
-                      @PathVariable("category") String category,
-                      @PathVariable("id") Long id,
-                      Model model) {
+    public String get(@PathVariable("id") Long id,
+                      Model model) throws ProduxServiceException {
         CourseRequestFormData courseRequestFormData = new CourseRequestFormData();
         courseRequestFormData.setCourseId(id);
         setData(model, courseRequestFormData, id);
@@ -56,7 +60,7 @@ public class CourseController {
 
     @RequestMapping(value = "/{category}/c{id:[0-9]}-{title}", method = RequestMethod.POST)
     public String submitRequest(@ModelAttribute("courseRequest") CourseRequestFormData request,
-                                BindingResult result, Model model) {
+                                BindingResult result, Model model) throws ProduxServiceException {
         courseRequestValidator.validate(request, result);
         if (!result.hasErrors()) {
             courseRequestService.saveRequest(request);
@@ -68,12 +72,20 @@ public class CourseController {
         return "main";
     }
 
-    private void setData(Model model, CourseRequestFormData formData, Long courseId) {
+    private void setData(Model model, CourseRequestFormData formData, Long courseId) throws ProduxServiceException {
         CourseEntityDTO course = courseService.findFull(courseId);
 
         if (course == null) {
             throw new ResourceNotFoundException();
         }
+
+        SearchCriteria.Builder criteriaBuilder = new SearchCriteria.Builder();
+        Filter companyFilter = new NormalFilter("company_id", course.getCompany().getId());
+        SearchCriteria criteria = criteriaBuilder.addFilter(companyFilter)
+                                                    .setStart(0)
+                                                    .setRows(10)
+                                                    .build();
+        SearchResult otherCourses = searchService.findCourses(criteria);
 
         model.addAttribute("rightColumn", "content/coursedetails");
         model.addAttribute("title", course.getName() + "- ICT Cursus");
@@ -82,7 +94,10 @@ public class CourseController {
         model.addAttribute("courseRequest", formData);
         model.addAttribute("prefixes", Arrays.asList(Prefixes.values()));
         model.addAttribute("numberOfParticipants", NumberOfParticipants.NUMBERS);
-        pageBlockService.setCourseCategoriesInLeftColumn(model);
+        model.addAttribute("isCourse", true);
+        model.addAttribute("otherCourses", otherCourses);
+
+
     }
 
 

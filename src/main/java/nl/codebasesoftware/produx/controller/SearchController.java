@@ -99,7 +99,7 @@ public class SearchController {
 
         SearchResult result = null;
         try {
-            result = searchService.findCourses(criteria, Arrays.asList("search"));
+            result = searchService.findCoursesForFacets(criteria, Arrays.asList("search"));
         } catch (ProduxServiceException e) {
             e.printStackTrace();
         }

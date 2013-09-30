@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <h1><spring:message code="generic.userMessage.login"/></h1>
-<div class="whitebox">
+<div class="roundedbox">
     <form:form method="post" commandName="userProfile">
         <div id="data-entry-form">
             <form:hidden path="id"/>
