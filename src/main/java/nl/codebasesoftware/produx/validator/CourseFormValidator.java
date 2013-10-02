@@ -1,11 +1,16 @@
 package nl.codebasesoftware.produx.validator;
 
+import nl.codebasesoftware.produx.dao.CourseOptionDao;
+import nl.codebasesoftware.produx.domain.CourseOption;
+import nl.codebasesoftware.produx.domain.OptionCategory;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,6 +23,12 @@ import java.util.regex.Pattern;
 public class CourseFormValidator implements Validator {
 
     Logger LOG = Logger.getLogger(CourseFormValidator.class);
+    private CourseOptionDao optionDao;
+
+    @Autowired
+    public CourseFormValidator(CourseOptionDao optionDao){
+        this.optionDao = optionDao;
+    }
 
     @Override
     public boolean supports(Class<?> aClass) {
@@ -64,5 +75,24 @@ public class CourseFormValidator implements Validator {
             errors.rejectValue("duration", "errors.duration.too.long");
         }
 
+        if(bindableCourse.getTags().size() < 2){
+            errors.rejectValue("tags", "errors.no.tags");
+        }
+
+        List<OptionCategory> categoriesWithOptions = optionDao.getCategoriesWithOptions();
+
+        for (OptionCategory categoryWithOptions : categoriesWithOptions) {
+            boolean optionChecked = false;
+            for (CourseOption courseOption : categoryWithOptions.getOptions()) {
+                if(bindableCourse.getOptions().contains(courseOption.getId())){
+                    optionChecked = true;
+                    break;
+                }
+            }
+            if(!optionChecked) {
+                errors.rejectValue("options", "errors.missing.option");
+                break;
+            }
+        }
     }
 }

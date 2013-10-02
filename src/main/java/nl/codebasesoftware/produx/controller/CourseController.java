@@ -81,7 +81,10 @@ public class CourseController {
 
         SearchCriteria.Builder criteriaBuilder = new SearchCriteria.Builder();
         Filter companyFilter = new NormalFilter("company_id", course.getCompany().getId());
+        Filter excludeCurrentCourseFilter = new NormalFilter("course_id", course.getId());
+        excludeCurrentCourseFilter.setNegative(true);
         SearchCriteria criteria = criteriaBuilder.addFilter(companyFilter)
+                                                    .addFilter(excludeCurrentCourseFilter)
                                                     .setStart(0)
                                                     .setRows(10)
                                                     .build();

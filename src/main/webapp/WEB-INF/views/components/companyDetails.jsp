@@ -11,9 +11,9 @@
 
 
 
-<div class="roundedbox">
+<div class="roundedbox text">
     <span class="header">Andere cursussen van ${course.company.name}</span>
     <c:forEach items="${otherCourses.courses}" var="course">
-        name: ${course.name}<br>
+        <a href="${course.url}">${course.name}</a><br>
     </c:forEach>
 </div>

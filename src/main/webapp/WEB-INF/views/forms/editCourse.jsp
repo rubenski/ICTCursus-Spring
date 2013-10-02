@@ -141,6 +141,7 @@
             <table></table>
         </div>
         <span id="tagError" class="hide"><spring:message code="course.form.tags.tagerror"/></span>
+        <form:errors path="tags" cssClass="form-error"/>
     </div>
 
     <%-- Options --%>
@@ -157,6 +158,7 @@
                 </c:forEach>
             </div>
         </c:forEach>
+        <form:errors path="options" cssClass="form-error"/>
     </div>
 
     <%-- Certificaat / diploma --%>

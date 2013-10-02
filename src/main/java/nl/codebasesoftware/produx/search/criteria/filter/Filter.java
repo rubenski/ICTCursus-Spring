@@ -15,6 +15,7 @@ public abstract class Filter implements UrlTokenizable, SolrParameters {
     protected String solrFieldName;
     protected String tag;
     protected String urlField;
+    private boolean negative;
 
     protected Filter(String solrFieldName, String urlField) {
         this.solrFieldName = solrFieldName;
@@ -37,11 +38,15 @@ public abstract class Filter implements UrlTokenizable, SolrParameters {
         return tag;
     }
 
+    public void setNegative(boolean negative) {
+        this.negative = negative;
+    }
+
     protected String getTaggedField() {
         if (tag != null && tag.length() > 0) {
-            return String.format("{!tag=%s}%s", tag, solrFieldName);
+            return String.format("{!tag=%s}%s%s", tag, negative ? "-" : "", solrFieldName);
         }
-        return solrFieldName;
+        return negative ? "-" + solrFieldName: solrFieldName;
     }
 
 
