@@ -12,6 +12,7 @@ $(document).ready(function() {
                 cache: false
             }).done(function(html) {
                     $(html).hide().appendTo($("body")).fadeIn(400);
+                    setIframeHeight($("#highlight-iframe"));
                 });
         }
     });
@@ -19,12 +20,10 @@ $(document).ready(function() {
     $("#formsubmit").click(function(e) {
         e.preventDefault();
     });
-
-    setIframeHeight($("#highlight-iframe"));
 });
 
 function setIframeHeight(iframe) {
-    alert("this is ruining the faceted search");
+    alert("this is or was ruining the faceted search");
     if (iframe) {
         var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
         if (iframeWin.document.body) {

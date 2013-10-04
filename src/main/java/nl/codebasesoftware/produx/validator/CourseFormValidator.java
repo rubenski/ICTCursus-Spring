@@ -26,7 +26,7 @@ public class CourseFormValidator implements Validator {
     private CourseOptionDao optionDao;
 
     @Autowired
-    public CourseFormValidator(CourseOptionDao optionDao){
+    public CourseFormValidator(CourseOptionDao optionDao) {
         this.optionDao = optionDao;
     }
 
@@ -75,24 +75,34 @@ public class CourseFormValidator implements Validator {
             errors.rejectValue("duration", "errors.duration.too.long");
         }
 
-        if(bindableCourse.getTags().size() < 2){
+        if (bindableCourse.getTags().size() < 2) {
             errors.rejectValue("tags", "errors.no.tags");
         }
 
         List<OptionCategory> categoriesWithOptions = optionDao.getCategoriesWithOptions();
 
-        for (OptionCategory categoryWithOptions : categoriesWithOptions) {
-            boolean optionChecked = false;
-            for (CourseOption courseOption : categoryWithOptions.getOptions()) {
-                if(bindableCourse.getOptions().contains(courseOption.getId())){
-                    optionChecked = true;
+        boolean hasOptionError = false;
+        if (bindableCourse.getOptions() != null) {
+            for (OptionCategory categoryWithOptions : categoriesWithOptions) {
+                boolean optionChecked = false;
+                for (CourseOption courseOption : categoryWithOptions.getOptions()) {
+                    if (bindableCourse.getOptions().contains(courseOption.getId())) {
+                        optionChecked = true;
+                        break;
+                    }
+                }
+                if (!optionChecked) {
+                    hasOptionError = true;
                     break;
                 }
             }
-            if(!optionChecked) {
-                errors.rejectValue("options", "errors.missing.option");
-                break;
-            }
+        } else {
+            hasOptionError = true;
+        }
+
+
+        if (hasOptionError) {
+            errors.rejectValue("options", "errors.missing.option");
         }
     }
 }
