@@ -23,21 +23,21 @@ body {
 
 
 #outermain {
-    width: 1350px;
+    width: 1005px;
     margin: 0 auto;
     position: relative;
     overflow: auto;
-    background-image: url('/static/img/bgdisk_small.jpg');
-    background-position: 100% 10%;
+    background-image: url('/static/img/bgdisk_smaller.jpg');
+    background-position: 100% 0%;
     background-repeat: no-repeat;
 }
 
 #innermain {
-    padding-top: 70px;
+    padding-top: 60px;
 }
 
 #innerheader, #innersearch, #innermain {
-    width: 1000px;
+    width: 930px;
     margin: 0 auto;
     position: relative;
     overflow: auto;
@@ -47,6 +47,8 @@ body {
 #site-header #innerheader #logo {
     color: white;
     text-shadow: 2px 2px #444;
+    display: inline;
+    margin-left: 12px;
 }
 
 #site-header #innerheader a {
@@ -72,10 +74,6 @@ body {
 #site-header #innerheader #topnav a {
     text-decoration: none;
     color: white;
-}
-
-#topnav, #logo {
-    display: inline;
 }
 
 #site-header #search {
@@ -179,23 +177,21 @@ body {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
+    background-color:rgba(255,255,255,0.75);
 }
 
 #main #innermain #maincontent.roundedbox {
     padding-bottom: 25px;
 }
 
-.roundedbox {
-    background-color:rgba(255,255,255,0.75);
-}
-
 #maincontent.roundedbox {
     background-color:white;
 }
 
-.text {
+.columntext {
     line-height: 18px;
 }
+
 
 #main #innermain #left {
     width: 200px;
@@ -232,7 +228,7 @@ body {
 
 #main #innermain #maincontent {
     float: left;
-    width: 550px;
+    width: 480px;
     line-height: 20px;
     margin: 0px 14px 0px 14px;
 
@@ -298,7 +294,7 @@ body {
 #main #innermain #maincontent .course-list-item .description {
     float: left;
     padding-right: 10px;
-    width: 475px;
+    width: 410px;
 }
 
 #main #innermain #maincontent .course-list-item .description b {

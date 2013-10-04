@@ -1,5 +1,6 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.comparator.RankComparator;
 import nl.codebasesoftware.produx.domain.dto.entity.*;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 import nl.codebasesoftware.produx.service.business.CourseUrl;
@@ -395,6 +396,7 @@ public class Course implements DomainEntity {
         for (Region region : regions) {
             regionEntityDTOs.add(region.toDTO());
         }
+        Collections.sort(regionEntityDTOs, new RankComparator());
         return regionEntityDTOs;
     }
 

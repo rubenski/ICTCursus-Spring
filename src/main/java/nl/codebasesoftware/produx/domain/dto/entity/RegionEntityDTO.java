@@ -1,5 +1,6 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
+import nl.codebasesoftware.produx.comparator.RankOrderable;
 import nl.codebasesoftware.produx.search.SolrIdName;
 import nl.codebasesoftware.produx.search.SolrNameAndId;
 
@@ -10,10 +11,11 @@ import nl.codebasesoftware.produx.search.SolrNameAndId;
  * Time: 8:32
  * To change this template use File | Settings | File Templates.
  */
-public class RegionEntityDTO extends DomainEntityDTO implements SolrNameAndId {
+public class RegionEntityDTO extends DomainEntityDTO implements SolrNameAndId, RankOrderable {
 
     private Long id;
     private String name;
+    private int displayRank;
 
     @Override
     public Long getId() {
@@ -32,8 +34,22 @@ public class RegionEntityDTO extends DomainEntityDTO implements SolrNameAndId {
         this.name = name;
     }
 
+    public int setDisplayRank() {
+        return displayRank;
+    }
+
+    public void setDisplayRank(int displayRank) {
+        this.displayRank = displayRank;
+    }
+
     @Override
     public String getSolrIdName() {
         return SolrIdName.createForSolr(id, name);
     }
+
+    @Override
+    public int getDisplayRank() {
+        return displayRank;
+    }
+
 }

@@ -17,6 +17,7 @@ public class Region implements DomainEntity {
 
     private Long id;
     private String name;
+    private int displayRank;
 
     @Override
     @Id
@@ -38,6 +39,14 @@ public class Region implements DomainEntity {
         this.name = name;
     }
 
+    public int getDisplayRank() {
+        return displayRank;
+    }
+
+    public void setDisplayRank(int displayRank) {
+        this.displayRank = displayRank;
+    }
+
     @Override
     public String toString() {
         return name;
@@ -47,6 +56,7 @@ public class Region implements DomainEntity {
         RegionEntityDTO regionEntityDTO = new RegionEntityDTO();
         regionEntityDTO.setId(id);
         regionEntityDTO.setName(name);
+        regionEntityDTO.setDisplayRank(displayRank);
         return regionEntityDTO;
     }
 }
