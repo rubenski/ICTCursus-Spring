@@ -6,6 +6,7 @@ import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.Time;
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
@@ -63,14 +64,14 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<CourseEntityDTO> findByCompany(Company company) {
-        return asCourseDTOs(courseDao.findCourses(company));
+    public List<CourseEntityDTO> findByCompany(CompanyEntityDTO company) {
+        return findByCompanyId(company.getId());
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<CourseEntityDTO> findByCompanyId(long companyId) {
-        return findByCompany(companyDao.find(companyId));
+        return asCourseDTOs(courseDao.findCourses(companyId));
     }
 
     @Override

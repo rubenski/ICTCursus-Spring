@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.Company;
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.service.CourseService;
@@ -56,7 +57,7 @@ public class AdminSolrController {
     @RequestMapping(value = "/admin/solr/updatecompany/{companyId}", method = RequestMethod.POST)
     @ResponseBody
     public int updateCompanyCourses(@PathVariable("companyId") long companyId) {
-        Company company = companyService.findById(companyId);
+        CompanyEntityDTO company = companyService.findById(companyId);
         List<CourseEntityDTO> courses = courseService.findByCompany(company);
         List<CourseEntityDTO> updatableCourses = new ArrayList<>();
         for (CourseEntityDTO course : courses) {

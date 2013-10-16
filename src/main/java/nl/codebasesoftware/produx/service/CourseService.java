@@ -4,6 +4,7 @@ import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.Time;
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
@@ -16,7 +17,7 @@ import java.util.List;
  * Time: 17:13
  */
 public interface CourseService {
-    List<CourseEntityDTO> findByCompany(Company company);
+    List<CourseEntityDTO> findByCompanyId(long companyId);
 
     CourseEntityDTO findFull(Long id);
 
@@ -42,5 +43,5 @@ public interface CourseService {
 
     List<CourseEntityDTO> findAllWithCompany();
 
-    List<CourseEntityDTO> findByCompanyId(long companyId);
+    List<CourseEntityDTO> findByCompany(CompanyEntityDTO company);
 }

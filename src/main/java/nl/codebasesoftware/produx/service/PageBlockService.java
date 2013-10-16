@@ -16,5 +16,4 @@ public interface PageBlockService {
 
     void setAboutIctCursusMenuInLeftColumn(Model model);
 
-
 }

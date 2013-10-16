@@ -50,9 +50,9 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
 
 
     @Override
-    public List<Course> findCourses(Company company) {
-        Query query = entityManager.createQuery("select c from Course c where c.company = :company");
-        query.setParameter("company", company);
+    public List<Course> findCourses(long companyId) {
+        Query query = entityManager.createQuery("select c from Course c where c.company.id = :companyId");
+        query.setParameter("companyId", companyId);
         return query.getResultList();
     }
 

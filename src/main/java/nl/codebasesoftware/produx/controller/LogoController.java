@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.controller;
 
 import nl.codebasesoftware.produx.domain.Company;
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.formdata.BindableFileUpload;
 import nl.codebasesoftware.produx.service.CompanyService;
@@ -66,7 +67,7 @@ public class LogoController {
         response.setContentType("image/png");
 
         Long companyId = idFromImageName(imageName);
-        Company company = companyService.findById(companyId);
+        CompanyEntityDTO company = companyService.findById(companyId);
 
         byte[] logo = null;
 
@@ -102,7 +103,7 @@ public class LogoController {
     @RequestMapping(value = "/admin/logo/has/{companyId}", method = RequestMethod.POST)
     @ResponseBody
     public boolean hasLogo(@PathVariable(value = "companyId") long companyId) {
-        Company company = companyService.findById(companyId);
+        CompanyEntityDTO company = companyService.findById(companyId);
         return company.hasLogo();
     }
 

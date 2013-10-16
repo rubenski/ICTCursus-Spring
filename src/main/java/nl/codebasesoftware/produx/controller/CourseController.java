@@ -99,6 +99,7 @@ public class CourseController {
         model.addAttribute("numberOfParticipants", NumberOfParticipants.NUMBERS);
         model.addAttribute("isCourse", true);
         model.addAttribute("otherCourses", otherCourses);
+        model.addAttribute("hasOtherCourses", otherCourses.getCourses().size() > 0);
 
 
     }

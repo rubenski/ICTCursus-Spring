@@ -387,6 +387,12 @@ public class Course implements DomainEntity {
         for (Tag tag : tags) {
             tagEntityDTOs.add(tag.toDTO());
         }
+        Collections.sort(tagEntityDTOs, new Comparator<TagEntityDTO>() {
+            @Override
+            public int compare(TagEntityDTO o1, TagEntityDTO o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
         return tagEntityDTOs;
     }
 

@@ -24,25 +24,29 @@ $(document).ready(function () {
 });
 
 function hideFilterLinksAfter(facet) {
-    var child = 5;
-    var filterLinks = $('.facet.' + facet + ' .facet-option:gt(' + child + ')');
-    var lastLink = $('.facet.' + facet + ' .facet-option:nth-child(' + (child + 2) + ')');
-    $('#less-' + facet).remove();
+    var showNumberOfLinks = 5;
+    var linksOverMaximum = $('.facet.' + facet + ' .facet-option:gt(' + (showNumberOfLinks - 1) + ')');
 
-    var div = $('<div/>', {
-        class: 'facet-option more',
-        id: 'more-' + facet
-    }).appendTo(lastLink);
+    if (linksOverMaximum.length > 0) {
+        var lastLink = $('.facet.' + facet + ' .facet-option:nth-child(' + (showNumberOfLinks + 1) + ')');
+        $('#less-' + facet).remove();
 
-    $('<a/>', {
-        href: '#',
-        text: 'Meer filters'
-    }).click(function (e) {
-            showFilterLinks(facet);
-        })
-        .appendTo(div);
+        var div = $('<div/>', {
+            class: 'facet-option more',
+            id: 'more-' + facet
+        }).appendTo(lastLink);
 
-    filterLinks.hide();
+        $('<a/>', {
+            href: '#',
+            text: 'Meer filters'
+        }).click(function (e) {
+                showFilterLinks(facet);
+            })
+            .appendTo(div);
+
+        linksOverMaximum.hide();
+    }
+
 }
 
 

@@ -186,6 +186,10 @@ body {
     background-color:rgba(255,255,255,0.75);
 }
 
+#maincontent #courseRequest .submitbutton {
+    margin-top: 17px;
+}
+
 #main #innermain #maincontent.roundedbox {
     padding-bottom: 25px;
 }
@@ -240,8 +244,7 @@ body {
 
 }
 
-#main #innermain #maincontent p,
- #main #innermain #maincontent pre {
+#main #innermain #maincontent pre {
     margin-bottom: 10px;
 }
 
@@ -264,6 +267,14 @@ body {
     width: 100%;
     background-color: #555555;
     color: white;
+}
+
+#main #innermain #maincontent p  {
+    margin: 15px 0 15px 0;
+}
+
+#main #innermain #maincontent #courseRequest label  {
+    margin-top: 15px;
 }
 
 #main #innermain #maincontent .course-list-item {
@@ -296,24 +307,12 @@ body {
     border-radius: 3px;
 }
 
-
 #main #innermain #maincontent .course-list-item .description {
-    float: left;
-    padding-right: 10px;
-    width: 410px;
+    padding: 0px 10px 10px 0px;
 }
 
 #main #innermain #maincontent .course-list-item .description b {
     padding-top: 8px;
-    display: block;
-}
-
-#main #innermain #maincontent .course-list-item .logo img {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    right: 10px;
 }
 
 #advertising-overlay-link-container {
@@ -350,8 +349,8 @@ div.pretty table tr th {
     padding: 6px 2px 6px 2px;
 }
 
-.default-block {
-    padding-bottom: 15px;
+.default-block label {
+    padding-bottom: 5px;
 }
 
 .default-block label {
@@ -420,9 +419,6 @@ input, select, textarea {
     margin-bottom: 10px;
 }
 
-#courseRequest {
-    margin-top: 15px;
-}
 
 input[type=checkbox].css-checkbox {
     position: absolute;

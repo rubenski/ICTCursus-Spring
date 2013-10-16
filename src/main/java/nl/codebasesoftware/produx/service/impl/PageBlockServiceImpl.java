@@ -56,4 +56,5 @@ public class PageBlockServiceImpl implements PageBlockService {
     public void setAboutIctCursusMenuInLeftColumn(Model model) {
         model.addAttribute("aboutIctCursusPage", true);
     }
+
 }

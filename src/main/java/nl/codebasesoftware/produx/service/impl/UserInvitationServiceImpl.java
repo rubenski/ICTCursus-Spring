@@ -1,5 +1,6 @@
 package nl.codebasesoftware.produx.service.impl;
 
+import nl.codebasesoftware.produx.dao.CompanyDao;
 import nl.codebasesoftware.produx.dao.RolesAndRightsDao;
 import nl.codebasesoftware.produx.dao.UserInvitationDao;
 import nl.codebasesoftware.produx.dao.UserProfileDao;
@@ -7,6 +8,7 @@ import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Role;
 import nl.codebasesoftware.produx.domain.UserInvitation;
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.formdata.AccountActivationFormData;
 import nl.codebasesoftware.produx.formdata.BindableUserInvitation;
@@ -36,28 +38,32 @@ public class UserInvitationServiceImpl implements UserInvitationService {
 
     private UserInvitationDao userInvitationDao;
     private ConversionService conversionService;
-    private CompanyService companyService;
     private InvitationMailer invitationMailer;
     private MessageSource messageSource;
     private UserProfileDao userProfileDao;
     private RolesAndRightsDao rolesAndRightsDao;
+    private CompanyDao companyDao;
+    private CompanyService companyService;
 
     @Resource
     Properties properties;
 
     @Autowired
     public UserInvitationServiceImpl(UserInvitationDao userInvitationDao, ConversionService conversionService,
-                                     CompanyService companyService, InvitationMailer invitationMailer,
+                                     InvitationMailer invitationMailer,
                                      MessageSource messageSource,
                                      UserProfileDao userProfileDao,
-                                     RolesAndRightsDao rolesAndRightsDao) {
+                                     RolesAndRightsDao rolesAndRightsDao,
+                                     CompanyDao companyDao,
+                                     CompanyService companyService) {
         this.userInvitationDao = userInvitationDao;
         this.conversionService = conversionService;
-        this.companyService = companyService;
         this.invitationMailer = invitationMailer;
         this.messageSource = messageSource;
         this.userProfileDao = userProfileDao;
         this.rolesAndRightsDao = rolesAndRightsDao;
+        this.companyDao = companyDao;
+        this.companyService = companyService;
     }
 
     @Override
@@ -110,8 +116,7 @@ public class UserInvitationServiceImpl implements UserInvitationService {
     @Transactional(readOnly = false)
     public UserProfile activateProfile(AccountActivationFormData activationData) {
         UserProfile userProfile = new UserProfile();
-        Company company = companyService.findById(activationData.getCompanyId());
-
+        Company company = companyDao.find(activationData.getCompanyId());
         userProfile.setCompany(company);
         userProfile.setEmail(activationData.getEmail());
         userProfile.setEnabled(true);

@@ -38,13 +38,6 @@
                         </td>
                         <td>
                             <form:input path="requesterName" cssClass="form-input" cssErrorClass="form-input-error" size="47" maxlength="60"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td>
                             <form:errors path="requesterName" cssClass="form-error"/>
                         </td>
                     </tr>
@@ -73,7 +66,7 @@
             </div>
 
             <div class="default-block">
-                <input type="submit" class="submitbutton" value="<spring:message code="generic.message.save"/>"/>
+                <input type="submit" class="submitbutton" value="<spring:message code="generic.message.send"/>"/>
             </div>
         </form:form>
 

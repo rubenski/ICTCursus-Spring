@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface CourseDao extends GenericDao<Course> {
 
-    List<Course> findCourses(Company company);
+    List<Course> findCourses(long companyId);
 
     Course findFull(Long id);
 

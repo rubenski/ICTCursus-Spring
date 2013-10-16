@@ -13,7 +13,6 @@
         </param-value>
     </context-param>
 
-
     <listener>
         <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
     </listener>
@@ -21,8 +20,6 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-
-
 
     <servlet>
         <servlet-name>produxDispatcherServlet</servlet-name>
@@ -55,10 +52,8 @@
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 
-
     <session-config>
         <session-timeout>60</session-timeout>
     </session-config>
-
 
 </web-app> 

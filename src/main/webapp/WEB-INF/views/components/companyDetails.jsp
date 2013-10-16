@@ -12,12 +12,13 @@
 </div>
 
 
-
-<div class="roundedbox columntext">
-    <span class="header">Andere cursussen van ${course.company.name}</span>
-    <ul>
-    <c:forEach items="${otherCourses.courses}" var="course">
-        <li><a href="${course.url}">${course.name}</a></li>
-    </c:forEach>
-    </ul>
-</div>
+<c:if test="${hasOtherCourses}">
+    <div class="roundedbox columntext">
+        <span class="header">Andere cursussen van ${course.company.name}</span>
+        <ul>
+            <c:forEach items="${otherCourses.courses}" var="course">
+                <li><a href="${course.url}">${course.name}</a></li>
+            </c:forEach>
+        </ul>
+    </div>
+</c:if>

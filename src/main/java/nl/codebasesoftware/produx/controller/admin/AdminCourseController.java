@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.*;
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
@@ -61,7 +62,7 @@ public class AdminCourseController {
     @RequestMapping(value = "/admin/courses", method = RequestMethod.GET)
     public String get(Model model, Locale locale) {
         UserProfile userProfile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Company company = companyService.findByUserProfile(userProfile);
+        CompanyEntityDTO company = companyService.findByUserProfile(userProfile);
         List<CourseEntityDTO> courses = courseService.findByCompany(company);
         model.addAttribute("mainContent", "content/adminCourses");
         setCoursesScreenData(model, locale, courses);
@@ -86,7 +87,7 @@ public class AdminCourseController {
 
 
         Company loggedInCompany = companyService.getCurrentlyLoggedInCompany();
-        List<CourseEntityDTO> companyCourses = courseService.findByCompany(loggedInCompany);
+        List<CourseEntityDTO> companyCourses = courseService.findByCompanyId(loggedInCompany.getId());
 
         model.addAttribute("mainContent", "forms/editCourse");
         CourseEntityDTO course = courseService.findFull(id);

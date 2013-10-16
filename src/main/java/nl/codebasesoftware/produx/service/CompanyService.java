@@ -3,6 +3,7 @@ package nl.codebasesoftware.produx.service;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.formdata.BindableCompany;
 import nl.codebasesoftware.produx.formdata.BindableFileUpload;
 import nl.codebasesoftware.produx.formdata.CompanySettingsFormData;
@@ -13,13 +14,13 @@ import nl.codebasesoftware.produx.formdata.CompanySettingsFormData;
  * Time: 2:35
  */
 public interface CompanyService {
-    Company findByUserProfile(UserProfile userProfile);
+    CompanyEntityDTO findByUserProfile(UserProfile userProfile);
 
     void update(BindableCompany bindableCompany);
 
     Company getCurrentlyLoggedInCompany();
 
-    Company findById(Long companyId);
+    CompanyEntityDTO findById(Long companyId);
 
     Company findByArticle(ArticleEntityDTO article);
 

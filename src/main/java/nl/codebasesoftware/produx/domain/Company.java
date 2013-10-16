@@ -260,6 +260,7 @@ public class Company implements DomainEntity, Serializable {
         companyDTO.setId(id);
         companyDTO.setTradeNumber(tradeNumber);
         companyDTO.setNormalLogo(normalLogo);
+        companyDTO.setSmallLogo(smallLogo);
         companyDTO.setPhone(phone);
         companyDTO.setVatNumber(vatNumber);
         companyDTO.setZipCode(zipCode);
