@@ -23,6 +23,7 @@ public class CourseRequestToCourseRequestFormData implements Converter<CourseReq
         formData.setPrefix(courseRequest.getPrefix());
         formData.setInvalid(courseRequest.isInvalid());
         formData.setId(courseRequest.getId());
+        formData.setPhone(courseRequest.getPhone());
         return formData;
     }
 }

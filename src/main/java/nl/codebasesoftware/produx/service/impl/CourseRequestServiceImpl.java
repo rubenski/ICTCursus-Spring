@@ -3,6 +3,7 @@ package nl.codebasesoftware.produx.service.impl;
 import nl.codebasesoftware.produx.dao.CourseRequestDao;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.CourseRequest;
+import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import nl.codebasesoftware.produx.formdata.CourseRequestFormData;
 import nl.codebasesoftware.produx.service.CourseRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +33,11 @@ public class CourseRequestServiceImpl implements CourseRequestService {
 
     @Override
     @Transactional(readOnly = false)
-    public void saveRequest(CourseRequestFormData courseRequestFormData) {
+    public CourseRequestEntityDTO saveRequest(CourseRequestFormData courseRequestFormData) {
         CourseRequest request = conversionService.convert(courseRequestFormData, CourseRequest.class);
         courseRequestDao.persist(request);
+        CourseRequest full = courseRequestDao.findFull(request.getId());
+        return full.toDTO();
     }
 
     @Override
@@ -45,15 +48,15 @@ public class CourseRequestServiceImpl implements CourseRequestService {
 
     @Override
     @Transactional(readOnly = true)
-    public CourseRequest findById(long id) {
-        return courseRequestDao.find(id);
+    public CourseRequestEntityDTO findFull(long id) {
+        return courseRequestDao.findFull(id).toDTO();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public boolean belongsTo(Company company, CourseRequest courseRequest) {
-        CourseRequest mergedRequest = courseRequestDao.merge(courseRequest);
-        return mergedRequest.getCourse().getCompany().equals(company);
+    public boolean belongsTo(Company company, CourseRequestEntityDTO courseRequest) {
+        CourseRequest request = courseRequestDao.findFull(courseRequest.getId());
+        return request.getCourse().getCompany().equals(company);
     }
 
     @Override

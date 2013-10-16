@@ -3,11 +3,9 @@ package nl.codebasesoftware.produx.domain.dto.entity;
 import java.util.Calendar;
 
 /**
- * Created with IntelliJ IDEA.
  * User: rvanloen
  * Date: 27-8-13
  * Time: 17:12
- * To change this template use File | Settings | File Templates.
  */
 public class CourseRequestEntityDTO extends DomainEntityDTO {
 
@@ -19,6 +17,7 @@ public class CourseRequestEntityDTO extends DomainEntityDTO {
     private int numberOfParticipants;
     private CourseEntityDTO course;
     private String courseName;
+    private String phone;
     private Calendar created;
     private boolean invalid;
 
@@ -100,5 +99,13 @@ public class CourseRequestEntityDTO extends DomainEntityDTO {
 
     public void setInvalid(boolean invalid) {
         this.invalid = invalid;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

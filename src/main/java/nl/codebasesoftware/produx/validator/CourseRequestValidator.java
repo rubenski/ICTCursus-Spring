@@ -27,6 +27,10 @@ public class CourseRequestValidator implements Validator {
             errors.rejectValue("email", "errors.invalid.email");
         }
 
+        if(!ProduxValidator.isValidPhoneNumber(courseRequest.getPhone())){
+            errors.rejectValue("phone", "errors.company.phone");
+        }
+
         if (!ProduxValidator.isValidRequestMessage(courseRequest.getMessage())) {
             errors.rejectValue("message", "errors.invalid.requestmessage");
         }

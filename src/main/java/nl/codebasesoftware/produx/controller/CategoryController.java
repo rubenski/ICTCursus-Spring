@@ -40,7 +40,6 @@ public class CategoryController {
 
     private static Logger LOG = Logger.getLogger(CategoryController.class);
 
-    private ApplicationContext applicationContext;
     private CourseService courseService;
     private CategoryService categoryService;
     private PageBlockService pageBlockService;
@@ -59,7 +58,6 @@ public class CategoryController {
                               ArticleService articleService,
                               SearchService searchService,
                               Properties properties) {
-        this.applicationContext = applicationContext;
         this.courseService = courseService;
         this.categoryService = categoryService;
         this.pageBlockService = pageBlockService;

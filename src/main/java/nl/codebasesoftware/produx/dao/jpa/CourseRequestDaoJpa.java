@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.dao.jpa;
 
 import nl.codebasesoftware.produx.dao.CourseRequestDao;
 import nl.codebasesoftware.produx.domain.CourseRequest;
+import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -37,5 +38,13 @@ public class CourseRequestDaoJpa extends GenericDaoJpa<CourseRequest> implements
                 .setParameter("invalid", invalid)
                 .setParameter("id", id)
                 .executeUpdate();
+    }
+
+    @Override
+    public CourseRequest findFull(long id) {
+        return getSingleResult(entityManager.createQuery("from CourseRequest cr " +
+                "inner join fetch cr.course course " +
+                "inner join fetch course.company " +
+                "where cr.id = :id").setParameter("id", id));
     }
 }

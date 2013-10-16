@@ -38,16 +38,22 @@
                         </td>
                         <td>
                             <form:input path="requesterName" cssClass="form-input" cssErrorClass="form-input-error" size="47" maxlength="60"/>
-                            <form:errors path="requesterName" cssClass="form-error"/>
                         </td>
                     </tr>
                 </table>
             </div>
+            <form:errors path="requesterName" cssClass="form-error"/>
 
             <div class="default-block">
                 <form:label path="email"><spring:message code="user.genericlabel.email"/></form:label>
                 <form:input path="email" cssClass="form-input" cssErrorClass="form-input-error" maxlength="60" size="60"/>
                 <form:errors path="email" cssClass="form-error"/>
+            </div>
+
+            <div class="default-block">
+                <form:label path="phone"><spring:message code="user.genericlabel.phone"/></form:label>
+                <form:input path="phone" cssClass="form-input" cssErrorClass="form-input-error" maxlength="60" size="60"/>
+                <form:errors path="phone" cssClass="form-error"/>
             </div>
 
             <div class="default-block">
@@ -72,11 +78,7 @@
 
     </c:when>
     <c:otherwise>
-
-        <div class="roundedbox">
-            <p><spring:message code="submit.request.success" arguments="${course.company.name},${courseRequest.email}"/></p>
-        </div>
-
+        <p><spring:message code="submit.request.success" arguments="${course.company.name},${courseRequest.email}"/></p>
     </c:otherwise>
 </c:choose>
 

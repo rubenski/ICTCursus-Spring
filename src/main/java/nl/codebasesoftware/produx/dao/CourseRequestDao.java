@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.dao;
 
 import nl.codebasesoftware.produx.domain.CourseRequest;
+import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface CourseRequestDao extends GenericDao<CourseRequest> {
     List<CourseRequest> findAllDateSortedDesc();
 
     void setInvalid(Long id, boolean invalid);
+
+    CourseRequest findFull(long id);
 }

@@ -1,0 +1,60 @@
+#* @vtlvariable name="request" type="nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO" *#
+
+
+<html>
+<body>
+<p>
+    Geachte heer/mevrouw,
+    <br>
+    <br>
+    U heeft een aanvraag ontvangen via ICT Cursus. Hieronder vindt u de details van de aanvraag.
+    <br>
+    <br>
+    <table style="width:600px; border: none">
+        <tr>
+            <td width="250px"><b>Cursus</b></td>
+            <td width="350px"><a href="${linkToCourse}">${request.courseName}</a></td>
+        </tr>
+        <tr>
+            <td><b>Naam aanvrager</b></td>
+            <td>#if(${request.prefix} == 0)
+                    Dhr.
+                #else
+                    Mevr.
+                #end
+            ${request.requesterName}</td>
+        </tr>
+        <tr>
+            <td><b>Email aanvrager</b></td>
+            <td>${request.email}</td>
+        </tr>
+        <tr>
+            <td><b>Telefoonnummer aanvrager</b></td>
+            <td>${request.phone}</td>
+        </tr>
+        <tr>
+            <td><b>(Geschat) aantal deelnemers</b></td>
+            <td>${request.numberOfParticipants}</td>
+        </tr>
+        <tr>
+            <td><b>Bericht</b></td>
+            <td>${request.message}</td>
+        </tr>
+    </table>
+    <br>
+    <br>
+    U kunt deze <a href="${linkToRequest}">aanvraag</a> bekijken in uw ICT Cursus administratie-omgeving.
+    <br>
+    <br>
+    Hartelijke groeten,
+    <br>
+    <br>
+    ICTCursus.nl
+    <br>
+    <br>
+</p>
+</body>
+
+</html>
+
+

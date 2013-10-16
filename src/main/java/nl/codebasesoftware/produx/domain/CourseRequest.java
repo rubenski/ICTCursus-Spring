@@ -18,6 +18,7 @@ public class CourseRequest implements DomainEntity {
     private String requesterName;
     private String email;
     private String message;
+    private String phone;
     private int numberOfParticipants;
     private Course course;
     private String courseName;
@@ -117,6 +118,14 @@ public class CourseRequest implements DomainEntity {
         this.invalid = invalid;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     @Override
     @Transient
     public CourseRequestEntityDTO toDTO() {
@@ -129,6 +138,7 @@ public class CourseRequest implements DomainEntity {
         dto.setCreated(created);
         dto.setEmail(email);
         dto.setInvalid(invalid);
+        dto.setPhone(phone);
         dto.setMessage(message);
         dto.setNumberOfParticipants(numberOfParticipants);
         dto.setInvalid(invalid);

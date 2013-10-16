@@ -3,6 +3,7 @@ package nl.codebasesoftware.produx.controller.admin;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.CourseRequest;
+import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import nl.codebasesoftware.produx.domain.optionlists.NumberOfParticipants;
 import nl.codebasesoftware.produx.domain.optionlists.Prefixes;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
@@ -81,7 +82,7 @@ public class AdminCourseRequestController {
     @RequestMapping(value = "/admin/sys/courserequests/{id}", method = RequestMethod.POST)
     public String saveRequest(@ModelAttribute("courseRequestFormData") CourseRequestFormData formData, Model model, Locale locale) {
         requestService.setInvalid(formData.getId(), formData.isInvalid());
-        CourseRequest request = requestService.findById(formData.getId());
+        CourseRequestEntityDTO request = requestService.findFull(formData.getId());
         fillModel(model, locale, request, true);
         model.addAttribute("valid", "true");
         return "sysAdminMain";
@@ -89,7 +90,7 @@ public class AdminCourseRequestController {
 
     @RequestMapping(value = "/admin/courserequests/{id}", method = RequestMethod.GET)
     public String showRequest(@PathVariable("id") Long id, Model model, Locale locale) {
-        CourseRequest request = requestService.findById(id);
+        CourseRequestEntityDTO request = requestService.findFull(id);
         currentCompanyIsOwner(request);
         fillModel(model, locale, request, true);
         return "adminMain";
@@ -98,12 +99,12 @@ public class AdminCourseRequestController {
 
     @RequestMapping(value = "/admin/sys/courserequests/{id}", method = RequestMethod.GET)
     public String showRequestSysAdmin(@PathVariable("id") Long id, Model model, Locale locale) {
-        CourseRequest request = requestService.findById(id);
+        CourseRequestEntityDTO request = requestService.findFull(id);
         fillModel(model, locale, request, true);
         return "sysAdminMain";
     }
 
-    private void fillModel(Model model, Locale locale, CourseRequest request, boolean isSysAdmin) {
+    private void fillModel(Model model, Locale locale, CourseRequestEntityDTO request, boolean isSysAdmin) {
 
         if (request == null) {
             throw new ResourceNotFoundException();
@@ -121,7 +122,7 @@ public class AdminCourseRequestController {
 
     }
 
-    private void currentCompanyIsOwner(CourseRequest request) {
+    private void currentCompanyIsOwner(CourseRequestEntityDTO request) {
         Company currentlyLoggedInCompany = companyService.getCurrentlyLoggedInCompany();
         boolean isOwner = requestService.belongsTo(currentlyLoggedInCompany, request);
 

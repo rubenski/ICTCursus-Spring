@@ -14,6 +14,7 @@ public class CourseRequestFormData {
     private String courseName;
     private String email;
     private String message;
+    private String phone;
     private int numberOfParticipants;
     private boolean invalid;
 
@@ -87,5 +88,13 @@ public class CourseRequestFormData {
 
     public void setInvalid(boolean invalid) {
         this.invalid = invalid;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

@@ -1,11 +1,13 @@
 package nl.codebasesoftware.produx.controller;
 
 import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import nl.codebasesoftware.produx.domain.optionlists.NumberOfParticipants;
 import nl.codebasesoftware.produx.domain.optionlists.Prefixes;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.formdata.CourseRequestFormData;
+import nl.codebasesoftware.produx.net.mail.CourseRequestMailer;
 import nl.codebasesoftware.produx.search.criteria.SearchCriteria;
 import nl.codebasesoftware.produx.search.criteria.filter.Filter;
 import nl.codebasesoftware.produx.search.criteria.filter.NormalFilter;
@@ -24,7 +26,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.mail.MessagingException;
 import java.util.Arrays;
+import java.util.Locale;
 
 /**
  * User: rvanloen
@@ -38,14 +42,17 @@ public class CourseController {
     private CourseRequestValidator courseRequestValidator;
     private CourseRequestService courseRequestService;
     private SearchService searchService;
+    private CourseRequestMailer courseRequestMailer;
 
     @Autowired
     public CourseController(CourseService courseService, CourseRequestValidator courseRequestValidator,
-                            CourseRequestService courseRequestService, SearchService searchService) {
+                            CourseRequestService courseRequestService, SearchService searchService,
+                            CourseRequestMailer courseRequestMailer) {
         this.courseService = courseService;
         this.courseRequestValidator = courseRequestValidator;
         this.courseRequestService = courseRequestService;
         this.searchService = searchService;
+        this.courseRequestMailer = courseRequestMailer;
     }
 
     @RequestMapping(value = "/{category}/{id:[\\d]+}/{title}", method = RequestMethod.GET)
@@ -58,12 +65,14 @@ public class CourseController {
     }
 
 
-    @RequestMapping(value = "/{category}/c{id:[0-9]}-{title}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{category}/{id:[\\d]+}/{title}", method = RequestMethod.POST)
     public String submitRequest(@ModelAttribute("courseRequest") CourseRequestFormData request,
-                                BindingResult result, Model model) throws ProduxServiceException {
+                                BindingResult result, Model model, Locale locale) throws ProduxServiceException, MessagingException {
+
         courseRequestValidator.validate(request, result);
         if (!result.hasErrors()) {
-            courseRequestService.saveRequest(request);
+            CourseRequestEntityDTO requestEntityDTO = courseRequestService.saveRequest(request);
+            courseRequestMailer.sendCourseRequestMail(requestEntityDTO, locale);
             model.addAttribute("courseRequestSubmitSuccess", true);
         }
         setData(model, request, request.getCourseId());

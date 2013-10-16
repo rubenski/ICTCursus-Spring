@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.service;
 
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.CourseRequest;
+import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import nl.codebasesoftware.produx.formdata.CourseRequestFormData;
 
 import java.util.List;
@@ -13,13 +14,13 @@ import java.util.List;
  */
 public interface CourseRequestService {
 
-    void saveRequest(CourseRequestFormData courseRequestFormData);
+    CourseRequestEntityDTO saveRequest(CourseRequestFormData courseRequestFormData);
 
     List<CourseRequest> findForCompany(long companyId);
 
-    CourseRequest findById(long id);
+    CourseRequestEntityDTO findFull(long id);
 
-    boolean belongsTo(Company company, CourseRequest courseRequest);
+    boolean belongsTo(Company company, CourseRequestEntityDTO courseRequest);
 
     List<CourseRequest> findAllDateSortedDesc();
 
