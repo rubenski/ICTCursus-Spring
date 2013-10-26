@@ -1,5 +1,6 @@
 package nl.codebasesoftware.produx.service;
 
+import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.search.criteria.SearchCriteria;
 import nl.codebasesoftware.produx.search.criteria.facet.FacetField;
@@ -23,4 +24,6 @@ public interface SearchService {
     FacetField createRegionsFacet(List<Filter> filterList);
 
     SearchResult findCourses(SearchCriteria criteria)  throws ProduxServiceException;
+
+    SearchResult findOtherCourses(CourseEntityDTO course) throws ProduxServiceException;
 }

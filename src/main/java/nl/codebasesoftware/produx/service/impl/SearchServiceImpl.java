@@ -1,10 +1,12 @@
 package nl.codebasesoftware.produx.service.impl;
 
 import nl.codebasesoftware.produx.conversion.QueryResponseToSearchResultConverter;
+import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.search.criteria.SearchCriteria;
 import nl.codebasesoftware.produx.search.criteria.facet.*;
 import nl.codebasesoftware.produx.search.criteria.filter.Filter;
+import nl.codebasesoftware.produx.search.criteria.filter.NormalFilter;
 import nl.codebasesoftware.produx.search.result.SearchResult;
 import nl.codebasesoftware.produx.service.SearchService;
 import nl.codebasesoftware.produx.service.SolrService;
@@ -55,6 +57,7 @@ public class SearchServiceImpl implements SearchService {
     }
 
 
+    @Override
     public FacetField createPriceFacet(List<Filter> filterList) {
         RangeFacetField priceFacet = new RangeFacetField("price", 0, 300000, 50000, FacetSortingBehavior.NATURAL_ORDER);
         priceFacet.addOtherBehavior(RangeFacetOtherBehavior.AFTER);
@@ -66,12 +69,14 @@ public class SearchServiceImpl implements SearchService {
         return priceFacet;
     }
 
+    @Override
     public FacetField createTagsFacet() {
         NormalFacetField tagsFacet = new NormalFacetField("tags", FacetSortingBehavior.COUNT);
         tagsFacet.setMinCount(1);
         return tagsFacet;
     }
 
+    @Override
     public FacetField createRegionsFacet(List<Filter> filterList) {
         NormalFacetField regionFacet = new NormalFacetField("regions", FacetSortingBehavior.NATURAL_ORDER);
         for (Filter filter : filterList) {
@@ -83,5 +88,17 @@ public class SearchServiceImpl implements SearchService {
         return regionFacet;
     }
 
+    public SearchResult findOtherCourses(CourseEntityDTO course) throws ProduxServiceException {
+        SearchCriteria.Builder criteriaBuilder = new SearchCriteria.Builder();
+        Filter companyFilter = new NormalFilter("company_id", course.getCompany().getId());
+        Filter excludeCurrentCourseFilter = new NormalFilter("course_id", course.getId());
+        excludeCurrentCourseFilter.setNegative(true);
+        SearchCriteria criteria = criteriaBuilder.addFilter(companyFilter)
+                .addFilter(excludeCurrentCourseFilter)
+                .setStart(0)
+                .setRows(10)
+                .build();
+        return findCourses(criteria);
+    }
 
 }

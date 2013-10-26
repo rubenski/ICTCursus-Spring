@@ -25,10 +25,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * User: rvanloen
@@ -60,44 +64,56 @@ public class CourseController {
                       Model model) throws ProduxServiceException {
         CourseRequestFormData courseRequestFormData = new CourseRequestFormData();
         courseRequestFormData.setCourseId(id);
-        setData(model, courseRequestFormData, id);
+        setData(model, courseRequestFormData, false);
         return "main";
     }
 
 
     @RequestMapping(value = "/{category}/{id:[\\d]+}/{title}", method = RequestMethod.POST)
     public String submitRequest(@ModelAttribute("courseRequest") CourseRequestFormData request,
-                                BindingResult result, Model model, Locale locale) throws ProduxServiceException, MessagingException {
+                                BindingResult result, Model model, Locale locale,
+                                RedirectAttributes redirectAttrs)
+                                throws ProduxServiceException, MessagingException {
 
         courseRequestValidator.validate(request, result);
         if (!result.hasErrors()) {
             CourseRequestEntityDTO requestEntityDTO = courseRequestService.saveRequest(request);
             courseRequestMailer.sendCourseRequestMail(requestEntityDTO, locale);
+            redirectAttrs.addFlashAttribute("formData", request);
             model.addAttribute("courseRequestSubmitSuccess", true);
+            return String.format("redirect:/%s/%d/success", requestEntityDTO.getCourse().getCategory().getUrlTitle(),
+                    requestEntityDTO.getCourse().getId());
         }
-        setData(model, request, request.getCourseId());
+
+        setData(model, request, false);
         model.addAttribute("includeCourseJs", true);
         model.addAttribute("scrolldown", true);
+
         return "main";
     }
 
-    private void setData(Model model, CourseRequestFormData formData, Long courseId) throws ProduxServiceException {
-        CourseEntityDTO course = courseService.findFull(courseId);
+    @RequestMapping(value = "/{category}/{id:[\\d]+}/success", method = RequestMethod.GET)
+    public String requestSubmitSuccess(Model model) throws ProduxServiceException {
+        CourseRequestFormData formData = (CourseRequestFormData) model.asMap().get("formData");
+        if(formData == null){
+            // The user pressed F5 or opened the page directly. Read here:
+            // http://www.tikalk.com/java/redirectattributes-new-feature-spring-mvc-31
+            return "redirect:/";
+        }
+
+        setData(model, formData, true);
+        return "main";
+    }
+
+    private void setData(Model model, CourseRequestFormData formData, boolean isSuccessView) throws ProduxServiceException {
+
+        CourseEntityDTO course = courseService.findFull(formData.getCourseId());
 
         if (course == null) {
             throw new ResourceNotFoundException();
         }
 
-        SearchCriteria.Builder criteriaBuilder = new SearchCriteria.Builder();
-        Filter companyFilter = new NormalFilter("company_id", course.getCompany().getId());
-        Filter excludeCurrentCourseFilter = new NormalFilter("course_id", course.getId());
-        excludeCurrentCourseFilter.setNegative(true);
-        SearchCriteria criteria = criteriaBuilder.addFilter(companyFilter)
-                                                    .addFilter(excludeCurrentCourseFilter)
-                                                    .setStart(0)
-                                                    .setRows(10)
-                                                    .build();
-        SearchResult otherCourses = searchService.findCourses(criteria);
+        SearchResult otherCourses = searchService.findOtherCourses(course);
 
         model.addAttribute("rightColumn", "content/coursedetails");
         model.addAttribute("title", course.getName() + "- ICT Cursus");
@@ -106,12 +122,13 @@ public class CourseController {
         model.addAttribute("courseRequest", formData);
         model.addAttribute("prefixes", Arrays.asList(Prefixes.values()));
         model.addAttribute("numberOfParticipants", NumberOfParticipants.NUMBERS);
+        model.addAttribute("isSuccessView", isSuccessView);
         model.addAttribute("isCourse", true);
         model.addAttribute("otherCourses", otherCourses);
         model.addAttribute("hasOtherCourses", otherCourses.getCourses().size() > 0);
-
-
     }
+
+
 
 
 }

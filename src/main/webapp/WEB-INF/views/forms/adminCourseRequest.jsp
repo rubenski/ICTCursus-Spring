@@ -3,6 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <form:form modelAttribute="courseRequestFormData">
 
@@ -33,7 +34,7 @@
 
     <div class="default-block">
         <form:label path="courseName"><spring:message code="courserequest.requestforcourse.header"/></form:label>
-        <a href="${course.adminUrl}">${courseRequestFormData.courseName}</a>
+        <a href="${course.adminUrl}" target="_blank">${courseRequestFormData.courseName}</a>
     </div>
 
     <div class="default-block">
@@ -50,7 +51,8 @@
         </form:select>
         <form:errors path="numberOfParticipants" cssClass="form-error"/>
     </div>
-    <c:if test="${isSysAdmin}">
+
+    <sec:authorize access="hasRole('ROLE_PERM_access_sysadmin_screens')">
         <div class="default-block">
             <form:label path="invalid"><spring:message code="courserequest.invalid"/></form:label>
             <form:checkbox path="invalid"/><spring:message code="courserequest.invalid"/>
@@ -58,6 +60,6 @@
         <div class="default-block">
             <input type="submit" class="submitbutton" value="<spring:message code="generic.message.save"/>"/>
         </div>
-    </c:if>
+    </sec:authorize>
 
 </form:form>

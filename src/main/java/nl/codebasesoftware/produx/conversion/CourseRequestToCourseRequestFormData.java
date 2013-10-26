@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.conversion;
 
 import nl.codebasesoftware.produx.domain.CourseRequest;
+import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import nl.codebasesoftware.produx.formdata.CourseRequestFormData;
 import org.springframework.core.convert.converter.Converter;
 
@@ -9,10 +10,10 @@ import org.springframework.core.convert.converter.Converter;
  * Date: 20-5-13
  * Time: 14:59
  */
-public class CourseRequestToCourseRequestFormData implements Converter<CourseRequest, CourseRequestFormData> {
+public class CourseRequestToCourseRequestFormData implements Converter<CourseRequestEntityDTO, CourseRequestFormData> {
 
     @Override
-    public CourseRequestFormData convert(CourseRequest courseRequest) {
+    public CourseRequestFormData convert(CourseRequestEntityDTO courseRequest) {
         CourseRequestFormData formData = new CourseRequestFormData();
         formData.setCourseId(courseRequest.getCourse().getId());
         formData.setEmail(courseRequest.getEmail());

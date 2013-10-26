@@ -31,9 +31,6 @@
                     </tr>
                 </c:forEach>
             </table>
-
-
-
         </c:when>
         <c:otherwise>
             <spring:message code="management.home.nocourserequests.message"/>

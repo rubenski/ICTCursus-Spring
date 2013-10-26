@@ -5,11 +5,13 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 
-<h1>${course.name}</h1>
+
 
 
 <c:choose>
-    <c:when test="${!courseRequestSubmitSuccess}">
+    <c:when test="${!isSuccessView}">
+
+        <h1>${course.name}</h1>
 
         ${course.longDescription}
 
@@ -57,18 +59,18 @@
             </div>
 
             <div class="default-block">
-                <form:label path="message"><spring:message code="courserequest.message"/></form:label>
-                <form:textarea path="message" cssClass="form-input" cssErrorClass="form-input-error" cols="70" rows="8" maxlength="1000"/>
-                <form:errors path="message" cssClass="form-error"/>
-            </div>
-
-            <div class="default-block">
                 <form:label path="numberOfParticipants"><spring:message code="courserequest.numberofparticipants"/></form:label>
                 <form:select path="numberOfParticipants" cssClass="form-input" cssErrorClass="form-input-error">
                     <option value="-1"></option>
                     <form:options items="${numberOfParticipants}"/>
                 </form:select>
                 <form:errors path="numberOfParticipants" cssClass="form-error"/>
+            </div>
+
+            <div class="default-block">
+                <form:label path="message"><spring:message code="courserequest.message"/></form:label>
+                <form:textarea path="message" cssClass="form-input" cssErrorClass="form-input-error" cols="70" rows="8" maxlength="1000"/>
+                <form:errors path="message" cssClass="form-error"/>
             </div>
 
             <div class="default-block">
