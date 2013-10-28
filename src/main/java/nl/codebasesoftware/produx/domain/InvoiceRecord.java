@@ -1,5 +1,8 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.domain.dto.entity.DomainEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.InvoiceRecordEntityDTO;
+
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -11,12 +14,10 @@ import java.util.Map;
  * Time: 23:48
  */
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class InvoiceRecord implements DomainEntity {
+public class InvoiceRecord implements DomainEntity {
 
     private Long id;
     private int price;
-    private String courseName;
     private Calendar sourceRecordCreated;
     private Map<String, String> sourceFields = new HashMap<>();
     private InvoiceRecordType type;
@@ -42,15 +43,6 @@ public abstract class InvoiceRecord implements DomainEntity {
 
     public void setSourceFields(Map<String, String> sourceFields) {
         this.sourceFields = sourceFields;
-    }
-
-    @Column(nullable = false)
-    public String getCourseName() {
-        return courseName;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
     }
 
     @Column(nullable = false)
@@ -80,5 +72,14 @@ public abstract class InvoiceRecord implements DomainEntity {
 
     public void setType(InvoiceRecordType type) {
         this.type = type;
+    }
+
+    @Override
+    public InvoiceRecordEntityDTO toDTO() {
+        InvoiceRecordEntityDTO dto = new InvoiceRecordEntityDTO();
+        dto.setId(id);
+        dto.setPrice(price);
+        dto.setSourceRecordCreated(sourceRecordCreated);
+        return dto;
     }
 }

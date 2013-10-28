@@ -5,6 +5,7 @@ import nl.codebasesoftware.produx.domain.CourseRequest;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import nl.codebasesoftware.produx.formdata.CourseRequestFormData;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -25,4 +26,6 @@ public interface CourseRequestService {
     List<CourseRequest> findAllDateSortedDesc();
 
     void setInvalid(Long id, boolean invalid);
+
+    List<CourseRequestEntityDTO> findBetween(Calendar startDate, Calendar endDate);
 }

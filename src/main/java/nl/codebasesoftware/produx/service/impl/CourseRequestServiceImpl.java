@@ -6,11 +6,13 @@ import nl.codebasesoftware.produx.domain.CourseRequest;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import nl.codebasesoftware.produx.formdata.CourseRequestFormData;
 import nl.codebasesoftware.produx.service.CourseRequestService;
+import nl.codebasesoftware.produx.util.EntityCollectionConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -69,5 +71,12 @@ public class CourseRequestServiceImpl implements CourseRequestService {
     @Transactional(readOnly = false)
     public void setInvalid(Long id, boolean invalid) {
         courseRequestDao.setInvalid(id, invalid);
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public List<CourseRequestEntityDTO> findBetween(Calendar startDate, Calendar endDate) {
+        List<CourseRequest> result = courseRequestDao.findBetween(startDate, endDate);
+        return new EntityCollectionConverter<CourseRequest, CourseRequestEntityDTO>().convert(result);
     }
 }

@@ -17,7 +17,7 @@ public class InvoiceEntityDTO extends DomainEntityDTO {
     private Long id;
     private Calendar dateCreated;
     private CompanyEntityDTO company;
-    private Set<InvoiceRecord> records;
+    private Set<InvoiceRecordEntityDTO> records;
 
     @Override
     public Long getId() {
@@ -44,11 +44,11 @@ public class InvoiceEntityDTO extends DomainEntityDTO {
         this.company = company;
     }
 
-    public Set<InvoiceRecord> getRecords() {
+    public Set<InvoiceRecordEntityDTO> getRecords() {
         return records;
     }
 
-    public void setRecords(Set<InvoiceRecord> records) {
-        this.records = records;
+    public void addRecord(InvoiceRecordEntityDTO record) {
+        this.records.add(record);
     }
 }

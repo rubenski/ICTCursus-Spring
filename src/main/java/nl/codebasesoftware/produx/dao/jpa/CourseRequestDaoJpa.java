@@ -5,6 +5,7 @@ import nl.codebasesoftware.produx.domain.CourseRequest;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import org.springframework.stereotype.Repository;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -46,5 +47,13 @@ public class CourseRequestDaoJpa extends GenericDaoJpa<CourseRequest> implements
                 "inner join fetch cr.course course " +
                 "inner join fetch course.company " +
                 "where cr.id = :id").setParameter("id", id));
+    }
+
+    @Override
+    public List<CourseRequest> findBetween(Calendar startDate, Calendar endDate) {
+        return entityManager.createQuery("from CourseRequest where created >= :startDate and created < :endDate")
+        .setParameter("startDate", startDate)
+        .setParameter("endDate", endDate)
+        .getResultList();
     }
 }

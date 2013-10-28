@@ -13,7 +13,6 @@ public class InvoiceRecordEntityDTO extends DomainEntityDTO {
 
     private Long id;
     private int price;
-    private String courseName;
     private Calendar sourceRecordCreated;
 
     public Long getId() {
@@ -30,14 +29,6 @@ public class InvoiceRecordEntityDTO extends DomainEntityDTO {
 
     public void setPrice(int price) {
         this.price = price;
-    }
-
-    public String getCourseName() {
-        return courseName;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
     }
 
     public Calendar getSourceRecordCreated() {

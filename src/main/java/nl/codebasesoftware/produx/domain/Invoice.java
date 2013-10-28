@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -18,7 +19,7 @@ public class Invoice implements DomainEntity {
     private Long id;
     private Calendar dateCreated;
     private Company company;
-    private Set<InvoiceRecord> records;
+    private Set<InvoiceRecord> records = new HashSet<>();
 
     @Override
     @Id
@@ -55,13 +56,17 @@ public class Invoice implements DomainEntity {
         this.records = records;
     }
 
-    @Transient
     @Override
     public InvoiceEntityDTO toDTO() {
         InvoiceEntityDTO dto = new InvoiceEntityDTO();
         dto.setId(id);
         dto.setCompany(company.toDTO());
         dto.setDateCreated(dateCreated);
+
+        for (InvoiceRecord record : records) {
+            dto.addRecord(record.toDTO());
+        }
+
         return dto;
     }
 

@@ -3,6 +3,7 @@ package nl.codebasesoftware.produx.dao;
 import nl.codebasesoftware.produx.domain.CourseRequest;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -20,4 +21,6 @@ public interface CourseRequestDao extends GenericDao<CourseRequest> {
     void setInvalid(Long id, boolean invalid);
 
     CourseRequest findFull(long id);
+
+    List<CourseRequest> findBetween(Calendar startDate, Calendar endDate);
 }
