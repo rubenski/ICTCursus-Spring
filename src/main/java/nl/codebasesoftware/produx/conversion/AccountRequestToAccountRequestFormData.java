@@ -30,6 +30,7 @@ public class AccountRequestToAccountRequestFormData implements Converter<Account
         formData.setTradeNumber(req.getTradeNumber());
         formData.setVatNumber(req.getVatNumber());
         formData.setCompanyZipCode(req.getCompanyZipCode());
+        formData.setCompanyPrefix(req.getCompanyPrefix());
         return formData;
     }
 }

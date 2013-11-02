@@ -6,14 +6,16 @@ import nl.codebasesoftware.produx.domain.CourseRequest;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import nl.codebasesoftware.produx.formdata.CourseRequestFormData;
 import nl.codebasesoftware.produx.service.CourseRequestService;
-import nl.codebasesoftware.produx.util.EntityCollectionConverter;
+import nl.codebasesoftware.produx.util.collection.EntityCollectionConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * User: rvanloen
@@ -73,10 +75,22 @@ public class CourseRequestServiceImpl implements CourseRequestService {
         courseRequestDao.setInvalid(id, invalid);
     }
 
+
     @Override
-    @Transactional(readOnly = false)
-    public List<CourseRequestEntityDTO> findBetween(Calendar startDate, Calendar endDate) {
-        List<CourseRequest> result = courseRequestDao.findBetween(startDate, endDate);
-        return new EntityCollectionConverter<CourseRequest, CourseRequestEntityDTO>().convert(result);
+    @Transactional(readOnly = true)
+    public List<CourseRequestEntityDTO> findForMonth(long companyId, int month) {
+        Locale locale = LocaleContextHolder.getLocale();
+        Calendar firstDay = Calendar.getInstance(locale);
+        firstDay.set(Calendar.MONTH, month -1);
+        firstDay.set(Calendar.DAY_OF_MONTH, firstDay.getActualMinimum(Calendar.DAY_OF_MONTH));
+
+        Calendar lastDay = Calendar.getInstance(locale);
+        lastDay.set(Calendar.MONTH, month -1);
+        lastDay.set(Calendar.DAY_OF_MONTH, lastDay.getActualMaximum(Calendar.DAY_OF_MONTH));
+
+        List<CourseRequest> requests = courseRequestDao.findBetween(companyId, firstDay, lastDay);
+
+        return new EntityCollectionConverter<CourseRequest, CourseRequestEntityDTO>().convert(requests);
     }
+
 }

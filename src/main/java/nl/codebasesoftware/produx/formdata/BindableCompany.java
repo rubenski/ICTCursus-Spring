@@ -21,6 +21,7 @@ public class BindableCompany implements Serializable {
     private String city;
     private String country;
     private boolean hasLogo;
+    private String companyPrefix;
 
 
     public String getAddress() {
@@ -117,5 +118,13 @@ public class BindableCompany implements Serializable {
 
     public void setHasLogo(boolean hasLogo) {
         this.hasLogo = hasLogo;
+    }
+
+    public String getCompanyPrefix() {
+        return companyPrefix;
+    }
+
+    public void setCompanyPrefix(String companyPrefix) {
+        this.companyPrefix = companyPrefix;
     }
 }

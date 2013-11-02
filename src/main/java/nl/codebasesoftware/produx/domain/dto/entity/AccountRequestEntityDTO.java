@@ -21,6 +21,7 @@ public class AccountRequestEntityDTO extends DomainEntityDTO {
     private String companyZipCode;
     private String tradeNumber;
     private String vatNumber;
+    private String companyPrefix;
 
     private String firstName;
     private String preposition;
@@ -101,6 +102,14 @@ public class AccountRequestEntityDTO extends DomainEntityDTO {
 
     public String getVatNumber() {
         return vatNumber;
+    }
+
+    public String getCompanyPrefix() {
+        return companyPrefix;
+    }
+
+    public void setCompanyPrefix(String companyPrefix) {
+        this.companyPrefix = companyPrefix;
     }
 
     public void setVatNumber(String vatNumber) {

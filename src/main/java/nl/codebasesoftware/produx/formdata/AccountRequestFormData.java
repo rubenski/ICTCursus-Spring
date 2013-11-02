@@ -18,6 +18,7 @@ public class AccountRequestFormData {
     private String tradeNumber;
     private String vatNumber;
     private String companyZipCode;
+    private String companyPrefix;
 
     private String firstName;
     private String preposition;
@@ -158,5 +159,11 @@ public class AccountRequestFormData {
         return id != null;
     }
 
+    public String getCompanyPrefix() {
+        return companyPrefix;
+    }
 
+    public void setCompanyPrefix(String companyPrefix) {
+        this.companyPrefix = companyPrefix;
+    }
 }

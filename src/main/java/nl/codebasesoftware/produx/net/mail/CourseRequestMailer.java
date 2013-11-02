@@ -1,6 +1,5 @@
 package nl.codebasesoftware.produx.net.mail;
 
-import nl.codebasesoftware.produx.domain.UserInvitation;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import nl.codebasesoftware.produx.util.Properties;
 import nl.codebasesoftware.produx.util.TextProperties;
@@ -58,7 +57,7 @@ public class CourseRequestMailer {
                 model.put("linkToRequest", createLinkToRequest(protocol, host, request.getId()));
                 model.put("linkToCourse", createLinkToCourse(protocol, host, request));
 
-                String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/velocity/course-request.vm", model);
+                String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/velocity/mail/course-request.vm", model);
                 message.setText(text, true);
             }
         };

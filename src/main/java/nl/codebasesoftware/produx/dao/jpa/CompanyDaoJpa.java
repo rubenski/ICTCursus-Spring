@@ -29,4 +29,9 @@ public class CompanyDaoJpa extends GenericDaoJpa<Company> implements CompanyDao 
         return getSingleResult(query);
     }
 
+    @Override
+    public Company findByPrefix(String prefix){
+        return getSingleResult(entityManager.createQuery("from Company c where c.companyPrefix = :prefix").setParameter("prefix", prefix));
+    }
+
 }

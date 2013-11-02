@@ -50,7 +50,7 @@ public class AccountRequestResultMailer {
 
                 model.put("request", request);
 
-                String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/velocity/rejection-message.vm", model);
+                String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/velocity/mail/rejection-message.vm", model);
                 message.setText(text, true);
             }
         };
@@ -83,7 +83,7 @@ public class AccountRequestResultMailer {
                 model.put("port", port);
 
 
-                String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/velocity/accepted-message.vm", model);
+                String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/velocity/mail/accepted-message.vm", model);
                 message.setText(text, true);
             }
         };

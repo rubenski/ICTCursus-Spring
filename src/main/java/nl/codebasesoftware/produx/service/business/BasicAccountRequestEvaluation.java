@@ -16,8 +16,8 @@ import java.util.List;
 
 
 // TODO: This is a weird object, because it doesn't properly represent an account request's state after it has been granted. When a request
-// is turend into a company and userprofile the boolean fields are representing the current situation, instead of the situation when the
-// request was still uunevaluated
+// is turned into a company and userprofile the boolean fields are representing the current situation, instead of the situation when the
+// request was still unevaluated
 public class BasicAccountRequestEvaluation {
 
     private AccountRequest request;
@@ -30,6 +30,7 @@ public class BasicAccountRequestEvaluation {
     private boolean companyTradeNumberExists;
     private boolean companyNameExists;
     private boolean companyEmailExists;
+
     private List<Company> potentiallyExistingCompanies = new ArrayList<Company>();
     private UserProfile existingUserProfile;
 
@@ -114,8 +115,13 @@ public class BasicAccountRequestEvaluation {
         return userEmailExists;
     }
 
+    public boolean isCompanyPrefixNotPresent() {
+        return request.getCompanyPrefix() == null;
+    }
+
+
     public boolean isOk() {
-        return (!request.isEvaluated() && potentiallyExistingCompanies.size() == 0 && existingUserProfile == null) ||
-                (request.isEvaluated() && !request.isGranted());
+        return (!request.isEvaluated() && potentiallyExistingCompanies.size() == 0 && existingUserProfile == null && !isCompanyPrefixNotPresent()) ||
+                (request.isEvaluated() && !request.isGranted() && !isCompanyPrefixNotPresent());
     }
 }

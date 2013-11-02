@@ -1,5 +1,15 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+
+<sec:authorize access="hasRole('ROLE_PERM_edit_company_courses') or hasRole('ROLE_PERM_edit_everything')">
+    <div class="default-block">
+        <form:label path="companyPrefix"><spring:message code="company.form.prefix"/></form:label>
+        <form:input path="companyPrefix" cssClass="form-input" cssErrorClass="form-input-error" size="10" maxlength="4"/>
+        <form:errors path="companyPrefix" cssClass="form-error"/>
+    </div>
+</sec:authorize>
 
 <div class="default-block">
     <form:label path="companyName"><spring:message code="company.form.name"/></form:label>

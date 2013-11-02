@@ -8,11 +8,11 @@
     <jsp:include page="submitmessage.jsp"/>
 
     <div class="formcontainer">
-        <div class="left">
+        <div class="formblock">
             <h2><spring:message code="company.data"/></h2>
             <jsp:include page="companydataformpart.jsp"/>
         </div>
-        <div class="right">
+        <div class="formblock">
             <h2><spring:message code="personal.data"/></h2>
             <jsp:include page="personaldataformpart.jsp"/>
         </div> <br style="clear:both"/>

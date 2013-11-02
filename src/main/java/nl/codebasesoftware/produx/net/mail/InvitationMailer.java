@@ -60,7 +60,7 @@ public class InvitationMailer {
                 model.put("activationUrl", activationLink);
                 model.put("invitation", invitation);
 
-                String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/velocity/user-invitation.vm", model);
+                String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/velocity/mail/user-invitation.vm", model);
                 message.setText(text, true);
             }
         };

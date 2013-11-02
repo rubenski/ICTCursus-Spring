@@ -9,12 +9,16 @@
     <table cellpadding="4" width="600">
         <tr>
             <th><spring:message code="generic.message.name"/></th>
+            <th><spring:message code="generic.userMessage.company"/></th>
             <th><spring:message code="generic.userMessage.email"/></th>
         </tr>
         <c:forEach items="${userProfiles}" var="userProfile">
             <tr>
                 <td>
                     <a href="/admin/sys/userprofile/${userProfile.id}">${userProfile.fullNameFormal}</a>
+                </td>
+                <td>
+                     ${userProfile.company.name}
                 </td>
                 <td>
                     ${userProfile.email}

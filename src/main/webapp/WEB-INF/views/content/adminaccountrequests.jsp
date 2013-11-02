@@ -73,8 +73,8 @@
                                                 <tr>
                                                     <td><spring:message code="user.email.exists"/></td>
                                                     <td>
-                                                        <c:if test="${basicRequest.userEmailExists}"><spring:message
-                                                                code="generic.message.yes"/></c:if>
+                                                        <c:if test="${basicRequest.userEmailExists}"><span class="error"><spring:message
+                                                                code="generic.message.yes"/></span></c:if>
                                                         <c:if test="${!basicRequest.userEmailExists}"><spring:message
                                                                 code="generic.message.no"/></c:if>
                                                     </td>
@@ -84,8 +84,8 @@
                                                         <spring:message code="company.email.exists"/>
                                                     </td>
                                                     <td>
-                                                        <c:if test="${basicRequest.companyEmailExists}"><spring:message
-                                                                code="generic.message.yes"/></c:if>
+                                                        <c:if test="${basicRequest.companyEmailExists}"><span class="error"><spring:message
+                                                                code="generic.message.yes"/></span></c:if>
                                                         <c:if test="${!basicRequest.companyEmailExists}"><spring:message
                                                                 code="generic.message.no"/></c:if>
                                                     </td>
@@ -95,8 +95,8 @@
                                                         <spring:message code="company.name.exists"/>
                                                     </td>
                                                     <td>
-                                                        <c:if test="${basicRequest.companyNameExists}"><spring:message
-                                                                code="generic.message.yes"/></c:if>
+                                                        <c:if test="${basicRequest.companyNameExists}"><span class="error"><spring:message
+                                                                code="generic.message.yes"/></span></c:if>
                                                         <c:if test="${!basicRequest.companyNameExists}"><spring:message
                                                                 code="generic.message.no"/></c:if>
                                                     </td>
@@ -106,20 +106,20 @@
                                                         <spring:message code="company.vat.exists"/>
                                                     </td>
                                                     <td>
-                                                        <c:if test="${basicRequest.companyVatExists}"><spring:message
-                                                                code="generic.message.yes"/></c:if>
+                                                        <c:if test="${basicRequest.companyVatExists}"><span class="error"><spring:message
+                                                                code="generic.message.yes"/></span></c:if>
                                                         <c:if test="${!basicRequest.companyVatExists}"><spring:message
                                                                 code="generic.message.no"/></c:if>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <spring:message code="company.tradenumber.exists"/>
+                                                        <spring:message code="company.prefix.notpresent"/>
                                                     </td>
                                                     <td>
-                                                        <c:if test="${basicRequest.companyTradeNumberExists}"><spring:message
-                                                                code="generic.message.yes"/></c:if>
-                                                        <c:if test="${!basicRequest.companyTradeNumberExists}"><spring:message
+                                                        <c:if test="${basicRequest.companyPrefixNotPresent}"><span class="error"><spring:message
+                                                                code="generic.message.yes"/></span></c:if>
+                                                        <c:if test="${!basicRequest.companyPrefixNotPresent}"><spring:message
                                                                 code="generic.message.no"/></c:if>
                                                     </td>
                                                 </tr>

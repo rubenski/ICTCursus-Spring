@@ -47,3 +47,7 @@
 <c:if test="${articlePage}">
     <script type="text/javascript" src="/static/javascript/admin/articlepage.js"></script>
 </c:if>
+
+<c:if test="${accountRequestsPage}">
+    <script type="text/javascript" src="/static/javascript/sysadmin/accountrequests.js"></script>
+</c:if>

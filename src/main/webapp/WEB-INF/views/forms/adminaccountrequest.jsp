@@ -9,7 +9,7 @@
     <jsp:include page="personaldataformpart.jsp"/>
 
     <div class="default-block">
-        <input type="submit" value="Verzenden"/>
+        <input type="submit" value="Opslaan"/>
     </div>
 
 

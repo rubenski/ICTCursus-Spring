@@ -24,6 +24,7 @@ public class AccountRequest implements DomainEntity {
     private String companyZipCode;
     private String tradeNumber;
     private String vatNumber;
+    private String companyPrefix;
 
     private String firstName;
     private String preposition;
@@ -107,6 +108,14 @@ public class AccountRequest implements DomainEntity {
 
     public void setUserMessage(String userMessage) {
         this.userMessage = userMessage;
+    }
+
+    public String getCompanyPrefix() {
+        return companyPrefix;
+    }
+
+    public void setCompanyPrefix(String companyPrefix) {
+        this.companyPrefix = companyPrefix;
     }
 
     @Column(nullable = false)
@@ -241,6 +250,7 @@ public class AccountRequest implements DomainEntity {
         dto.setTradeNumber(tradeNumber);
         dto.setUserMessage(userMessage);
         dto.setVatNumber(vatNumber);
+        dto.setCompanyPrefix(companyPrefix);
         return dto;
     }
 

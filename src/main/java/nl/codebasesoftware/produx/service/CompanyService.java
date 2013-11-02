@@ -22,6 +22,8 @@ public interface CompanyService {
 
     CompanyEntityDTO findById(Long companyId);
 
+    CompanyEntityDTO findByPrefix(String prefix);
+
     Company findByArticle(ArticleEntityDTO article);
 
     CompanySettingsFormData getCompanySettingsForCurrentCompany();

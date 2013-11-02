@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.service;
 
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.CourseRequest;
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import nl.codebasesoftware.produx.formdata.CourseRequestFormData;
 
@@ -27,5 +28,5 @@ public interface CourseRequestService {
 
     void setInvalid(Long id, boolean invalid);
 
-    List<CourseRequestEntityDTO> findBetween(Calendar startDate, Calendar endDate);
+    List<CourseRequestEntityDTO> findForMonth(long companyId, int month);
 }

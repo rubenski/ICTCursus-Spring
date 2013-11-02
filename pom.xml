@@ -272,6 +272,13 @@
             <scope>compile</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>fop</artifactId>
+            <version>0.93</version>
+        </dependency>
+
+
     </dependencies>
 
     <profiles>

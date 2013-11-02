@@ -63,18 +63,5 @@ public class ImageUtil {
         return imageBytes;
     }
 
-    public static void saveImage(byte[] bytes, String filePath) {
-
-        try {
-            File f = new File(filePath);
-            OutputStream os = new FileOutputStream(f);
-            IOUtils.write(bytes, os);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 
 }

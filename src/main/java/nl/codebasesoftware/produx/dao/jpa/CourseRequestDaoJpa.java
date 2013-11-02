@@ -2,7 +2,7 @@ package nl.codebasesoftware.produx.dao.jpa;
 
 import nl.codebasesoftware.produx.dao.CourseRequestDao;
 import nl.codebasesoftware.produx.domain.CourseRequest;
-import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import org.springframework.stereotype.Repository;
 
 import java.util.Calendar;
@@ -50,10 +50,12 @@ public class CourseRequestDaoJpa extends GenericDaoJpa<CourseRequest> implements
     }
 
     @Override
-    public List<CourseRequest> findBetween(Calendar startDate, Calendar endDate) {
-        return entityManager.createQuery("from CourseRequest where created >= :startDate and created < :endDate")
+    public List<CourseRequest> findBetween(long companyId, Calendar startDate, Calendar endDate) {
+        return entityManager.createQuery("from CourseRequest where created >= :startDate and created < :endDate " +
+                "and course.company.id = :companyId")
         .setParameter("startDate", startDate)
         .setParameter("endDate", endDate)
+        .setParameter("companyId", companyId)
         .getResultList();
     }
 }

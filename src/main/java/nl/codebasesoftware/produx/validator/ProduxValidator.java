@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.validator;
 
 import nl.codebasesoftware.produx.domain.optionlists.NumberOfParticipants;
+import nl.codebasesoftware.produx.util.StringUtil;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -184,6 +185,19 @@ public class ProduxValidator {
         }
 
         return false;
+    }
+
+    public static boolean isValidCompanyPrefix(String prefix){
+        if(StringUtil.isNullOrEmpty(prefix)){
+            return false;
+        }
+        Pattern p = Pattern.compile("[a-zA-Z]{2,4}");
+        Matcher matcher = p.matcher(prefix);
+        boolean match = matcher.matches();
+        if (!match) {
+            return false;
+        }
+        return true;
     }
 
 

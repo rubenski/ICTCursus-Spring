@@ -55,7 +55,7 @@ public class PasswordMailer {
                 model.put("host", host);
                 model.put("port", port);
 
-                String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/velocity/password-request.vm", model);
+                String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/velocity/mail/password-request.vm", model);
                 message.setText(text, true);
             }
         };

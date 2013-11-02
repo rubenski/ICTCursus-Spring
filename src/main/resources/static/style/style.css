@@ -295,6 +295,15 @@ body {
     padding: 5px 0px 5px 0px;
 }
 
+#main #innermain #maincontent .formcontainer .formblock {
+    margin-bottom: 20px;
+}
+
+#main #innermain #maincontent .formcontainer .formblock h2 {
+    margin-bottom: 0;
+    margin-top: 15px;
+}
+
 #main #innermain #maincontent .course-list-item.highlighted {
     background-color: #fffaec;
     background-image: url('/static/img/courselistingbg.gif');
@@ -350,7 +359,8 @@ div.pretty table tr th {
 }
 
 .default-block label {
-    padding-bottom: 5px;
+    padding-bottom: 3px;
+    padding-top: 10px;
 }
 
 .default-block label {
@@ -365,7 +375,7 @@ div.pretty table tr th {
 }
 
 input, select, textarea {
-    margin-top: 6px;
+    margin-top: 1px;
 }
 
 .form-error, #invalidMessage {

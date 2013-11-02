@@ -35,6 +35,7 @@ public class Company implements DomainEntity, Serializable {
     private Integer budgetTriggerAmount;
     private String courseRequestEmailAddress;
     private boolean allCoursesDeactivated;
+    private String companyPrefix;
 
     @Override
     @Id
@@ -197,6 +198,14 @@ public class Company implements DomainEntity, Serializable {
         this.allCoursesDeactivated = allCoursesDeactivated;
     }
 
+    public String getCompanyPrefix() {
+        return companyPrefix;
+    }
+
+    public void setCompanyPrefix(String companyPrefix) {
+        this.companyPrefix = companyPrefix;
+    }
+
     @Transient
     public BindableCompany toBindableCompany() {
         BindableCompany bindableCompany = new BindableCompany();
@@ -213,6 +222,7 @@ public class Company implements DomainEntity, Serializable {
         bindableCompany.setVatNumber(vatNumber);
         bindableCompany.setZipCode(zipCode);
         bindableCompany.setHasLogo(hasLogo());
+        bindableCompany.setCompanyPrefix(companyPrefix);
         return bindableCompany;
     }
 
@@ -265,6 +275,7 @@ public class Company implements DomainEntity, Serializable {
         companyDTO.setVatNumber(vatNumber);
         companyDTO.setZipCode(zipCode);
         companyDTO.setLogo(hasLogo());
+        companyDTO.setCompanyPrefix(companyPrefix);
         return companyDTO;
     }
 }

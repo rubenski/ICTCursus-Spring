@@ -1,4 +1,4 @@
-package nl.codebasesoftware.produx.util;
+package nl.codebasesoftware.produx.util.collection;
 
 import nl.codebasesoftware.produx.domain.DomainEntity;
 import nl.codebasesoftware.produx.domain.dto.entity.DomainEntityDTO;

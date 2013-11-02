@@ -120,6 +120,16 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
 
+    @Transactional(readOnly = true)
+    public CompanyEntityDTO findByPrefix(String prefix){
+        Company company = companyDao.findByPrefix(prefix);
+        if(company != null){
+            return company.toDTO();
+        }
+        return null;
+    }
+
+
     @Override
     @Transactional(readOnly = false)
     public void updateLogo(BindableFileUpload bindableFileUpload) {

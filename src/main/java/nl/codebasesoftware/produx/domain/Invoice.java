@@ -2,9 +2,7 @@ package nl.codebasesoftware.produx.domain;
 
 import nl.codebasesoftware.produx.domain.dto.entity.InvoiceEntityDTO;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +12,7 @@ import java.util.Set;
  * Date: 20-5-13
  * Time: 23:31
  */
+@Entity
 public class Invoice implements DomainEntity {
 
     private Long id;
@@ -48,6 +47,7 @@ public class Invoice implements DomainEntity {
         this.dateCreated = dateCreated;
     }
 
+    @OneToMany
     public Set<InvoiceRecord> getRecords() {
         return records;
     }

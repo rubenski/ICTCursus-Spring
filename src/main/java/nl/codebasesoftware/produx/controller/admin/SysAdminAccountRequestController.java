@@ -102,6 +102,7 @@ public class SysAdminAccountRequestController {
         model.addAttribute("mainContent", "forms/adminaccountrequest");
         model.addAttribute("countries", options.getCountries(locale));
         model.addAttribute("valid", valid);
+        model.addAttribute("title", "Accountaanvragen");
     }
 
     private void setAccountRequestsPageData(Model model, Locale locale) {
@@ -114,5 +115,6 @@ public class SysAdminAccountRequestController {
         model.addAttribute("evaluatedRequests", evaluatedRequests);
         model.addAttribute("mainContent", "content/adminaccountrequests");
         model.addAttribute("accountRequestsPage", true);
+
     }
 }

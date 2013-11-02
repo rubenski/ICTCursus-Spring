@@ -25,6 +25,7 @@ public class CompanyEntityDTO extends ListingCompanyDTO {
     private boolean allCoursesDeactivated;
     private byte[] normalLogo;
     private byte[] smallLogo;
+    private String companyPrefix;
 
     public String getEmail() {
         return email;
@@ -144,5 +145,13 @@ public class CompanyEntityDTO extends ListingCompanyDTO {
 
     public String getNormalLogoUrl() {
         return LogoUrl.getNormalAbsUrl(id);
+    }
+
+    public String getCompanyPrefix() {
+        return companyPrefix;
+    }
+
+    public void setCompanyPrefix(String companyPrefix) {
+        this.companyPrefix = companyPrefix;
     }
 }

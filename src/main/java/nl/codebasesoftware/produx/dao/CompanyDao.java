@@ -11,5 +11,6 @@ import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
 public interface CompanyDao extends GenericDao<Company> {
 
     Company findByArticle(ArticleEntityDTO article);
+    Company findByPrefix(String prefix);
 
 }
