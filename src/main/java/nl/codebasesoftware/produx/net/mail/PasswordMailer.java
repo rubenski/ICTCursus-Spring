@@ -36,7 +36,6 @@ public class PasswordMailer {
 
         final String fromEmail = properties.getProperty("email.from.address");
         final String host = properties.getProperty("site.host");
-        final String port = properties.getProperty("site.port");
         final String protocol = properties.getProperty("site.protocol");
         final String subject = TextProperties.getTextProperty("password.request.mail.subject", locale.getLanguage());
         final String senderName = TextProperties.getTextProperty("mail.standard.sendername", locale.getLanguage());
@@ -53,7 +52,6 @@ public class PasswordMailer {
                 model.put("password", password);
                 model.put("protocol", protocol);
                 model.put("host", host);
-                model.put("port", port);
 
                 String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/velocity/mail/password-request.vm", model);
                 message.setText(text, true);

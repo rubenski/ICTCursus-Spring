@@ -12,7 +12,7 @@
     <script type="text/javascript">
         function select_image() {
             var CKEditorFuncNum = ${editorFuncNum};
-            window.parent.opener.CKEDITOR.tools.callFunction(CKEditorFuncNum, '/static/img/logo/2.jpg', '');
+            window.parent.opener.CKEDITOR.tools.callFunction(CKEditorFuncNum, '/static/img/logo/cblogo.jpg', '');
             self.close();
         }
     </script>

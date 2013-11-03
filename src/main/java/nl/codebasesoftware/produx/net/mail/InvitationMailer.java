@@ -41,7 +41,6 @@ public class InvitationMailer {
 
         final String fromEmail = properties.getProperty("email.from.address");
         final String host = properties.getProperty("site.host");
-        final String port = properties.getProperty("site.port");
         final String protocol = properties.getProperty("site.protocol");
         final String subject = TextProperties.getTextProperty("invitation.email.subject", locale.getLanguage());
         final String senderName = TextProperties.getTextProperty("mail.standard.sendername", locale.getLanguage());
@@ -53,9 +52,9 @@ public class InvitationMailer {
                 message.setTo(invitation.getEmail());
                 message.setSubject(subject);
                 message.setFrom(fromEmail, senderName);
-                Map model = new HashMap();
+                Map<String, Object> model = new HashMap<>();
 
-                String activationLink = createLink(invitation, protocol, host, port);
+                String activationLink = createLink(invitation, protocol, host);
 
                 model.put("activationUrl", activationLink);
                 model.put("invitation", invitation);
@@ -67,12 +66,8 @@ public class InvitationMailer {
         mailSender.send(preparator);
     }
 
-    private String createLink(UserInvitation invitation, String protocol, String host, String port) {
-        String portInUrl = "";
-        if (Integer.parseInt(port) != DEFAULT_PORT) {
-            portInUrl = String.format(":%s", port);
-        }
-        return String.format("%s://%s%s/users/activate/%s", protocol, host, portInUrl, invitation.getSecurityCode());
+    private String createLink(UserInvitation invitation, String protocol, String host) {
+        return String.format("%s://%s/users/activate/%s", protocol, host, invitation.getSecurityCode());
     }
 
 

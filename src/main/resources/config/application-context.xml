@@ -84,7 +84,6 @@
             <map>
                 <entry key="email.from.address" value="${email.from.address}"/>
                 <entry key="site.host" value="${site.host}"/>
-                <entry key="site.port" value="${site.port}"/>
                 <entry key="site.protocol" value="${site.protocol}"/>
                 <entry key="logo.uploaddir" value="${logo.uploaddir}"/>
                 <entry key="logo.normal.widthheight" value="${logo.normal.widthheight}"/>
@@ -98,6 +97,7 @@
                 <entry key="courses.per.page" value="${courses.per.page}"/>
                 <entry key="invoices.path" value="${invoices.path}"/>
                 <entry key="invoices.tempxsl.path" value="${invoices.tempxsl.path}"/>
+                <entry key="invoices.logoUrl" value="${invoices.logoUrl}"/>
             </map>
         </property>
     </bean>

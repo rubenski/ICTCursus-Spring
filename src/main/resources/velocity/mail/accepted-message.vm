@@ -15,7 +15,7 @@
     #end
     <br>
     <br>
-    U kunt vanaf nu <a href="${protocol}://${host}:${port}/login">inloggen</a> met de volgende gegevens:
+    U kunt vanaf nu <a href="${protocol}://${host}/login">inloggen</a> met de volgende gegevens:
     <br>
     <br>
     <b>Email: ${request.email}</b><br>

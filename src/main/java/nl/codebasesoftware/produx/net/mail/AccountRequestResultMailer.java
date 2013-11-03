@@ -64,7 +64,6 @@ public class AccountRequestResultMailer {
         final String subject = TextProperties.getTextProperty("account.request.accepted.subject", locale.getLanguage());
         final String senderName = TextProperties.getTextProperty("mail.standard.sendername", locale.getLanguage());
         final String host = properties.getProperty("site.host");
-        final String port = properties.getProperty("site.port");
         final String protocol = properties.getProperty("site.protocol");
 
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
@@ -74,13 +73,12 @@ public class AccountRequestResultMailer {
                 message.setTo(request.getEmail());
                 message.setSubject(subject);
                 message.setFrom(fromEmail, senderName);
-                Map model = new HashMap();
+                Map<String, Object> model = new HashMap<>();
 
                 model.put("request", request);
                 model.put("generatedPassword", generatedPassword);
                 model.put("protocol", protocol);
                 model.put("host", host);
-                model.put("port", port);
 
 
                 String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/velocity/mail/accepted-message.vm", model);

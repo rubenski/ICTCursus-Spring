@@ -71,11 +71,13 @@ public class InvoiceServiceImpl implements InvoiceService {
 
         List<CourseRequestEntityDTO> requests = courseRequestService.findForMonth(companyId, month);
         Company company = companyDao.find(companyId);
+        String logoUrl = properties.getProperty("invoices.logoUrl");
 
         Map<String, Object> model = new HashMap();
         model.put("company", company);
         model.put("requests", requests);
         model.put("month", DateFormatSymbols.getInstance().getMonths()[month - 1]);
+        model.put("logoUrl", logoUrl);
 
         String invoiceXslFo = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/velocity/pdf/invoice.vm", model);
 
@@ -90,6 +92,7 @@ public class InvoiceServiceImpl implements InvoiceService {
         Path pdfFileDir = Paths.get(invoicesPath);
         Path pdfFilePath = pdfFileDir.resolve(createFileName(company, "pdf"));
         File file = pdfFilePath.toFile();
+
         return file;
     }
 

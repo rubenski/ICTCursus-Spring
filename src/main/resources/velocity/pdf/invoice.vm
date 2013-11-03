@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
 
-    <fo:layout-master-set >
-        <fo:simple-page-master master-name="invoice-page" page-height="297mm" page-width="210mm" margin-top="20mm" margin-bottom="20mm" margin-left="20mm" margin-right="20mm">
+    <fo:layout-master-set>
+        <fo:simple-page-master master-name="invoice-page" page-height="300mm" page-width="210mm" margin-top="10mm"
+                               margin-bottom="20mm" margin-left="20mm" margin-right="20mm">
             <fo:region-body/>
         </fo:simple-page-master>
     </fo:layout-master-set>
 
     <fo:page-sequence master-reference="invoice-page">
-        <fo:flow flow-name="xsl-region-body">
+        <fo:flow flow-name="xsl-region-body" font-size="11pt" >
+            <fo:block>
+                <fo:external-graphic scaling="uniform" content-width="80%" content-height="80%" src="${logoUrl}"/>
+            </fo:block>
+
             <fo:block>Blablablablablablalbalbalbalb ${company.id}</fo:block>
+
+
         </fo:flow>
     </fo:page-sequence>
 

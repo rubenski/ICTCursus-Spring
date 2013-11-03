@@ -1,13 +1,8 @@
 package nl.codebasesoftware.produx.util.pdf;
 
-import org.apache.fop.apps.FOPException;
-import org.apache.fop.apps.Fop;
-import org.apache.fop.apps.FopFactory;
-import org.apache.fop.apps.MimeConstants;
+import org.apache.fop.apps.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -26,27 +21,34 @@ import java.io.*;
 public class PdfGenerator {
 
     private Transformer transformer;
+    private FopConfigurator configurator;
 
-    PdfGenerator(){
+    @Autowired
+    PdfGenerator(FopConfigurator configurator){
+        this.configurator = configurator;
+
         try {
             transformer = TransformerFactory.newInstance().newTransformer();
         } catch (TransformerConfigurationException e) {
             e.printStackTrace();
         }
+
     }
 
     public File generate(File xslFile, File outputPdfFile){
 
         try {
-            FopFactory fopFactory = FopFactory.newInstance();
+
 
             // Capture input
             FileInputStream input = new FileInputStream(xslFile);
             StreamSource source = new StreamSource(input);
 
             // Prepare output destination
-            OutputStream outStream = new FileOutputStream(outputPdfFile);
-            Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, outStream);
+            OutputStream outStream = new BufferedOutputStream(new FileOutputStream(outputPdfFile));
+
+            FOUserAgent userAgent = configurator.newUserAgent();
+            Fop fop = configurator.getFactoryInstance().newFop(MimeConstants.MIME_PDF, userAgent, outStream);
             SAXResult output = new SAXResult(fop.getDefaultHandler());
 
             // Perform transformation

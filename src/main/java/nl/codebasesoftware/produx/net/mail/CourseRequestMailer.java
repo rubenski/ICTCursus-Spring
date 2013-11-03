@@ -39,7 +39,6 @@ public class CourseRequestMailer {
 
         final String fromEmail = properties.getProperty("email.from.address");
         final String host = properties.getProperty("site.host");
-        final String port = properties.getProperty("site.port");
         final String protocol = properties.getProperty("site.protocol");
         final String subject = TextProperties.getTextProperty("courserequest.email.subject", locale.getLanguage());
         final String senderName = TextProperties.getTextProperty("mail.standard.sendername", locale.getLanguage());
