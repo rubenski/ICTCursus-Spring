@@ -79,10 +79,10 @@ public class InvoiceServiceImpl implements InvoiceService {
         model.put("month", DateFormatSymbols.getInstance().getMonths()[month - 1]);
         model.put("logoUrl", logoUrl);
 
-        String invoiceXslFo = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/velocity/pdf/invoice.vm", model);
+
 
         File pdfFile = createPdfFile(company);
-        File xslTempFile = createTempXslFile(company, invoiceXslFo);
+        File xslTempFile = createTempXslFile(createFileName(company, "xsl"), model, "/velocity/pdf/invoice.vm");
 
         return generator.generate(xslTempFile, pdfFile);
     }
@@ -96,10 +96,14 @@ public class InvoiceServiceImpl implements InvoiceService {
         return file;
     }
 
-    private File createTempXslFile(Company company, String invoiceXslFo) {
+    private File createTempXslFile(String fileName, Map<String, Object> model, String templateName) {
+
+
+        String invoiceXslFo = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, templateName, model);
+
         String tempXslPathString = properties.getProperty("invoices.tempxsl.path");
         Path tempXslDirPath = Paths.get(tempXslPathString);
-        Path tempXslFilePath = tempXslDirPath.resolve(createFileName(company, "xsl"));
+        Path tempXslFilePath = tempXslDirPath.resolve(fileName);
 
         try (BufferedWriter writer = Files.newBufferedWriter(tempXslFilePath, Charset.defaultCharset())) {
             writer.append(invoiceXslFo);

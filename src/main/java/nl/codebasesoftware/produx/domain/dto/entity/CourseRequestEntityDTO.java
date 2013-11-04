@@ -1,5 +1,7 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -107,5 +109,23 @@ public class CourseRequestEntityDTO extends DomainEntityDTO {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getCreationDatePretty(){
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        String format = df.format(created.getTime());
+        return format;
+    }
+
+    public String getInvoiceDescription(){
+        return String.format("Aanvraag voor '%s' (ID: #%d)", courseName, id);
+    }
+
+    public String getInvoicePrice(){
+        NumberFormat format = NumberFormat.getCurrencyInstance();
+        format.setMinimumFractionDigits(2);
+        format.setMaximumFractionDigits(2);
+        String invoicePrice = format.format(course.getPrice() / 100 / 100);
+        return invoicePrice;
     }
 }

@@ -1,13 +1,21 @@
 package nl.codebasesoftware.produx.util.pdf;
 
 import nl.codebasesoftware.produx.util.Properties;
+import org.apache.avalon.framework.configuration.Configuration;
+import org.apache.avalon.framework.configuration.ConfigurationException;
+import org.apache.avalon.framework.configuration.DefaultConfigurationBuilder;
 import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.FopFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.xml.sax.SAXException;
 
-import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 /**
  * User: rvanloen
@@ -26,20 +34,34 @@ public class FopConfigurator {
         initFactory();
     }
 
-    public FopFactory getFactoryInstance(){
+    public FopFactory getFactoryInstance() {
         return factory;
     }
 
-    public FOUserAgent newUserAgent(){
+    public FOUserAgent newUserAgent() {
         FOUserAgent foUserAgent = factory.newFOUserAgent();
         foUserAgent.setAuthor(properties.getProperty("site.name"));
-        foUserAgent.setCreationDate(new Date());
         foUserAgent.setCreator(properties.getProperty("site.name"));
+        foUserAgent.setCreationDate(new Date());
         return foUserAgent;
     }
 
-    private void initFactory(){
+    private void initFactory() {
+        DefaultConfigurationBuilder builder = new DefaultConfigurationBuilder();
+        InputStream in = getClass().getResourceAsStream("/config/fop-config.xml");
+        Configuration config = null;
+
+        try {
+            config = builder.build(in);
+        } catch (SAXException | IOException | ConfigurationException e) {
+            e.printStackTrace();
+        }
+
         factory = FopFactory.newInstance();
+        factory.setUserConfig(config);
         factory.setFontBaseURL(properties.getProperty("fop.font.basedir"));
+
     }
+
+
 }

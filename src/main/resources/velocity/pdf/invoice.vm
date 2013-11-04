@@ -2,23 +2,124 @@
 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
 
     <fo:layout-master-set>
-        <fo:simple-page-master master-name="invoice-page" page-height="300mm" page-width="210mm" margin-top="10mm"
+        <fo:simple-page-master master-name="invoice-page" page-height="300mm" page-width="210mm" margin-top="15mm"
                                margin-bottom="20mm" margin-left="20mm" margin-right="20mm">
-            <fo:region-body/>
+            <fo:region-body margin-top="3cm"/>
+            <fo:region-before extent="3cm"/>
+            <fo:region-after/>
         </fo:simple-page-master>
     </fo:layout-master-set>
 
-    <fo:page-sequence master-reference="invoice-page">
-        <fo:flow flow-name="xsl-region-body" font-size="11pt" >
-            <fo:block>
-                <fo:external-graphic scaling="uniform" content-width="80%" content-height="80%" src="${logoUrl}"/>
+    <fo:page-sequence master-reference="invoice-page" font-size="9pt">
+
+        <fo:static-content flow-name="xsl-region-before">
+            <fo:table>
+                <fo:table-column column-width="40mm"/>
+                <fo:table-column column-width="75mm"/>
+                <fo:table-column column-width="55mm"/>
+
+                <fo:table-body color="#444444">
+                    <fo:table-row>
+                        <fo:table-cell>
+                            <fo:block>
+                                <fo:external-graphic scaling="uniform" content-width="70%" content-height="70%"
+                                                     src="${logoUrl}"/>
+                            </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell>
+                            <fo:block></fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell>
+                            <fo:block>CodeBase Software Development</fo:block>
+                            <fo:block>Orteliusstraat 236 I</fo:block>
+                            <fo:block>1056PH Amsterdam</fo:block>
+                            <fo:block>codebasesoftware@gmail.com</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                </fo:table-body>
+
+            </fo:table>
+
+            <fo:block padding-bottom="5mm">
+                <fo:leader leader-pattern="dots" leader-length="170mm"/>
             </fo:block>
+        </fo:static-content>
 
-            <fo:block>Blablablablablablalbalbalbalb ${company.id}</fo:block>
+        <fo:static-content flow-name="xsl-region-after">
+            <fo:table>
+                <fo:table-column column-width="40mm"/>
+                <fo:table-column column-width="75mm"/>
+                <fo:table-body color="#444444">
+                    <fo:table-row>
+                        <fo:table-cell>
+                            <fo:block>KVK nr. 28113056</fo:block>
+                            <fo:block>BTW nr. 175137869B01</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell>
+                            <fo:block>T. 0653992519</fo:block>
+                            <fo:block>E. codebasesoftware@gmail.com</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                </fo:table-body>
+            </fo:table>
+        </fo:static-content>
 
 
+        <fo:flow flow-name="xsl-region-body" font-family="Arial">
+
+            <fo:table border-collapse="separate" border-separation="4mm">
+                <fo:table-column column-width="35mm"/>
+                <fo:table-column column-width="120mm"/>
+                <fo:table-column column-width="25mm"/>
+
+                <fo:table-header>
+                    <fo:table-row>
+                        <fo:table-cell>
+                            <fo:block font-weight="bold">Datum</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell>
+                            <fo:block font-weight="bold">Omschrijving</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell>
+                            <fo:block font-weight="bold">Prijs</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                </fo:table-header>
+
+                <fo:table-body padding-top="5mm">
+
+                    #set ($counter = 0)
+                    #foreach($request in $requests)
+
+                        #if ( $counter % 2 == 0)
+                            #set ($color = '#dbdcdc')
+                        #else
+                            #set ($color = '#ffffff')
+                        #end
+
+                        <fo:table-row background-color="${color}">
+                            <fo:table-cell>
+                                <fo:block>${request.creationDatePretty}</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell>
+                                <fo:block>${request.invoiceDescription}</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell>
+                                <fo:block>${request.invoicePrice}</fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+
+                        #set ($counter = $counter + 1)
+
+                    #end
+                </fo:table-body>
+            </fo:table>
         </fo:flow>
+
+
+
     </fo:page-sequence>
+
 
 </fo:root>
 

@@ -17,6 +17,8 @@ import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.service.PageBlockService;
 import nl.codebasesoftware.produx.service.SearchService;
 import nl.codebasesoftware.produx.validator.CourseRequestValidator;
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,6 +50,8 @@ public class CourseController {
     private SearchService searchService;
     private CourseRequestMailer courseRequestMailer;
 
+    private static final Logger LOG = Logger.getLogger(CourseController.class);
+
     @Autowired
     public CourseController(CourseService courseService, CourseRequestValidator courseRequestValidator,
                             CourseRequestService courseRequestService, SearchService searchService,
@@ -75,16 +79,25 @@ public class CourseController {
                                 RedirectAttributes redirectAttrs)
                                 throws ProduxServiceException, MessagingException {
 
+        long start = System.currentTimeMillis();
         courseRequestValidator.validate(request, result);
+        LOG.debug("time1: " + (System.currentTimeMillis() - start));
         if (!result.hasErrors()) {
+            long start1 = System.currentTimeMillis();
             CourseRequestEntityDTO requestEntityDTO = courseRequestService.saveRequest(request);
+            LOG.debug("time2: " + (System.currentTimeMillis() - start1));
+            long start2 = System.currentTimeMillis();
             courseRequestMailer.sendCourseRequestMail(requestEntityDTO, locale);
+            LOG.debug("time3: " + (System.currentTimeMillis() - start2));
+            long start3 = System.currentTimeMillis();
             redirectAttrs.addFlashAttribute("formData", request);
+            LOG.debug("time4: " + (System.currentTimeMillis() - start3));
+            long start4 = System.currentTimeMillis();
             model.addAttribute("courseRequestSubmitSuccess", true);
+            LOG.debug("time5: " + (System.currentTimeMillis() - start4));
             return String.format("redirect:/%s/%d/success", requestEntityDTO.getCourse().getCategory().getUrlTitle(),
                     requestEntityDTO.getCourse().getId());
         }
-
         setData(model, request, false);
         model.addAttribute("includeCourseJs", true);
         model.addAttribute("scrolldown", true);
