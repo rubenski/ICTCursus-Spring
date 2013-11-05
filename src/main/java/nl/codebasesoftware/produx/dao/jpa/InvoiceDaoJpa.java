@@ -21,6 +21,15 @@ public class InvoiceDaoJpa extends GenericDaoJpa<Invoice> implements InvoiceDao 
 
     @Override
     public List<Invoice> findForCompany(long companyId) {
-        return entityManager.createQuery("from Invoice i where i.company.id = :id").setParameter("id", companyId).getResultList();
+        return entityManager.createQuery("from Invoice i where i.company.id = :id order by i.dateCreated").setParameter("id", companyId).getResultList();
+    }
+
+    @Override
+    public Invoice findLastForCompany(long companyId) {
+        List<Invoice> list = entityManager.createQuery("from Invoice i where i.company.id = :id order by i.dateCreated").setParameter("id", companyId).getResultList();
+        if(list.size() > 0){
+            return list.get(list.size() - 1);
+        }
+        return null;
     }
 }

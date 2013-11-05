@@ -26,7 +26,6 @@
     <context:component-scan base-package="nl.codebasesoftware.produx.net"/>
     <context:component-scan base-package="nl.codebasesoftware.produx.util"/>
     <context:component-scan base-package="nl.codebasesoftware.produx.search"/>
-    <context:component-scan base-package="nl.codebasesoftware.produx.tasks"/>
 
     <!-- Data and JPA setup -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" p:driverClassName="${db.driverClassName}"
@@ -34,8 +33,8 @@
 
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" p:dataSource-ref="dataSource"/>
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" p:entityManagerFactory-ref="entityManagerFactory"/>
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager" p:entityManagerFactory-ref="entityManagerFactory"/>
+    <tx:annotation-driven transaction-manager="txManager"/>
 
     <bean id="defaultLobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler"/>
 
@@ -126,6 +125,7 @@
                 <bean class="nl.codebasesoftware.produx.conversion.SearchCriteriaToSolrQuery"/>
                 <bean class="nl.codebasesoftware.produx.conversion.SolrDocumentToListingCourse"/>
                 <bean class="nl.codebasesoftware.produx.conversion.CourseEntityDTOToBindableCourse"/>
+                <bean class="nl.codebasesoftware.produx.conversion.CourseRequestEntityToInvoiceRecord"/>
             </set>
         </property>
     </bean>

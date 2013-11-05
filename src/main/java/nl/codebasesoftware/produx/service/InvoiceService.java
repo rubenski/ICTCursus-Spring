@@ -1,6 +1,8 @@
 package nl.codebasesoftware.produx.service;
 
+import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.InvoiceEntityDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 
@@ -20,9 +22,10 @@ public interface InvoiceService {
     // list facturen van bedrijf tonen
     // genereren voor alle bedrijven en bewaren op disk
 
-    File generateForMonth(long companyId, int month);
+    File generateNewVersionForMonth(long companyId, int month);
     
     void saveAsNewVersion(InvoiceEntityDTO invoice);
 
     File fromDisk(String invoiceNumber) throws ProduxServiceException;
+
 }

@@ -4,6 +4,7 @@ import nl.codebasesoftware.produx.dao.CompanyDao;
 import nl.codebasesoftware.produx.dao.InvoiceDao;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Invoice;
+import nl.codebasesoftware.produx.domain.assembler.InvoiceAssembler;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.InvoiceEntityDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
@@ -11,21 +12,13 @@ import nl.codebasesoftware.produx.service.CourseRequestService;
 import nl.codebasesoftware.produx.service.InvoiceService;
 import nl.codebasesoftware.produx.util.Properties;
 import nl.codebasesoftware.produx.util.pdf.PdfGenerator;
-import org.apache.fop.apps.FOPException;
-import org.apache.fop.apps.Fop;
-import org.apache.fop.apps.FopFactory;
-import org.apache.fop.apps.MimeConstants;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.sax.SAXResult;
-import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -51,40 +44,47 @@ public class InvoiceServiceImpl implements InvoiceService {
     private Properties properties;
     private CompanyDao companyDao;
     private PdfGenerator generator;
+    private InvoiceAssembler invoiceAssembler;
 
 
     @Autowired
     public InvoiceServiceImpl(CourseRequestService courseRequestService, VelocityEngine velocityEngine,
-                              InvoiceDao invoiceDao, Properties properties, CompanyDao companyDao, PdfGenerator generator) {
+                              InvoiceDao invoiceDao, Properties properties, CompanyDao companyDao,
+                              PdfGenerator generator, ConversionService conversionService,
+                              InvoiceAssembler invoiceAssembler) {
         this.courseRequestService = courseRequestService;
         this.velocityEngine = velocityEngine;
         this.invoiceDao = invoiceDao;
         this.properties = properties;
         this.companyDao = companyDao;
-
-
         this.generator = generator;
+        this.invoiceAssembler = invoiceAssembler;
     }
 
     @Override
-    public File generateForMonth(long companyId, int month) {
+    @Transactional(readOnly = false)
+    public File generateNewVersionForMonth(long companyId, int month) {
+
 
         List<CourseRequestEntityDTO> requests = courseRequestService.findForMonth(companyId, month);
         Company company = companyDao.find(companyId);
-        String logoUrl = properties.getProperty("invoices.logoUrl");
+        InvoiceEntityDTO invoice = saveNewInvoice(requests, company);
 
-        Map<String, Object> model = new HashMap();
-        model.put("company", company);
-        model.put("requests", requests);
+        Map<String, Object> model = new HashMap<>();
+        model.put("invoice", invoice);
         model.put("month", DateFormatSymbols.getInstance().getMonths()[month - 1]);
-        model.put("logoUrl", logoUrl);
-
-
+        model.put("logoUrl", properties.getProperty("invoices.logoUrl"));
 
         File pdfFile = createPdfFile(company);
         File xslTempFile = createTempXslFile(createFileName(company, "xsl"), model, "/velocity/pdf/invoice.vm");
 
         return generator.generate(xslTempFile, pdfFile);
+    }
+
+    public InvoiceEntityDTO saveNewInvoice(List<CourseRequestEntityDTO> requests, Company company){
+        Invoice invoice = invoiceAssembler.assemble(company, requests);
+        invoiceDao.persist(invoice);
+        return invoice.toDTO();
     }
 
     private File createPdfFile(Company company) {

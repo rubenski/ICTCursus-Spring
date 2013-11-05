@@ -18,6 +18,8 @@ public class Invoice implements DomainEntity {
     private Long id;
     private Calendar dateCreated;
     private Company company;
+    private int serialNumber;
+    private String lastInvoiceNumber;
     private Set<InvoiceRecord> records = new HashSet<>();
 
     @Override
@@ -31,6 +33,7 @@ public class Invoice implements DomainEntity {
         this.id = id;
     }
 
+    @ManyToOne
     public Company getCompany() {
         return company;
     }
@@ -47,7 +50,7 @@ public class Invoice implements DomainEntity {
         this.dateCreated = dateCreated;
     }
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     public Set<InvoiceRecord> getRecords() {
         return records;
     }
@@ -56,18 +59,52 @@ public class Invoice implements DomainEntity {
         this.records = records;
     }
 
+    public void addInvoiceRecord(InvoiceRecord invoiceRecord){
+        this.records.add(invoiceRecord);
+    }
+
+    public int getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(int serialNumber) {
+        this.serialNumber = serialNumber;
+    }
+
+    public String getLastInvoiceNumber() {
+        return lastInvoiceNumber;
+    }
+
+    public void setLastInvoiceNumber(String lastInvoiceNumber) {
+        this.lastInvoiceNumber = lastInvoiceNumber;
+    }
+
+
+
     @Override
     public InvoiceEntityDTO toDTO() {
         InvoiceEntityDTO dto = new InvoiceEntityDTO();
         dto.setId(id);
         dto.setCompany(company.toDTO());
         dto.setDateCreated(dateCreated);
+        dto.setSerialNumber(serialNumber);
+        dto.setLastInvoiceNumber(lastInvoiceNumber);
 
         for (InvoiceRecord record : records) {
             dto.addRecord(record.toDTO());
         }
 
         return dto;
+    }
+
+    @Transient
+    public String getNextInvoiceNumber(){
+        return String.format("%s%d", company.getCompanyPrefix(), serialNumber);
+    }
+
+    @Transient
+    public int getNextSerialNumber(){
+        return serialNumber + 1;
     }
 
 }

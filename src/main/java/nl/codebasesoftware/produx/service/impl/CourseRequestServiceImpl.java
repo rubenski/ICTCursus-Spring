@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Calendar;
@@ -77,7 +78,7 @@ public class CourseRequestServiceImpl implements CourseRequestService {
 
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
     public List<CourseRequestEntityDTO> findForMonth(long companyId, int month) {
         Locale locale = LocaleContextHolder.getLocale();
         Calendar firstDay = Calendar.getInstance(locale);

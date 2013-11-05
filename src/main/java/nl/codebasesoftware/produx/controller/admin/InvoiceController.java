@@ -44,7 +44,7 @@ public class InvoiceController {
 
         response.setContentType("application/pdf");
 
-        File file = invoiceService.generateForMonth(companyId, month);
+        File file = invoiceService.generateNewVersionForMonth(companyId, month);
 
         try {
             FileInputStream fis = new FileInputStream(file);

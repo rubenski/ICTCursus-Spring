@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
-
+#* @vtlvariable name="invoice" type="nl.codebasesoftware.produx.domain.dto.entity.InvoiceEntityDTO" *#
     <fo:layout-master-set>
-        <fo:simple-page-master master-name="invoice-page" page-height="300mm" page-width="210mm" margin-top="15mm"
+        <fo:simple-page-master master-name="invoice-overview-page" page-height="300mm" page-width="210mm"
+                               margin-top="15mm"
+                               margin-bottom="20mm" margin-left="20mm" margin-right="20mm">
+            <fo:region-body margin-top="3cm"/>
+            <fo:region-before extent="3cm"/>
+            <fo:region-after/>
+        </fo:simple-page-master>
+
+        <fo:simple-page-master master-name="invoice-specification-page" page-height="300mm" page-width="210mm"
+                               margin-top="15mm"
                                margin-bottom="20mm" margin-left="20mm" margin-right="20mm">
             <fo:region-body margin-top="3cm"/>
             <fo:region-before extent="3cm"/>
@@ -10,8 +19,77 @@
         </fo:simple-page-master>
     </fo:layout-master-set>
 
-    <fo:page-sequence master-reference="invoice-page" font-size="9pt">
+    <!-- Start the overview page -->
+    <fo:page-sequence master-reference="invoice-specification-page" font-size="9pt">
 
+        #header()
+        #footer()
+
+        <fo:flow flow-name="xsl-region-body">
+            <fo:block>Some content here</fo:block>
+        </fo:flow>
+
+    </fo:page-sequence>
+
+    <!-- Start the overview page -->
+    <fo:page-sequence master-reference="invoice-overview-page" font-size="9pt">
+
+        #header()
+        #footer()
+
+        <fo:flow flow-name="xsl-region-body" font-family="Arial">
+            <fo:table border-collapse="separate" border-separation="4mm">
+                <fo:table-column column-width="35mm"/>
+                <fo:table-column column-width="120mm"/>
+                <fo:table-column column-width="25mm"/>
+
+                <fo:table-header>
+                    <fo:table-row>
+                        <fo:table-cell>
+                            <fo:block font-weight="bold">Datum</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell>
+                            <fo:block font-weight="bold">Omschrijving</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell>
+                            <fo:block font-weight="bold">Prijs</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                </fo:table-header>
+
+                <fo:table-body padding-top="5mm">
+
+                    #set ($counter = 0)
+                    #foreach($record in $invoice.records)
+
+                        #if ( $counter % 2 == 0)
+                            #set ($color = '#dbdcdc')
+                        #else
+                            #set ($color = '#ffffff')
+                        #end
+
+                        <fo:table-row background-color="${color}">
+                            <fo:table-cell>
+                                <fo:block>${record.creationDatePretty}</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell>
+                                <fo:block>${record.description}</fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell>
+                                <fo:block>${record.euroPrice}</fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+
+                        #set ($counter = $counter + 1)
+
+                    #end
+                </fo:table-body>
+            </fo:table>
+        </fo:flow>
+
+    </fo:page-sequence>
+
+    #macro( header )
         <fo:static-content flow-name="xsl-region-before">
             <fo:table>
                 <fo:table-column column-width="40mm"/>
@@ -44,7 +122,9 @@
                 <fo:leader leader-pattern="dots" leader-length="170mm"/>
             </fo:block>
         </fo:static-content>
+    #end
 
+    #macro(footer)
         <fo:static-content flow-name="xsl-region-after">
             <fo:table>
                 <fo:table-column column-width="40mm"/>
@@ -63,62 +143,7 @@
                 </fo:table-body>
             </fo:table>
         </fo:static-content>
-
-
-        <fo:flow flow-name="xsl-region-body" font-family="Arial">
-
-            <fo:table border-collapse="separate" border-separation="4mm">
-                <fo:table-column column-width="35mm"/>
-                <fo:table-column column-width="120mm"/>
-                <fo:table-column column-width="25mm"/>
-
-                <fo:table-header>
-                    <fo:table-row>
-                        <fo:table-cell>
-                            <fo:block font-weight="bold">Datum</fo:block>
-                        </fo:table-cell>
-                        <fo:table-cell>
-                            <fo:block font-weight="bold">Omschrijving</fo:block>
-                        </fo:table-cell>
-                        <fo:table-cell>
-                            <fo:block font-weight="bold">Prijs</fo:block>
-                        </fo:table-cell>
-                    </fo:table-row>
-                </fo:table-header>
-
-                <fo:table-body padding-top="5mm">
-
-                    #set ($counter = 0)
-                    #foreach($request in $requests)
-
-                        #if ( $counter % 2 == 0)
-                            #set ($color = '#dbdcdc')
-                        #else
-                            #set ($color = '#ffffff')
-                        #end
-
-                        <fo:table-row background-color="${color}">
-                            <fo:table-cell>
-                                <fo:block>${request.creationDatePretty}</fo:block>
-                            </fo:table-cell>
-                            <fo:table-cell>
-                                <fo:block>${request.invoiceDescription}</fo:block>
-                            </fo:table-cell>
-                            <fo:table-cell>
-                                <fo:block>${request.invoicePrice}</fo:block>
-                            </fo:table-cell>
-                        </fo:table-row>
-
-                        #set ($counter = $counter + 1)
-
-                    #end
-                </fo:table-body>
-            </fo:table>
-        </fo:flow>
-
-
-
-    </fo:page-sequence>
+    #end
 
 
 </fo:root>

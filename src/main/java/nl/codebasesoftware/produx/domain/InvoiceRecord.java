@@ -1,6 +1,5 @@
 package nl.codebasesoftware.produx.domain;
 
-import nl.codebasesoftware.produx.domain.dto.entity.DomainEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.InvoiceRecordEntityDTO;
 
 import javax.persistence.*;
@@ -17,10 +16,12 @@ import java.util.Map;
 public class InvoiceRecord implements DomainEntity {
 
     private Long id;
-    private int price;
+    private long priceInCents;
     private Calendar sourceRecordCreated;
+    private String description;
     private Map<String, String> sourceFields = new HashMap<>();
     private InvoiceRecordType type;
+    private Invoice invoice;
 
     @Override
     @Id
@@ -46,12 +47,12 @@ public class InvoiceRecord implements DomainEntity {
     }
 
     @Column(nullable = false)
-    public int getPrice() {
-        return price;
+    public long getPriceInCents() {
+        return priceInCents;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setPriceInCents(long price) {
+        this.priceInCents = price;
     }
 
     @Temporal(value = TemporalType.TIMESTAMP)
@@ -64,6 +65,14 @@ public class InvoiceRecord implements DomainEntity {
         this.sourceRecordCreated = sourceRecordCreated;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Column(name = "record_type", nullable = false)
     @Enumerated(EnumType.STRING)
     public InvoiceRecordType getType() {
@@ -74,12 +83,23 @@ public class InvoiceRecord implements DomainEntity {
         this.type = type;
     }
 
+    @ManyToOne
+    public Invoice getInvoice() {
+        return invoice;
+    }
+
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
+    }
+
     @Override
     public InvoiceRecordEntityDTO toDTO() {
         InvoiceRecordEntityDTO dto = new InvoiceRecordEntityDTO();
         dto.setId(id);
-        dto.setPrice(price);
+        dto.setPriceInCents(priceInCents);
         dto.setSourceRecordCreated(sourceRecordCreated);
+        dto.setType(type);
+        dto.setDescription(description);
         return dto;
     }
 }

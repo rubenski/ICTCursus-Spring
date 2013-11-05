@@ -9,7 +9,7 @@ import java.util.Calendar;
  * Date: 27-8-13
  * Time: 17:12
  */
-public class CourseRequestEntityDTO extends DomainEntityDTO {
+public class CourseRequestEntityDTO extends DomainEntityDTO implements AsInvoiceRecord {
 
     private Long id;
     private int prefix;
@@ -87,6 +87,7 @@ public class CourseRequestEntityDTO extends DomainEntityDTO {
         this.courseName = courseName;
     }
 
+    @Override
     public Calendar getCreated() {
         return created;
     }
@@ -111,21 +112,16 @@ public class CourseRequestEntityDTO extends DomainEntityDTO {
         this.phone = phone;
     }
 
-    public String getCreationDatePretty(){
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-        String format = df.format(created.getTime());
-        return format;
-    }
-
+    @Override
     public String getInvoiceDescription(){
         return String.format("Aanvraag voor '%s' (ID: #%d)", courseName, id);
     }
 
-    public String getInvoicePrice(){
-        NumberFormat format = NumberFormat.getCurrencyInstance();
-        format.setMinimumFractionDigits(2);
-        format.setMaximumFractionDigits(2);
-        String invoicePrice = format.format(course.getPrice() / 100 / 100);
-        return invoicePrice;
+    @Override
+    public long getInvoicePriceInCents(){
+        if(numberOfParticipants > 4){
+            return course.getPrice() / 50;
+        }
+        return course.getPrice() / 100;
     }
 }

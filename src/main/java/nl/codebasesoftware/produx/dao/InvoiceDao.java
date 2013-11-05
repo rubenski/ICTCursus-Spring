@@ -9,6 +9,7 @@ import java.util.List;
  * Date: 1-11-13
  * Time: 22:45
  */
-public interface InvoiceDao {
+public interface InvoiceDao extends GenericDao<Invoice> {
     List<Invoice> findForCompany(long companyId);
+    Invoice findLastForCompany(long companyId);
 }
