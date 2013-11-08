@@ -25,6 +25,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,44 +65,58 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     @Transactional(readOnly = false)
-    public File generateNewVersionForMonth(long companyId, int month) {
+    public void generateLastMonthInvoiceBatch() {
+        List<Company> all = companyDao.findAll();
 
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, -1);
+        int month = cal.get(Calendar.MONTH);
+        int year = cal.get(Calendar.YEAR);
 
-        List<CourseRequestEntityDTO> requests = courseRequestService.findForMonth(companyId, month);
+        for (Company company : all) {
+            generateInvoiceOrDoNothing(company.getId(), month, year);
+
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public File generateInvoiceOrDoNothing(long companyId, int month, int year){
         Company company = companyDao.find(companyId);
-        InvoiceEntityDTO invoice = saveNewInvoice(requests, company);
+        List<CourseRequestEntityDTO> requests = courseRequestService.findForMonth(company.getId(), month, year);
+        if(requests.size() > 0) {
+            InvoiceEntityDTO invoice = createInDb(requests, company, month, year);
+            return createPdf(month, year, invoice);
+        }
+        return null;
+    }
+
+    private File createPdf(int month, int year, InvoiceEntityDTO invoice) {
 
         Map<String, Object> model = new HashMap<>();
         model.put("invoice", invoice);
         model.put("month", DateFormatSymbols.getInstance().getMonths()[month - 1]);
         model.put("logoUrl", properties.getProperty("invoices.logoUrl"));
 
-        File pdfFile = createPdfFile(company);
-        File xslTempFile = createTempXslFile(createFileName(company, "xsl"), model, "/velocity/pdf/invoice.vm");
+        String invoicesPath = properties.getProperty("invoices.path");
+        Path pdfFileDir = Paths.get(invoicesPath);
+        Path pdfFilePath = pdfFileDir.resolve(invoice.getFileName(month, year, "pdf"));
+        File pdfFile = pdfFilePath.toFile();
+
+        File xslTempFile = createTempXslFile(invoice.getFileName(month, year, "xsl"), model, "/velocity/pdf/invoice.vm");
 
         return generator.generate(xslTempFile, pdfFile);
     }
 
-    public InvoiceEntityDTO saveNewInvoice(List<CourseRequestEntityDTO> requests, Company company){
+    public InvoiceEntityDTO createInDb(List<CourseRequestEntityDTO> requests, Company company, int month, int year){
         Invoice invoice = invoiceAssembler.assemble(company, requests);
         invoiceDao.persist(invoice);
         return invoice.toDTO();
     }
 
-    private File createPdfFile(Company company) {
-        String invoicesPath = properties.getProperty("invoices.path");
-        Path pdfFileDir = Paths.get(invoicesPath);
-        Path pdfFilePath = pdfFileDir.resolve(createFileName(company, "pdf"));
-        File file = pdfFilePath.toFile();
-
-        return file;
-    }
 
     private File createTempXslFile(String fileName, Map<String, Object> model, String templateName) {
-
-
         String invoiceXslFo = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, templateName, model);
-
         String tempXslPathString = properties.getProperty("invoices.tempxsl.path");
         Path tempXslDirPath = Paths.get(tempXslPathString);
         Path tempXslFilePath = tempXslDirPath.resolve(fileName);
@@ -113,11 +129,6 @@ public class InvoiceServiceImpl implements InvoiceService {
         }
 
         return tempXslFilePath.toFile();
-    }
-
-    private String createFileName(Company company, String extension) {
-        List<Invoice> invoices = invoiceDao.findForCompany(company.getId());
-        return String.format("%s-%s.%s", company.getCompanyPrefix(), String.format("%03d", invoices.size() + 1), extension);
     }
 
     @Override

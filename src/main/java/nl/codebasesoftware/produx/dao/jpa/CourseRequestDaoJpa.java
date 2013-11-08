@@ -51,6 +51,7 @@ public class CourseRequestDaoJpa extends GenericDaoJpa<CourseRequest> implements
 
     @Override
     public List<CourseRequest> findBetween(long companyId, Calendar startDate, Calendar endDate) {
+        // TODO: add year here
         return entityManager.createQuery("from CourseRequest where created >= :startDate and created < :endDate " +
                 "and course.company.id = :companyId")
         .setParameter("startDate", startDate)

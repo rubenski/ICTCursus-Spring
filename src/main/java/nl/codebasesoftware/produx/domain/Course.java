@@ -3,7 +3,7 @@ package nl.codebasesoftware.produx.domain;
 import nl.codebasesoftware.produx.comparator.RankComparator;
 import nl.codebasesoftware.produx.domain.dto.entity.*;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
-import nl.codebasesoftware.produx.service.business.CourseUrl;
+import nl.codebasesoftware.produx.service.business.url.CourseUrl;
 import org.springframework.beans.factory.annotation.Configurable;
 
 import javax.persistence.*;

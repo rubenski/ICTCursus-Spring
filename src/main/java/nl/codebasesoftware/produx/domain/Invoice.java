@@ -20,6 +20,8 @@ public class Invoice implements DomainEntity {
     private Company company;
     private int serialNumber;
     private String lastInvoiceNumber;
+    private Integer forMonth;
+    private Integer forYear;
     private Set<InvoiceRecord> records = new HashSet<>();
 
     @Override
@@ -40,6 +42,24 @@ public class Invoice implements DomainEntity {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    @Column(nullable = false)
+    public Integer getForMonth() {
+        return forMonth;
+    }
+
+    public void setForMonth(Integer forMonth) {
+        this.forMonth = forMonth;
+    }
+
+    @Column(nullable = false)
+    public Integer getForYear() {
+        return forYear;
+    }
+
+    public void setForYear(Integer forYear) {
+        this.forYear = forYear;
     }
 
     public Calendar getDateCreated() {

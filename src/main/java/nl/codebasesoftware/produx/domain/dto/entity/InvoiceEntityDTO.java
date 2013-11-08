@@ -1,7 +1,10 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
 import nl.codebasesoftware.produx.domain.InvoiceRecord;
+import nl.codebasesoftware.produx.domain.InvoiceRecordType;
+import nl.codebasesoftware.produx.util.StringUtil;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -78,12 +81,48 @@ public class InvoiceEntityDTO extends DomainEntityDTO {
 
     public String getCreationDatePretty(){
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        String format = df.format(dateCreated.getTime());
-        return format;
+        return df.format(dateCreated.getTime());
     }
 
     public String getInvoiceNumber(){
-        String s = String.format("%s%04d", company.getCompanyPrefix(), serialNumber);
-        return s;
+        return String.format("%s%04d", company.getCompanyPrefix(), serialNumber);
+    }
+
+    public String getFileName(int month, int year, String extension){
+        return String.format("%s-%d%d.%s", getInvoiceNumber(), month, year, extension);
+    }
+
+    public boolean hasRequestRecords(){
+        for (InvoiceRecordEntityDTO record : records) {
+            if(record.getType().equals(InvoiceRecordType.COURSE_REQUEST)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private long getTotalRequestsAmountInCents(){
+        long centsPrice = 0;
+        for (InvoiceRecordEntityDTO record : records) {
+            centsPrice += record.getPriceInCents();
+        }
+        return centsPrice;
+    }
+
+    public String getTotalRequestsAmountInEuros(){
+        return StringUtil.centsToEuroPrice(getTotalRequestsAmountInCents());
+    }
+
+    public String getTotalInvoiceAmountExVat(){
+        return StringUtil.centsToEuroPrice(getTotalRequestsAmountInCents());
+    }
+
+    public String getTotalInvoiceAmountIncVat(){
+        return StringUtil.centsToEuroPrice(Math.round(getTotalRequestsAmountInCents() * 1.21));
+    }
+
+    public String getVat(){
+        long vatAmountInCents = Math.round(getTotalRequestsAmountInCents() * 0.21);
+        return StringUtil.centsToEuroPrice(vatAmountInCents);
     }
 }

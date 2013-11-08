@@ -1,7 +1,7 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
 import nl.codebasesoftware.produx.domain.dto.generic.WebVisitable;
-import nl.codebasesoftware.produx.service.business.CourseUrl;
+import nl.codebasesoftware.produx.service.business.url.CourseUrl;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
 import nl.codebasesoftware.produx.domain.UserProfile;
-import nl.codebasesoftware.produx.service.business.ArticleUrl;
+import nl.codebasesoftware.produx.service.business.url.ArticleUrl;
 
 import java.util.ArrayList;
 import java.util.Calendar;

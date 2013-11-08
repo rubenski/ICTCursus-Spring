@@ -79,13 +79,16 @@ public class CourseRequestServiceImpl implements CourseRequestService {
 
     @Override
     @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-    public List<CourseRequestEntityDTO> findForMonth(long companyId, int month) {
+    public List<CourseRequestEntityDTO> findForMonth(long companyId, int month, int year) {
+
         Locale locale = LocaleContextHolder.getLocale();
         Calendar firstDay = Calendar.getInstance(locale);
+        firstDay.set(Calendar.YEAR, year);
         firstDay.set(Calendar.MONTH, month -1);
         firstDay.set(Calendar.DAY_OF_MONTH, firstDay.getActualMinimum(Calendar.DAY_OF_MONTH));
 
         Calendar lastDay = Calendar.getInstance(locale);
+        lastDay.set(Calendar.YEAR, year);
         lastDay.set(Calendar.MONTH, month -1);
         lastDay.set(Calendar.DAY_OF_MONTH, lastDay.getActualMaximum(Calendar.DAY_OF_MONTH));
 

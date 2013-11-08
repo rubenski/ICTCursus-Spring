@@ -15,7 +15,7 @@ import nl.codebasesoftware.produx.search.criteria.filter.NormalFilter;
 import nl.codebasesoftware.produx.search.result.ResultListing;
 import nl.codebasesoftware.produx.search.result.SearchResult;
 import nl.codebasesoftware.produx.service.*;
-import nl.codebasesoftware.produx.service.business.FilterFromUrlExtractor;
+import nl.codebasesoftware.produx.search.FilterFromUrlExtractor;
 import nl.codebasesoftware.produx.util.Properties;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

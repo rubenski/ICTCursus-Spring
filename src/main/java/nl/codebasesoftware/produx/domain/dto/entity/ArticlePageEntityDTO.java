@@ -1,6 +1,6 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
-import nl.codebasesoftware.produx.service.business.ArticlePageUrl;
+import nl.codebasesoftware.produx.service.business.url.ArticlePageUrl;
 
 /**
  * Created with IntelliJ IDEA.

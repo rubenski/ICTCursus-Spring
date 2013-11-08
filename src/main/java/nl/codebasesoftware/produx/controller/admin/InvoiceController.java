@@ -39,12 +39,13 @@ public class InvoiceController {
         */
     }
 
-    @RequestMapping(value = "/admin/invoice/generate/{company}/{month}")
-    public void create(@PathVariable("company")int companyId, @PathVariable("month") int month, HttpServletResponse response){
+    @RequestMapping(value = "/admin/invoice/generate/{company}/{month}/{year}")
+    public void create(@PathVariable("company")int companyId, @PathVariable("month") int month,
+                       @PathVariable("year") int year, HttpServletResponse response){
 
         response.setContentType("application/pdf");
 
-        File file = invoiceService.generateNewVersionForMonth(companyId, month);
+        File file = invoiceService.generateInvoiceOrDoNothing(companyId, month, year);
 
         try {
             FileInputStream fis = new FileInputStream(file);

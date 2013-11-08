@@ -1,4 +1,4 @@
-package nl.codebasesoftware.produx.service.business;
+package nl.codebasesoftware.produx.service.business.url;
 
 /**
  * User: rvanloen

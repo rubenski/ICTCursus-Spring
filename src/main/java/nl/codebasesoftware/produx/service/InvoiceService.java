@@ -5,6 +5,7 @@ import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.InvoiceEntityDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.util.List;
@@ -21,11 +22,13 @@ public interface InvoiceService {
     // 1 opnieuw genereren en vervangen op disk (in geval van mutatie in afgesloten maand)
     // list facturen van bedrijf tonen
     // genereren voor alle bedrijven en bewaren op disk
-
-    File generateNewVersionForMonth(long companyId, int month);
     
     void saveAsNewVersion(InvoiceEntityDTO invoice);
 
     File fromDisk(String invoiceNumber) throws ProduxServiceException;
 
+    void generateLastMonthInvoiceBatch();
+
+
+    File generateInvoiceOrDoNothing(long companyId, int month, int year);
 }

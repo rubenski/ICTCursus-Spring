@@ -10,7 +10,7 @@ import nl.codebasesoftware.produx.search.result.ResultListing;
 import nl.codebasesoftware.produx.search.result.SearchResult;
 import nl.codebasesoftware.produx.service.PageBlockService;
 import nl.codebasesoftware.produx.service.SearchService;
-import nl.codebasesoftware.produx.service.business.FilterFromUrlExtractor;
+import nl.codebasesoftware.produx.search.FilterFromUrlExtractor;
 import nl.codebasesoftware.produx.util.Properties;
 import nl.codebasesoftware.produx.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
