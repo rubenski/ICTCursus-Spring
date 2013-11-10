@@ -13,6 +13,7 @@ import nl.codebasesoftware.produx.service.CourseRequestService;
 import nl.codebasesoftware.produx.service.InvoiceService;
 import nl.codebasesoftware.produx.service.business.invoice.MonthAndYear;
 import nl.codebasesoftware.produx.util.Properties;
+import nl.codebasesoftware.produx.util.collection.EntityCollectionConverter;
 import nl.codebasesoftware.produx.util.pdf.PdfGenerator;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,10 +106,10 @@ public class InvoiceServiceImpl implements InvoiceService {
 
         String invoicesPath = properties.getProperty("invoices.path");
         Path pdfFileDir = Paths.get(invoicesPath);
-        Path pdfFilePath = pdfFileDir.resolve(invoice.getFileName(monthAndYear.getMonth(), monthAndYear.getYear(), "pdf"));
+        Path pdfFilePath = pdfFileDir.resolve(invoice.getFileName("pdf"));
         File pdfFile = pdfFilePath.toFile();
 
-        File xslTempFile = createTempXslFile(invoice.getFileName(monthAndYear.getMonth(), monthAndYear.getYear(), "xsl"),
+        File xslTempFile = createTempXslFile(invoice.getFileName("xsl"),
                 model, "/velocity/pdf/invoice.vm");
 
         return generator.generate(xslTempFile, pdfFile);
@@ -138,17 +139,29 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public File fromDisk(String invoiceNumber) throws ProduxServiceException {
+    @Transactional(readOnly = true)
+    public File fromDisk(long id) throws ProduxServiceException {
         String dir = properties.getProperty("invoices.path");
+        InvoiceEntityDTO invoice = invoiceDao.find(id).toDTO();
+        String fileName = invoice.getFileName("pdf");
         Path dirPath = Paths.get(dir);
         existsAndReadable(dirPath);
-        Path invoiceFilePath = dirPath.resolve(String.format("%s.pdf", invoiceNumber));
+        Path invoiceFilePath = dirPath.resolve(fileName);
         existsAndReadable(invoiceFilePath);
         return invoiceFilePath.toFile();
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<InvoiceEntityDTO> findForCompany(long companyId, int year){
+        List<Invoice> invoices = invoiceDao.find(companyId, year);
+        return new EntityCollectionConverter<Invoice, InvoiceEntityDTO>().convert(invoices);
+    }
+
+
+
     public void existsAndReadable(Path path) throws ProduxServiceException {
-        if (!Files.exists(path) || Files.isReadable(path)) {
+        if (!Files.exists(path) || !Files.isReadable(path)) {
             throw new ProduxServiceException(String.format("Directory %s not found or not readable", path));
         }
     }

@@ -43,6 +43,8 @@ public class InvoiceAssembler {
             invoice.setSerialNumber(lastInvoice.getNextSerialNumber());
         }
 
+        invoice.setInvoiceNumber(String.format("%s%04d", company.getCompanyPrefix(), lastInvoice.getNextSerialNumber()));
+
         for (CourseRequestEntityDTO request : requests) {
             InvoiceRecord record = conversionService.convert(request, InvoiceRecord.class);
             invoice.addInvoiceRecord(record);

@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.dao.jpa;
 
 import nl.codebasesoftware.produx.dao.InvoiceDao;
 import nl.codebasesoftware.produx.domain.Invoice;
+import nl.codebasesoftware.produx.service.business.invoice.MonthAndYear;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -32,4 +33,18 @@ public class InvoiceDaoJpa extends GenericDaoJpa<Invoice> implements InvoiceDao 
         }
         return null;
     }
+
+    @Override
+    public List<Invoice> find(long companyId, int year) {
+        return entityManager.createQuery("from Invoice i " +
+                "where i.company.id = :id " +
+                "and i.forYear = :year " +
+                "order by i.dateCreated")
+                .setParameter("id", companyId)
+                .setParameter("year", year)
+                .getResultList();
+
+    }
+
+
 }

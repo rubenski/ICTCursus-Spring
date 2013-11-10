@@ -26,9 +26,11 @@ public interface InvoiceService {
     
     void saveAsNewVersion(InvoiceEntityDTO invoice);
 
-    File fromDisk(String invoiceNumber) throws ProduxServiceException;
+    File fromDisk(long id) throws ProduxServiceException;
 
     void runLastMonthInvoiceBatch();
 
     void generateInvoiceOrDoNothing(long companyId, MonthAndYear monthAndYear);
+
+    List<InvoiceEntityDTO> findForCompany(long companyId, int year);
 }

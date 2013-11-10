@@ -25,6 +25,7 @@ public class InvoiceEntityDTO extends DomainEntityDTO {
     private Calendar dateCreated;
     private CompanyEntityDTO company;
     private int serialNumber;
+    private String invoiceNumber;
     private String lastInvoiceNumber;
     private int forYear;
     private int forMonth;
@@ -108,12 +109,20 @@ public class InvoiceEntityDTO extends DomainEntityDTO {
         return new DateFormatSymbols().getMonths()[forMonth-1];
     }
 
-    public String getInvoiceNumber(){
-        return String.format("%s%04d", company.getCompanyPrefix(), serialNumber);
+    public String getInvoiceTitle(){
+        return String.format("%s %d", getMonthAsText(), forYear);
     }
 
-    public String getFileName(int month, int year, String extension){
-        return String.format("%s-%d%d.%s", getInvoiceNumber(), month, year, extension);
+    public String getInvoiceNumber(){
+        return invoiceNumber;
+    }
+
+    public void setInvoiceNumber(String invoiceNumber){
+        this.invoiceNumber = invoiceNumber;
+    }
+
+    public String getFileName(String extension){
+        return String.format("%s-%d%d.%s", getInvoiceNumber(), forMonth, forYear, extension);
     }
 
     public boolean hasRequestRecords(){

@@ -20,6 +20,7 @@ public class Invoice implements DomainEntity {
     private Company company;
     private int serialNumber;
     private String lastInvoiceNumber;
+    private String invoiceNumber;
     private Integer forMonth;
     private Integer forYear;
     private Set<InvoiceRecord> records = new HashSet<>();
@@ -42,6 +43,15 @@ public class Invoice implements DomainEntity {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    @Column(nullable = false, unique = true)
+    public String getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public void setInvoiceNumber(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
     }
 
     @Column(nullable = false)
@@ -111,6 +121,7 @@ public class Invoice implements DomainEntity {
         dto.setLastInvoiceNumber(lastInvoiceNumber);
         dto.setForYear(forYear);
         dto.setForMonth(forMonth);
+        dto.setInvoiceNumber(invoiceNumber);
 
         for (InvoiceRecord record : records) {
             dto.addRecord(record.toDTO());

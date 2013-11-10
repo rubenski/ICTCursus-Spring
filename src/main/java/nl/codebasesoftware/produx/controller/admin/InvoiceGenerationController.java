@@ -18,12 +18,12 @@ import java.io.*;
  * Time: 21:53
  */
 @Controller
-public class InvoiceController {
+public class InvoiceGenerationController {
 
     private InvoiceService invoiceService;
 
     @Autowired
-    public InvoiceController(InvoiceService invoiceService){
+    public InvoiceGenerationController(InvoiceService invoiceService){
         this.invoiceService = invoiceService;
     }
 
@@ -45,6 +45,12 @@ public class InvoiceController {
                        @PathVariable("year") int year, HttpServletResponse response){
 
         invoiceService.generateInvoiceOrDoNothing(companyId, new MonthAndYear(month, year));
+
+        try {
+            response.getWriter().write("Done");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
     }
