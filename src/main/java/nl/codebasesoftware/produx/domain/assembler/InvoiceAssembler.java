@@ -5,6 +5,7 @@ import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Invoice;
 import nl.codebasesoftware.produx.domain.InvoiceRecord;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
+import nl.codebasesoftware.produx.service.business.invoice.MonthAndYear;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Component;
@@ -29,11 +30,13 @@ public class InvoiceAssembler {
         this.conversionService = conversionService;
     }
 
-    public Invoice assemble(Company company, List<CourseRequestEntityDTO> requests){
+    public Invoice assemble(Company company, List<CourseRequestEntityDTO> requests, MonthAndYear monthAndYear){
         Invoice lastInvoice = invoiceDao.findLastForCompany(company.getId());
         Invoice invoice = new Invoice();
         invoice.setCompany(company);
         invoice.setDateCreated(Calendar.getInstance());
+        invoice.setForMonth(monthAndYear.getMonth());
+        invoice.setForYear(monthAndYear.getYear());
 
         if(lastInvoice != null){
             invoice.setLastInvoiceNumber(lastInvoice.getNextInvoiceNumber());

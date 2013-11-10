@@ -4,10 +4,12 @@ import nl.codebasesoftware.produx.domain.InvoiceRecord;
 import nl.codebasesoftware.produx.domain.InvoiceRecordType;
 import nl.codebasesoftware.produx.util.StringUtil;
 
+import java.text.DateFormatSymbols;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -24,6 +26,8 @@ public class InvoiceEntityDTO extends DomainEntityDTO {
     private CompanyEntityDTO company;
     private int serialNumber;
     private String lastInvoiceNumber;
+    private int forYear;
+    private int forMonth;
     private Set<InvoiceRecordEntityDTO> records = new HashSet<>();
 
     @Override
@@ -79,9 +83,29 @@ public class InvoiceEntityDTO extends DomainEntityDTO {
         this.records.add(record);
     }
 
+    public int getForYear() {
+        return forYear;
+    }
+
+    public void setForYear(int forYear) {
+        this.forYear = forYear;
+    }
+
+    public int getForMonth() {
+        return forMonth;
+    }
+
+    public void setForMonth(int forMonth) {
+        this.forMonth = forMonth;
+    }
+
     public String getCreationDatePretty(){
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         return df.format(dateCreated.getTime());
+    }
+
+    public String getMonthAsText(){
+        return new DateFormatSymbols().getMonths()[forMonth-1];
     }
 
     public String getInvoiceNumber(){

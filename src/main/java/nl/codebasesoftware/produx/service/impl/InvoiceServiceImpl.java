@@ -8,8 +8,10 @@ import nl.codebasesoftware.produx.domain.assembler.InvoiceAssembler;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.InvoiceEntityDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
+import nl.codebasesoftware.produx.net.mail.InvoiceMailer;
 import nl.codebasesoftware.produx.service.CourseRequestService;
 import nl.codebasesoftware.produx.service.InvoiceService;
+import nl.codebasesoftware.produx.service.business.invoice.MonthAndYear;
 import nl.codebasesoftware.produx.util.Properties;
 import nl.codebasesoftware.produx.util.pdf.PdfGenerator;
 import org.apache.velocity.app.VelocityEngine;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
+import javax.mail.MessagingException;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -26,10 +29,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * User: rvanloen
@@ -46,13 +46,14 @@ public class InvoiceServiceImpl implements InvoiceService {
     private Properties properties;
     private CompanyDao companyDao;
     private PdfGenerator generator;
+    private InvoiceMailer invoiceMailer;
     private InvoiceAssembler invoiceAssembler;
 
 
     @Autowired
     public InvoiceServiceImpl(CourseRequestService courseRequestService, VelocityEngine velocityEngine,
                               InvoiceDao invoiceDao, Properties properties, CompanyDao companyDao,
-                              PdfGenerator generator, ConversionService conversionService,
+                              PdfGenerator generator, InvoiceMailer invoiceMailer,
                               InvoiceAssembler invoiceAssembler) {
         this.courseRequestService = courseRequestService;
         this.velocityEngine = velocityEngine;
@@ -60,12 +61,13 @@ public class InvoiceServiceImpl implements InvoiceService {
         this.properties = properties;
         this.companyDao = companyDao;
         this.generator = generator;
+        this.invoiceMailer = invoiceMailer;
         this.invoiceAssembler = invoiceAssembler;
     }
 
     @Override
     @Transactional(readOnly = false)
-    public void generateLastMonthInvoiceBatch() {
+    public void runLastMonthInvoiceBatch() {
         List<Company> all = companyDao.findAll();
 
         Calendar cal = Calendar.getInstance();
@@ -74,42 +76,46 @@ public class InvoiceServiceImpl implements InvoiceService {
         int year = cal.get(Calendar.YEAR);
 
         for (Company company : all) {
-            generateInvoiceOrDoNothing(company.getId(), month, year);
-
+            generateInvoiceOrDoNothing(company.getId(), new MonthAndYear(month, year));
         }
     }
 
     @Override
     @Transactional(readOnly = false)
-    public File generateInvoiceOrDoNothing(long companyId, int month, int year){
+    public void generateInvoiceOrDoNothing(long companyId, MonthAndYear monthAndYear){
         Company company = companyDao.find(companyId);
-        List<CourseRequestEntityDTO> requests = courseRequestService.findForMonth(company.getId(), month, year);
+        List<CourseRequestEntityDTO> requests = courseRequestService.findForMonth(company.getId(), monthAndYear);
         if(requests.size() > 0) {
-            InvoiceEntityDTO invoice = createInDb(requests, company, month, year);
-            return createPdf(month, year, invoice);
+            InvoiceEntityDTO invoice = createInDb(requests, company,  monthAndYear);
+            File pdf = createPdf(monthAndYear, invoice);
+            try {
+                invoiceMailer.sendInvoiceEmail(pdf, invoice, Locale.getDefault());
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
         }
-        return null;
     }
 
-    private File createPdf(int month, int year, InvoiceEntityDTO invoice) {
+    private File createPdf(MonthAndYear monthAndYear, InvoiceEntityDTO invoice) {
 
         Map<String, Object> model = new HashMap<>();
         model.put("invoice", invoice);
-        model.put("month", DateFormatSymbols.getInstance().getMonths()[month - 1]);
+        model.put("month", DateFormatSymbols.getInstance().getMonths()[monthAndYear.getMonth() - 1]);
         model.put("logoUrl", properties.getProperty("invoices.logoUrl"));
 
         String invoicesPath = properties.getProperty("invoices.path");
         Path pdfFileDir = Paths.get(invoicesPath);
-        Path pdfFilePath = pdfFileDir.resolve(invoice.getFileName(month, year, "pdf"));
+        Path pdfFilePath = pdfFileDir.resolve(invoice.getFileName(monthAndYear.getMonth(), monthAndYear.getYear(), "pdf"));
         File pdfFile = pdfFilePath.toFile();
 
-        File xslTempFile = createTempXslFile(invoice.getFileName(month, year, "xsl"), model, "/velocity/pdf/invoice.vm");
+        File xslTempFile = createTempXslFile(invoice.getFileName(monthAndYear.getMonth(), monthAndYear.getYear(), "xsl"),
+                model, "/velocity/pdf/invoice.vm");
 
         return generator.generate(xslTempFile, pdfFile);
     }
 
-    public InvoiceEntityDTO createInDb(List<CourseRequestEntityDTO> requests, Company company, int month, int year){
-        Invoice invoice = invoiceAssembler.assemble(company, requests);
+    public InvoiceEntityDTO createInDb(List<CourseRequestEntityDTO> requests, Company company, MonthAndYear monthAndYear){
+        Invoice invoice = invoiceAssembler.assemble(company, requests, monthAndYear);
         invoiceDao.persist(invoice);
         return invoice.toDTO();
     }

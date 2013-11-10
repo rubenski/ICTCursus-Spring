@@ -6,6 +6,7 @@ import nl.codebasesoftware.produx.domain.CourseRequest;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import nl.codebasesoftware.produx.formdata.CourseRequestFormData;
 import nl.codebasesoftware.produx.service.CourseRequestService;
+import nl.codebasesoftware.produx.service.business.invoice.MonthAndYear;
 import nl.codebasesoftware.produx.util.collection.EntityCollectionConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -79,17 +80,17 @@ public class CourseRequestServiceImpl implements CourseRequestService {
 
     @Override
     @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-    public List<CourseRequestEntityDTO> findForMonth(long companyId, int month, int year) {
+    public List<CourseRequestEntityDTO> findForMonth(long companyId, MonthAndYear monthAndYear) {
 
         Locale locale = LocaleContextHolder.getLocale();
         Calendar firstDay = Calendar.getInstance(locale);
-        firstDay.set(Calendar.YEAR, year);
-        firstDay.set(Calendar.MONTH, month -1);
+        firstDay.set(Calendar.YEAR, monthAndYear.getYear());
+        firstDay.set(Calendar.MONTH, monthAndYear.getMonth() -1);
         firstDay.set(Calendar.DAY_OF_MONTH, firstDay.getActualMinimum(Calendar.DAY_OF_MONTH));
 
         Calendar lastDay = Calendar.getInstance(locale);
-        lastDay.set(Calendar.YEAR, year);
-        lastDay.set(Calendar.MONTH, month -1);
+        lastDay.set(Calendar.YEAR, monthAndYear.getYear());
+        lastDay.set(Calendar.MONTH, monthAndYear.getMonth() -1);
         lastDay.set(Calendar.DAY_OF_MONTH, lastDay.getActualMaximum(Calendar.DAY_OF_MONTH));
 
         List<CourseRequest> requests = courseRequestDao.findBetween(companyId, firstDay, lastDay);

@@ -109,6 +109,8 @@ public class Invoice implements DomainEntity {
         dto.setDateCreated(dateCreated);
         dto.setSerialNumber(serialNumber);
         dto.setLastInvoiceNumber(lastInvoiceNumber);
+        dto.setForYear(forYear);
+        dto.setForMonth(forMonth);
 
         for (InvoiceRecord record : records) {
             dto.addRecord(record.toDTO());

@@ -1,0 +1,26 @@
+#* @vtlvariable name="invoice" type="nl.codebasesoftware.produx.domain.dto.entity.InvoiceEntityDTO" *#
+
+
+<html>
+<body>
+
+
+<p>
+    Geachte heer/mevrouw,
+    <br><br>
+    Bijgaand vindt u de factuur over de periode ${invoice.getMonthAsText()} ${invoice.forYear}.
+    <br>
+    <br>
+    Nb. u kunt uw facturen inzien via het <a href="${adminUrl}">administratiesysteem</a>.
+    <br>
+    <br>
+    Hartelijke groeten,
+    <br>
+    <br>
+    ICTCursus.nl
+    <br>
+    <br>
+</p>
+</body>
+
+</html>

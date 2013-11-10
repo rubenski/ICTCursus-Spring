@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.service.InvoiceService;
+import nl.codebasesoftware.produx.service.business.invoice.MonthAndYear;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,17 +44,8 @@ public class InvoiceController {
     public void create(@PathVariable("company")int companyId, @PathVariable("month") int month,
                        @PathVariable("year") int year, HttpServletResponse response){
 
-        response.setContentType("application/pdf");
+        invoiceService.generateInvoiceOrDoNothing(companyId, new MonthAndYear(month, year));
 
-        File file = invoiceService.generateInvoiceOrDoNothing(companyId, month, year);
-
-        try {
-            FileInputStream fis = new FileInputStream(file);
-            byte[] bytes = IOUtils.toByteArray(fis);
-            response.getOutputStream().write(bytes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
     }
 }

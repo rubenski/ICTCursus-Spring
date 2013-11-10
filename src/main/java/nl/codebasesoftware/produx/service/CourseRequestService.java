@@ -5,6 +5,7 @@ import nl.codebasesoftware.produx.domain.CourseRequest;
 import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import nl.codebasesoftware.produx.formdata.CourseRequestFormData;
+import nl.codebasesoftware.produx.service.business.invoice.MonthAndYear;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,5 +31,5 @@ public interface CourseRequestService {
 
     void setInvalid(Long id, boolean invalid);
 
-    List<CourseRequestEntityDTO> findForMonth(long companyId, int month, int year);
+    List<CourseRequestEntityDTO> findForMonth(long companyId, MonthAndYear monthAndYear);
 }

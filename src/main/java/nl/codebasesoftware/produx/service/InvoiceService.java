@@ -5,6 +5,7 @@ import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.InvoiceEntityDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
+import nl.codebasesoftware.produx.service.business.invoice.MonthAndYear;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
@@ -27,8 +28,7 @@ public interface InvoiceService {
 
     File fromDisk(String invoiceNumber) throws ProduxServiceException;
 
-    void generateLastMonthInvoiceBatch();
+    void runLastMonthInvoiceBatch();
 
-
-    File generateInvoiceOrDoNothing(long companyId, int month, int year);
+    void generateInvoiceOrDoNothing(long companyId, MonthAndYear monthAndYear);
 }
