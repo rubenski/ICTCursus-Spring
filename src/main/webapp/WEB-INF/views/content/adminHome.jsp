@@ -41,10 +41,8 @@
             artikelen
             te schrijven trekt u meer bezoekers via de zoekmachines en u laat zien welke kennis un in huis heeft. Artikelen zijn een effectieve en
             gratis methode
-            om uw cursussen extra onder de aandacht te brengen. Voor artikelen gelden strenge redactionele regels en artikelen kunnen alleen in
-            overleg geplaatst
-            worden. U kunt in de sectie 'artikelen' een voorstel indienen voor een artikel. Wij zullen contact met u opnemen om uw voorstel te
-            bespreken. </p>
+            om uw cursussen extra onder de aandacht te brengen. U kunt in de sectie 'artikelen' een voorstel indienen voor een artikel. Wij zullen contact met u opnemen om uw voorstel te
+            bespreken.</p>
     </div>
 </sec:authorize>
 
@@ -52,7 +50,8 @@
     <div class="default-block">
         <h2><spring:message code="admin.sections.users"/></h2>
 
-        <p>Bij <a href="/admin/users">gebruikersbeheer</a> beheert u de gebruikers die binnen uw bedrijf toegang hebben tot ICT Cursus.</p>
+        <p>U kunt collega's binnen uw bedrijf ook toegang geven tot ICT Cursus, zodat u uw account met meerdere mensen kunt beheren.
+            Bij <a href="/admin/users">gebruikersbeheer</a> beheert u de gebruikers die binnen uw bedrijf toegang hebben tot ICT Cursus. </p>
     </div>
 </sec:authorize>
 
@@ -60,7 +59,7 @@
     <div class="default-block">
         <h2><spring:message code="admin.sections.invitations"/></h2>
 
-        <p>Bij <a href="/admin/invitations">collega's uitnodigen</a> kunt u collega's binnen uw bedrijf toegang geven tot ICT Cursus.</p>
+        <p>Bij <a href="/admin/invitations">collega's uitnodigen</a> kunt u collega's binnen uw bedrijf toegang geven tot ICT Cursus, zodat u gezamelijk uw ICT Cursus account kunt beheren.</p>
     </div>
 </sec:authorize>
 

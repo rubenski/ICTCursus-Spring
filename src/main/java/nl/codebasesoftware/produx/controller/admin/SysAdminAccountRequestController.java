@@ -5,11 +5,12 @@ import nl.codebasesoftware.produx.domain.optionlists.ListOptions;
 import nl.codebasesoftware.produx.formdata.AccountRequestFormData;
 import nl.codebasesoftware.produx.service.AccountRequestService;
 import nl.codebasesoftware.produx.service.business.BasicAccountRequestEvaluation;
-import nl.codebasesoftware.produx.validator.RequestAccountFormValidator;
+import nl.codebasesoftware.produx.validator.AdminAccountRequestFormValidator;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,17 +29,20 @@ import java.util.Locale;
  * Time: 20:26
  */
 @Controller
+@Secured("hasAnyRole('ROLE_PERM_access_sysadmin_screens')")
 public class SysAdminAccountRequestController {
 
     private AccountRequestService accountRequestService;
     private MessageSource messageSource;
-    private RequestAccountFormValidator validator;
+    private AdminAccountRequestFormValidator validator;
     private ConversionService conversionService;
     private ListOptions options;
 
     @Autowired
-    public SysAdminAccountRequestController(AccountRequestService accountRequestService, MessageSource messageSource,
-                                            RequestAccountFormValidator validator, ConversionService conversionService,
+    public SysAdminAccountRequestController(AccountRequestService accountRequestService,
+                                            MessageSource messageSource,
+                                            AdminAccountRequestFormValidator validator,
+                                            ConversionService conversionService,
                                             ListOptions options) {
         this.accountRequestService = accountRequestService;
         this.messageSource = messageSource;

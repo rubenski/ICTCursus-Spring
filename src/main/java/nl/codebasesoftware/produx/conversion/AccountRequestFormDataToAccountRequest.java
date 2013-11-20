@@ -52,7 +52,11 @@ public class AccountRequestFormDataToAccountRequest implements Converter<Account
         request.setCountry(accountRequestFormData.getCountry());
         request.setVatNumber(accountRequestFormData.getVatNumber());
         request.setCompanyZipCode(accountRequestFormData.getCompanyZipCode());
-        request.setCompanyPrefix(accountRequestFormData.getCompanyPrefix().toUpperCase());
+
+        if(accountRequestFormData.getCompanyPrefix() != null){
+            request.setCompanyPrefix(accountRequestFormData.getCompanyPrefix().toUpperCase());
+        }
+
 
         return request;
     }

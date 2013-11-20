@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.dao.jpa;
 
 import nl.codebasesoftware.produx.dao.UserProfileDao;
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.domain.optionlists.RoleName;
 import org.apache.log4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
@@ -66,5 +67,11 @@ public class UserProfileDaoJpa extends GenericDaoJpa<UserProfile> implements Use
     @Override
     public UserProfile findWithCompany(Long id) {
         return getSingleResult(entityManager.createQuery("from UserProfile up inner join fetch up.company c where up.id = :id").setParameter("id", id));
+    }
+
+    @Override
+    public List<UserProfile> findByRole(RoleName role) {
+        return entityManager.createQuery("from UserProfile up inner join fetch up.roles roles where roles.systemName = :systemName")
+                .setParameter("systemName", role).getResultList();
     }
 }

@@ -1,10 +1,16 @@
 package nl.codebasesoftware.produx.controller;
 
+import nl.codebasesoftware.produx.domain.dto.entity.AccountRequestEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.domain.optionlists.ListOptions;
+import nl.codebasesoftware.produx.domain.optionlists.RoleName;
 import nl.codebasesoftware.produx.formdata.AccountRequestFormData;
+import nl.codebasesoftware.produx.net.mail.AccountRequestMailer;
 import nl.codebasesoftware.produx.service.AccountRequestService;
 import nl.codebasesoftware.produx.service.PageBlockService;
-import nl.codebasesoftware.produx.validator.RequestAccountFormValidator;
+import nl.codebasesoftware.produx.service.UserProfileService;
+import nl.codebasesoftware.produx.validator.AdminAccountRequestFormValidator;
+import nl.codebasesoftware.produx.validator.PublicAccountRequestFormValidator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -15,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
 import java.util.Locale;
 
 
@@ -28,21 +35,30 @@ public class RequestAccountController {
 
     Logger LOG = Logger.getLogger(RequestAccountController.class);
 
-    private RequestAccountFormValidator validator;
+    private PublicAccountRequestFormValidator validator;
     private AccountRequestService accountRequestService;
     private MessageSource messageSource;
     private ListOptions options;
     private PageBlockService pageBlockService;
+    private AccountRequestMailer mailer;
+    private UserProfileService userProfileService;
 
 
     @Autowired
-    public RequestAccountController(RequestAccountFormValidator validator, AccountRequestService accountRequestService,
-                                    MessageSource messageSource, ListOptions options, PageBlockService pageBlockService) {
+    public RequestAccountController(PublicAccountRequestFormValidator validator,
+                                    AccountRequestService accountRequestService,
+                                    MessageSource messageSource,
+                                    ListOptions options,
+                                    PageBlockService pageBlockService,
+                                    AccountRequestMailer mailer,
+                                    UserProfileService userProfileService) {
         this.validator = validator;
         this.accountRequestService = accountRequestService;
         this.messageSource = messageSource;
         this.options = options;
         this.pageBlockService = pageBlockService;
+        this.mailer = mailer;
+        this.userProfileService = userProfileService;
     }
 
     @RequestMapping(value = "/requestaccount", method = RequestMethod.GET)
@@ -63,7 +79,9 @@ public class RequestAccountController {
         validator.validate(accountRequestFormData, result);
         setDefaultPageBlock(model);
         if (!result.hasErrors()) {
-            accountRequestService.save(accountRequestFormData);
+            AccountRequestEntityDTO accountRequestEntityDTO = accountRequestService.save(accountRequestFormData);
+            List<UserProfileEntityDTO> admins = userProfileService.findByRole(RoleName.SYS_ADMIN);
+            mailer.sendNewAccountRequestMailToAdmin(accountRequestEntityDTO, admins, Locale.getDefault());
             return "redirect:/requestaccount/success";
         }
         setPageTitle(model, locale, "pagetitle.requestaccount");

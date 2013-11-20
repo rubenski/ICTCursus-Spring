@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.service;
 
 import nl.codebasesoftware.produx.domain.AccountRequest;
+import nl.codebasesoftware.produx.domain.dto.entity.AccountRequestEntityDTO;
 import nl.codebasesoftware.produx.formdata.AccountRequestFormData;
 import nl.codebasesoftware.produx.service.business.BasicAccountRequestEvaluation;
 
@@ -13,7 +14,7 @@ import java.util.Locale;
  * Time: 16:30
  */
 public interface AccountRequestService {
-    void save(AccountRequestFormData formData);
+    AccountRequestEntityDTO save(AccountRequestFormData formData);
 
     List<BasicAccountRequestEvaluation> findNonEvaluated();
 

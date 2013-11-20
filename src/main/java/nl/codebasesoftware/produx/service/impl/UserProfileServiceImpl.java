@@ -5,11 +5,14 @@ import nl.codebasesoftware.produx.dao.UserProfileDao;
 import nl.codebasesoftware.produx.domain.Role;
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.domain.dto.ProfileStatus;
+import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
+import nl.codebasesoftware.produx.domain.optionlists.RoleName;
 import nl.codebasesoftware.produx.formdata.BindableMyUserProfile;
 import nl.codebasesoftware.produx.formdata.BindableSysAdminUserProfile;
 import nl.codebasesoftware.produx.formdata.OtherUserProfileFormData;
 import nl.codebasesoftware.produx.service.UserProfileService;
 import nl.codebasesoftware.produx.service.support.CurrentUser;
+import nl.codebasesoftware.produx.util.collection.EntityCollectionConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.core.convert.ConversionService;
@@ -108,6 +111,11 @@ public class UserProfileServiceImpl implements UserProfileService {
     @Transactional(readOnly = true)
     public UserProfile findAuthorByArticle(long articleId) {
         return userProfileDao.findAuthorByArticle(articleId);
+    }
+
+    @Override
+    public List<UserProfileEntityDTO> findByRole(RoleName role) {
+        return new EntityCollectionConverter<UserProfile, UserProfileEntityDTO>().convert(userProfileDao.findByRole(role));
     }
 
     @Override

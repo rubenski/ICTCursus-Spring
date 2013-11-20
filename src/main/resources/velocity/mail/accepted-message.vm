@@ -10,9 +10,9 @@
     <br><br>
     Op ${request.formattedDate} heeft u een account aangevraagd bij ICTCursus.nl. Uw aanvraag is gehonoreerd en uw account is klaar voor gebruik.
     <br><br>
-    #if( $request.adminMessage != '' )
-        ${request.adminMessage}
-    #end
+
+    $!{request.adminMessage}
+
     <br>
     <br>
     U kunt vanaf nu <a href="${protocol}://${host}/login">inloggen</a> met de volgende gegevens:

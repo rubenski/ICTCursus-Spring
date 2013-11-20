@@ -198,6 +198,7 @@ public class Company implements DomainEntity, Serializable {
         this.allCoursesDeactivated = allCoursesDeactivated;
     }
 
+    @Column(nullable = true, unique = true)
     public String getCompanyPrefix() {
         return companyPrefix;
     }

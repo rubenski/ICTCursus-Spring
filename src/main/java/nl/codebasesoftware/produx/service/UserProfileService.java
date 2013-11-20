@@ -2,6 +2,8 @@ package nl.codebasesoftware.produx.service;
 
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.domain.dto.ProfileStatus;
+import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
+import nl.codebasesoftware.produx.domain.optionlists.RoleName;
 import nl.codebasesoftware.produx.formdata.BindableMyUserProfile;
 import nl.codebasesoftware.produx.formdata.BindableSysAdminUserProfile;
 import nl.codebasesoftware.produx.formdata.OtherUserProfileFormData;
@@ -15,6 +17,7 @@ import java.util.Locale;
  * Time: 23:00
  */
 public interface UserProfileService {
+
     UserProfile findByEmail(String email);
 
     void update(BindableMyUserProfile profile);
@@ -30,6 +33,8 @@ public interface UserProfileService {
     void update(OtherUserProfileFormData profile);
 
     UserProfile findAuthorByArticle(long articleId);
+
+    List<UserProfileEntityDTO> findByRole(RoleName role);
 
     UserProfile findAuthorByPage(long pageId);
 

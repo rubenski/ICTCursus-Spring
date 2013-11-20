@@ -1,48 +1,16 @@
 package nl.codebasesoftware.produx.validator;
 
-import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.formdata.AccountRequestFormData;
-import nl.codebasesoftware.produx.service.CompanyService;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
 
 /**
  * User: rvanloen
- * Date: 12-8-12
- * Time: 15:17
+ * Date: 20-11-13
+ * Time: 19:36
  */
-@Component
-public class RequestAccountFormValidator implements Validator {
+public class AccountRequestPublicFormValidator {
 
-    Logger LOG = Logger.getLogger(RequestAccountFormValidator.class);
-    private CompanyService companyService;
-
-    @Autowired
-    public RequestAccountFormValidator(CompanyService companyService) {
-        this.companyService = companyService;
-    }
-
-    @Override
-    public boolean supports(Class<?> aClass) {
-        return AccountRequestFormData.class.isAssignableFrom(aClass);
-    }
-
-    @Override
-    public void validate(Object target, Errors errors) {
-        AccountRequestFormData request = (AccountRequestFormData) target;
-
-        CompanyEntityDTO companyEntityDTO = companyService.findByPrefix(request.getCompanyPrefix());
-
-        if(companyEntityDTO != null){
-            errors.rejectValue("companyPrefix", "company.prefix.exists");
-        }
-
-        if (!ProduxValidator.isValidCompanyPrefix(request.getCompanyPrefix())) {
-            errors.rejectValue("companyPrefix", "company.prefix.invalid");
-        }
+    public static void validate(AccountRequestFormData request, Errors errors){
 
         if (!ProduxValidator.isValidAddrress(request.getCompanyAddress())) {
             errors.rejectValue("companyAddress", "errors.company.address");
@@ -99,6 +67,5 @@ public class RequestAccountFormValidator implements Validator {
         if (!ProduxValidator.isValidVatNumber(request.getVatNumber())) {
             errors.rejectValue("vatNumber", "errors.company.vatnumber");
         }
-
     }
 }

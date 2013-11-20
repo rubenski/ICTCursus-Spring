@@ -46,7 +46,7 @@ public class AccountRequestResultMailer {
                 message.setTo(request.getEmail());
                 message.setSubject(subject);
                 message.setFrom(fromEmail, senderName);
-                Map model = new HashMap();
+                Map<String, Object> model = new HashMap();
 
                 model.put("request", request);
 

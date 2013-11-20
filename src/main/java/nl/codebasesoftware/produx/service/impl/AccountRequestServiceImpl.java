@@ -8,6 +8,7 @@ import nl.codebasesoftware.produx.domain.AccountRequest;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Role;
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.domain.dto.entity.AccountRequestEntityDTO;
 import nl.codebasesoftware.produx.formdata.AccountRequestFormData;
 import nl.codebasesoftware.produx.net.mail.AccountRequestResultMailer;
 import nl.codebasesoftware.produx.service.AccountRequestService;
@@ -56,9 +57,10 @@ public class AccountRequestServiceImpl implements AccountRequestService {
 
     @Override
     @Transactional(readOnly = false)
-    public void save(AccountRequestFormData formData) {
+    public AccountRequestEntityDTO save(AccountRequestFormData formData) {
         AccountRequest request = conversionService.convert(formData, AccountRequest.class);
         accountRequestDao.persist(request);
+        return request.toDTO();
     }
 
 

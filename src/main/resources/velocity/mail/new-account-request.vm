@@ -1,0 +1,21 @@
+#* @vtlvariable name="request" type="nl.codebasesoftware.produx.domain.dto.entity.AccountRequestEntityDTO" *#
+
+
+
+<html>
+<body>
+
+<p>Hallo,</p>
+<p>
+    Er is een nieuw account-verzoek binnengekomen van ${request.getNamePretty()} van het bedrijf ${request.getCompanyName()}.
+
+</p>
+<p>
+    Bekijk de request <a href="${link}" target="_blank">hier</a>.
+</p>
+
+</body>
+
+</html>
+
+

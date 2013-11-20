@@ -9,6 +9,7 @@
 
     <http auto-config="true" use-expressions="true">
         <intercept-url pattern="/admin/**" access="hasRole('ROLE_PERM_access_admin_screens') or hasRole('ROLE_PERM_access_sysadmin_screens')"/>
+        <intercept-url pattern="/admin/sys/**" access="hasRole('ROLE_PERM_access_sysadmin_screens')"/>
         <intercept-url pattern="/favicon.ico" access="permitAll"></intercept-url>
         <intercept-url pattern="/robots.txt" access="permitAll"></intercept-url>
         <security:logout logout-url="/admin/logout" logout-success-url="/" invalidate-session="true"/>

@@ -33,7 +33,7 @@ public class AccountRequestEntityDTO extends DomainEntityDTO {
     private Calendar requestDate;
     private boolean evaluated;
     private Boolean granted;
-    private String adminMessage;
+    private String adminMessage = "";
 
     @Override
     public Long getId() {
@@ -202,5 +202,9 @@ public class AccountRequestEntityDTO extends DomainEntityDTO {
 
     public void setAdminMessage(String adminMessage) {
         this.adminMessage = adminMessage;
+    }
+
+    public String getNamePretty(){
+        return String.format("%s %s %s", firstName, preposition, lastName);
     }
 }
