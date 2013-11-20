@@ -29,7 +29,6 @@ import java.util.Locale;
  * Time: 20:26
  */
 @Controller
-@Secured("hasAnyRole('ROLE_PERM_access_sysadmin_screens')")
 public class SysAdminAccountRequestController {
 
     private AccountRequestService accountRequestService;
