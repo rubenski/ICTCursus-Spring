@@ -58,7 +58,7 @@
 
     <div class="default-block">
         <form:label path="pages">
-            <spring:message code="article.form.pages"/>
+            <spring:message code="generic.message.paginas"/>
             <span><spring:message code="article.form.pages.helptext"/></span>
         </form:label>
         <table cellpadding="4" width="600" id="pagetable">

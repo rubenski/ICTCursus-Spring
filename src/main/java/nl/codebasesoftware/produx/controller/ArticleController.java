@@ -73,6 +73,7 @@ public class ArticleController {
 
         // Add the necessary data to the model
         model.addAttribute("title", String.format("%s - %s", articlePage.getTitle(), properties.getProperty("domain")));
+
         setData(model, article, articlePage);
 
         return "main";
@@ -86,14 +87,17 @@ public class ArticleController {
 
         if (page != null) {
             model.addAttribute("currentArticlePage", page);
+            model.addAttribute("firstPage", false);
         } else {
             model.addAttribute("currentArticlePage", article);
+            model.addAttribute("firstPage", true);
         }
 
         model.addAttribute("article", article);
         model.addAttribute("mainContent", "content/article");
         model.addAttribute("articleNav", article.getPages().size() > 0);
         model.addAttribute("includeHighlighter", true);
+        model.addAttribute("broadView", true);
     }
 
 

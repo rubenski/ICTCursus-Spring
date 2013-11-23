@@ -2,6 +2,16 @@
 target
 
 #################
+## Intellij
+#################
+*.idea
+.gitignore
+*.ids
+*.iml
+*.iws
+*.ipr
+
+#################
 ## Eclipse
 #################
 

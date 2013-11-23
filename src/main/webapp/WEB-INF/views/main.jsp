@@ -35,7 +35,6 @@
             });
         </script>
     </c:if>
-
     <title>
         ${title}
     </title>
@@ -73,7 +72,12 @@
     <div id="outermain">
         <div id="innermain">
             <jsp:include page="left.jsp"/>
-            <div id="maincontent" class="roundedbox">
+
+            <c:if test="${broadView}">
+                <c:set var="broad" value="broad"/>
+            </c:if>
+
+            <div id="maincontent" class="roundedbox ${broad}">
                 <jsp:include page="${mainContent}.jsp"/>
             </div>
             <jsp:include page="${rightColumn}.jsp"/>

@@ -241,7 +241,10 @@ body {
     width: 480px;
     line-height: 20px;
     margin: 0px 14px 0px 14px;
+}
 
+#main #innermain #maincontent.broad {
+    width: 662px;
 }
 
 #main #innermain #maincontent pre {
@@ -257,7 +260,7 @@ body {
 }
 
 #main #innermain #maincontent h1 {
-    padding: 3px 0px 30px 0px;
+    padding: 3px 0px 5px 0px;
     font-weight: normal;
     font-size: 2.4em;
     font-family: headingFont, sans-serif;
