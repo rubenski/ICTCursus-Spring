@@ -11,7 +11,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-public class UserProfile implements DomainEntity, UserDetails {
+public class UserProfile implements DomainEntity {
 
     private Long id;
     private String email;
@@ -24,10 +24,6 @@ public class UserProfile implements DomainEntity, UserDetails {
     private Set<Role> roles;
     private Set<Article> articles;
     private boolean enabled;
-
-    @Transient
-    private final String PERMISSION_PREFIX = "ROLE_PERM_";
-
 
     @Override
     @Id
@@ -51,12 +47,6 @@ public class UserProfile implements DomainEntity, UserDetails {
 
     @Column(nullable = false)
     public String getPasswordHash() {
-        return passwordHash;
-    }
-
-    @Override
-    @Transient
-    public String getPassword() {
         return passwordHash;
     }
 
@@ -132,60 +122,11 @@ public class UserProfile implements DomainEntity, UserDetails {
         this.enabled = enabled;
     }
 
-    /**
-     * Methods from interface UserDetails
-     */
-    @Override
-    @Transient
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<ProduxAuthority> authorities = new HashSet<ProduxAuthority>();
-        for (Role role : roles) {
-            for (Right right : role.getRights()) {
-                ProduxAuthority produxAuthority = new ProduxAuthority(PERMISSION_PREFIX + right.getName());
-                authorities.add(produxAuthority);
-            }
-        }
-        return authorities;
+    public boolean isEnabled(){
+        return this.enabled;
     }
 
-    @Override
-    @Transient
-    public String getUsername() {
-        return email;
-    }
 
-    @Override
-    @Transient
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    @Transient
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    @Transient
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    @Transient
-    public String getFullNameFormal() {
-        return preposition != null ? String.format("%s, %s  %s", lastName, firstName, preposition) : String.format("%s, %s", lastName, firstName);
-    }
-
-    @Transient
-    public String getFullNameInformal() {
-        return preposition != null ? String.format("%s %s %s", firstName, preposition, lastName) : String.format("%s %s", firstName, lastName);
-    }
 
     @Transient
     public List<Long> getRoleIds() {
@@ -195,17 +136,6 @@ public class UserProfile implements DomainEntity, UserDetails {
         }
         return ids;
     }
-
-    @Transient
-    public boolean hasRole(RoleName roleName) {
-        for (Role role : roles) {
-            if (roleName.equals(role.getSystemName())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     @Override
     public boolean equals(Object o) {

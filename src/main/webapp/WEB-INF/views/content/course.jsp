@@ -47,6 +47,12 @@
             <form:errors path="requesterName" cssClass="form-error"/>
 
             <div class="default-block">
+                <form:label path="company"><spring:message code="user.genericlabel.company"/></form:label>
+                <form:input path="company" cssClass="form-input" cssErrorClass="form-input-error" maxlength="60" size="60"/>
+                <form:errors path="company" cssClass="form-error"/>
+            </div>
+
+            <div class="default-block">
                 <form:label path="email"><spring:message code="user.genericlabel.email"/></form:label>
                 <form:input path="email" cssClass="form-input" cssErrorClass="form-input-error" maxlength="60" size="60"/>
                 <form:errors path="email" cssClass="form-error"/>
@@ -80,7 +86,7 @@
 
     </c:when>
     <c:otherwise>
-        <p><spring:message code="submit.request.success" arguments="${course.company.name},${courseRequest.email}"/></p>
+        <p><spring:message code="submit.request.success" arguments="${course.company.name}"/></p>
     </c:otherwise>
 </c:choose>
 

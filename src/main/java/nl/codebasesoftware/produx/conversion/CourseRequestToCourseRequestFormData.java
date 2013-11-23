@@ -25,6 +25,7 @@ public class CourseRequestToCourseRequestFormData implements Converter<CourseReq
         formData.setInvalid(courseRequest.isInvalid());
         formData.setId(courseRequest.getId());
         formData.setPhone(courseRequest.getPhone());
+        formData.setCompany(courseRequest.getCompany());
         return formData;
     }
 }

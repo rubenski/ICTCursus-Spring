@@ -9,6 +9,7 @@ import nl.codebasesoftware.produx.domain.Role;
 import nl.codebasesoftware.produx.domain.UserInvitation;
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.formdata.AccountActivationFormData;
 import nl.codebasesoftware.produx.formdata.BindableUserInvitation;
@@ -103,10 +104,10 @@ public class UserInvitationServiceImpl implements UserInvitationService {
     @Transactional(readOnly = false)
     public void removeInvitation(long invitationId) {
         UserInvitation invitation = userInvitationDao.find(invitationId);
-        UserProfile currentUser = CurrentUser.get();
+        UserProfileEntityDTO currentUser = CurrentUser.get();
 
         // Someone is trying to remove an invitation that is not his/hers or that has already been activated
-        if (invitation == null || !currentUser.equals(invitation.getInvitedBy())) {
+        if (invitation == null || !currentUser.getId().equals(invitation.getInvitedBy().getId())) {
             return;
         }
 
@@ -114,7 +115,7 @@ public class UserInvitationServiceImpl implements UserInvitationService {
     }
 
     @Transactional(readOnly = false)
-    public UserProfile activateProfile(AccountActivationFormData activationData) {
+    public UserProfileEntityDTO activateProfile(AccountActivationFormData activationData) {
         UserProfile userProfile = new UserProfile();
         Company company = companyDao.find(activationData.getCompanyId());
         userProfile.setCompany(company);
@@ -134,10 +135,9 @@ public class UserInvitationServiceImpl implements UserInvitationService {
         transferRoles(invitation, userProfile);
         userProfileDao.persist(userProfile);
 
-
         userInvitationDao.persist(invitation);
 
-        return userProfile;
+        return userProfile.toDTO();
     }
 
 

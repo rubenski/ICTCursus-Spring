@@ -118,6 +118,7 @@ public class Role implements DomainEntity {
         dto.setDisplayName(displayName);
         dto.setId(id);
         dto.setListRank(listRank);
+        dto.setSystemName(systemName);
         dto.setRights(getRightDTOs());
         return dto;
     }

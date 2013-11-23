@@ -44,11 +44,15 @@
 
             <table cellpadding="4" width="600">
                 <tr>
+                    <th><spring:message code="generic.message.date"/></th>
                     <th><spring:message code="article.suggestion.title"/></th>
                     <th><spring:message code="generic.message.status"/></th>
                 </tr>
                 <c:forEach items="${suggestions}" var="suggestion">
                     <tr>
+                        <td>
+                            <fmt:formatDate value="${suggestion.created.time}" type="date" pattern="dd-MM-yyyy HH:mm:ss"/>
+                        </td>
                         <td>
                                 ${suggestion.suggestedTitle}
                         </td>

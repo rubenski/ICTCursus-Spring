@@ -1,0 +1,29 @@
+#* @vtlvariable name="suggestion" type="nl.codebasesoftware.produx.domain.dto.entity.ArticleSuggestionEntityDTO" *#
+
+
+
+<html>
+<body>
+
+<p>Hallo,</p>
+<p>
+Er is een nieuwe artikelsuggestie binnengekomen, zie onder.
+<br>
+<table style="width:600px; border: none">
+    <tr>
+        <td width="250px"><b>Titel</b></td>
+        <td width="500px">${suggestion.suggestedTitle}</td>
+    </tr>
+    <tr>
+        <td width="250px"><b>Onderwerp</b></td>
+        <td width="500px">${suggestion.suggestionText}</td>
+    </tr>
+</table>
+</p>
+<p>
+    Bekijk de suggestie  <a href="${link}" target="_blank">hier</a>.
+</p>
+
+</body>
+
+</html>

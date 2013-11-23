@@ -4,6 +4,7 @@ import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.formdata.BindableCompany;
 import nl.codebasesoftware.produx.formdata.BindableFileUpload;
 import nl.codebasesoftware.produx.formdata.CompanySettingsFormData;
@@ -14,7 +15,7 @@ import nl.codebasesoftware.produx.formdata.CompanySettingsFormData;
  * Time: 2:35
  */
 public interface CompanyService {
-    CompanyEntityDTO findByUserProfile(UserProfile userProfile);
+    CompanyEntityDTO findByUserProfile(UserProfileEntityDTO userProfile);
 
     void update(BindableCompany bindableCompany);
 

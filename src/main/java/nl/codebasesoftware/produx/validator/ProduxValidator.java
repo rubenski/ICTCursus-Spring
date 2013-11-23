@@ -67,7 +67,7 @@ public class ProduxValidator {
     }
 
     public static boolean isValidArticleTitle(String articleTitle) {
-        return isValidNormalText(articleTitle);
+        return isValidNormalText(articleTitle, false);
     }
 
     public static boolean isArticleTeaserLongEnough(String articleTeaser) {
@@ -75,7 +75,7 @@ public class ProduxValidator {
     }
 
     public static boolean isArticleTeaserValid(String articleTeaser) {
-        return isValidNormalText(articleTeaser);
+        return isValidNormalText(articleTeaser, false);
     }
 
     public static boolean isValidMetaKeywords(String keywords) {
@@ -88,7 +88,7 @@ public class ProduxValidator {
     }
 
     public static boolean isValidMetaDescription(String description) {
-        return isValidNormalText(description);
+        return isValidNormalText(description, false);
     }
 
 
@@ -106,14 +106,15 @@ public class ProduxValidator {
         return text.length() > length;
     }
 
-    public static boolean isValidNormalText(String text) {
-        if (text == null || text.length() == 0) {
+    public static boolean isValidNormalText(String text, boolean allowEmptyText) {
+        if (allowEmptyText && (text == null || text.length() == 0)) {
             return true;
         }
         Pattern p = Pattern.compile(String.format("%s+", NORMAL_TEXT_PATTERN));
         Matcher m = p.matcher(text);
         return m.matches();
     }
+
 
     public static boolean isValidNormalText(String text, int min, int max) {
         if (text == null) {
@@ -199,6 +200,8 @@ public class ProduxValidator {
         }
         return true;
     }
+
+
 
 
 }

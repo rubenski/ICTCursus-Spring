@@ -2,18 +2,12 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:p="http://www.springframework.org/schema/p"
        xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:task="http://www.springframework.org/schema/task"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context-3.1.xsd
-        http://www.springframework.org/schema/aop
-        http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
-        http://www.springframework.org/schema/task
-        http://www.springframework.org/schema/task/spring-task.xsd">
+        http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
     <!-- Main setup -->
     <context:property-placeholder location="classpath*:**/*.properties"/>
@@ -28,12 +22,15 @@
     <context:component-scan base-package="nl.codebasesoftware.produx.search"/>
 
     <!-- Data and JPA setup -->
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" p:driverClassName="${db.driverClassName}"
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
+          p:driverClassName="${db.driverClassName}"
           p:url="${db.url}" p:username="${db.username}" p:password="${db.password}"/>
 
 
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" p:dataSource-ref="dataSource"/>
-    <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager" p:entityManagerFactory-ref="entityManagerFactory"/>
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+          p:dataSource-ref="dataSource"/>
+    <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+          p:entityManagerFactory-ref="entityManagerFactory"/>
     <tx:annotation-driven transaction-manager="txManager"/>
 
     <bean id="defaultLobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler"/>
@@ -65,7 +62,16 @@
 
     <!-- Mail properties -->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name="host" value="mail.mirabeau.nl"/>
+        <property name="username" value="rubenski@gmail.com"/>
+        <property name="password" value="Hijiszoleuk"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.host">smtp.gmail.com</prop>
+                <prop key="mail.smtp.port">587</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+            </props>
+        </property>
     </bean>
 
     <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">

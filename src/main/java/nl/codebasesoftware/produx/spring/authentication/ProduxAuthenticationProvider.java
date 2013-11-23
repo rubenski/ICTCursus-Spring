@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.spring.authentication;
 
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.service.UserProfileService;
 import nl.codebasesoftware.produx.util.SecurityUtil;
@@ -22,21 +23,19 @@ import org.springframework.stereotype.Component;
 public class ProduxAuthenticationProvider implements AuthenticationProvider {
 
     private UserProfileService userProfileService;
-    private CompanyService companyService;
 
 
     @Autowired
-    public ProduxAuthenticationProvider(UserProfileService userProfileService, CompanyService companyService) {
+    public ProduxAuthenticationProvider(UserProfileService userProfileService) {
         this.userProfileService = userProfileService;
-        this.companyService = companyService;
     }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        UserProfile profile = userProfileService.findByEmail(authentication.getPrincipal().toString());
+        UserProfileEntityDTO profile = userProfileService.findByEmail(authentication.getPrincipal().toString());
 
         if (profile == null) {
-            throw new UsernameNotFoundException(String.format("Invalid credentials", authentication.getPrincipal()));
+            throw new UsernameNotFoundException("Invalid credentials");
         }
 
         String suppliedPasswordHash = SecurityUtil.createShaHash(authentication.getCredentials().toString());
@@ -45,10 +44,7 @@ public class ProduxAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("Invalid credentials");
         }
 
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(profile, null, profile.getAuthorities());
-
-
-        return token;
+        return new UsernamePasswordAuthenticationToken(profile, null, profile.getAuthorities());
     }
 
     @Override

@@ -1,16 +1,15 @@
 package nl.codebasesoftware.produx.service.impl;
 
-import nl.codebasesoftware.produx.dao.ArticleDao;
-import nl.codebasesoftware.produx.dao.ArticlePageDao;
-import nl.codebasesoftware.produx.dao.ArticleSuggestionDao;
-import nl.codebasesoftware.produx.dao.CategoryDao;
+import nl.codebasesoftware.produx.dao.*;
 import nl.codebasesoftware.produx.domain.*;
 import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.formdata.AddArticleFormData;
 import nl.codebasesoftware.produx.formdata.ArticlePageFormData;
 import nl.codebasesoftware.produx.formdata.EditArticleFormData;
 import nl.codebasesoftware.produx.service.ArticleService;
 import nl.codebasesoftware.produx.service.UserProfileService;
+import nl.codebasesoftware.produx.util.collection.EntityCollectionConverter;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,16 +30,16 @@ public class ArticleServiceImpl implements ArticleService {
     Logger LOG = Logger.getLogger(ArticleServiceImpl.class);
 
     private ArticleDao articleDao;
-    private UserProfileService userProfileService;
+    private UserProfileDao userProfileDao;
     private ArticlePageDao articlePageDao;
     private ArticleSuggestionDao articleSuggestionDao;
     private CategoryDao categoryDao;
 
     @Autowired
-    public ArticleServiceImpl(ArticleDao articleDao, UserProfileService userProfileService,
+    public ArticleServiceImpl(ArticleDao articleDao, UserProfileDao userProfileDao,
                               ArticlePageDao articlePageDao, ArticleSuggestionDao articleSuggestionDao, CategoryDao categoryDao) {
         this.articleDao = articleDao;
-        this.userProfileService = userProfileService;
+        this.userProfileDao = userProfileDao;
         this.articlePageDao = articlePageDao;
         this.articleSuggestionDao = articleSuggestionDao;
         this.categoryDao = categoryDao;
@@ -48,8 +47,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Article> findByCompany(long companyId) {
-        return articleDao.findByCompany(companyId);
+    public List<ArticleEntityDTO> findByCompany(long companyId) {
+        return new EntityCollectionConverter<Article, ArticleEntityDTO>().convert(articleDao.findByCompany(companyId));
     }
 
     @Override
@@ -57,7 +56,7 @@ public class ArticleServiceImpl implements ArticleService {
     public Article addArticle(AddArticleFormData formData, long authorProfileId) {
 
         // Get the author and tie it to the article later
-        UserProfile author = userProfileService.findById(authorProfileId);
+        UserProfile author = userProfileDao.find(authorProfileId);
         // Get the suggestion on which this article is based so we can addOrUpdate the article to the suggestion later
         ArticleSuggestion suggestion = articleSuggestionDao.find(formData.getSuggestionId());
         // Get the category

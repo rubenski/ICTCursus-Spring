@@ -59,17 +59,20 @@ public class ArticleController {
                                  HttpServletRequest request,
                                  Model model) {
 
+        // Fetch article page using the service
         ArticleEntityDTO article = articleService.findFull(articleId);
         ArticlePageEntityDTO articlePage = article.getArticlePage(pageNumber);
-
         String url = articlePage.getUrl();
         String requestURI = request.getRequestURI();
 
+        // We need a match for the exact url of the article page and not just the article id and page number, o
+        // or we will risk duplicate content problems
         if (!requestURI.equals(url)) {
             throw new ResourceNotFoundException();
         }
 
-        model.addAttribute("title", articlePage.getTitle() + " - " + properties.getProperty("domain"));
+        // Add the necessary data to the model
+        model.addAttribute("title", String.format("%s - %s", articlePage.getTitle(), properties.getProperty("domain")));
         setData(model, article, articlePage);
 
         return "main";
@@ -80,7 +83,6 @@ public class ArticleController {
 
         pageBlockService.setCourseCategoriesInLeftColumn(model);
         pageBlockService.setEmptyRightColumn(model);
-
 
         if (page != null) {
             model.addAttribute("currentArticlePage", page);

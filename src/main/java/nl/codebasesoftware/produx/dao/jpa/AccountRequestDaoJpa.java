@@ -31,6 +31,7 @@ public class AccountRequestDaoJpa extends GenericDaoJpa<AccountRequest> implemen
     }
 
     private List<AccountRequest> findRequests(boolean evaluated) {
-        return entityManager.createQuery("from AccountRequest ar where ar.evaluated = :evaluated").setParameter("evaluated", evaluated).getResultList();
+        return entityManager.createQuery("from AccountRequest ar where ar.evaluated = :evaluated order by ar.requestDate desc")
+                .setParameter("evaluated", evaluated).getResultList();
     }
 }

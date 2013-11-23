@@ -110,6 +110,7 @@ public class ArticlePage implements DomainEntity, RankOrderable {
         dto.setPosition(position);
         dto.setText(text);
         dto.setTitle(title);
+        dto.setArticle(article.toDTOWithoutPages());
         return dto;
     }
 }

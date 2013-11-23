@@ -2,6 +2,8 @@ package nl.codebasesoftware.produx.conversion;
 
 import nl.codebasesoftware.produx.dao.*;
 import nl.codebasesoftware.produx.domain.*;
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
@@ -29,15 +31,22 @@ public class BindableCourseToCourse implements Converter<BindableCourse, Course>
     private CourseDao courseDao;
     private CourseOptionDao optionDao;
     private TagDao tagDao;
+    private CompanyDao companyDao;
 
     @Autowired
-    public BindableCourseToCourse(CategoryDao categoryDao, RegionDao regionDao, CourseDao courseDao, CourseOptionDao optionDao, TagDao tagDao) {
+    public BindableCourseToCourse(CategoryDao categoryDao,
+                                  RegionDao regionDao,
+                                  CourseDao courseDao,
+                                  CourseOptionDao optionDao,
+                                  TagDao tagDao,
+                                  CompanyDao companyDao) {
 
         this.categoryDao = categoryDao;
         this.regionDao = regionDao;
         this.courseDao = courseDao;
         this.optionDao = optionDao;
         this.tagDao = tagDao;
+        this.companyDao = companyDao;
     }
 
     @Override
@@ -56,8 +65,8 @@ public class BindableCourseToCourse implements Converter<BindableCourse, Course>
 
         // Get the company
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserProfile userProfile = (UserProfile) authentication.getPrincipal();
-        Company company = userProfile.getCompany();
+        UserProfileEntityDTO userProfile = (UserProfileEntityDTO) authentication.getPrincipal();
+        CompanyEntityDTO company = userProfile.getCompany();
 
         // Get the regions
         Set<Region> newRegions = new HashSet<Region>();
@@ -128,7 +137,7 @@ public class BindableCourseToCourse implements Converter<BindableCourse, Course>
         course.setId(bindableCourse.getId());
         course.setCategory(category);
         course.setListDescription(bindableCourse.getShortDescription());
-        course.setCompany(company);
+        course.setCompany(companyDao.find(company.getId()));
         course.setDuration(bindableCourse.getDuration());
         course.setLastUpdated(Calendar.getInstance());
         course.setName(bindableCourse.getName());

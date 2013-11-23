@@ -2,8 +2,11 @@ package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.ArticleSuggestion;
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.domain.dto.entity.ArticleSuggestionEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.formdata.ArticleSuggestionFormData;
+import nl.codebasesoftware.produx.net.mail.ArticleSuggestionMailer;
 import nl.codebasesoftware.produx.service.ArticleSuggestionService;
 import nl.codebasesoftware.produx.service.UserProfileService;
 import nl.codebasesoftware.produx.service.support.CurrentUser;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.mail.MessagingException;
 import java.util.List;
 import java.util.Locale;
 
@@ -35,23 +39,26 @@ public class AdminArticleSuggestionController {
     private ArticleSuggestionService articleSuggestionService;
     private ConversionService conversionService;
     private UserProfileService userProfileService;
+    private ArticleSuggestionMailer suggestionMailer;
 
     @Autowired
     public AdminArticleSuggestionController(MessageSource messageSource, ArticleSuggestionFormValidator formValidator,
                                             ArticleSuggestionService articleSuggestionService, ConversionService conversionService,
-                                            UserProfileService userProfileService) {
+                                            UserProfileService userProfileService,
+                                            ArticleSuggestionMailer suggestionMailer) {
         this.messageSource = messageSource;
         this.formValidator = formValidator;
         this.articleSuggestionService = articleSuggestionService;
         this.conversionService = conversionService;
         this.userProfileService = userProfileService;
+        this.suggestionMailer = suggestionMailer;
     }
 
     @RequestMapping(value = "/admin/articles/suggest", method = RequestMethod.GET)
     public String suggestionForm(Model model, Locale locale) {
 
         setHeader(model, locale);
-        UserProfile user = userProfileService.getCurrentlyLoggedInUser();
+        UserProfileEntityDTO user = userProfileService.getCurrentlyLoggedInUser();
 
         ArticleSuggestionFormData formData = new ArticleSuggestionFormData();
         formData.setEmail(user.getEmail());
@@ -70,6 +77,11 @@ public class AdminArticleSuggestionController {
 
         if (!result.hasErrors()) {
             ArticleSuggestion suggestion = articleSuggestionService.insert(formData);
+            try {
+                suggestionMailer.sendNewSuggestionMail(suggestion.toDTO(), locale);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
             return String.format("redirect:/admin/articles/suggest/success/%s", suggestion.getId());
         }
 
@@ -84,7 +96,7 @@ public class AdminArticleSuggestionController {
     @RequestMapping(value = "/admin/sys/articlesuggestions", method = RequestMethod.GET)
     public String showSuggestions(Model model, Locale locale) {
 
-        List<ArticleSuggestion> suggestions = articleSuggestionService.findAllDateSortedDesc();
+        List<ArticleSuggestionEntityDTO> suggestions = articleSuggestionService.findAllDateSortedDesc();
         model.addAttribute("suggestions", suggestions);
         model.addAttribute("numberOfSuggestions", suggestions.size());
         model.addAttribute("mainContent", "content/sysAdminArticleSuggestions");
@@ -111,7 +123,7 @@ public class AdminArticleSuggestionController {
 
         articleSuggestionService.setApproval(id, formData.isApproved());
 
-        // Reload the suggestion, because the form fields are disabled and the values are not in the Spring bound formdata objec
+        // Reload the suggestion, because the form fields are disabled and the values are not in the Spring bound formdata object
         ArticleSuggestion suggestion = articleSuggestionService.findFull(id);
         formData = conversionService.convert(suggestion, ArticleSuggestionFormData.class);
 
@@ -131,9 +143,9 @@ public class AdminArticleSuggestionController {
     @RequestMapping(value = "/admin/articles/suggest/success/{id}", method = RequestMethod.GET)
     public String success(@PathVariable("id") Long id, Model model, Locale locale) {
 
-        ArticleSuggestion suggestion = articleSuggestionService.findById(id);
+        ArticleSuggestionEntityDTO suggestion = articleSuggestionService.findById(id);
         setHeader(model, locale);
-        if (suggestion == null || !suggestion.getSuggester().equals(CurrentUser.get())) {
+        if (suggestion == null || !suggestion.getSuggester().getId().equals(CurrentUser.get().getId())) {
             throw new ResourceNotFoundException();
         }
 

@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.service.impl;
 
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.service.CategoryService;
 import nl.codebasesoftware.produx.service.PageBlockService;
 import nl.codebasesoftware.produx.service.support.CurrentUser;
@@ -36,7 +37,7 @@ public class PageBlockServiceImpl implements PageBlockService {
 
     @Override
     public void setAuthentication(Model model) {
-        UserProfile profile = CurrentUser.get();
+        UserProfileEntityDTO profile = CurrentUser.get();
         model.addAttribute("loggedIn", profile != null);
         model.addAttribute("currentUser", profile);
     }

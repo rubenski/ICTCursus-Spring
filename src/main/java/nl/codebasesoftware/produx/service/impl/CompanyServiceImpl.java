@@ -7,6 +7,7 @@ import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.formdata.BindableCompany;
 import nl.codebasesoftware.produx.formdata.BindableFileUpload;
 import nl.codebasesoftware.produx.formdata.CompanySettingsFormData;
@@ -50,8 +51,8 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     @Transactional(readOnly = true)
-    public CompanyEntityDTO findByUserProfile(UserProfile userProfile) {
-        return userProfile.getCompany().toDTO();
+    public CompanyEntityDTO findByUserProfile(UserProfileEntityDTO userProfile) {
+        return userProfile.getCompany();
     }
 
     @Override
@@ -73,11 +74,11 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     @Transactional(readOnly = true)
     public Company getCurrentlyLoggedInCompany() {
-        UserProfile user = CurrentUser.get();
+        UserProfileEntityDTO user = CurrentUser.get();
         if (user == null) {
             return null;
         }
-        Company company = user.getCompany();
+        CompanyEntityDTO company = user.getCompany();
         return companyDao.find(company.getId());
     }
 

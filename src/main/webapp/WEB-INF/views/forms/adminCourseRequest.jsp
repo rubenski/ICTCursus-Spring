@@ -27,9 +27,21 @@
     </div>
 
     <div class="default-block">
+        <form:label path="company"><spring:message code="user.genericlabel.company"/></form:label>
+        <form:input path="company" cssClass="form-input" cssErrorClass="form-input-error" maxlength="60" disabled="true" size="60"/>
+        <form:errors path="company" cssClass="form-error"/>
+    </div>
+
+    <div class="default-block">
         <form:label path="email"><spring:message code="user.genericlabel.email"/></form:label>
         <form:input path="email" cssClass="form-input" cssErrorClass="form-input-error" maxlength="60" disabled="true" size="60"/>
         <form:errors path="email" cssClass="form-error"/>
+    </div>
+
+    <div class="default-block">
+        <form:label path="phone"><spring:message code="user.genericlabel.phone"/></form:label>
+        <form:input path="phone" cssClass="form-input" cssErrorClass="form-input-error" maxlength="60" disabled="true" size="60"/>
+        <form:errors path="phone" cssClass="form-error"/>
     </div>
 
     <div class="default-block">

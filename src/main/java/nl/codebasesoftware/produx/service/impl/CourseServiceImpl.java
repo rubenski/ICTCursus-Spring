@@ -104,15 +104,16 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
     public Course save(BindableCourse bindableCourse) {
         Course course = conversionService.convert(bindableCourse, Course.class);
 
         if (bindableCourse.isPublished() && !course.wasPreviouslyPublished()) {
             course.setFirstPublished(Calendar.getInstance());
         }
-        solrService.addOrUpdate(course.toDTO());
         courseDao.persist(course);
+        solrService.addOrUpdate(course.toDTO());
+
 
         return course;
     }

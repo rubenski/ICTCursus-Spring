@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.controller;
 
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.formdata.BindableForgotPassword;
 import nl.codebasesoftware.produx.net.mail.PasswordMailer;
 import nl.codebasesoftware.produx.service.PageBlockService;
@@ -69,7 +70,7 @@ public class RequestPasswordController implements ApplicationContextAware {
             model.addAttribute("mainContent", "forms/requestPassword");
         } else {
 
-            UserProfile profile = userProfileService.findByEmail(forgotPassword.getEmail());
+            UserProfileEntityDTO profile = userProfileService.findByEmail(forgotPassword.getEmail());
             String randomPassword = securityService.getRandomPassword();
             passwordMailer.sendPasswordEmail(profile, randomPassword, locale);
             updatePassword(profile, randomPassword);
@@ -84,9 +85,8 @@ public class RequestPasswordController implements ApplicationContextAware {
         return "main";
     }
 
-    private void updatePassword(UserProfile profile, String randomPassword) {
-        String randomPasswordHash = SecurityUtil.createShaHash(randomPassword);
-
+    private void updatePassword(UserProfileEntityDTO profile, String password) {
+        String randomPasswordHash = SecurityUtil.createShaHash(password);
         profile.setPasswordHash(randomPasswordHash);
         userProfileService.update(profile);
     }

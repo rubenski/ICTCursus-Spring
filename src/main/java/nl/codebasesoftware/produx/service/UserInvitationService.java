@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.service;
 
 import nl.codebasesoftware.produx.domain.UserInvitation;
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.formdata.AccountActivationFormData;
 import nl.codebasesoftware.produx.formdata.BindableUserInvitation;
@@ -21,7 +22,7 @@ public interface UserInvitationService {
 
     UserInvitation findByEmail(String email);
 
-    UserProfile activateProfile(AccountActivationFormData profile);
+    UserProfileEntityDTO activateProfile(AccountActivationFormData profile);
 
     List<UserInvitation> findByInviter(long inviterProfileId);
 

@@ -24,7 +24,7 @@
                             <a href="/admin/sys/accountrequests/${basicRequest.request.id}">${basicRequest.request.id}</a>
                         </td>
                         <td>
-                            <fmt:formatDate value="${basicRequest.request.requestDate.time}" type="date" pattern="dd-MM-yyyy"/>
+                            <fmt:formatDate value="${basicRequest.request.requestDate.time}" type="date" pattern="dd-MM-yyyy HH:mm"/>
                         </td>
                         <td>
                                 ${basicRequest.request.fullNameFormal}

@@ -13,7 +13,7 @@ import java.util.List;
 public interface ArticleSuggestionDao extends GenericDao<ArticleSuggestion> {
 
 
-    List<ArticleSuggestion> findForUser(UserProfile user);
+    List<ArticleSuggestion> findForUser(long userId);
 
     List<ArticleSuggestion> findAllDateSortedDesc();
 

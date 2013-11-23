@@ -1,5 +1,6 @@
 package nl.codebasesoftware.produx.net.mail;
 
+import nl.codebasesoftware.produx.domain.dto.entity.ArticleSuggestionEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.domain.optionlists.RoleName;
@@ -22,11 +23,11 @@ import java.util.Map;
 
 /**
  * User: rvanloen
- * Date: 16-10-13
- * Time: 18:54
+ * Date: 22-11-13
+ * Time: 23:29
  */
 @Component
-public class CourseRequestMailer {
+public class ArticleSuggestionMailer {
 
     @Resource
     private VelocityEngine velocityEngine;
@@ -37,13 +38,13 @@ public class CourseRequestMailer {
     @Resource
     private UserProfileService userProfileService;
 
-    public void sendCourseRequestMail(final CourseRequestEntityDTO request, Locale locale) throws MessagingException {
+    public void sendNewSuggestionMail(final ArticleSuggestionEntityDTO suggestion, Locale locale) throws MessagingException {
 
 
         final String fromEmail = properties.getProperty("email.from.address");
         final String host = properties.getProperty("site.host");
         final String protocol = properties.getProperty("site.protocol");
-        final String subject = TextProperties.getTextProperty("courserequest.email.subject", locale.getLanguage());
+        final String subject = TextProperties.getTextProperty("article.suggestion.mailsubject", locale.getLanguage());
         final String senderName = TextProperties.getTextProperty("mail.standard.sendername", locale.getLanguage());
 
 
@@ -52,31 +53,24 @@ public class CourseRequestMailer {
                 MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
 
                 for(UserProfileEntityDTO admin : userProfileService.findByRole(RoleName.SYS_ADMIN)){
-                    message.addBcc(admin.getEmail());
+                    message.addTo(admin.getEmail());
                 }
 
-                message.addTo(request.getCourse().getCompany().getEmail());
                 message.setSubject(subject);
                 message.setFrom(fromEmail, senderName);
-                Map<String,Object>  model= new HashMap<>();
+                Map<String,Object> model= new HashMap<>();
 
-                model.put("request", request);
-                model.put("linkToRequest", createLinkToRequest(protocol, host, request.getId()));
-                model.put("linkToCourse", createLinkToCourse(protocol, host, request));
+                model.put("suggestion", suggestion);
+                model.put("link", createLinkToSuggestion(protocol, host));
 
-                String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/velocity/mail/course-request.vm", model);
+                String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/velocity/mail/new-article-suggestion.vm", model);
                 message.setText(text, true);
             }
         };
         mailSender.send(preparator);
     }
 
-    private String createLinkToRequest(String protocol, String host, Long id){
-        return String.format("%s://%s/admin/courserequests/%d", protocol, host, id);
+    private String createLinkToSuggestion(String protocol, String host){
+        return String.format("%s://%s/admin/sys/articlesuggestions", protocol, host);
     }
-
-    private String createLinkToCourse(String protocol, String host, CourseRequestEntityDTO request){
-        return String.format("%s://%s%s", protocol, host, request.getCourse().getUrl());
-    }
-
 }

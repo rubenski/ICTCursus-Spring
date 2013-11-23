@@ -8,7 +8,7 @@
 <p>
     Geachte ${request.fullNameInformal},
     <br><br>
-    Op ${request.formattedDate} heeft u een account aangevraagd bij ICTCursus.nl. Uw aanvraag is gehonoreerd en uw account is klaar voor gebruik.
+    Op ${request.formattedDate} heeft u een account aangevraagd bij ICTCursus.nl. Uw aanvraag is goedgekeurd en uw account is klaar voor gebruik.
     <br><br>
 
     $!{request.adminMessage}
@@ -20,6 +20,10 @@
     <br>
     <b>Email: ${request.email}</b><br>
     <b>Wachtwoord: ${generatedPassword}</b><br>
+    <br>
+    <br>
+    U kunt uw wachtwoord wijzigen via <a href="http://localhost/admin/myprofile">Mijn Profiel</a> in het administratiegedeelte.
+    <br>
     <br>
     Met vriendelijke groeten,
     <br>

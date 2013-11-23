@@ -25,7 +25,7 @@
             </div>
             <div id="main-content">
                 <jsp:include page="components/adminHeader.jsp"/>
-                    ${mainMessage}
+                ${mainMessage}
                 <jsp:include page="${mainContent}.jsp"/>
             </div>
 

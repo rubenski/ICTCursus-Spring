@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.domain.optionlists.RoleName;
 import nl.codebasesoftware.produx.service.support.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class AdminHomeController {
     @RequestMapping(method = RequestMethod.GET)
     public String get(Model model, Locale locale) {
 
-        UserProfile profile = CurrentUser.get();
+        UserProfileEntityDTO profile = CurrentUser.get();
 
         if (profile.hasRole(RoleName.SYS_ADMIN)) {
             return "redirect:/admin/sys/";

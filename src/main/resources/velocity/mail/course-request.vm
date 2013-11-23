@@ -25,6 +25,10 @@
             ${request.requesterName}</td>
         </tr>
         <tr>
+            <td><b>Bedrijf</b></td>
+            <td>${request.company}</td>
+        </tr>
+        <tr>
             <td><b>Email aanvrager</b></td>
             <td>${request.email}</td>
         </tr>

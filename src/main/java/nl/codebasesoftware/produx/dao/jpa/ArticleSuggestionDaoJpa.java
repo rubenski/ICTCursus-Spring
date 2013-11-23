@@ -21,8 +21,8 @@ public class ArticleSuggestionDaoJpa extends GenericDaoJpa<ArticleSuggestion> im
     }
 
     @Override
-    public List<ArticleSuggestion> findForUser(UserProfile user) {
-        return entityManager.createQuery("from ArticleSuggestion a where a.suggester = :user").setParameter("user", user).getResultList();
+    public List<ArticleSuggestion> findForUser(long userId) {
+        return entityManager.createQuery("from ArticleSuggestion a where a.suggester.id = :userId order by a.created desc").setParameter("userId", userId).getResultList();
     }
 
     @Override

@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.formdata.OtherUserProfileFormData;
 import nl.codebasesoftware.produx.service.CompanyService;
@@ -60,7 +61,7 @@ public class AdminOtherUserProfileController {
 
         String headerText = messageSource.getMessage("admin.sections.users", new Object[]{}, locale);
         Company loggedInCompany = companyService.getCurrentlyLoggedInCompany();
-        List<UserProfile> profiles = userProfileService.findOthersInCompany(loggedInCompany.getId(), CurrentUser.get());
+        List<UserProfile> profiles = userProfileService.findOthersInCompany(loggedInCompany.getId(), CurrentUser.get().getId());
 
         model.addAttribute("numberOfOtherUsers", profiles.size());
         model.addAttribute("profiles", profiles);
@@ -79,14 +80,14 @@ public class AdminOtherUserProfileController {
     }
 
     private void safetyFirst(Long id) {
-        UserProfile userProfile = userProfileService.findById(id);
+        UserProfileEntityDTO userProfile = userProfileService.findById(id);
         if (userProfile == null || !companyService.getCurrentlyLoggedInCompany().equals(userProfile.getCompany())) {
             throw new ResourceNotFoundException();
         }
     }
 
     private void gatherUserProfileFormData(Long id, Model model, Locale locale) {
-        UserProfile userProfile = userProfileService.findById(id);
+        UserProfileEntityDTO userProfile = userProfileService.findById(id);
 
         String headerStartText = messageSource.getMessage("user.edit.header.start", new Object[]{}, locale);
         String headerText = String.format("%s %s", headerStartText, userProfile.getFullNameInformal());
@@ -105,7 +106,7 @@ public class AdminOtherUserProfileController {
     public String saveUser(@ModelAttribute("otherUserProfile") OtherUserProfileFormData otherUserProfile, Model model, Locale locale, BindingResult result) {
 
         String valid = "false";
-        UserProfile userProfile = userProfileService.findById(otherUserProfile.getId());
+        UserProfileEntityDTO userProfile = userProfileService.findById(otherUserProfile.getId());
         String headerStartText = messageSource.getMessage("user.edit.header.start", new Object[]{}, locale);
         String headerText = String.format("%s %s", headerStartText, userProfile.getFullNameInformal());
 

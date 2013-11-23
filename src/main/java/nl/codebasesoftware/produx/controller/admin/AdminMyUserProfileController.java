@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.domain.optionlists.RoleName;
 import nl.codebasesoftware.produx.formdata.BindableMyUserProfile;
 import nl.codebasesoftware.produx.service.UserProfileService;
@@ -42,7 +43,7 @@ public class AdminMyUserProfileController {
 
     @RequestMapping(value = {"/admin/myprofile", "/admin/sys/myprofile"}, method = RequestMethod.GET)
     public String myProfileForm(Model model, Locale locale) {
-        UserProfile userProfile = userProfileService.findById(CurrentUser.get().getId());
+        UserProfileEntityDTO userProfile = userProfileService.findById(CurrentUser.get().getId());
         String headerText = messageSource.getMessage("user.edit.myprofile", new Object[]{}, locale);
 
         BindableMyUserProfile bindableMyUserProfile = conversionService.convert(userProfile, BindableMyUserProfile.class);
@@ -59,7 +60,7 @@ public class AdminMyUserProfileController {
     @RequestMapping(value = {"/admin/myprofile", "/admin/sys/myprofile"}, method = RequestMethod.POST)
     public String submitMyProfileForm(@ModelAttribute("myUserProfile") BindableMyUserProfile profile, BindingResult result,
                                       Model model, Locale locale) {
-        UserProfile userProfile = userProfileService.findById(profile.getId());
+        UserProfileEntityDTO userProfile = userProfileService.findById(profile.getId());
         String headerText = messageSource.getMessage("user.edit.myprofile", new Object[]{}, locale);
         String valid = "false";
         myUserProfileValidator.validate(profile, result);

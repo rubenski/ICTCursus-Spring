@@ -23,9 +23,11 @@
                 <label><spring:message code="user.genericlabel.password"/></label>
                 <input type='password' name='j_password'/>
             </div>
+            <br/>
             <div class="default-block">
                 <input type="submit" value="Verzenden"/>
             </div>
+            <br/>
             <div class="default-block">
                 <a href="/login/requestpassword"><spring:message code="login.form.label.forgotpassword"/></a>
             </div>

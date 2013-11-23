@@ -2,7 +2,9 @@ package nl.codebasesoftware.produx.service.impl;
 
 import nl.codebasesoftware.produx.dao.RolesAndRightsDao;
 import nl.codebasesoftware.produx.domain.Role;
+import nl.codebasesoftware.produx.domain.dto.entity.RoleEntityDTO;
 import nl.codebasesoftware.produx.service.RolesAndRightService;
+import nl.codebasesoftware.produx.util.collection.EntityCollectionConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,8 +34,8 @@ public class RolesAndRightsServiceImpl implements RolesAndRightService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Role> findByIds(List<Long> roleIds) {
-        return rolesAndRightsDao.findByIds(roleIds);
+    public List<RoleEntityDTO> findByIds(List<Long> roleIds) {
+        return new EntityCollectionConverter<Role, RoleEntityDTO>().convert(rolesAndRightsDao.findByIds(roleIds));
     }
 
 }

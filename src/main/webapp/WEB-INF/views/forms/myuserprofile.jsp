@@ -7,7 +7,7 @@
 <c:if test="${!userProfile.emailEditable}">
     <c:set var="disabled" value="disabled"/>
 </c:if>
-
+<jsp:include page="../components/adminuserprofiletabs.jsp"/>
 <form:form method="post" modelAttribute="myUserProfile">
 
     <%-- error / success feedback --%>

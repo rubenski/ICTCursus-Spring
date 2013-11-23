@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.net.mail;
 
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.util.Properties;
 import nl.codebasesoftware.produx.util.TextProperties;
 import org.apache.velocity.app.VelocityEngine;
@@ -32,7 +33,7 @@ public class PasswordMailer {
     @Resource
     private Properties properties;
 
-    public void sendPasswordEmail(final UserProfile userProfile, final String password, Locale locale) {
+    public void sendPasswordEmail(final UserProfileEntityDTO userProfile, final String password, Locale locale) {
 
         final String fromEmail = properties.getProperty("email.from.address");
         final String host = properties.getProperty("site.host");

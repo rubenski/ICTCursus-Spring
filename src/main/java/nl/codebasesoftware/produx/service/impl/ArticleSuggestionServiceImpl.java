@@ -6,9 +6,12 @@ import nl.codebasesoftware.produx.dao.UserProfileDao;
 import nl.codebasesoftware.produx.domain.Article;
 import nl.codebasesoftware.produx.domain.ArticleSuggestion;
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.domain.dto.entity.ArticleSuggestionEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.formdata.ArticleSuggestionFormData;
 import nl.codebasesoftware.produx.service.ArticleSuggestionService;
 import nl.codebasesoftware.produx.service.support.CurrentUser;
+import nl.codebasesoftware.produx.util.collection.EntityCollectionConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,14 +40,18 @@ public class ArticleSuggestionServiceImpl implements ArticleSuggestionService {
 
     @Override
     @Transactional(readOnly = true)
-    public ArticleSuggestion findById(long id) {
-        return articleSuggestionDao.find(id);
+    public ArticleSuggestionEntityDTO findById(long id) {
+        ArticleSuggestion suggestion = articleSuggestionDao.find(id);
+        if(suggestion == null){
+            return null;
+        }
+        return suggestion.toDTO();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<ArticleSuggestion> findForUser(UserProfile user) {
-        return articleSuggestionDao.findForUser(user);
+    public List<ArticleSuggestionEntityDTO> findForUser(UserProfileEntityDTO user) {
+        return new EntityCollectionConverter<ArticleSuggestion, ArticleSuggestionEntityDTO>().convert(articleSuggestionDao.findForUser(user.getId()));
     }
 
     @Override
@@ -81,8 +88,8 @@ public class ArticleSuggestionServiceImpl implements ArticleSuggestionService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ArticleSuggestion> findAllDateSortedDesc() {
-        return articleSuggestionDao.findAllDateSortedDesc();
+    public List<ArticleSuggestionEntityDTO> findAllDateSortedDesc() {
+        return new EntityCollectionConverter<ArticleSuggestion, ArticleSuggestionEntityDTO>().convert(articleSuggestionDao.findAllDateSortedDesc());
     }
 
     @Override

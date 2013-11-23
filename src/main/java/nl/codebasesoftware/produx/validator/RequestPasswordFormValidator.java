@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.validator;
 
 
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.formdata.BindableForgotPassword;
 import nl.codebasesoftware.produx.service.UserProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class RequestPasswordFormValidator implements Validator {
             return;
         }
 
-        UserProfile profile = userProfileService.findByEmail(forgotPassword.getEmail());
+        UserProfileEntityDTO profile = userProfileService.findByEmail(forgotPassword.getEmail());
 
         if (profile == null) {
             errors.rejectValue("email", "error.email.nonexistent");

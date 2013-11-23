@@ -22,6 +22,7 @@ public class CourseRequest implements DomainEntity {
     private int numberOfParticipants;
     private Course course;
     private String courseName;
+    private String company;
     private Calendar created;
     private boolean invalid;
 
@@ -100,6 +101,14 @@ public class CourseRequest implements DomainEntity {
         this.courseName = courseName;
     }
 
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     public Calendar getCreated() {
@@ -142,6 +151,7 @@ public class CourseRequest implements DomainEntity {
         dto.setMessage(message);
         dto.setNumberOfParticipants(numberOfParticipants);
         dto.setInvalid(invalid);
+        dto.setCompany(company);
         return dto;
     }
 }

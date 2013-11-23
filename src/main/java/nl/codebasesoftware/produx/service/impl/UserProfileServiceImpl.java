@@ -48,20 +48,28 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     @Override
     @Transactional(readOnly = true)
-    public UserProfile findByEmail(String email) {
-        return userProfileDao.findByEmail(email);
+    public UserProfileEntityDTO findByEmail(String email) {
+        UserProfile user = userProfileDao.findByEmail(email);
+        if(user == null){
+            return null;
+        }
+        return user.toDTO();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<UserProfile> findOthersInCompany(long companyId, UserProfile exludeProfile) {
-        return userProfileDao.findOthersInCompany(companyId, exludeProfile);
+    public List<UserProfile> findOthersInCompany(long companyId, long excludedProfileId) {
+        return userProfileDao.findOthersInCompany(companyId, excludedProfileId);
     }
 
     @Override
     @Transactional
-    public UserProfile findById(long id) {
-        return userProfileDao.find(id);
+    public UserProfileEntityDTO findById(long id) {
+        UserProfile profile = userProfileDao.find(id);
+        if(profile != null){
+            return profile.toDTO();
+        }
+        return null;
     }
 
     @Override
@@ -87,7 +95,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     @Override
     @Transactional(readOnly = false)
-    public void update(UserProfile profile) {
+    public void update(UserProfileEntityDTO profile) {
         UserProfile persistentProfile = userProfileDao.find(profile.getId());
         persistentProfile.setPasswordHash(profile.getPasswordHash());
         persistentProfile.setEmail(profile.getEmail());
@@ -132,8 +140,12 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     @Override
     @Transactional(readOnly = true)
-    public UserProfile findWithCompany(Long id) {
-        return userProfileDao.findWithCompany(id);
+    public UserProfileEntityDTO findWithCompany(Long id) {
+        UserProfile user = userProfileDao.findWithCompany(id);
+        if(user == null){
+            return null;
+        }
+        return user.toDTO();
     }
 
     @Override
@@ -156,7 +168,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     @Override
     @Transactional(readOnly = true)
-    public UserProfile getCurrentlyLoggedInUser() {
-        return userProfileDao.find(CurrentUser.get().getId());
+    public UserProfileEntityDTO getCurrentlyLoggedInUser() {
+        return userProfileDao.find(CurrentUser.get().getId()).toDTO();
     }
 }

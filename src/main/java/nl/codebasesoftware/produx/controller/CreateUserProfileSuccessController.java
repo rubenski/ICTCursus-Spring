@@ -18,7 +18,7 @@ public class CreateUserProfileSuccessController {
 
     @RequestMapping(value = "/createUserProfileSuccess/{userProfileId}")
     public ModelAndView createUserProfileSuccess(@PathVariable("userProfileId") Integer userProfileId) {
-        Map<String, Object> myModel = new HashMap<String, Object>();
+        Map<String, Object> myModel = new HashMap<>();
         myModel.put("userProfileId", userProfileId);
         return new ModelAndView("createUserProfileSuccess", "myModel", myModel);
     }

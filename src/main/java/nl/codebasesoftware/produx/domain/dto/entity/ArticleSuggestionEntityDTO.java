@@ -1,5 +1,6 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
+import javax.persistence.Transient;
 import java.util.Calendar;
 
 /**
@@ -82,5 +83,9 @@ public class ArticleSuggestionEntityDTO extends DomainEntityDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isUsed() {
+        return article != null;
     }
 }

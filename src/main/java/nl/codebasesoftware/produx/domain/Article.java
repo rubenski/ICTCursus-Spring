@@ -135,12 +135,27 @@ public class Article implements DomainEntity {
     @Transient
     public ArticleEntityDTO toDTO() {
         ArticleEntityDTO dto = new ArticleEntityDTO();
-        dto.setAuthor(author);
+        dto.setAuthor(author.toDTO());
         dto.setCategory(category.toDTO());
         dto.setCreationDate(creationDate);
         dto.setFirstPublicationDate(firstPublicationDate);
         dto.setId(id);
         dto.setPages(getPagesAsDTOs());
+        dto.setPublished(published);
+        dto.setTitle(title);
+        dto.setText(text);
+        dto.setTeaser(teaser);
+        return dto;
+    }
+
+    @Transient
+    public ArticleEntityDTO toDTOWithoutPages() {
+        ArticleEntityDTO dto = new ArticleEntityDTO();
+        dto.setAuthor(author.toDTO());
+        dto.setCategory(category.toDTO());
+        dto.setCreationDate(creationDate);
+        dto.setFirstPublicationDate(firstPublicationDate);
+        dto.setId(id);
         dto.setPublished(published);
         dto.setTitle(title);
         dto.setText(text);

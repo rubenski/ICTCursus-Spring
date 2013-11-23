@@ -2,6 +2,8 @@ package nl.codebasesoftware.produx.conversion;
 
 import nl.codebasesoftware.produx.domain.Role;
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.domain.dto.entity.RoleEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.formdata.OtherUserProfileFormData;
 import nl.codebasesoftware.produx.service.RolesAndRightService;
 import nl.codebasesoftware.produx.service.UserProfileService;
@@ -18,7 +20,7 @@ import java.util.List;
  * Time: 3:27
  */
 @Component
-public class OtherUserProfileFormDataToUserProfile implements Converter<OtherUserProfileFormData, UserProfile> {
+public class OtherUserProfileFormDataToUserProfile implements Converter<OtherUserProfileFormData, UserProfileEntityDTO> {
 
 
     private UserProfileService userProfileService;
@@ -32,13 +34,13 @@ public class OtherUserProfileFormDataToUserProfile implements Converter<OtherUse
     }
 
     @Override
-    public UserProfile convert(OtherUserProfileFormData otherUserProfileFormData) {
+    public UserProfileEntityDTO convert(OtherUserProfileFormData otherUserProfileFormData) {
 
-        List<Role> roles = rolesAndRightService.findByIds(otherUserProfileFormData.getRoles());
-        UserProfile userProfile = userProfileService.findById(otherUserProfileFormData.getId());
+        List<RoleEntityDTO> roles = rolesAndRightService.findByIds(otherUserProfileFormData.getRoles());
+        UserProfileEntityDTO userProfile = userProfileService.findById(otherUserProfileFormData.getId());
 
         userProfile.setEnabled(otherUserProfileFormData.isEnabled());
-        userProfile.setRoles(new HashSet<Role>(roles));
+        userProfile.setRoles(roles);
 
         return userProfile;
 

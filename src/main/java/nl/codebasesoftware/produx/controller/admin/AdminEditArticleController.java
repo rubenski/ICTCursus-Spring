@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.*;
 import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.ArticleSuggestionEntityDTO;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.formdata.EditArticleFormData;
 import nl.codebasesoftware.produx.service.ArticleService;
@@ -61,8 +62,8 @@ public class AdminEditArticleController {
     public String companyArticles(Model model, Locale locale) {
 
         Company company = companyService.getCurrentlyLoggedInCompany();
-        List<Article> articles = articleService.findByCompany(company.getId());
-        List<ArticleSuggestion> suggestions = articleSuggestionService.findForUser(CurrentUser.get());
+        List<ArticleEntityDTO> articles = articleService.findByCompany(company.getId());
+        List<ArticleSuggestionEntityDTO> suggestions = articleSuggestionService.findForUser(CurrentUser.get());
 
         model.addAttribute("numberOfSuggestions", suggestions.size());
         model.addAttribute("suggestions", suggestions);

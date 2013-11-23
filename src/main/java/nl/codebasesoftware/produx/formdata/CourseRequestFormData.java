@@ -14,6 +14,7 @@ public class CourseRequestFormData {
     private String courseName;
     private String email;
     private String message;
+    private String company;
     private String phone;
     private int numberOfParticipants;
     private boolean invalid;
@@ -48,6 +49,14 @@ public class CourseRequestFormData {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
 
     public String getRequesterName() {

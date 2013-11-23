@@ -30,7 +30,7 @@ public class ArticleSuggestionFormValidator implements Validator {
             errors.rejectValue("title", "article.error.wrongtitle");
         }
 
-        if (!ProduxValidator.isValidNormalText(formData.getDescription())) {
+        if (!ProduxValidator.isValidNormalText(formData.getDescription(), false)) {
             errors.rejectValue("description", "articlesuggestion.invalidtext");
         }
 

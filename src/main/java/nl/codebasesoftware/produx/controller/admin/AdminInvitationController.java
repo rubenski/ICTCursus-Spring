@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.Role;
 import nl.codebasesoftware.produx.domain.UserInvitation;
+import nl.codebasesoftware.produx.domain.dto.entity.RoleEntityDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.formdata.BindableUserInvitation;
 import nl.codebasesoftware.produx.service.RolesAndRightService;
@@ -68,7 +69,7 @@ public class AdminInvitationController {
         setHeader(model, locale);
         setInvitationData(model);
         userInvitationValidator.validate(userInvitation, result);
-        List<Role> selectedRoles = rolesAndRightService.findByIds(userInvitation.getRoles());
+        List<RoleEntityDTO> selectedRoles = rolesAndRightService.findByIds(userInvitation.getRoles());
 
         // We are handling two different screens in the same method here, so we need
         // a way to figure out which screen is posting.

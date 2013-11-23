@@ -1,6 +1,17 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
+import nl.codebasesoftware.produx.domain.Right;
+import nl.codebasesoftware.produx.domain.Role;
+import nl.codebasesoftware.produx.domain.optionlists.RoleName;
+import nl.codebasesoftware.produx.spring.authentication.ProduxAuthority;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.Transient;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,7 +20,7 @@ import java.util.List;
  * Time: 14:42
  * To change this template use File | Settings | File Templates.
  */
-public class UserProfileEntityDTO extends DomainEntityDTO {
+public class UserProfileEntityDTO extends DomainEntityDTO implements UserDetails {
 
     private Long id;
     private String email;
@@ -21,6 +32,10 @@ public class UserProfileEntityDTO extends DomainEntityDTO {
     private CompanyEntityDTO company;
     private List<RoleEntityDTO> roles;
     private boolean enabled;
+
+
+    private final String PERMISSION_PREFIX = "ROLE_PERM_";
+
 
     @Override
     public Long getId() {
@@ -101,6 +116,62 @@ public class UserProfileEntityDTO extends DomainEntityDTO {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<ProduxAuthority> authorities = new HashSet<ProduxAuthority>();
+        for (RoleEntityDTO role : roles) {
+            for (RightEntityDTO right : role.getRights()) {
+                ProduxAuthority produxAuthority = new ProduxAuthority(PERMISSION_PREFIX + right.getName());
+                authorities.add(produxAuthority);
+            }
+        }
+        return authorities;
+    }
+
+    @Override
+    public String getPassword() {
+        return passwordHash;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    public boolean hasRole(RoleName roleName) {
+        for (RoleEntityDTO role : roles) {
+            if (roleName.equals(role.getSystemName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Transient
+    public String getFullNameFormal() {
+        return preposition != null ? String.format("%s, %s  %s", lastName, firstName, preposition) : String.format("%s, %s", lastName, firstName);
+    }
+
+    @Transient
+    public String getFullNameInformal() {
+        return preposition != null ? String.format("%s %s %s", firstName, preposition, lastName) : String.format("%s %s", firstName, lastName);
     }
 }
 

@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.formdata.BindableSysAdminUserProfile;
 import nl.codebasesoftware.produx.service.UserProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,7 @@ public class SysAdminUserProfileController {
     @RequestMapping(value = "/admin/sys/userprofile/{id}", method = RequestMethod.GET)
     public String getUserProfile(@PathVariable("id") Long id, Model model, Locale locale) {
 
-        UserProfile userProfile = userProfileService.findWithCompany(id);
+        UserProfileEntityDTO userProfile = userProfileService.findWithCompany(id);
 
         BindableSysAdminUserProfile bindableSysAdminUserProfile = new BindableSysAdminUserProfile();
         bindableSysAdminUserProfile.setId(userProfile.getId());
@@ -68,7 +69,7 @@ public class SysAdminUserProfileController {
     @RequestMapping(value = "/admin/sys/userprofile/{id}", method = RequestMethod.POST)
     public String updateUserProfile(@ModelAttribute("userProfile") BindableSysAdminUserProfile bindableSysAdminUserProfile, Model model, Locale locale) {
 
-        UserProfile userProfile = userProfileService.findWithCompany(bindableSysAdminUserProfile.getId());
+        UserProfileEntityDTO userProfile = userProfileService.findWithCompany(bindableSysAdminUserProfile.getId());
 
         String valid = "false";
 
@@ -87,7 +88,7 @@ public class SysAdminUserProfileController {
         return "sysAdminMain";
     }
 
-    private void setDefaultFormData(Model model, Locale locale, BindableSysAdminUserProfile bindableSysAdminUserProfile, UserProfile userProfile) {
+    private void setDefaultFormData(Model model, Locale locale, BindableSysAdminUserProfile bindableSysAdminUserProfile, UserProfileEntityDTO userProfile) {
         String headerText = messageSource.getMessage("user.edit.header.start", new Object[]{}, locale) + " " + userProfile.getFullNameInformal();
         model.addAttribute("userProfile", bindableSysAdminUserProfile);
         model.addAttribute("mainContent", "forms/sysadminuserprofile");

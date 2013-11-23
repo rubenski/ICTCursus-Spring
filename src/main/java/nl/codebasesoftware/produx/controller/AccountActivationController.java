@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.controller;
 
 import nl.codebasesoftware.produx.domain.UserInvitation;
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.formdata.AccountActivationFormData;
 import nl.codebasesoftware.produx.service.UserInvitationService;
 import nl.codebasesoftware.produx.service.UserProfileService;
@@ -58,7 +59,7 @@ public class AccountActivationController {
         } else if (userInvitation.isActivated()) {
             failureMessage = messageSource.getMessage("account.already.activated", new Object[]{}, locale);
         } else {
-            UserProfile existingProfile = userProfileService.findByEmail(userInvitation.getEmail());
+            UserProfileEntityDTO existingProfile = userProfileService.findByEmail(userInvitation.getEmail());
             if (existingProfile != null) {
                 failureMessage = messageSource.getMessage("account.already.exists", new Object[]{}, locale);
             }
@@ -83,7 +84,7 @@ public class AccountActivationController {
         if (!result.hasErrors()) {
             valid = true;
             // Check if the user profile exists for if someone resubmitted the request by pressing F5
-            UserProfile profile = userProfileService.findByEmail(accountActivationFormData.getEmail());
+            UserProfileEntityDTO profile = userProfileService.findByEmail(accountActivationFormData.getEmail());
             if (profile == null) {
                 profile = userInvitationService.activateProfile(accountActivationFormData);
             }

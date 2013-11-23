@@ -99,17 +99,16 @@ public class ArticleSuggestion implements DomainEntity {
         this.email = email;
     }
 
-    @Transient
-    public boolean isUsed() {
-        return article != null;
-    }
+
 
     @Transient
     @Override
     public ArticleSuggestionEntityDTO toDTO() {
         ArticleSuggestionEntityDTO dto = new ArticleSuggestionEntityDTO();
         dto.setApproved(approved);
-        dto.setArticle(article.toDTO());
+        if(article != null){
+            dto.setArticle(article.toDTO());
+        }
         dto.setCreated(created);
         dto.setEmail(email);
         dto.setId(id);

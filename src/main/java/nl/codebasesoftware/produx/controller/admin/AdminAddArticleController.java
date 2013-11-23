@@ -3,6 +3,7 @@ package nl.codebasesoftware.produx.controller.admin;
 import nl.codebasesoftware.produx.domain.Article;
 import nl.codebasesoftware.produx.domain.ArticleSuggestion;
 import nl.codebasesoftware.produx.domain.Category;
+import nl.codebasesoftware.produx.domain.dto.entity.ArticleSuggestionEntityDTO;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.formdata.AddArticleFormData;
 import nl.codebasesoftware.produx.service.ArticleService;
@@ -55,7 +56,7 @@ public class AdminAddArticleController {
 
     @RequestMapping(value = "/admin/articles/suggested/add/{suggestionId}", method = RequestMethod.GET)
     public String addArticleForm(@PathVariable("suggestionId") Long suggestiondId, Model model, Locale locale) {
-        ArticleSuggestion suggestion = articleSuggestionService.findById(suggestiondId);
+        ArticleSuggestionEntityDTO suggestion = articleSuggestionService.findById(suggestiondId);
 
         if (suggestion == null || !suggestion.getSuggester().equals(CurrentUser.get()) || !suggestion.isApproved() || suggestion.isUsed()) {
             throw new ResourceNotFoundException();

@@ -14,7 +14,7 @@
 
 <div id="wrapper">
     <header id="admin-header">
-        <a href="/"><span id="logo">ICTCursus Admin</span></a>
+        <a href="/admin"><span id="logo">ICTCursus Admin</span></a>
     </header>
     <div id="middle">
         <sec:authorize access="hasRole('ROLE_PERM_access_admin_screens') or hasRole('ROLE_PERM_edit_everything')">

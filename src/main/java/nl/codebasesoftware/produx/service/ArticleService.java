@@ -15,7 +15,7 @@ import java.util.List;
  * Time: 23:26
  */
 public interface ArticleService {
-    List<Article> findByCompany(long companyId);
+    List<ArticleEntityDTO> findByCompany(long companyId);
 
     Article addArticle(AddArticleFormData formData, long authorProfileId);
 

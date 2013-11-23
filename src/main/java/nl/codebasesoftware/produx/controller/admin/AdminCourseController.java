@@ -3,6 +3,7 @@ package nl.codebasesoftware.produx.controller.admin;
 import nl.codebasesoftware.produx.domain.*;
 import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
 import nl.codebasesoftware.produx.service.*;
@@ -61,7 +62,7 @@ public class AdminCourseController {
 
     @RequestMapping(value = "/admin/courses", method = RequestMethod.GET)
     public String get(Model model, Locale locale) {
-        UserProfile userProfile = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserProfileEntityDTO userProfile = (UserProfileEntityDTO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         CompanyEntityDTO company = companyService.findByUserProfile(userProfile);
         List<CourseEntityDTO> courses = courseService.findByCompany(company);
         model.addAttribute("mainContent", "content/adminCourses");

@@ -23,7 +23,7 @@ public class ArticleEntityDTO extends DomainEntityDTO {
     private Calendar creationDate;
     private Calendar firstPublicationDate;
     private boolean published;
-    private UserProfile author;
+    private UserProfileEntityDTO author;
     private String text;
     private CategoryEntityDTO category;
 
@@ -76,11 +76,11 @@ public class ArticleEntityDTO extends DomainEntityDTO {
         this.published = published;
     }
 
-    public UserProfile getAuthor() {
+    public UserProfileEntityDTO getAuthor() {
         return author;
     }
 
-    public void setAuthor(UserProfile author) {
+    public void setAuthor(UserProfileEntityDTO author) {
         this.author = author;
     }
 

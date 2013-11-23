@@ -22,6 +22,7 @@ public class CourseRequestEntityDTO extends DomainEntityDTO implements AsInvoice
     private String phone;
     private Calendar created;
     private boolean invalid;
+    private String company;
 
     public Long getId() {
         return id;
@@ -110,6 +111,14 @@ public class CourseRequestEntityDTO extends DomainEntityDTO implements AsInvoice
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
 
     @Override
