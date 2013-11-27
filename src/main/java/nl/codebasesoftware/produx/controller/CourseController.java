@@ -16,6 +16,7 @@ import nl.codebasesoftware.produx.service.CourseRequestService;
 import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.service.PageBlockService;
 import nl.codebasesoftware.produx.service.SearchService;
+import nl.codebasesoftware.produx.service.business.url.CourseUrl;
 import nl.codebasesoftware.produx.validator.CourseRequestValidator;
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggerFactory;
@@ -65,40 +66,46 @@ public class CourseController {
 
     @RequestMapping(value = "/{category}/{id:[\\d]+}/{title}", method = RequestMethod.GET)
     public String get(@PathVariable("id") Long id,
+                      @PathVariable("category") String category,
+                      @PathVariable("title") String title,
                       Model model) throws ProduxServiceException {
         CourseRequestFormData courseRequestFormData = new CourseRequestFormData();
         courseRequestFormData.setCourseId(id);
-        setData(model, courseRequestFormData, false);
+
+
+        CourseEntityDTO course = courseService.findFull(id);
+        validateUrl(category, id, title, course);
+
+        setData(model, courseRequestFormData, course, false);
         return "main";
     }
 
 
     @RequestMapping(value = "/{category}/{id:[\\d]+}/{title}", method = RequestMethod.POST)
     public String submitRequest(@ModelAttribute("courseRequest") CourseRequestFormData request,
+                                @PathVariable("category") String category,
+                                @PathVariable("title") String title,
+                                @PathVariable("id") Long id,
                                 BindingResult result, Model model, Locale locale,
                                 RedirectAttributes redirectAttrs)
                                 throws ProduxServiceException, MessagingException {
 
-        long start = System.currentTimeMillis();
         courseRequestValidator.validate(request, result);
-        LOG.debug("time1: " + (System.currentTimeMillis() - start));
+
         if (!result.hasErrors()) {
-            long start1 = System.currentTimeMillis();
             CourseRequestEntityDTO requestEntityDTO = courseRequestService.saveRequest(request);
-            LOG.debug("time2: " + (System.currentTimeMillis() - start1));
-            long start2 = System.currentTimeMillis();
             courseRequestMailer.sendCourseRequestMail(requestEntityDTO, locale);
-            LOG.debug("time3: " + (System.currentTimeMillis() - start2));
-            long start3 = System.currentTimeMillis();
             redirectAttrs.addFlashAttribute("formData", request);
-            LOG.debug("time4: " + (System.currentTimeMillis() - start3));
-            long start4 = System.currentTimeMillis();
             model.addAttribute("courseRequestSubmitSuccess", true);
-            LOG.debug("time5: " + (System.currentTimeMillis() - start4));
             return String.format("redirect:/%s/%d/success", requestEntityDTO.getCourse().getCategory().getUrlTitle(),
                     requestEntityDTO.getCourse().getId());
         }
-        setData(model, request, false);
+
+        CourseEntityDTO course = courseService.findFull(id);
+
+        validateUrl(category, id, title, course);
+        setData(model, request, course, false);
+
         model.addAttribute("includeCourseJs", true);
         model.addAttribute("scrolldown", true);
 
@@ -114,17 +121,21 @@ public class CourseController {
             return "redirect:/";
         }
 
-        setData(model, formData, true);
+        CourseEntityDTO course = courseService.findFull(formData.getCourseId());
+        setData(model, formData, course, true);
         return "main";
     }
 
-    private void setData(Model model, CourseRequestFormData formData, boolean isSuccessView) throws ProduxServiceException {
 
-        CourseEntityDTO course = courseService.findFull(formData.getCourseId());
-
-        if (course == null) {
+    private void validateUrl(String category, long id, String title, CourseEntityDTO course){
+        if(!CourseUrl.createUrl(id, category, title).equals(course.getUrl())){
             throw new ResourceNotFoundException();
         }
+    }
+
+    private void setData(Model model, CourseRequestFormData formData, CourseEntityDTO course, boolean isSuccessView) throws ProduxServiceException {
+
+
 
         SearchResult otherCourses = searchService.findOtherCourses(course);
 

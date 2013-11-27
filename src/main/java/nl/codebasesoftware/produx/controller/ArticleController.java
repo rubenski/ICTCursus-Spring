@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -35,7 +36,7 @@ public class ArticleController {
     }
 
 
-    @RequestMapping(value = "/{category}/a{aid:[0-9]+}/{title:[^p0-9:-].+}")
+    @RequestMapping(value = "/{category}/a{aid:[0-9]+}/{title:[^p0-9:-].+}", method = RequestMethod.GET)
     public String getArticle(@PathVariable("aid") Long articleId,
                              HttpServletRequest request,
                              Model model) {
@@ -60,7 +61,7 @@ public class ArticleController {
         return "main";
     }
 
-    @RequestMapping(value = "/{category}/a{aid:[0-9]+}/p{pnr:[0-9]+}-{title:.+}")
+    @RequestMapping(value = "/{category}/a{aid:[0-9]+}/p{pnr:[0-9]+}-{title:.+}", method = RequestMethod.GET)
     public String getArticlePage(@PathVariable("aid") Long articleId,
                                  @PathVariable("pnr") int pageNumber,
                                  HttpServletRequest request,
