@@ -9,7 +9,7 @@
 
 
     <c:if test="${param.error == 'true'}">
-        <span class="error"><spring:message code="login.form.error"/></span>
+        <span class="form-error"><spring:message code="login.form.error"/></span>
     </c:if>
 
     <form name='f' action="<c:url value='j_spring_security_check' />" method='POST'>

@@ -11,6 +11,13 @@
     <link href="/static/style/shared.css" rel="stylesheet"/>
     <link href="/static/style/style.css" rel="stylesheet"/>
 
+    <c:if test="${relPrevUrl != null}">
+        <link rel="prev" href="${relPrevUrl}"/>
+    </c:if>
+    <c:if test="${relNextUrl != null}">
+        <link rel="next" href="${relNextUrl}"/>
+    </c:if>
+
     <c:if test="${showLightboxLink or includeCourseJs or includeHighlighter or facetedSearch}">
         <script type="text/javascript" src="/static/javascript/jquery-1.8.3.min.js"></script>
     </c:if>

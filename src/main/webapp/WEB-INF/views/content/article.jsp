@@ -6,8 +6,13 @@
 
     <h1 itemprop="headLine">${currentArticlePage.title}</h1>
 
-    <span itemprop="articleBody">
+    <div itemprop="articleBody">
         ${currentArticlePage.text}
-    </span>
+    </div>
+    <div id="paging">
+        <jsp:include page="../components/articlePageList.jsp">
+            <jsp:param name="viewType" value="pagination" />
+        </jsp:include>
+    </div>
 </div>
 

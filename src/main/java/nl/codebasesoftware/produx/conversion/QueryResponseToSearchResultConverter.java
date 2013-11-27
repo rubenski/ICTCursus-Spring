@@ -3,7 +3,7 @@ package nl.codebasesoftware.produx.conversion;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 import nl.codebasesoftware.produx.search.criteria.SearchCriteria;
 import nl.codebasesoftware.produx.search.result.*;
-import nl.codebasesoftware.produx.util.Properties;
+import nl.codebasesoftware.produx.properties.Properties;
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.response.FacetField;
 import org.apache.solr.client.solrj.response.FacetField.Count;

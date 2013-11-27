@@ -122,6 +122,7 @@ public class UserProfile implements DomainEntity {
         this.enabled = enabled;
     }
 
+    @Column(columnDefinition="tinyint(1) default 1")
     public boolean isEnabled(){
         return this.enabled;
     }

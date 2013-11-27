@@ -37,6 +37,7 @@ public class Invoice implements DomainEntity {
     }
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     public Company getCompany() {
         return company;
     }

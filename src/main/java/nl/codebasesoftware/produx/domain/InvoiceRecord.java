@@ -84,6 +84,7 @@ public class InvoiceRecord implements DomainEntity {
     }
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     public Invoice getInvoice() {
         return invoice;
     }

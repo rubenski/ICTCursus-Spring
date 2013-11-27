@@ -198,6 +198,17 @@ body {
     background-color:white;
 }
 
+#maincontent #paging {
+    text-align: center;
+}
+
+#maincontent #paging ul li {
+    list-style-type: none;
+    display: inline;
+    padding: 8px;
+}
+
+
 .columntext {
     line-height: 18px;
 }
@@ -260,7 +271,7 @@ body {
 }
 
 #main #innermain #maincontent h1 {
-    padding: 3px 0px 5px 0px;
+    padding: 3px 0px 25px 0px;
     font-weight: normal;
     font-size: 2.4em;
     font-family: headingFont, sans-serif;
@@ -296,7 +307,8 @@ body {
 }
 
 #main #innermain #maincontent .course-list-item p {
-    padding: 5px 0px 5px 0px;
+    padding: 7px 0px 7px 0px;
+    margin: 0;
 }
 
 #main #innermain #maincontent .formcontainer .formblock {

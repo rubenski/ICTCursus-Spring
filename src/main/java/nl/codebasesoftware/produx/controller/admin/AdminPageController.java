@@ -3,6 +3,7 @@ package nl.codebasesoftware.produx.controller.admin;
 import nl.codebasesoftware.produx.domain.ArticlePage;
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.formdata.ArticlePageFormData;
 import nl.codebasesoftware.produx.service.ArticleService;
@@ -71,7 +72,7 @@ public class AdminPageController {
 
         String valid = "false";
 
-        UserProfile author = userProfileService.findAuthorByPage(pageId);
+        UserProfileEntityDTO author = userProfileService.findAuthorByPage(pageId);
         if (!CurrentUser.get().equals(author)) {
             throw new ResourceNotFoundException();
         }
@@ -85,6 +86,7 @@ public class AdminPageController {
 
         setHeaderText(locale, model);
         model.addAttribute("valid", valid);
+        model.addAttribute("articleForm", true);
         setFormData(formData, model);
         return "adminMain";
     }
@@ -105,6 +107,7 @@ public class AdminPageController {
         setHeaderText(locale, model);
         setFormData(formData, model);
         model.addAttribute("valid", valid);
+
 
         return "adminMain";
     }

@@ -190,6 +190,7 @@ public class Company implements DomainEntity, Serializable {
         this.courseRequestEmailAddress = courseRequestEmailAddress;
     }
 
+    @Column(columnDefinition="tinyint(1) default 0")
     public boolean isAllCoursesDeactivated() {
         return allCoursesDeactivated;
     }

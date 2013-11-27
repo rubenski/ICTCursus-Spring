@@ -8,7 +8,7 @@ import nl.codebasesoftware.produx.domain.HighlightedCoursePeriod;
 import nl.codebasesoftware.produx.domain.support.DateRange;
 import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.service.HighlightedCoursePeriodService;
-import nl.codebasesoftware.produx.util.Properties;
+import nl.codebasesoftware.produx.properties.Properties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

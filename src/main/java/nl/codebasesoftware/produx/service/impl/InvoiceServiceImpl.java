@@ -12,12 +12,11 @@ import nl.codebasesoftware.produx.net.mail.InvoiceMailer;
 import nl.codebasesoftware.produx.service.CourseRequestService;
 import nl.codebasesoftware.produx.service.InvoiceService;
 import nl.codebasesoftware.produx.service.business.invoice.MonthAndYear;
-import nl.codebasesoftware.produx.util.Properties;
+import nl.codebasesoftware.produx.properties.Properties;
 import nl.codebasesoftware.produx.util.collection.EntityCollectionConverter;
 import nl.codebasesoftware.produx.util.pdf.PdfGenerator;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.velocity.VelocityEngineUtils;
@@ -29,7 +28,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormatSymbols;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**

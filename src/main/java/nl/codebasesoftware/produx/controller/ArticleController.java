@@ -5,8 +5,9 @@ import nl.codebasesoftware.produx.domain.dto.entity.ArticlePageEntityDTO;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.service.ArticleService;
 import nl.codebasesoftware.produx.service.PageBlockService;
-import nl.codebasesoftware.produx.util.Properties;
+import nl.codebasesoftware.produx.properties.Properties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,10 +28,10 @@ public class ArticleController {
     private Properties properties;
 
     @Autowired
-    public ArticleController(ArticleService articleService, PageBlockService pageBlockService, Properties properties) {
+    public ArticleController(ArticleService articleService, PageBlockService pageBlockService,  Properties systemProperties) {
         this.articleService = articleService;
         this.pageBlockService = pageBlockService;
-        this.properties = properties;
+        this.properties = systemProperties;
     }
 
 
@@ -49,6 +50,12 @@ public class ArticleController {
 
         setData(model, article, null);
         model.addAttribute("title", article.getTitle() + " - " + properties.getProperty("domain"));
+
+        // If there is a next page, set the relNextUrl. There is no prev page
+        ArticlePageEntityDTO nextPage = article.getArticlePage(1);
+        if (nextPage != null) {
+            model.addAttribute("relNextUrl", nextPage.getUrl());
+        }
 
         return "main";
     }
@@ -73,6 +80,20 @@ public class ArticleController {
 
         // Add the necessary data to the model
         model.addAttribute("title", String.format("%s - %s", articlePage.getTitle(), properties.getProperty("domain")));
+
+        // If there is a next page, set the relNextUrl.
+        ArticlePageEntityDTO nextPage = article.getArticlePage(pageNumber + 1);
+        if (nextPage != null) {
+            model.addAttribute("relNextUrl", nextPage.getUrl());
+        }
+
+        // Set the prev url
+        ArticlePageEntityDTO prevPage = article.getArticlePage(pageNumber - 1);
+        if (prevPage != null) {
+            model.addAttribute("relPrevUrl", prevPage.getUrl());
+        } else {
+            model.addAttribute("relPrevUrl", article.getUrl());
+        }
 
         setData(model, article, articlePage);
 

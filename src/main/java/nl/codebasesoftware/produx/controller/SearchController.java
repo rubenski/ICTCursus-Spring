@@ -11,7 +11,7 @@ import nl.codebasesoftware.produx.search.result.SearchResult;
 import nl.codebasesoftware.produx.service.PageBlockService;
 import nl.codebasesoftware.produx.service.SearchService;
 import nl.codebasesoftware.produx.search.FilterFromUrlExtractor;
-import nl.codebasesoftware.produx.util.Properties;
+import nl.codebasesoftware.produx.properties.Properties;
 import nl.codebasesoftware.produx.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

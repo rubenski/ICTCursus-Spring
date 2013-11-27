@@ -128,8 +128,12 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     @Override
     @Transactional(readOnly = true)
-    public UserProfile findAuthorByPage(long pageId) {
-        return userProfileDao.findAuthorByPage(pageId);
+    public UserProfileEntityDTO findAuthorByPage(long pageId) {
+        UserProfile profile = userProfileDao.findAuthorByPage(pageId);
+        if(profile == null){
+            return null;
+        }
+        return profile.toDTO();
     }
 
     @Override

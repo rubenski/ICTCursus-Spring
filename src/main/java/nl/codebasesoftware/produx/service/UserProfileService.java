@@ -36,7 +36,7 @@ public interface UserProfileService {
 
     List<UserProfileEntityDTO> findByRole(RoleName role);
 
-    UserProfile findAuthorByPage(long pageId);
+    UserProfileEntityDTO findAuthorByPage(long pageId);
 
     List<UserProfile> findAll();
 

@@ -34,7 +34,7 @@
             <spring:message code="article.form.teaser"/>
             <span><spring:message code="article.shortdescription.helptext"/></span>
         </form:label>
-        <form:textarea cols="75" rows="2" path="teaser" cssClass="form-input" cssErrorClass="form-input-error" size="50" maxlength="100"/>
+        <form:textarea cols="75" rows="2" path="teaser" cssClass="form-input" cssErrorClass="form-input-error" size="50" maxlength="120"/>
         <form:errors path="teaser" cssClass="form-error"/>
     </div>
 

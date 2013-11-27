@@ -54,7 +54,7 @@
             <spring:message code="course.form.shortdescription"/>
             <span><spring:message code="course.form.shortdescription.helptext"/></span>
         </form:label>
-        <form:textarea rows="3" path="shortDescription" cssErrorClass="form-input-error" cols="100" maxlength="220"/>
+        <form:textarea rows="3" path="shortDescription" cssErrorClass="form-input-error" cols="100" maxlength="150"/>
         <form:errors path="shortDescription" cssClass="form-error"/>
     </div>
 

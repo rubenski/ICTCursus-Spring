@@ -1,7 +1,7 @@
 package nl.codebasesoftware.produx.service.impl;
 
 import nl.codebasesoftware.produx.service.SecurityService;
-import nl.codebasesoftware.produx.util.Properties;
+import nl.codebasesoftware.produx.properties.Properties;
 import nl.codebasesoftware.produx.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

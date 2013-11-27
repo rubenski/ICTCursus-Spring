@@ -16,7 +16,7 @@ import nl.codebasesoftware.produx.search.result.ResultListing;
 import nl.codebasesoftware.produx.search.result.SearchResult;
 import nl.codebasesoftware.produx.service.*;
 import nl.codebasesoftware.produx.search.FilterFromUrlExtractor;
-import nl.codebasesoftware.produx.util.Properties;
+import nl.codebasesoftware.produx.properties.Properties;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -97,6 +97,11 @@ public class CategoryController {
     private String process(Model model, String categoryUrlName, String filters, int page) throws ProduxServiceException {
 
         Category category = categoryService.findByUrlTitle(categoryUrlName);
+
+        if(category == null){
+            throw new ResourceNotFoundException();
+        }
+
         CategoryEntityDTO cat = category.toDTO();
 
         if (category == null) {

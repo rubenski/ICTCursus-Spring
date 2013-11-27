@@ -84,7 +84,7 @@
     </bean>
 
     <!-- Gather properties from environment.properties -->
-    <bean id="systemProperties" class="nl.codebasesoftware.produx.util.Properties">
+    <bean class="nl.codebasesoftware.produx.properties.Properties">
         <property name="propertyMap">
             <map>
                 <entry key="email.from.address" value="${email.from.address}"/>
@@ -150,5 +150,6 @@
     </task:scheduled-tasks>
     <task:scheduler id="produxScheduler" pool-size="1"/>
     -->
+
 
 </beans>

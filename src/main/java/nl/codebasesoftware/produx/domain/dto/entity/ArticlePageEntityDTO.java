@@ -77,10 +77,11 @@ public class ArticlePageEntityDTO extends DomainEntityDTO {
     }
 
     // Utility methods
-
     public String getUrl() {
         return ArticlePageUrl.create(article.getId(), article.getCategory().getName(), position, title);
     }
+
+
 
 
 }

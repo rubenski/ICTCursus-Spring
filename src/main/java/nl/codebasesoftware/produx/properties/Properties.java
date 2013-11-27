@@ -1,5 +1,8 @@
-package nl.codebasesoftware.produx.util;
+package nl.codebasesoftware.produx.properties;
 
+import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -8,9 +11,10 @@ import java.util.Map;
  * Time: 0:26
  */
 
+
 public class Properties {
 
-    Map<String, String> propertyMap;
+    Map<String, String> propertyMap = new HashMap<>();
 
     public Properties() {
     }

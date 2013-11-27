@@ -2,7 +2,7 @@ package nl.codebasesoftware.produx.validator;
 
 
 import nl.codebasesoftware.produx.formdata.BindableFileUpload;
-import nl.codebasesoftware.produx.util.Properties;
+import nl.codebasesoftware.produx.properties.Properties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
