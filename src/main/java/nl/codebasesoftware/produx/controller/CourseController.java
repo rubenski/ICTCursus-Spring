@@ -52,18 +52,21 @@ public class CourseController {
     private CourseRequestService courseRequestService;
     private SearchService searchService;
     private CourseRequestMailer courseRequestMailer;
+    private PageBlockService pageBlockService;
 
     private static final Logger LOG = Logger.getLogger(CourseController.class);
 
     @Autowired
     public CourseController(CourseService courseService, CourseRequestValidator courseRequestValidator,
                             CourseRequestService courseRequestService, SearchService searchService,
-                            CourseRequestMailer courseRequestMailer) {
+                            CourseRequestMailer courseRequestMailer,
+                            PageBlockService pageBlockService) {
         this.courseService = courseService;
         this.courseRequestValidator = courseRequestValidator;
         this.courseRequestService = courseRequestService;
         this.searchService = searchService;
         this.courseRequestMailer = courseRequestMailer;
+        this.pageBlockService = pageBlockService;
     }
 
     @RequestMapping(value = "/{category}/{id:[\\d]+}/{title}", method = RequestMethod.GET)
@@ -137,6 +140,8 @@ public class CourseController {
     private void setData(Model model, CourseRequestFormData formData, CourseEntityDTO course, boolean isSuccessView) throws ProduxServiceException {
 
         SearchResult otherCourses = searchService.findOtherCourses(course);
+
+        pageBlockService.setAuthentication(model);
 
         model.addAttribute("rightColumn", "content/coursedetails");
         model.addAttribute("title", course.getName() + "- ICT Cursus");

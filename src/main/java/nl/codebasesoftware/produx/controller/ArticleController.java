@@ -109,6 +109,7 @@ public class ArticleController {
 
         pageBlockService.setCourseCategoriesInLeftColumn(model);
         pageBlockService.setEmptyRightColumn(model);
+        pageBlockService.setAuthentication(model);
 
 
         if (page != null) {
