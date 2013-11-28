@@ -81,7 +81,7 @@ public class RequestAccountController {
         if (!result.hasErrors()) {
             AccountRequestEntityDTO accountRequestEntityDTO = accountRequestService.save(accountRequestFormData);
             List<UserProfileEntityDTO> admins = userProfileService.findByRole(RoleName.SYS_ADMIN);
-            mailer.sendNewAccountRequestMailToAdmin(accountRequestEntityDTO, admins, Locale.getDefault());
+            mailer.sendNewAccountRequestMailToAdmin(accountRequestEntityDTO, admins, locale);
             return "redirect:/requestaccount/success";
         }
         setPageTitle(model, locale, "pagetitle.requestaccount");

@@ -13,6 +13,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,29 +29,31 @@ import java.util.Locale;
  * Time: 17:02
  */
 @Controller
-public class RequestPasswordController implements ApplicationContextAware {
+public class RequestPasswordController  {
 
     private RequestPasswordFormValidator validator;
     private UserProfileService userProfileService;
     private PasswordMailer passwordMailer;
     private SecurityService securityService;
     private PageBlockService pageBlockService;
-    private ApplicationContext applicationContext;
+    private MessageSource messageSource;
+
 
     @Autowired
     public RequestPasswordController(RequestPasswordFormValidator validator, UserProfileService userProfileService, PasswordMailer passwordMailer,
-                                     SecurityService securityService, PageBlockService pageBlockService) {
+                                     SecurityService securityService, PageBlockService pageBlockService, MessageSource messageSource) {
         this.validator = validator;
         this.userProfileService = userProfileService;
         this.passwordMailer = passwordMailer;
         this.securityService = securityService;
         this.pageBlockService = pageBlockService;
+        this.messageSource = messageSource;
     }
 
     @RequestMapping(value = "/login/requestpassword", method = RequestMethod.GET)
     public String createPasswordForm(Model model) {
         pageBlockService.setCourseCategoriesInLeftColumn(model);
-        pageBlockService.setEmptyRightColumn(model);
+        model.addAttribute("broadView", true);
         model.addAttribute("mainContent", "forms/requestPassword");
         model.addAttribute("forgotPassword", new BindableForgotPassword());
         model.addAttribute("title", "ICT Cursus: wachtwoord vergeten");
@@ -58,13 +61,11 @@ public class RequestPasswordController implements ApplicationContextAware {
     }
 
     @RequestMapping(value = "/login/requestpassword", method = RequestMethod.POST)
-    public String submitPasswordForm(@ModelAttribute("forgotPassword") BindableForgotPassword forgotPassword, Model model, Locale locale, BindingResult result) {
-
-
-        pageBlockService.setCourseCategoriesInLeftColumn(model);
-        pageBlockService.setEmptyRightColumn(model);
+    public String submitPasswordForm(@ModelAttribute("forgotPassword") BindableForgotPassword forgotPassword,
+                                     Model model, Locale locale, BindingResult result) {
 
         validator.validate(forgotPassword, result);
+        pageBlockService.setCourseCategoriesInLeftColumn(model);
 
         if (result.hasErrors()) {
             model.addAttribute("mainContent", "forms/requestPassword");
@@ -75,11 +76,13 @@ public class RequestPasswordController implements ApplicationContextAware {
             passwordMailer.sendPasswordEmail(profile, randomPassword, locale);
             updatePassword(profile, randomPassword);
 
-            model.addAttribute("mainContent", "content/empty");
-            model.addAttribute("mainMessage", applicationContext.getMessage("password.sent", null, locale));
+            model.addAttribute("mainContent", "content/genericmessage");
+            model.addAttribute("message", messageSource.getMessage("password.sent", new Object[]{}, locale));
+            model.addAttribute("title", messageSource.getMessage("password.sent.title", new Object[]{}, locale));
 
         }
 
+        model.addAttribute("broadView", true);
         model.addAttribute("title", "ICT Cursus: wachtwoord vergeten");
 
         return "main";
@@ -92,8 +95,4 @@ public class RequestPasswordController implements ApplicationContextAware {
     }
 
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
-    }
 }

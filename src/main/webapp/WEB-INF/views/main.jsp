@@ -87,7 +87,9 @@
             <div id="maincontent" class="roundedbox ${broad}">
                 <jsp:include page="${mainContent}.jsp"/>
             </div>
-            <jsp:include page="${rightColumn}.jsp"/>
+            <c:if test="${!broadView}">
+                <jsp:include page="${rightColumn}.jsp"/>
+            </c:if>
         </div>
     </div>
 </div>

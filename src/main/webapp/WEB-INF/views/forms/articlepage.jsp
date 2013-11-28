@@ -44,14 +44,16 @@
             <spring:message code="articlepage.form.meta.description"/>
             <span><spring code="page.metadescription.helptext"/></span>
         </form:label>
-        <form:textarea cols="75" rows="3" path="metaDescription" cssClass="form-input" cssErrorClass="form-input-error" size="50" maxlength="220"/>
+        <form:textarea cols="75" rows="3" path="metaDescription" cssClass="form-input" cssErrorClass="form-input-error" size="50" maxlength="200"/>
         <form:errors path="metaDescription" cssClass="form-error"/>
     </div>
 
     <div class="default-block">
         <input type="submit" class="submitbutton" value="<spring:message code="generic.message.save"/>"/>
         &nbsp;&nbsp;
-        <input type="submit" name="remove" class="submitbutton" value="<spring:message code="generic.message.remove"/>"/>
+        <c:if test="${!hideRemoveButton}">
+            <input type="submit" name="remove" class="submitbutton" value="<spring:message code="generic.message.remove"/>"/>
+        </c:if>
     </div>
 
 </form:form>

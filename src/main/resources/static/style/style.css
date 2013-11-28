@@ -271,11 +271,15 @@ body {
 }
 
 #main #innermain #maincontent h1 {
-    padding: 3px 0px 25px 0px;
+    padding: 3px 0px 15px 0px;
     font-weight: normal;
     font-size: 2.4em;
     font-family: headingFont, sans-serif;
     line-height: 32px;
+}
+
+#main #innermain #maincontent #breadcrumb {
+    margin: 0 0 10px 0;
 }
 
 #site-footer {

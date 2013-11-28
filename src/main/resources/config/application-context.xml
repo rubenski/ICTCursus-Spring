@@ -103,6 +103,7 @@
                 <entry key="invoices.path" value="${invoices.path}"/>
                 <entry key="invoices.tempxsl.path" value="${invoices.tempxsl.path}"/>
                 <entry key="invoices.logoUrl" value="${invoices.logoUrl}"/>
+                <entry key="debugging.enabled" value="${debugging.enabled}"/>
             </map>
         </property>
     </bean>

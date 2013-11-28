@@ -1,5 +1,6 @@
 package nl.codebasesoftware.produx.controller;
 
+import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.ArticlePageEntityDTO;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
@@ -38,6 +39,7 @@ public class ArticleController {
 
     @RequestMapping(value = "/{category}/a{aid:[0-9]+}/{title:[^p0-9:-].+}", method = RequestMethod.GET)
     public String getArticle(@PathVariable("aid") Long articleId,
+                             @PathVariable("category") String categoryUrlName,
                              HttpServletRequest request,
                              Model model) {
 
@@ -49,7 +51,7 @@ public class ArticleController {
             throw new ResourceNotFoundException();
         }
 
-        setData(model, article, null);
+        setData(model, article, null, categoryUrlName);
         model.addAttribute("title", article.getTitle() + " - " + properties.getProperty("domain"));
 
         // If there is a next page, set the relNextUrl. There is no prev page
@@ -64,6 +66,7 @@ public class ArticleController {
     @RequestMapping(value = "/{category}/a{aid:[0-9]+}/p{pnr:[0-9]+}-{title:.+}", method = RequestMethod.GET)
     public String getArticlePage(@PathVariable("aid") Long articleId,
                                  @PathVariable("pnr") int pageNumber,
+                                 @PathVariable("category") String categoryUrlName,
                                  HttpServletRequest request,
                                  Model model) {
 
@@ -96,16 +99,17 @@ public class ArticleController {
             model.addAttribute("relPrevUrl", article.getUrl());
         }
 
-        setData(model, article, articlePage);
+        setData(model, article, articlePage, categoryUrlName);
 
         return "main";
     }
 
 
-    private void setData(Model model, ArticleEntityDTO article, ArticlePageEntityDTO page) {
+    private void setData(Model model, ArticleEntityDTO article, ArticlePageEntityDTO page, String categoryUrlName) {
 
         pageBlockService.setCourseCategoriesInLeftColumn(model);
         pageBlockService.setEmptyRightColumn(model);
+
 
         if (page != null) {
             model.addAttribute("currentArticlePage", page);
@@ -120,6 +124,7 @@ public class ArticleController {
         model.addAttribute("articleNav", article.getPages().size() > 0);
         model.addAttribute("includeHighlighter", true);
         model.addAttribute("broadView", true);
+        model.addAttribute("category", article.getCategory());
     }
 
 

@@ -45,7 +45,7 @@ public class AdminInvoiceController {
 
     @RequestMapping(value = "/admin/invoices", method = RequestMethod.GET)
     public String showInvoices(@RequestParam(value = "year", required = false) Integer year,
-                               Model model) {
+                               Model model, Locale locale) {
 
         model.addAttribute("mainContent", "content/admininvoice");
         Company company = companyService.getCurrentlyLoggedInCompany();
@@ -58,7 +58,7 @@ public class AdminInvoiceController {
         List<InvoiceEntityDTO> list = invoiceService.findForCompany(company.getId(), year);
         model.addAttribute("invoices", list);
         model.addAttribute("numberOfInvoices", list.size());
-        model.addAttribute("headerText", messageSource.getMessage("admin.your.invoices", new Object[]{}, Locale.getDefault()));
+        model.addAttribute("headerText", messageSource.getMessage("admin.your.invoices", new Object[]{}, locale));
 
         return "adminMain";
     }

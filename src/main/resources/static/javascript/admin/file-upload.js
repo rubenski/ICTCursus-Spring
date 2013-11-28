@@ -94,9 +94,7 @@ $(document).ready(function () {
         function updateCourseInSolr(){
             var companyId = $("#id").val();
             var url = "/admin/solr/updatecompany/" + companyId;
-            $.post(url, function(result){
-                alert(result);
-            });
+            $.post(url);
         }
 
     }

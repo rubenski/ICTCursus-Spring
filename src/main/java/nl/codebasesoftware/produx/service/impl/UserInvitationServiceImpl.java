@@ -20,6 +20,7 @@ import nl.codebasesoftware.produx.properties.Properties;
 import nl.codebasesoftware.produx.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -69,7 +70,7 @@ public class UserInvitationServiceImpl implements UserInvitationService {
     @Override
     @Transactional(readOnly = false)
     public void inviteUserForCurrentCompany(BindableUserInvitation bindableInvitation) throws ProduxServiceException {
-        Locale locale = Locale.getDefault();
+        Locale locale = LocaleContextHolder.getLocale();
         setSecurityCode(bindableInvitation);
         setCompanyId(bindableInvitation);
         UserInvitation userInvitation = conversionService.convert(bindableInvitation, UserInvitation.class);

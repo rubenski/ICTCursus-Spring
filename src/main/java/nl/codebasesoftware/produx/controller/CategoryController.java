@@ -153,6 +153,7 @@ public class CategoryController {
         ResultListing listing = listingBuilder.setFilters(filters).setSearchResult(searchResult).setCriteria(criteria).build();
 
         model.addAttribute("articles", categoryArticles);
+        model.addAttribute("broadView", categoryArticles.size() == 0);
         model.addAttribute("showLightboxLink", companyCoursesForCategory.size() > 0);
         model.addAttribute("showHighlighted", page == 0);
         model.addAttribute("title", "Cursussen " + category.getName() + " : ICT Cursus");

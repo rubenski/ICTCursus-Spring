@@ -38,10 +38,10 @@ public class AdminMyPasswordController {
     }
 
     @RequestMapping(value = "/admin/myprofile/password", method = RequestMethod.GET)
-    public String myPassword(Model model) {
+    public String myPassword(Model model, Locale locale) {
         model.addAttribute("passwordForm", new PasswordFormData());
         model.addAttribute("mainContent", "forms/passwordform");
-        model.addAttribute("headerText", messageSource.getMessage("passwordform.header", new Object[]{}, Locale.getDefault()));
+        model.addAttribute("headerText", messageSource.getMessage("passwordform.header", new Object[]{}, locale));
         return "adminMain";
     }
 

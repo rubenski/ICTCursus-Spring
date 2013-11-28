@@ -33,6 +33,8 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Map;
@@ -68,10 +70,9 @@ public class CourseController {
     public String get(@PathVariable("id") Long id,
                       @PathVariable("category") String category,
                       @PathVariable("title") String title,
-                      Model model) throws ProduxServiceException {
+                      Model model) throws ProduxServiceException, ArithmeticException, IOException {
         CourseRequestFormData courseRequestFormData = new CourseRequestFormData();
         courseRequestFormData.setCourseId(id);
-
 
         CourseEntityDTO course = courseService.findFull(id);
         validateUrl(category, id, title, course);
@@ -135,8 +136,6 @@ public class CourseController {
 
     private void setData(Model model, CourseRequestFormData formData, CourseEntityDTO course, boolean isSuccessView) throws ProduxServiceException {
 
-
-
         SearchResult otherCourses = searchService.findOtherCourses(course);
 
         model.addAttribute("rightColumn", "content/coursedetails");
@@ -150,6 +149,7 @@ public class CourseController {
         model.addAttribute("isCourse", true);
         model.addAttribute("otherCourses", otherCourses);
         model.addAttribute("hasOtherCourses", otherCourses.getCourses().size() > 0);
+        model.addAttribute("category", course.getCategory());
     }
 
 

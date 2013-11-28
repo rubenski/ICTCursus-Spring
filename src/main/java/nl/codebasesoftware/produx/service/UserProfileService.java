@@ -32,7 +32,7 @@ public interface UserProfileService {
 
     void update(OtherUserProfileFormData profile);
 
-    UserProfile findAuthorByArticle(long articleId);
+    UserProfileEntityDTO findAuthorByArticle(long articleId);
 
     List<UserProfileEntityDTO> findByRole(RoleName role);
 

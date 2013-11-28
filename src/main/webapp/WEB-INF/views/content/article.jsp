@@ -2,17 +2,20 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 
-<div class="roundedbox" itemscope itemtype="http://schema.org/Article">
+<div class="roundedbox">
+    <jsp:include page="../components/breadcrumb.jsp"/>
 
-    <h1 itemprop="headLine">${currentArticlePage.title}</h1>
+    <div itemscope itemtype="http://schema.org/Article">
+        <h1 itemprop="name">${currentArticlePage.title}</h1>
 
-    <div itemprop="articleBody">
-        ${currentArticlePage.text}
-    </div>
-    <div id="paging">
-        <jsp:include page="../components/articlePageList.jsp">
-            <jsp:param name="viewType" value="pagination" />
-        </jsp:include>
+        <div itemprop="articleBody">
+            ${currentArticlePage.text}
+        </div>
+        <div id="paging">
+            <jsp:include page="../components/articlePageList.jsp">
+                <jsp:param name="viewType" value="pagination"/>
+            </jsp:include>
+        </div>
     </div>
 </div>
 

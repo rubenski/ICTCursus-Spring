@@ -3,6 +3,10 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
+
+<jsp:include page="../components/breadcrumb.jsp"/>
+
+
 <h1><spring:message code="generic.message.courses"/> ${category.name}</h1>
 
 <sec:authorize access="hasRole('ROLE_PERM_edit_company_advertisements')">

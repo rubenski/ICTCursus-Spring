@@ -16,6 +16,7 @@ public class ArticlePageFormData {
     private int position;
     private String remove;
     private boolean articleTitleEnabled;
+    private int removeThisPage;
 
     public Long getId() {
         return id;
@@ -23,6 +24,14 @@ public class ArticlePageFormData {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public int getRemoveThisPage() {
+        return removeThisPage;
+    }
+
+    public void setRemoveThisPage(int removeThisPage) {
+        this.removeThisPage = removeThisPage;
     }
 
     public Long getArticleId() {
@@ -82,7 +91,7 @@ public class ArticlePageFormData {
     }
 
     public boolean removeClicked() {
-        return this.remove != null && this.remove.equals("Verwijderen");
+        return this.removeThisPage == 1;
     }
 
     public void setArticleTitleEnabled(boolean b) {

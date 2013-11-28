@@ -49,18 +49,6 @@ public class AdminPageController {
         this.messageSource = messageSource;
     }
 
-    @RequestMapping(value = "/admin/article/{articleId}/pages/add", method = RequestMethod.GET)
-    public String showNewPageForm(@PathVariable("articleId") Long articleId, Model model, Locale locale) {
-
-        checkArticle(articleId);
-        setHeaderText(locale, model);
-        ArticlePageFormData formData = new ArticlePageFormData();
-        formData.setArticleId(articleId);
-        setFormData(formData, model);
-
-        return "adminMain";
-    }
-
     @RequestMapping(value = "/admin/articles/page/{pageId}", method = RequestMethod.POST)
     public String savePage(@ModelAttribute("articlePageFormData") ArticlePageFormData formData, @PathVariable("pageId") Long pageId, Model model,
                            BindingResult result, Locale locale) {
@@ -91,6 +79,21 @@ public class AdminPageController {
         return "adminMain";
     }
 
+
+    @RequestMapping(value = "/admin/article/{articleId}/pages/add", method = RequestMethod.GET)
+    public String showNewPageForm(@PathVariable("articleId") Long articleId, Model model, Locale locale) {
+
+        checkArticle(articleId);
+        setHeaderText(locale, model);
+        ArticlePageFormData formData = new ArticlePageFormData();
+        formData.setArticleId(articleId);
+        setFormData(formData, model);
+
+        model.addAttribute("hideRemoveButton", true);
+
+        return "adminMain";
+    }
+
     @RequestMapping(value = "/admin/article/{articleId}/pages/add", method = RequestMethod.POST)
     public String savePage(@ModelAttribute("articlePageFormData") ArticlePageFormData formData, BindingResult result,
                            @PathVariable("articleId") Long articleId, Model model, Locale locale) {
@@ -115,6 +118,7 @@ public class AdminPageController {
     private void setFormData(ArticlePageFormData formData, Model model) {
         model.addAttribute("articlePageFormData", formData);
         model.addAttribute("mainContent", "forms/articlepage");
+        model.addAttribute("articleForm", true);
         model.addAttribute("richtext", true);
     }
 
@@ -145,7 +149,7 @@ public class AdminPageController {
             throw new ResourceNotFoundException();
         }
 
-        UserProfile author = userProfileService.findAuthorByArticle(article.getId());
+        UserProfileEntityDTO author = userProfileService.findAuthorByArticle(article.getId());
 
         // Check if this article belongs to the current user
         if (!author.equals(CurrentUser.get())) {

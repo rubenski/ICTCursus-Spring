@@ -31,5 +31,10 @@ public class Properties {
     public int getSearchResultsPerPage() {
         return Integer.parseInt(getProperty("courses.per.page"));
     }
+
+    public boolean isDebuggingEnabled(){
+        String s = getProperty("debugging.enabled");
+        return Integer.parseInt(s) == 1;
+    }
 }
 

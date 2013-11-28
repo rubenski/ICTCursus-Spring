@@ -17,6 +17,7 @@ import nl.codebasesoftware.produx.util.collection.EntityCollectionConverter;
 import nl.codebasesoftware.produx.util.pdf.PdfGenerator;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.velocity.VelocityEngineUtils;
@@ -88,7 +89,7 @@ public class InvoiceServiceImpl implements InvoiceService {
             InvoiceEntityDTO invoice = createInDb(requests, company,  monthAndYear);
             File pdf = createPdf(monthAndYear, invoice);
             try {
-                invoiceMailer.sendInvoiceEmail(pdf, invoice, Locale.getDefault());
+                invoiceMailer.sendInvoiceEmail(pdf, invoice, LocaleContextHolder.getLocale());
             } catch (MessagingException e) {
                 e.printStackTrace();
             }
