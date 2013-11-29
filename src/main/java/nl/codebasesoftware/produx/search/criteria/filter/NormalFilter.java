@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.search.criteria.filter;
 
 import org.apache.solr.common.params.ModifiableSolrParams;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class NormalFilter extends Filter {
     @Override
     public List<String> getUrlTokens() {
         if(urlField == null){
-            throw new IllegalArgumentException("The url field is not set, so I cannot create url tokens for you");
+            return new ArrayList<>();
         }
         return Arrays.asList(String.format("%s:%s", urlField, value));
     }

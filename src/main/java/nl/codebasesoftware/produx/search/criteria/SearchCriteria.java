@@ -44,7 +44,6 @@ public class SearchCriteria {
         return rows;
     }
 
-
     private SearchCriteria(Builder builder) {
         rows = builder.rows;
         start = builder.start;

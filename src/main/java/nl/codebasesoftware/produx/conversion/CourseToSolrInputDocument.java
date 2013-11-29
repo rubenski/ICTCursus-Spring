@@ -21,6 +21,7 @@ public class CourseToSolrInputDocument implements Converter<CourseEntityDTO, Sol
         solrInputDocument.addField("longdescription", course.getLongDescription());
         solrInputDocument.addField("shortdescription", course.getListDescription());
         solrInputDocument.addField("price", course.getPrice());
+        solrInputDocument.addField("published", course.isPublished());
 
         solrInputDocument.addField("company_name", course.getCompany().getName());
         solrInputDocument.addField("company_id", course.getCompany().getId());

@@ -84,7 +84,7 @@ public class HighlightedCoursePeriod implements DomainEntity {
         HighlightedCourseOnCategoryEntityDTO dto = new HighlightedCourseOnCategoryEntityDTO();
         dto.setId(id);
         dto.setCategory(category.toDTO());
-        dto.setCourse(course.toDTO());
+        // dto.setCourse(course.toDTO());
         dto.setCreated(created);
         dto.setEndTime(endTime);
         dto.setStartTime(startTime);

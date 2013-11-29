@@ -54,6 +54,12 @@ public class SearchResult {
         return Joiner.on("/").join(baseDirs);
     }
 
+    public void removeCourses(List<ListingCourseDTO> removeThese){
+        for (ListingCourseDTO listingCourseDTO : removeThese) {
+            courses.remove(listingCourseDTO);
+        }
+    }
+
     public static class Builder {
 
         private Collection<ListingCourseDTO> courses = new ArrayList<>();

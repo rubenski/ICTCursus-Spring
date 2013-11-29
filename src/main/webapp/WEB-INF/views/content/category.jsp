@@ -5,10 +5,7 @@
 
 
 <jsp:include page="../components/breadcrumb.jsp"/>
-
-
 <h1><spring:message code="generic.message.courses"/> ${category.name}</h1>
-
 <sec:authorize access="hasRole('ROLE_PERM_edit_company_advertisements')">
     <c:if test="${showLightboxLink}">
         <div id="advertising-overlay-link-container">
@@ -16,22 +13,10 @@
         </div>
     </c:if>
 </sec:authorize>
-
 <c:forEach items="${highlighted}" var="course">
-    <div class="course-list-item highlighted">
-        <div class="description">
-            <a href="${course.url}"><h2>${course.name}</h2></a>
-            <p>
-                    ${course.listDescription}
-            </p>
-        </div>
-        <div class="logo">
-            <c:if test="${course.company.hasLogo()}">
-                <img src="${course.company.getSmallLogoUrl()}"
-                     title="<spring:message code='course.listing.courseby'/> ${course.company.name}"/>
-            </c:if>
-        </div>
-    </div>
+    <c:set var="course" scope="request" value="${course}" />
+    <c:set var="highlightMe" scope="request" value="1" />
+    <jsp:include page="courselistitem.jsp"/>
 </c:forEach>
 
 <jsp:include page="courselisting.jsp">

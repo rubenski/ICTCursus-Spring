@@ -89,10 +89,11 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
 
     @Override
     public List<Course> findCoursesForCompanyAndCategory(Long companyId, Long categoryId) {
-        return entityManager.createQuery("from Course c where c.category.id = :categoryId and c.company.id = :companyId")
+         List<Course> courses = entityManager.createQuery("from Course c where c.category.id = :categoryId and c.company.id = :companyId")
                 .setParameter("categoryId", categoryId)
                 .setParameter("companyId", companyId)
                 .getResultList();
+        return courses;
     }
 
     @Override
@@ -124,9 +125,10 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
                 "and cats.endTime > :time " +
                 "and c.published = true";
 
-        return entityManager.createQuery(query)
+        List resultList = entityManager.createQuery(query)
                 .setParameter("categoryId", categoryId)
                 .setParameter("time", time, TemporalType.DATE).getResultList();
+        return resultList;
     }
 
     @Override

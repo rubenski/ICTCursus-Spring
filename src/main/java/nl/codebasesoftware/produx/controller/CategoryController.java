@@ -112,7 +112,7 @@ public class CategoryController {
 
         List<Course> companyCoursesForCategory = new ArrayList<>();
         if (currentlyLoggedInCompany != null) {
-            companyCoursesForCategory = courseService.findCoursesForCompanyAndCategory(category.getId(), currentlyLoggedInCompany.getId());
+            companyCoursesForCategory = courseService.findCoursesForCompanyAndCategory(currentlyLoggedInCompany.getId(), category.getId());
         }
 
         pageBlockService.setEmptyRightColumn(model);
@@ -128,8 +128,11 @@ public class CategoryController {
 
         NormalFilter categoryFilter = new NormalFilter("category", cat.getSolrValue(), cat.getSolrValue());
 
+        NormalFilter publishedFilter = new NormalFilter("published", true);
+
         SearchCriteria criteria = new SearchCriteria.Builder()
                 .addFilter(categoryFilter)
+                .addFilter(publishedFilter)
                 .addFilters(filterList)
                 .addFacetField(priceFacet)
                 .addFacetField(regionsFacet)
@@ -138,15 +141,18 @@ public class CategoryController {
                 .setRows(resultsPerPage)
                 .build();
 
+        List<ListingCourseDTO> highlightedCourses = courseService.findHighlightedCourses(category.getId());
 
         SearchResult searchResult = searchService.findCoursesForFacets(criteria, Arrays.asList(categoryUrlName));
+
+        searchResult.removeCourses(highlightedCourses);
 
         // Throw a 404 when someone tries to access a paging page that doesn't exist
         if (searchResult.getCourses().size() == 0 && page > 0) {
             throw new ResourceNotFoundException();
         }
 
-        List<ListingCourseDTO> highlightedCourses = courseService.findHighlightedCourses(category.getId());
+
         List<ArticleEntityDTO> categoryArticles = articleService.findByCategory(category.getId());
 
         ResultListing.Builder listingBuilder = new ResultListing.Builder();

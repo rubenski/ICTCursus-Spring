@@ -182,12 +182,8 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional(readOnly = true)
     public List<ArticleEntityDTO> findByCategory(long catgeoryId) {
-        long start = System.currentTimeMillis();
         List<Article> categories = articleDao.findByCategory(catgeoryId);
-        LOG.debug("getting cats: " + (System.currentTimeMillis() - start));
-        long start1 = System.currentTimeMillis();
         List<ArticleEntityDTO> articleEntityDTOs = asArticleEntityDTOs(categories);
-        LOG.debug("converting cats: " + (System.currentTimeMillis() - start1));
         return articleEntityDTOs;
     }
 

@@ -324,17 +324,6 @@ body {
     margin-top: 15px;
 }
 
-#main #innermain #maincontent .course-list-item.highlighted {
-    background-color: #fffaec;
-    background-image: url('/static/img/courselistingbg.gif');
-    background-repeat: repeat-x;
-    background-position: top left;
-    border: 1px solid #c2c0c0;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 3px;
-    -khtml-border-radius: 3px;
-    border-radius: 3px;
-}
 
 #main #innermain #maincontent .course-list-item .description {
     padding: 0px 10px 10px 0px;
@@ -423,7 +412,6 @@ input, select, textarea {
     margin-top: 40px;
     padding: 30px 20px;
     text-align: left;
-    background-image: url('/static/img/lightboxinnerbg.png');
     background-position: top left;
     background-repeat: repeat-x;
     border: 1px solid #000066;
@@ -480,6 +468,8 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
 .white {
     background-color: white;
 }
+
+
 
 
 

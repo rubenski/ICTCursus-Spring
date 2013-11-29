@@ -144,8 +144,8 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Course> findCoursesForCompanyAndCategory(long categoryId, long companyId) {
-        return courseDao.findCoursesForCompanyAndCategory(categoryId, companyId);
+    public List<Course> findCoursesForCompanyAndCategory(long companyId, long categoryId) {
+        return courseDao.findCoursesForCompanyAndCategory(companyId, categoryId);
     }
 
     @Override
