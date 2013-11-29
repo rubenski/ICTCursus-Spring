@@ -15,4 +15,6 @@ public interface UserInvitationDao extends GenericDao<UserInvitation> {
     UserInvitation findByCode(String code);
 
     List<UserInvitation> findByInviter(long inviterProfileId);
+
+    void deleteInvitation(UserInvitation invitation);
 }

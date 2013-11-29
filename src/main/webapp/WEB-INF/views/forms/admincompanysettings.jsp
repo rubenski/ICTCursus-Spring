@@ -5,6 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
+<jsp:include page="../components/adminyourcompanytabs.jsp"/>
 
 <form:form method="post" modelAttribute="settings">
 

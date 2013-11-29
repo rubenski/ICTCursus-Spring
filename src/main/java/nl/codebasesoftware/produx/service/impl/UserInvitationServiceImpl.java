@@ -111,7 +111,11 @@ public class UserInvitationServiceImpl implements UserInvitationService {
             return;
         }
 
+        // There is no orphan removal for many to many relationships, so let's remove the orphans ourselves
+        invitation.setRoles(new HashSet<Role>());
+        userInvitationDao.persist(invitation);
         userInvitationDao.delete(invitation);
+
     }
 
     @Transactional(readOnly = false)

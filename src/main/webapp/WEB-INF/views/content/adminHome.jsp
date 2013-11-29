@@ -65,7 +65,7 @@
 
 <sec:authorize access="hasRole('ROLE_PERM_edit_company_settings') or hasRole('ROLE_PERM_edit_everything')">
     <div class="default-block">
-        <h2><spring:message code="admin.sections.settings"/></h2>
+        <h2><spring:message code="company.settings"/></h2>
 
         <p>Bij <a href="/admin/settings">instellingen</a> kunt u instellingen doen met betrekking tot uw account bij ICT Cursus. Zo kunt u
             een automatische waarschuwing laten versturen als er een bepaald bedrag overschreden is en u kunt uw cursussen tijdelijk depubliceren.

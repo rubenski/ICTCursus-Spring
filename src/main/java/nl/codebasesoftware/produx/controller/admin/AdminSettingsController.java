@@ -33,16 +33,16 @@ public class AdminSettingsController {
         this.validator = validator;
     }
 
-    @RequestMapping(value = "/admin/settings", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/company/settings", method = RequestMethod.GET)
     public String showSettings(Model model, Locale locale) {
         CompanySettingsFormData settingsDto = companyService.getCompanySettingsForCurrentCompany();
         model.addAttribute("settings", settingsDto);
         model.addAttribute("mainContent", "forms/admincompanysettings");
-        model.addAttribute("headerText", messageSource.getMessage("company.settings.header", new Object[]{}, locale));
+        model.addAttribute("headerText", messageSource.getMessage("company.settings", new Object[]{}, locale));
         return "adminMain";
     }
 
-    @RequestMapping(value = "/admin/settings", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/company/settings", method = RequestMethod.POST)
     public String saveSettings(@ModelAttribute("settings") CompanySettingsFormData settingsDto, BindingResult result, Model model, Locale locale) {
 
         validator.validate(settingsDto, result);
@@ -56,7 +56,7 @@ public class AdminSettingsController {
         model.addAttribute("settings", settingsDto);
         model.addAttribute("valid", valid);
         model.addAttribute("mainContent", "forms/admincompanysettings");
-        model.addAttribute("headerText", messageSource.getMessage("company.settings.header", new Object[]{}, locale));
+        model.addAttribute("headerText", messageSource.getMessage("company.settings", new Object[]{}, locale));
         return "adminMain";
     }
 

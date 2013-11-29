@@ -35,4 +35,8 @@ public class UserInvitationDaoJpa extends GenericDaoJpa<UserInvitation> implemen
                 .setParameter("inviterId", inviterProfileId).getResultList();
     }
 
+    @Override
+    public void deleteInvitation(UserInvitation invitation) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
 }

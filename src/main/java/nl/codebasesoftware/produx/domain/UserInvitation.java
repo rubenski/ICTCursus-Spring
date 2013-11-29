@@ -103,6 +103,8 @@ public class UserInvitation implements DomainEntity {
         this.invitedBy = invitedBy;
     }
 
+    // Dreads, there is no orphan removal for many-to-many relationships
+    // http://stackoverflow.com/questions/3055407/how-do-i-delete-orphan-entities-using-hibernate-and-jpa-on-a-many-to-many-relati
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public Set<Role> getRoles() {
         return roles;

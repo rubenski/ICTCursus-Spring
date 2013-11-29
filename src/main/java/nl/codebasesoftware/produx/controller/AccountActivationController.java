@@ -4,6 +4,7 @@ import nl.codebasesoftware.produx.domain.UserInvitation;
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.formdata.AccountActivationFormData;
+import nl.codebasesoftware.produx.service.PageBlockService;
 import nl.codebasesoftware.produx.service.UserInvitationService;
 import nl.codebasesoftware.produx.service.UserProfileService;
 import nl.codebasesoftware.produx.validator.AccountActivationFormValidator;
@@ -33,17 +34,20 @@ public class AccountActivationController {
     private AccountActivationFormValidator formValidator;
     private UserProfileService userProfileService;
     private MessageSource messageSource;
+    private PageBlockService pageBlockService;
 
     @Autowired
     public AccountActivationController(UserInvitationService userInvitationService, ConversionService conversionService,
                                        AccountActivationFormValidator formValidator,
                                        UserProfileService userProfileService,
-                                       MessageSource messageSource) {
+                                       MessageSource messageSource,
+                                       PageBlockService pageBlockService) {
         this.userInvitationService = userInvitationService;
         this.conversionService = conversionService;
         this.formValidator = formValidator;
         this.userProfileService = userProfileService;
         this.messageSource = messageSource;
+        this.pageBlockService = pageBlockService;
     }
 
 
@@ -61,15 +65,20 @@ public class AccountActivationController {
         } else {
             UserProfileEntityDTO existingProfile = userProfileService.findByEmail(userInvitation.getEmail());
             if (existingProfile != null) {
-                failureMessage = messageSource.getMessage("account.already.exists", new Object[]{}, locale);
+                failureMessage = messageSource.getMessage("account.already.exists", new Object[]{userInvitation.getEmail()}, locale);
             }
         }
 
+        pageBlockService.setEmptyRightColumn(model);
+        pageBlockService.setCourseCategoriesInLeftColumn(model);
         AccountActivationFormData accountActivationFormData = conversionService.convert(userInvitation, AccountActivationFormData.class);
 
         model.addAttribute("failureMessage", failureMessage);
+        model.addAttribute("title", messageSource.getMessage("account.activation.header", new Object[]{}, locale));
         model.addAttribute("accountActivationFormData", accountActivationFormData);
         model.addAttribute("mainContent", "forms/activateAccount");
+        model.addAttribute("broadView", true);
+
 
         return "main";
     }

@@ -11,7 +11,7 @@ import java.util.List;
  * Time: 11:08
  */
 public interface CategoryHighlightPeriodDao extends GenericDao<HighlightedCoursePeriod> {
-    List<HighlightedCoursePeriod> findCurrentAndFutureHighlightedCourses(long categoryId, Calendar time);
 
+    List<HighlightedCoursePeriod> findCurrentAndFutureHighlightedCourses(long categoryId, Calendar time);
     List<HighlightedCoursePeriod> findCurrentAndFutureHighlightedCoursesForCompany(long categoryId, long companyId, Calendar instance);
 }

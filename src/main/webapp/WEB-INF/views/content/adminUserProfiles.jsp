@@ -3,9 +3,12 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
+<jsp:include page="../components/adminyourcompanytabs.jsp"/>
 <div class="default-block">
 
     <h2><spring:message code="admin.users.header"/></h2>
+
     <c:choose>
         <c:when test="${numberOfOtherUsers > 0}">
 

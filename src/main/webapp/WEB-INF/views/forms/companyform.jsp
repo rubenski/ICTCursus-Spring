@@ -2,6 +2,9 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
+<jsp:include page="../components/adminyourcompanytabs.jsp"/>
+
 <form:form method="post" modelAttribute="bindableCompany" id="courseForm">
 
 
@@ -65,7 +68,7 @@
     </div>
     <div class="default-block">
         <form:label path="description">
-            <spring:message code="company.form.profile"/>
+            <spring:message code="admin.sections.companyprofile"/>
         </form:label>
         <form:textarea rows="12" path="description" cssErrorClass="form-input-error" cols="100"/>
         <form:errors path="description" cssClass="form-error"/>

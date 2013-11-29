@@ -15,15 +15,15 @@ import java.util.List;
  */
 @Repository
 @SuppressWarnings("unchecked")
-public class HighlightedCourseDaoJpaHighlight extends GenericDaoJpa<HighlightedCoursePeriod> implements CategoryHighlightPeriodDao {
+public class HighlightedCoursePeriodDaoJpa extends GenericDaoJpa<HighlightedCoursePeriod> implements CategoryHighlightPeriodDao {
 
 
-    public HighlightedCourseDaoJpaHighlight() {
+    public HighlightedCoursePeriodDaoJpa() {
         super(HighlightedCoursePeriod.class);
     }
 
     /**
-     * Retrieves all courses that are hightlighted on the supplied category that have an end date in the future. Start date is not important.
+     * Retrieves all courses that are highlighted on the supplied category that have an end date in the future. Start date is not important.
      */
     @Override
     public List<HighlightedCoursePeriod> findCurrentAndFutureHighlightedCourses(long categoryId, Calendar time) {

@@ -17,11 +17,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-/**
- * User: rvanloen
- * Date: 11-5-13
- * Time: 11:05
- */
+
 @Service
 public class HighlightedCoursePeriodServiceImpl implements HighlightedCoursePeriodService {
 
