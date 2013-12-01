@@ -33,9 +33,9 @@ public interface CourseService {
 
     List<ListingCourseDTO> findHighlightedCourses(long categoryId);
 
-    List<Course> findNonHighlightedCourses(long categoryId);
+    //List<Course> findNonHighlightedCoursesForCompany(long categoryId);
 
-    List<Course> findNonHighlightedCoursesForCompanyAndCategory(Company currentlyLoggedInCompany, Category category);
+    List<Course> findNonHighlightedCoursesForCompanyAndCategory(CompanyEntityDTO currentlyLoggedInCompany, Category category);
 
     List<Course> findCoursesForCompanyAndCategory(long categoryId, long companyId);
 

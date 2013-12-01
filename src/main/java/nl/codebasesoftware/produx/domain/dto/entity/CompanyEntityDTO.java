@@ -2,6 +2,9 @@ package nl.codebasesoftware.produx.domain.dto.entity;
 
 import nl.codebasesoftware.produx.domain.dto.LogoUrl;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCompanyDTO;
+import nl.codebasesoftware.produx.formdata.BindableCompany;
+
+import javax.persistence.Transient;
 
 /**
  * User: rvanloen
@@ -26,6 +29,7 @@ public class CompanyEntityDTO extends ListingCompanyDTO {
     private byte[] normalLogo;
     private byte[] smallLogo;
     private String companyPrefix;
+    private ProductSettingsEntityDTO productSettings;
 
     public String getEmail() {
         return email;
@@ -153,5 +157,34 @@ public class CompanyEntityDTO extends ListingCompanyDTO {
 
     public void setCompanyPrefix(String companyPrefix) {
         this.companyPrefix = companyPrefix;
+    }
+
+    public ProductSettingsEntityDTO getProductSettings() {
+        return productSettings;
+    }
+
+    public void setProductSettings(ProductSettingsEntityDTO productSettings) {
+        this.productSettings = productSettings;
+    }
+
+
+    public BindableCompany toBindableCompany() {
+        BindableCompany bindableCompany = new BindableCompany();
+
+        bindableCompany.setAddress(address);
+        bindableCompany.setChamberOfCommerceNumber(tradeNumber);
+        bindableCompany.setCity(city);
+        bindableCompany.setCountry(country);
+        bindableCompany.setDescription(description);
+        bindableCompany.setEmail(email);
+        bindableCompany.setId(id);
+        bindableCompany.setName(name);
+        bindableCompany.setPhone(phone);
+        bindableCompany.setVatNumber(vatNumber);
+        bindableCompany.setZipCode(zipCode);
+        bindableCompany.setHasLogo(hasLogo());
+        bindableCompany.setCompanyPrefix(companyPrefix);
+
+        return bindableCompany;
     }
 }

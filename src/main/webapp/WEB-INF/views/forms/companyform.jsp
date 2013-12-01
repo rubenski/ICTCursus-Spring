@@ -68,7 +68,7 @@
     </div>
     <div class="default-block">
         <form:label path="description">
-            <spring:message code="admin.sections.companyprofile"/>
+            <spring:message code="company.description"/>
         </form:label>
         <form:textarea rows="12" path="description" cssErrorClass="form-input-error" cols="100"/>
         <form:errors path="description" cssClass="form-error"/>

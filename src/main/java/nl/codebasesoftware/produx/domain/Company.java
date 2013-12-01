@@ -1,7 +1,9 @@
 package nl.codebasesoftware.produx.domain;
 
 import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.ProductSettingsEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCompanyDTO;
+import nl.codebasesoftware.produx.domain.support.CourseListingType;
 import nl.codebasesoftware.produx.formdata.BindableCompany;
 
 import javax.persistence.*;
@@ -36,6 +38,8 @@ public class Company implements DomainEntity, Serializable {
     private String courseRequestEmailAddress;
     private boolean allCoursesDeactivated;
     private String companyPrefix;
+    private ProductSettings productSettings;
+
 
     @Override
     @Id
@@ -208,25 +212,15 @@ public class Company implements DomainEntity, Serializable {
         this.companyPrefix = companyPrefix;
     }
 
-    @Transient
-    public BindableCompany toBindableCompany() {
-        BindableCompany bindableCompany = new BindableCompany();
-
-        bindableCompany.setAddress(address);
-        bindableCompany.setChamberOfCommerceNumber(tradeNumber);
-        bindableCompany.setCity(city);
-        bindableCompany.setCountry(country);
-        bindableCompany.setDescription(description);
-        bindableCompany.setEmail(email);
-        bindableCompany.setId(id);
-        bindableCompany.setName(name);
-        bindableCompany.setPhone(phone);
-        bindableCompany.setVatNumber(vatNumber);
-        bindableCompany.setZipCode(zipCode);
-        bindableCompany.setHasLogo(hasLogo());
-        bindableCompany.setCompanyPrefix(companyPrefix);
-        return bindableCompany;
+    public ProductSettings getProductSettings() {
+        return productSettings;
     }
+
+    public void setProductSettings(ProductSettings productSettings) {
+        this.productSettings = productSettings;
+    }
+
+
 
     @Transient
     public boolean hasLogo() {
@@ -278,6 +272,14 @@ public class Company implements DomainEntity, Serializable {
         companyDTO.setZipCode(zipCode);
         companyDTO.setLogo(hasLogo());
         companyDTO.setCompanyPrefix(companyPrefix);
+
+        ProductSettingsEntityDTO productSettings = new ProductSettingsEntityDTO();
+        productSettings.setCompanyInfoActive(productSettings.isCompanyInfoActive());
+        productSettings.setCourseListingType(productSettings.getCourseListingType());
+        productSettings.setExternalCourseLinksActive(productSettings.isExternalCourseLinksActive());
+        companyDTO.setProductSettings(productSettings);
+
+
         return companyDTO;
     }
 }

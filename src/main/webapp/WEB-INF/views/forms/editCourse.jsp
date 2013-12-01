@@ -99,7 +99,7 @@
 
     <%-- category --%>
     <div class="default-block">
-        <form:label path="category"><spring:message code="course.form.category"/></form:label>
+        <form:label path="category"><spring:message code="generic.message.category"/></form:label>
         <form:select path="category" cssErrorClass="form-input-error">
             <form:option value="-1" label=""/>
             <form:options items="${categories}" itemValue="id" itemLabel="name"/>

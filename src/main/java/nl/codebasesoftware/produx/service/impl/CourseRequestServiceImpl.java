@@ -3,6 +3,7 @@ package nl.codebasesoftware.produx.service.impl;
 import nl.codebasesoftware.produx.dao.CourseRequestDao;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.CourseRequest;
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import nl.codebasesoftware.produx.formdata.CourseRequestFormData;
 import nl.codebasesoftware.produx.service.CourseRequestService;
@@ -60,9 +61,9 @@ public class CourseRequestServiceImpl implements CourseRequestService {
 
     @Override
     @Transactional(readOnly = true)
-    public boolean belongsTo(Company company, CourseRequestEntityDTO courseRequest) {
+    public boolean belongsTo(CompanyEntityDTO company, CourseRequestEntityDTO courseRequest) {
         CourseRequest request = courseRequestDao.findFull(courseRequest.getId());
-        return request.getCourse().getCompany().equals(company);
+        return request.getCourse().getCompany().getId().equals(company.getId());
     }
 
     @Override

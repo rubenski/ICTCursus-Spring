@@ -3,7 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-
+<jsp:include page="../components/admincoursestabs.jsp"/>
 <div class="default-block">
     <h2><spring:message code="admin.your.courses"/></h2>
     <c:choose>

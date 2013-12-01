@@ -19,7 +19,7 @@ public interface CompanyService {
 
     void update(BindableCompany bindableCompany);
 
-    Company getCurrentlyLoggedInCompany();
+    CompanyEntityDTO getCurrentlyLoggedInCompany();
 
     CompanyEntityDTO findById(Long companyId);
 

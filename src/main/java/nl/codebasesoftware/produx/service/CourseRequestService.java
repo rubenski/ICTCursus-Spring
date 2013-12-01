@@ -25,7 +25,7 @@ public interface CourseRequestService {
 
     CourseRequestEntityDTO findFull(long id);
 
-    boolean belongsTo(Company company, CourseRequestEntityDTO courseRequest);
+    boolean belongsTo(CompanyEntityDTO company, CourseRequestEntityDTO courseRequest);
 
     List<CourseRequest> findAllDateSortedDesc();
 

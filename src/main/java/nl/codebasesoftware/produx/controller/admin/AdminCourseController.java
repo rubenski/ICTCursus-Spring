@@ -87,7 +87,7 @@ public class AdminCourseController {
         }
 
 
-        Company loggedInCompany = companyService.getCurrentlyLoggedInCompany();
+        CompanyEntityDTO loggedInCompany = companyService.getCurrentlyLoggedInCompany();
         List<CourseEntityDTO> companyCourses = courseService.findByCompanyId(loggedInCompany.getId());
 
         model.addAttribute("mainContent", "forms/editCourse");

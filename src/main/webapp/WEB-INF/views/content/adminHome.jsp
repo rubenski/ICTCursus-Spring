@@ -14,7 +14,7 @@
 
 <sec:authorize access="hasRole('ROLE_PERM_edit_company_profile') or hasRole('ROLE_PERM_edit_everything')">
     <div class="default-block">
-        <h2><spring:message code="admin.sections.companyprofile"/></h2>
+        <h2><spring:message code="admin.sections.companyinfo"/></h2>
 
         <p>Uw <a href="/admin/company">bedrijfsprofiel</a> bevat informatie over uw bedrijf, waaronder het logo dat naast uw cursussen getoond
             wordt.

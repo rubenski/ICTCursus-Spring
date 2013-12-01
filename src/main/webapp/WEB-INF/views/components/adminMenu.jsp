@@ -38,6 +38,9 @@
             <li><a href="/admin/invoices"><spring:message code="admin.sections.invoices"/></a></li>
         </sec:authorize>
         --%>
+        <sec:authorize access="hasRole('ROLE_PERM_edit_company_settings') or hasRole('ROLE_PERM_edit_everything')">
+            <li><a href="/admin/products"><spring:message code="admin.sections.products"/></a></li>
+        </sec:authorize>
     </ul>
     <br>
     <ul>

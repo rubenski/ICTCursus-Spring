@@ -19,5 +19,6 @@ public interface HighlightedCoursePeriodService {
 
     DateRange findDateRangeForHighlightStart(Category category);
 
-    List<HighlightedCoursePeriod> findCurrentAndFutureHighlightedCoursesForCompany(long categoryId, long companyId);
+    List<HighlightedCoursePeriod> findHighlightedForCompany(long companyId);
+
 }

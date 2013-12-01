@@ -4,6 +4,7 @@ import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.HighlightedCoursePeriod;
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.optionlists.NumberOfMonthsHighlighting;
 import nl.codebasesoftware.produx.domain.support.DateRange;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
@@ -36,7 +37,7 @@ import java.util.Locale;
  * Time: 18:46
  */
 @Controller
-public class AdminHighlightCoursesController {
+public class AdminHighlightedCourseControllerFrontend {
 
     private CategoryService categoryService;
     private CompanyService companyService;
@@ -46,8 +47,8 @@ public class AdminHighlightCoursesController {
     private HighlightedCoursePeriodService highlightedCoursePeriodService;
 
     @Autowired
-    public AdminHighlightCoursesController(CategoryService categoryService, CompanyService companyService, CourseService courseService, MessageSource messageSource,
-                                           HighlightedCourseFormValidator highlightedCourseFormValidator, HighlightedCoursePeriodService highlightedCoursePeriodService) {
+    public AdminHighlightedCourseControllerFrontend(CategoryService categoryService, CompanyService companyService, CourseService courseService, MessageSource messageSource,
+                                                    HighlightedCourseFormValidator highlightedCourseFormValidator, HighlightedCoursePeriodService highlightedCoursePeriodService) {
         this.categoryService = categoryService;
         this.companyService = companyService;
         this.courseService = courseService;
@@ -112,13 +113,15 @@ public class AdminHighlightCoursesController {
         return "forms/highlightCoursesForm";
     }
 
+
+
     private void setFormData(Model model, Locale locale, Long categoryId, HighlightCourseFormData formData) {
 
         Category category = categoryService.findById(categoryId);
-        Company currentlyLoggedInCompany = companyService.getCurrentlyLoggedInCompany();
+        CompanyEntityDTO currentlyLoggedInCompany = companyService.getCurrentlyLoggedInCompany();
 
         DateRange dateRange = highlightedCoursePeriodService.findDateRangeForHighlightStart(category.getId());
-        List<HighlightedCoursePeriod> highlightedCoursesForCompany = highlightedCoursePeriodService.findCurrentAndFutureHighlightedCoursesForCompany(category.getId(), currentlyLoggedInCompany.getId());
+        List<HighlightedCoursePeriod> highlightedCoursesForCompany = highlightedCoursePeriodService.findHighlightedForCompany(currentlyLoggedInCompany.getId());
 
 
         Calendar startDate = dateRange.getStartDate();

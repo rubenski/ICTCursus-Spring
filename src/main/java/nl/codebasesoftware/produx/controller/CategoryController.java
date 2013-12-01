@@ -5,6 +5,7 @@ import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
@@ -108,7 +109,7 @@ public class CategoryController {
             throw new ResourceNotFoundException();
         }
 
-        Company currentlyLoggedInCompany = companyService.getCurrentlyLoggedInCompany();
+        CompanyEntityDTO currentlyLoggedInCompany = companyService.getCurrentlyLoggedInCompany();
 
         List<Course> companyCoursesForCategory = new ArrayList<>();
         if (currentlyLoggedInCompany != null) {

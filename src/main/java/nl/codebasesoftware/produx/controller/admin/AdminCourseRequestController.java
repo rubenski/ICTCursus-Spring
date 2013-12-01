@@ -3,6 +3,7 @@ package nl.codebasesoftware.produx.controller.admin;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.CourseRequest;
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import nl.codebasesoftware.produx.domain.optionlists.NumberOfParticipants;
 import nl.codebasesoftware.produx.domain.optionlists.Prefixes;
@@ -56,7 +57,7 @@ public class AdminCourseRequestController {
     @RequestMapping(value = "/admin/courserequests", method = RequestMethod.GET)
     public String forCompany(Model model, Locale locale) {
 
-        Company currentlyLoggedInCompany = companyService.getCurrentlyLoggedInCompany();
+        CompanyEntityDTO currentlyLoggedInCompany = companyService.getCurrentlyLoggedInCompany();
         List<CourseRequest> courseRequests = requestService.findForCompany(currentlyLoggedInCompany.getId());
 
         model.addAttribute("mainContent", "content/adminCourseRequests");
@@ -123,7 +124,7 @@ public class AdminCourseRequestController {
     }
 
     private void currentCompanyIsOwner(CourseRequestEntityDTO request) {
-        Company currentlyLoggedInCompany = companyService.getCurrentlyLoggedInCompany();
+        CompanyEntityDTO currentlyLoggedInCompany = companyService.getCurrentlyLoggedInCompany();
         boolean isOwner = requestService.belongsTo(currentlyLoggedInCompany, request);
 
         if (!isOwner) {

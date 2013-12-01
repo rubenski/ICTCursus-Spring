@@ -3,6 +3,7 @@ package nl.codebasesoftware.produx.controller.admin;
 import nl.codebasesoftware.produx.domain.*;
 import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.ArticleSuggestionEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.formdata.EditArticleFormData;
 import nl.codebasesoftware.produx.service.ArticleService;
@@ -61,7 +62,7 @@ public class AdminEditArticleController {
     @RequestMapping(value = "/admin/articles", method = RequestMethod.GET)
     public String companyArticles(Model model, Locale locale) {
 
-        Company company = companyService.getCurrentlyLoggedInCompany();
+        CompanyEntityDTO company = companyService.getCurrentlyLoggedInCompany();
         List<ArticleEntityDTO> articles = articleService.findByCompany(company.getId());
         List<ArticleSuggestionEntityDTO> suggestions = articleSuggestionService.findForUser(CurrentUser.get());
 
@@ -102,7 +103,7 @@ public class AdminEditArticleController {
             throw new ResourceNotFoundException();
         }
 
-        Company currentCompany = companyService.getCurrentlyLoggedInCompany();
+        CompanyEntityDTO currentCompany = companyService.getCurrentlyLoggedInCompany();
         Company authorCompany = companyService.findByArticle(article);
 
         // Security

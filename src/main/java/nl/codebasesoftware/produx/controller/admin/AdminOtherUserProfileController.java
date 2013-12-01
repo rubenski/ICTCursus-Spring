@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
 import nl.codebasesoftware.produx.formdata.OtherUserProfileFormData;
@@ -60,7 +61,7 @@ public class AdminOtherUserProfileController {
     public String home(Model model, Locale locale) {
 
         String headerText = messageSource.getMessage("admin.sections.users", new Object[]{}, locale);
-        Company loggedInCompany = companyService.getCurrentlyLoggedInCompany();
+        CompanyEntityDTO loggedInCompany = companyService.getCurrentlyLoggedInCompany();
         List<UserProfile> profiles = userProfileService.findOthersInCompany(loggedInCompany.getId(), CurrentUser.get().getId());
 
         model.addAttribute("numberOfOtherUsers", profiles.size());

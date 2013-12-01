@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.service.impl;
 
 import nl.codebasesoftware.produx.dao.CompanyDao;
+import nl.codebasesoftware.produx.dao.CourseDao;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
@@ -41,11 +42,12 @@ public class CompanyServiceImpl implements CompanyService {
     private SolrService solrService;
 
 
+
     @Autowired
     public CompanyServiceImpl(CompanyDao companyDao, Properties properties, SolrService solrService) {
-        this.companyDao = companyDao;
         this.properties = properties;
         this.solrService = solrService;
+        this.companyDao = companyDao;
     }
 
     @Override
@@ -63,28 +65,31 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     @Transactional(readOnly = false)
     public void update(BindableCompany bindableCompany) {
-        Company company = getCurrentlyLoggedInCompany();
+        CompanyEntityDTO companyDTO = getCurrentlyLoggedInCompany();
+        Company company = companyDao.find(companyDTO.getId());
         bindableCompanyToCompany(bindableCompany, company);
-        Set<Course> courses = company.getCourses();
-        solrService.addOrUpdate(asCourseEntities(courses));
+        solrService.addOrUpdate(asCourseEntities(company.getCourses()));
         companyDao.persist(company);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Company getCurrentlyLoggedInCompany() {
+    public CompanyEntityDTO getCurrentlyLoggedInCompany() {
         UserProfileEntityDTO user = CurrentUser.get();
         if (user == null) {
             return null;
         }
         CompanyEntityDTO company = user.getCompany();
-        return companyDao.find(company.getId());
+        if(company == null){
+            return null;
+        }
+        return companyDao.find(company.getId()).toDTO();
     }
 
     @Override
     @Transactional(readOnly = true)
     public CompanySettingsFormData getCompanySettingsForCurrentCompany() {
-        Company company = getCurrentlyLoggedInCompany();
+        CompanyEntityDTO company = getCurrentlyLoggedInCompany();
         CompanySettingsFormData dto = new CompanySettingsFormData();
         dto.setCourseRequestEmailAddress(company.getCourseRequestEmailAddress());
         dto.setAllCoursesDeactivated(company.isAllCoursesDeactivated());
@@ -96,7 +101,8 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     @Transactional(readOnly = false)
     public void saveSettings(CompanySettingsFormData settingsDto) {
-        Company company = getCurrentlyLoggedInCompany();
+        CompanyEntityDTO companyDTO = getCurrentlyLoggedInCompany();
+        Company company = companyDao.find(companyDTO.getId());
         company.setAllCoursesDeactivated(settingsDto.isAllCoursesDeactivated());
         company.setBudgetTriggerAmount(settingsDto.getBudgetTriggerAmount());
         company.setCourseRequestEmailAddress(settingsDto.getCourseRequestEmailAddress());
@@ -150,7 +156,8 @@ public class CompanyServiceImpl implements CompanyService {
             e.printStackTrace();
         }
 
-        Company company = getCurrentlyLoggedInCompany();
+        CompanyEntityDTO companyEntityDTO = getCurrentlyLoggedInCompany();
+        Company company = companyDao.find(companyEntityDTO.getId());
         company.setNormalLogo(normalImageBytes);
         company.setSmallLogo(smallImageBytes);
     }

@@ -32,10 +32,11 @@ public class HighlightedCoursePeriodDaoJpa extends GenericDaoJpa<HighlightedCour
     }
 
     @Override
-    public List<HighlightedCoursePeriod> findCurrentAndFutureHighlightedCoursesForCompany(long categoryId, long companyId, Calendar time) {
-        return entityManager.createQuery("from HighlightedCoursePeriod hc inner join fetch hc.course c inner join fetch c.company comp where hc.endTime >= :time and comp.id = :companyId")
+    public List<HighlightedCoursePeriod> findCurrentAndFutureHighlightedCoursesForCompany(long companyId, Calendar time) {
+        return entityManager.createQuery("from HighlightedCoursePeriod hc inner join fetch hc.course c inner join fetch c.company comp inner join fetch hc.category where hc.endTime >= :time and comp.id = :companyId")
                 .setParameter("time", time, TemporalType.DATE)
                 .setParameter("companyId", companyId)
                 .getResultList();
     }
+
 }

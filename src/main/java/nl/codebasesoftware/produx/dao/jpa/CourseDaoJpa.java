@@ -97,12 +97,13 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
     }
 
     @Override
-    public List<Course> findNonHighlightedCourses(long categoryId, Calendar currentDate) {
+    public List<Course> findNonHighlightedCoursesForCompany(long companyId, long categoryId, Calendar currentDate) {
         String query = "from Course c " +
                 "inner join fetch c.company " +
                 "inner join fetch c.category " +
                 "left join fetch c.highlightedCoursePeriods cats " +
                 "where c.category.id = :categoryId " +
+                "and c.company.id = :companyId " +
                 "and (cats.category.id is null " +
                 "   or cats.category.id <> :categoryId " +
                 "   or (cats.category.id = :categoryId and :today not between cats.startTime and cats.endTime))" +
@@ -110,6 +111,7 @@ public class CourseDaoJpa extends GenericDaoJpa<Course> implements CourseDao {
 
         return entityManager.createQuery(query)
                 .setParameter("categoryId", categoryId)
+                .setParameter("companyId", companyId)
                 .setParameter("today", currentDate, TemporalType.DATE).getResultList();
     }
 

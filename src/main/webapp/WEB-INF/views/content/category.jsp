@@ -6,6 +6,7 @@
 
 <jsp:include page="../components/breadcrumb.jsp"/>
 <h1><spring:message code="generic.message.courses"/> ${category.name}</h1>
+<%--
 <sec:authorize access="hasRole('ROLE_PERM_edit_company_advertisements')">
     <c:if test="${showLightboxLink}">
         <div id="advertising-overlay-link-container">
@@ -13,6 +14,7 @@
         </div>
     </c:if>
 </sec:authorize>
+--%>
 <c:forEach items="${highlighted}" var="course">
     <c:set var="course" scope="request" value="${course}" />
     <c:set var="highlightMe" scope="request" value="1" />

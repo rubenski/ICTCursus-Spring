@@ -87,8 +87,10 @@ public class HighlightedCoursePeriodServiceImpl implements HighlightedCoursePeri
         return new DateRange(startDate, endDate);
     }
 
-    public List<HighlightedCoursePeriod> findCurrentAndFutureHighlightedCoursesForCompany(long categoryId, long companyId) {
-        return categoryHighlightPeriodDao.findCurrentAndFutureHighlightedCoursesForCompany(categoryId, companyId, Calendar.getInstance());
+    @Override
+    @Transactional(readOnly = true)
+    public List<HighlightedCoursePeriod> findHighlightedForCompany(long companyId) {
+        return categoryHighlightPeriodDao.findCurrentAndFutureHighlightedCoursesForCompany(companyId, Calendar.getInstance());
     }
 
     private Calendar findFirstStartDate(List<HighlightedCoursePeriod> currentAndFutureHighlightedCourses, int highlightedCoursesPerCategory) {

@@ -1,7 +1,9 @@
 package nl.codebasesoftware.produx.service.impl;
 
+import nl.codebasesoftware.produx.dao.CategoryHighlightPeriodDao;
 import nl.codebasesoftware.produx.dao.CompanyDao;
 import nl.codebasesoftware.produx.dao.CourseDao;
+import nl.codebasesoftware.produx.dao.jpa.HighlightedCoursePeriodDaoJpa;
 import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
@@ -37,17 +39,20 @@ public class CourseServiceImpl implements CourseService {
     private ConversionService conversionService;
     private CompanyDao companyDao;
     private SolrService solrService;
+    private CategoryHighlightPeriodDao categoryHighlightPeriodDao;
 
 
     @Autowired
     public CourseServiceImpl(CourseDao courseDao,
                              SystemPropertyService systemPropertyService,
-                             ConversionService conversionService, CompanyDao companyDao, SolrService solrService) {
+                             ConversionService conversionService, CompanyDao companyDao, SolrService solrService,
+                             CategoryHighlightPeriodDao categoryHighlightPeriodDao) {
         this.courseDao = courseDao;
         this.systemPropertyService = systemPropertyService;
         this.conversionService = conversionService;
         this.companyDao = companyDao;
         this.solrService = solrService;
+        this.categoryHighlightPeriodDao = categoryHighlightPeriodDao;
     }
 
     @Override
@@ -55,12 +60,12 @@ public class CourseServiceImpl implements CourseService {
     public List<ListingCourseDTO> findHighlightedCourses(long categoryId) {
         return asListingCourses(courseDao.findHighlightedCourses(categoryId, Calendar.getInstance()));
     }
-
+     /*
     @Override
     @Transactional(readOnly = true)
-    public List<Course> findNonHighlightedCourses(long categoryId) {
-        return courseDao.findNonHighlightedCourses(categoryId, Calendar.getInstance());
-    }
+    public List<Course> findNonHighlightedCoursesForCompany(long categoryId) {
+        return courseDao.findNonHighlightedCoursesForCompany(categoryId, Calendar.getInstance());
+    }    */
 
     @Override
     @Transactional(readOnly = true)
@@ -134,12 +139,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Course> findNonHighlightedCoursesForCompanyAndCategory(Company currentlyLoggedInCompany, Category category) {
-        List<Course> highLightedCourses = findCoursesForCompanyAndCategory(category.getId(), currentlyLoggedInCompany.getId());
-        List<Course> courses = courseDao.findCoursesForCompanyAndCategory(currentlyLoggedInCompany.getId(), category.getId());
-        courses.removeAll(highLightedCourses);
-
-        return courses;
+    public List<Course> findNonHighlightedCoursesForCompanyAndCategory(CompanyEntityDTO currentlyLoggedInCompany, Category category) {
+        //TODO: decide what exactly to return here.
+        return new ArrayList<>();
     }
 
     @Override

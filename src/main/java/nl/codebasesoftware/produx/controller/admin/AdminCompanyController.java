@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.Company;
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.optionlists.ListOptions;
 import nl.codebasesoftware.produx.formdata.BindableCompany;
 import nl.codebasesoftware.produx.formdata.BindableFileUpload;
@@ -47,7 +48,7 @@ public class AdminCompanyController {
     @RequestMapping(value = "/admin/company", method = RequestMethod.GET)
     public String getCompanyForm(Model model, Locale locale) {
 
-        Company company = companyService.getCurrentlyLoggedInCompany();
+        CompanyEntityDTO company = companyService.getCurrentlyLoggedInCompany();
 
         model.addAttribute("headerText", messageSource.getMessage("admin.sections.companyprofile", new Object[]{}, locale));
         model.addAttribute("bindableFileUpload", new BindableFileUpload());
@@ -70,7 +71,7 @@ public class AdminCompanyController {
             valid = "true";
         }
 
-        model.addAttribute("headerText", messageSource.getMessage("admin.sections.companyprofile", new Object[]{}, locale));
+        model.addAttribute("headerText", messageSource.getMessage("admin.sections.companyinfo", new Object[]{}, locale));
         model.addAttribute("bindableFileUpload", new BindableFileUpload());
         model.addAttribute("countries", listOptions.getCountries(locale));
         model.addAttribute("bindableCompany", bindableCompany);
@@ -85,7 +86,7 @@ public class AdminCompanyController {
     public
     @ResponseBody
     BindableCompany getCompany() {
-        Company company = companyService.getCurrentlyLoggedInCompany();
+        CompanyEntityDTO company = companyService.getCurrentlyLoggedInCompany();
         return company.toBindableCompany();
     }
 

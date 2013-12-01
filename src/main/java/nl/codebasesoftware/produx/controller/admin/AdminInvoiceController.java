@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.Company;
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.InvoiceEntityDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.service.CompanyService;
@@ -48,7 +49,7 @@ public class AdminInvoiceController {
                                Model model, Locale locale) {
 
         model.addAttribute("mainContent", "content/admininvoice");
-        Company company = companyService.getCurrentlyLoggedInCompany();
+        CompanyEntityDTO company = companyService.getCurrentlyLoggedInCompany();
 
         if(year == null){
             Calendar calendar = Calendar.getInstance();
