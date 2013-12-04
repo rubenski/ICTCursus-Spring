@@ -133,6 +133,7 @@
                 <bean class="nl.codebasesoftware.produx.conversion.SolrDocumentToListingCourse"/>
                 <bean class="nl.codebasesoftware.produx.conversion.CourseEntityDTOToBindableCourse"/>
                 <bean class="nl.codebasesoftware.produx.conversion.CourseRequestEntityToInvoiceRecord"/>
+                <bean class="nl.codebasesoftware.produx.conversion.ApplyCompanyFormDataToCompany"/>
             </set>
         </property>
     </bean>

@@ -2,9 +2,7 @@ package nl.codebasesoftware.produx.domain.dto.entity;
 
 import nl.codebasesoftware.produx.domain.dto.LogoUrl;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCompanyDTO;
-import nl.codebasesoftware.produx.formdata.BindableCompany;
-
-import javax.persistence.Transient;
+import nl.codebasesoftware.produx.formdata.CompanyFormData;
 
 /**
  * User: rvanloen
@@ -168,23 +166,23 @@ public class CompanyEntityDTO extends ListingCompanyDTO {
     }
 
 
-    public BindableCompany toBindableCompany() {
-        BindableCompany bindableCompany = new BindableCompany();
+    public CompanyFormData toCompanyFormData() {
+        CompanyFormData companyFormData = new CompanyFormData();
 
-        bindableCompany.setAddress(address);
-        bindableCompany.setChamberOfCommerceNumber(tradeNumber);
-        bindableCompany.setCity(city);
-        bindableCompany.setCountry(country);
-        bindableCompany.setDescription(description);
-        bindableCompany.setEmail(email);
-        bindableCompany.setId(id);
-        bindableCompany.setName(name);
-        bindableCompany.setPhone(phone);
-        bindableCompany.setVatNumber(vatNumber);
-        bindableCompany.setZipCode(zipCode);
-        bindableCompany.setHasLogo(hasLogo());
-        bindableCompany.setCompanyPrefix(companyPrefix);
+        companyFormData.setAddress(address);
+        companyFormData.setTradeNumber(tradeNumber);
+        companyFormData.setCity(city);
+        companyFormData.setCountry(country);
+        companyFormData.setDescription(description);
+        companyFormData.setEmail(email);
+        companyFormData.setId(id);
+        companyFormData.setName(name);
+        companyFormData.setPhone(phone);
+        companyFormData.setVatNumber(vatNumber);
+        companyFormData.setZipCode(zipCode);
+        companyFormData.setHasLogo(hasLogo());
+        companyFormData.setCompanyPrefix(companyPrefix);
 
-        return bindableCompany;
+        return companyFormData;
     }
 }

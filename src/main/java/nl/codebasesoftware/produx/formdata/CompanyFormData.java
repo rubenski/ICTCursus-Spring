@@ -7,7 +7,7 @@ import java.io.Serializable;
  * Date: 27-12-12
  * Time: 11:38
  */
-public class BindableCompany implements Serializable {
+public class CompanyFormData implements Serializable {
 
     private Long id;
     private String email;
@@ -16,12 +16,13 @@ public class BindableCompany implements Serializable {
     private String zipCode;
     private String description;
     private String vatNumber;
-    private String chamberOfCommerceNumber;
+    private String tradeNumber;
     private String phone;
     private String city;
     private String country;
     private boolean hasLogo;
     private String companyPrefix;
+    private CompanyProductSettingsFormData productSettings;
 
 
     public String getAddress() {
@@ -32,12 +33,12 @@ public class BindableCompany implements Serializable {
         this.address = address;
     }
 
-    public String getChamberOfCommerceNumber() {
-        return chamberOfCommerceNumber;
+    public String getTradeNumber() {
+        return tradeNumber;
     }
 
-    public void setChamberOfCommerceNumber(String chamberOfCommerceNumber) {
-        this.chamberOfCommerceNumber = chamberOfCommerceNumber;
+    public void setTradeNumber(String tradeNumber) {
+        this.tradeNumber = tradeNumber;
     }
 
     public String getCity() {
@@ -126,5 +127,13 @@ public class BindableCompany implements Serializable {
 
     public void setCompanyPrefix(String companyPrefix) {
         this.companyPrefix = companyPrefix;
+    }
+
+    public CompanyProductSettingsFormData getProductSettings() {
+        return productSettings;
+    }
+
+    public void setProductSettings(CompanyProductSettingsFormData productSettings) {
+        this.productSettings = productSettings;
     }
 }

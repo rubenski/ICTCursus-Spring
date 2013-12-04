@@ -1,5 +1,6 @@
 package nl.codebasesoftware.produx.formdata;
 
+import nl.codebasesoftware.produx.domain.dto.entity.ProductSettingsEntityDTO;
 import nl.codebasesoftware.produx.domain.support.CourseListingType;
 
 import java.util.List;
@@ -9,12 +10,19 @@ import java.util.List;
  * Date: 30-11-13
  * Time: 16:51
  */
+
 public class CompanyProductSettingsFormData {
 
     private CourseListingType courseListingType;
     private boolean companyInfoActive;
     private boolean externalCourseLinksActive;
     private CourseListingType[] listingTypes = CourseListingType.values();
+
+    public CompanyProductSettingsFormData(ProductSettingsEntityDTO productSettings) {
+        courseListingType = productSettings.getCourseListingType();
+        companyInfoActive = productSettings.isCompanyInfoActive();
+        externalCourseLinksActive = productSettings.isExternalCourseLinksActive();
+    }
 
     public CourseListingType getCourseListingType() {
 
@@ -49,3 +57,4 @@ public class CompanyProductSettingsFormData {
         this.listingTypes = listingTypes;
     }
 }
+

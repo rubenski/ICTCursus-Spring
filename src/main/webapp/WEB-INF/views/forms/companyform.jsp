@@ -5,7 +5,7 @@
 
 <jsp:include page="../components/adminyourcompanytabs.jsp"/>
 
-<form:form method="post" modelAttribute="bindableCompany" id="courseForm">
+<form:form method="post" modelAttribute="companyFormData" id="courseForm">
 
 
     <form:hidden path="id"/>
@@ -62,9 +62,9 @@
         <form:errors path="vatNumber" cssClass="form-error"/>
     </div>
     <div class="default-block">
-        <form:label path="chamberOfCommerceNumber"><spring:message code="company.form.chamberofcommercenumber"/></form:label>
-        <form:input path="chamberOfCommerceNumber" cssClass="form-input" cssErrorClass="form-input-error" size="15" maxlength="15"/>
-        <form:errors path="chamberOfCommerceNumber" cssClass="form-error"/>
+        <form:label path="tradeNumber"><spring:message code="company.form.chamberofcommercenumber"/></form:label>
+        <form:input path="tradeNumber" cssClass="form-input" cssErrorClass="form-input-error" size="15" maxlength="15"/>
+        <form:errors path="tradeNumber" cssClass="form-error"/>
     </div>
     <div class="default-block">
         <form:label path="description">

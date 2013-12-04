@@ -284,4 +284,5 @@ public class CourseEntityDTO extends DomainEntityDTO implements WebVisitable {
         if (regions == null || regions.size() == 0) return false;
         return true;
     }
+
 }

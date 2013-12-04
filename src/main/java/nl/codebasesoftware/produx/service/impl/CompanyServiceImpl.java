@@ -1,14 +1,13 @@
 package nl.codebasesoftware.produx.service.impl;
 
 import nl.codebasesoftware.produx.dao.CompanyDao;
-import nl.codebasesoftware.produx.dao.CourseDao;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
-import nl.codebasesoftware.produx.formdata.BindableCompany;
+import nl.codebasesoftware.produx.formdata.CompanyFormData;
 import nl.codebasesoftware.produx.formdata.BindableFileUpload;
 import nl.codebasesoftware.produx.formdata.CompanySettingsFormData;
 import nl.codebasesoftware.produx.service.CompanyService;
@@ -18,6 +17,7 @@ import nl.codebasesoftware.produx.util.ImageUtil;
 import nl.codebasesoftware.produx.properties.Properties;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -27,7 +27,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 /**
  * User: rvanloen
@@ -38,16 +37,18 @@ import java.util.Set;
 public class CompanyServiceImpl implements CompanyService {
 
     private CompanyDao companyDao;
+    private ConversionService conversionService;
     private Properties properties;
     private SolrService solrService;
 
 
 
     @Autowired
-    public CompanyServiceImpl(CompanyDao companyDao, Properties properties, SolrService solrService) {
+    public CompanyServiceImpl(CompanyDao companyDao, Properties properties, SolrService solrService, ConversionService conversionService) {
         this.properties = properties;
         this.solrService = solrService;
         this.companyDao = companyDao;
+        this.conversionService = conversionService;
     }
 
     @Override
@@ -64,10 +65,13 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     @Transactional(readOnly = false)
-    public void update(BindableCompany bindableCompany) {
+    public void update(CompanyFormData companyFormData) {
         CompanyEntityDTO companyDTO = getCurrentlyLoggedInCompany();
         Company company = companyDao.find(companyDTO.getId());
-        bindableCompanyToCompany(bindableCompany, company);
+
+        // bindableCompanyToCompany(companyFormData, company);
+
+        company = conversionService.convert(companyFormData, Company.class);
         solrService.addOrUpdate(asCourseEntities(company.getCourses()));
         companyDao.persist(company);
     }
@@ -83,7 +87,8 @@ public class CompanyServiceImpl implements CompanyService {
         if(company == null){
             return null;
         }
-        return companyDao.find(company.getId()).toDTO();
+        Company company1 = companyDao.find(company.getId());
+        return company1.toDTO();
     }
 
     @Override
@@ -108,9 +113,9 @@ public class CompanyServiceImpl implements CompanyService {
         company.setCourseRequestEmailAddress(settingsDto.getCourseRequestEmailAddress());
     }
 
-    private void bindableCompanyToCompany(BindableCompany bindableCompany, Company company) {
+    private void bindableCompanyToCompany(CompanyFormData companyFormData, Company company) {
         try {
-            BeanUtils.copyProperties(company, bindableCompany);
+            BeanUtils.copyProperties(company, companyFormData);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {

@@ -1,10 +1,7 @@
 package nl.codebasesoftware.produx.domain;
 
 import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
-import nl.codebasesoftware.produx.domain.dto.entity.ProductSettingsEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCompanyDTO;
-import nl.codebasesoftware.produx.domain.support.CourseListingType;
-import nl.codebasesoftware.produx.formdata.BindableCompany;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -220,8 +217,6 @@ public class Company implements DomainEntity, Serializable {
         this.productSettings = productSettings;
     }
 
-
-
     @Transient
     public boolean hasLogo() {
         return normalLogo != null;
@@ -249,6 +244,7 @@ public class Company implements DomainEntity, Serializable {
         dto.setId(id);
         dto.setName(name);
         dto.setLogo(hasLogo());
+        dto.setProductSettings(productSettings.toDTO());
         return dto;
     }
 
@@ -273,11 +269,7 @@ public class Company implements DomainEntity, Serializable {
         companyDTO.setLogo(hasLogo());
         companyDTO.setCompanyPrefix(companyPrefix);
 
-        ProductSettingsEntityDTO productSettings = new ProductSettingsEntityDTO();
-        productSettings.setCompanyInfoActive(productSettings.isCompanyInfoActive());
-        productSettings.setCourseListingType(productSettings.getCourseListingType());
-        productSettings.setExternalCourseLinksActive(productSettings.isExternalCourseLinksActive());
-        companyDTO.setProductSettings(productSettings);
+        companyDTO.setProductSettings(productSettings.toDTO());
 
 
         return companyDTO;

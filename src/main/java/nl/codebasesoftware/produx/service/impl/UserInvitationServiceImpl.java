@@ -8,6 +8,7 @@ import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Role;
 import nl.codebasesoftware.produx.domain.UserInvitation;
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.formdata.AccountActivationFormData;
@@ -160,7 +161,7 @@ public class UserInvitationServiceImpl implements UserInvitationService {
 
 
     private void setCompanyId(BindableUserInvitation userInvitation) {
-        Company currentlyLoggedInCompany = companyService.getCurrentlyLoggedInCompany();
+        CompanyEntityDTO currentlyLoggedInCompany = companyService.getCurrentlyLoggedInCompany();
         userInvitation.setCompanyId(currentlyLoggedInCompany.getId());
     }
 

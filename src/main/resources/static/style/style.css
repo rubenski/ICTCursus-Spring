@@ -231,6 +231,10 @@ body {
     display: block;
 }
 
+#maincontent .course-list-item.simple h2 {
+    font-weight: normal;
+}
+
 #maincontent a h2 {
     margin-bottom: 0;
 }
@@ -302,6 +306,10 @@ body {
     background-image: url('/static/img/dash.gif');
     background-repeat: repeat-x;
     background-position: bottom left;
+}
+
+#main #innermain #maincontent .course-list-item.simple {
+    min-height: 50px;
 }
 
 #main #innermain #maincontent .course-list-item.last {
@@ -466,6 +474,8 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
 .white {
     background-color: white;
 }
+
+
 
 
 

@@ -1,10 +1,9 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.domain.dto.entity.ProductSettingsEntityDTO;
 import nl.codebasesoftware.produx.domain.support.CourseListingType;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 /**
  * User: rvanloen
@@ -18,6 +17,7 @@ public class ProductSettings {
     private boolean companyInfoActive;
     private boolean externalCourseLinksActive;
 
+    @Column(columnDefinition="tinyint(1) default 0")
     public CourseListingType getCourseListingType() {
         return courseListingType;
     }
@@ -26,6 +26,7 @@ public class ProductSettings {
         this.courseListingType = courseListingType;
     }
 
+    @Column(columnDefinition="tinyint(1) default 0")
     public boolean isCompanyInfoActive() {
         return companyInfoActive;
     }
@@ -34,11 +35,20 @@ public class ProductSettings {
         this.companyInfoActive = companyInfoActive;
     }
 
+    @Column(columnDefinition="tinyint(1) default 0")
     public boolean isExternalCourseLinksActive() {
         return externalCourseLinksActive;
     }
 
     public void setExternalCourseLinksActive(boolean externalCourseLinksActive) {
         this.externalCourseLinksActive = externalCourseLinksActive;
+    }
+
+    public ProductSettingsEntityDTO toDTO(){
+        ProductSettingsEntityDTO pseDTO = new ProductSettingsEntityDTO();
+        pseDTO.setExternalCourseLinksActive(externalCourseLinksActive);
+        pseDTO.setCompanyInfoActive(companyInfoActive);
+        pseDTO.setCourseListingType(courseListingType);
+        return pseDTO;
     }
 }

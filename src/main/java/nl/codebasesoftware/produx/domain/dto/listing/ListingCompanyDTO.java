@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.domain.dto.listing;
 
 import nl.codebasesoftware.produx.domain.dto.LogoUrl;
 import nl.codebasesoftware.produx.domain.dto.entity.DomainEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.ProductSettingsEntityDTO;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,6 +16,7 @@ public class ListingCompanyDTO extends DomainEntityDTO {
     protected Long id;
     protected String name;
     protected boolean logo;
+    protected ProductSettingsEntityDTO productSettings;
 
     public Long getId() {
         return id;
@@ -49,5 +51,11 @@ public class ListingCompanyDTO extends DomainEntityDTO {
         return logo;
     }
 
+    public ProductSettingsEntityDTO getProductSettings() {
+        return productSettings;
+    }
 
+    public void setProductSettings(ProductSettingsEntityDTO productSettings) {
+        this.productSettings = productSettings;
+    }
 }

@@ -1,9 +1,11 @@
 package nl.codebasesoftware.produx.domain;
 
+import com.google.common.base.Joiner;
 import nl.codebasesoftware.produx.comparator.RankComparator;
 import nl.codebasesoftware.produx.domain.dto.entity.*;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 import nl.codebasesoftware.produx.service.business.url.CourseUrl;
+import nl.codebasesoftware.produx.util.collection.EntityCollectionConverter;
 import org.springframework.beans.factory.annotation.Configurable;
 
 import javax.persistence.*;
@@ -306,7 +308,18 @@ public class Course implements DomainEntity {
         listingCourse.setCategory(category.toDTO());
         listingCourse.setCompany(company.toListingCompanyDTO());
         listingCourse.setListDescription(listDescription);
+        listingCourse.setTags(new EntityCollectionConverter<Tag, TagEntityDTO>().convert(tags));
+        listingCourse.setTagList(createTagList());
         return listingCourse;
+    }
+
+    private String createTagList(){
+        StringBuilder builder = new StringBuilder();
+        List<Tag> tagList = new ArrayList<>(tags);
+        for (int i = 0; i < tagList.size(); i++) {
+            builder.append(tagList.get(i).getName()).append(i < tagList.size() - 1 ? ", " : "");
+        }
+        return builder.toString();
     }
 
     @Transient

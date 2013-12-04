@@ -1,9 +1,8 @@
 package nl.codebasesoftware.produx.controller.admin;
 
-import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.optionlists.ListOptions;
-import nl.codebasesoftware.produx.formdata.BindableCompany;
+import nl.codebasesoftware.produx.formdata.CompanyFormData;
 import nl.codebasesoftware.produx.formdata.BindableFileUpload;
 import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.validator.CompanyFormValidator;
@@ -53,7 +52,7 @@ public class AdminCompanyController {
         model.addAttribute("headerText", messageSource.getMessage("admin.sections.companyprofile", new Object[]{}, locale));
         model.addAttribute("bindableFileUpload", new BindableFileUpload());
         model.addAttribute("countries", listOptions.getCountries(locale));
-        model.addAttribute("bindableCompany", company.toBindableCompany());
+        model.addAttribute("companyFormData", company.toCompanyFormData());
         model.addAttribute("mainContent", "forms/companyform");
         model.addAttribute("companyform", true);
 
@@ -61,20 +60,20 @@ public class AdminCompanyController {
     }
 
     @RequestMapping(value = "/admin/company", method = RequestMethod.POST)
-    public String updateCompany(@ModelAttribute("bindableCompany") BindableCompany bindableCompany, BindingResult result, Model model, Locale locale) {
+    public String updateCompany(@ModelAttribute("companyFormData") CompanyFormData companyFormData, BindingResult result, Model model, Locale locale) {
 
-        validator.validate(bindableCompany, result);
+        validator.validate(companyFormData, result);
         String valid = "false";
 
         if (!result.hasErrors()) {
-            companyService.update(bindableCompany);
+            companyService.update(companyFormData);
             valid = "true";
         }
 
         model.addAttribute("headerText", messageSource.getMessage("admin.sections.companyinfo", new Object[]{}, locale));
         model.addAttribute("bindableFileUpload", new BindableFileUpload());
         model.addAttribute("countries", listOptions.getCountries(locale));
-        model.addAttribute("bindableCompany", bindableCompany);
+        model.addAttribute("companyFormData", companyFormData);
         model.addAttribute("valid", valid);
         model.addAttribute("mainContent", "forms/companyform");
         model.addAttribute("companyform", true);
@@ -85,9 +84,9 @@ public class AdminCompanyController {
     @RequestMapping(value = "/company/getcurrent", method = RequestMethod.GET)
     public
     @ResponseBody
-    BindableCompany getCompany() {
+    CompanyFormData getCompany() {
         CompanyEntityDTO company = companyService.getCurrentlyLoggedInCompany();
-        return company.toBindableCompany();
+        return company.toCompanyFormData();
     }
 
 

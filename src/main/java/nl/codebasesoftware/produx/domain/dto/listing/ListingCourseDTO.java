@@ -2,8 +2,11 @@ package nl.codebasesoftware.produx.domain.dto.listing;
 
 import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.DomainEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.TagEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.generic.WebVisitable;
 import nl.codebasesoftware.produx.service.business.url.CourseUrl;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,8 +22,9 @@ public class ListingCourseDTO extends DomainEntityDTO implements WebVisitable {
     private String listDescription;
     private ListingCompanyDTO company;
     private CategoryEntityDTO category;
-    private String tagList;
     private boolean highlighted;
+    private List<TagEntityDTO> tags;
+    private String tagList;
 
     @Override
     public Long getId() {
@@ -71,12 +75,20 @@ public class ListingCourseDTO extends DomainEntityDTO implements WebVisitable {
         this.highlighted = highlighted;
     }
 
+    public List<TagEntityDTO> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<TagEntityDTO> tags) {
+        this.tags = tags;
+    }
+
     public String getTagList() {
         return tagList;
     }
 
-    public void setTagList(String tags) {
-        this.tagList = tags;
+    public void setTagList(String tagList) {
+        this.tagList = tagList;
     }
 
     @Override
