@@ -15,7 +15,6 @@
 
         ${course.longDescription}
 
-
         <c:if test="${scrolldown}">
             <span id="scrollhere"/>
         </c:if>

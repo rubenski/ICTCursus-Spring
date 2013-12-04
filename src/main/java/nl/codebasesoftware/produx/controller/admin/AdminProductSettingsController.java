@@ -41,8 +41,10 @@ public class AdminProductSettingsController {
 
     @RequestMapping(value = "/admin/products", method = RequestMethod.POST)
     public String saveListingTypes(Model model, Locale locale, @ModelAttribute("productSettings") CompanyProductSettingsFormData companyFormData){
+        companyService.update(companyFormData);
         model.addAttribute("headerText", messageSource.getMessage("products.listingtype.title", new Object[]{}, locale));
         model.addAttribute("mainContent", "content/adminlistingtypes");
+        model.addAttribute("valid", "true");
         setData(model);
         return "adminMain";
     }
@@ -56,9 +58,11 @@ public class AdminProductSettingsController {
     }
 
     @RequestMapping(value = "/admin/products/companyinfo", method = RequestMethod.POST)
-    public String saveAdminCompanyInfoProduct(Model model, Locale locale, @ModelAttribute("company") CompanyFormData companyFormData){
+    public String saveAdminCompanyInfoProduct(Model model, Locale locale, @ModelAttribute("productSettings") CompanyProductSettingsFormData productSettings){
+        companyService.update(productSettings);
         model.addAttribute("headerText", messageSource.getMessage("products.listingtype.title", new Object[]{}, locale));
         model.addAttribute("mainContent", "content/admincompanyinfoproduct");
+        model.addAttribute("valid", "true");
         setData(model);
         return "adminMain";
     }
@@ -81,7 +85,7 @@ public class AdminProductSettingsController {
 
     private void setData(Model model){
         CompanyEntityDTO currentlyLoggedInCompany = companyService.getCurrentlyLoggedInCompany();
-        CompanyProductSettingsFormData formData = new CompanyProductSettingsFormData(currentlyLoggedInCompany.getProductSettings());
+        CompanyProductSettingsFormData formData = new CompanyProductSettingsFormData(currentlyLoggedInCompany);
         model.addAttribute("productSettings",formData);
     }
 }

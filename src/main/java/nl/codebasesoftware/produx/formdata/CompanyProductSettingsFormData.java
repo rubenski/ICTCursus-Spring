@@ -1,5 +1,6 @@
 package nl.codebasesoftware.produx.formdata;
 
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.ProductSettingsEntityDTO;
 import nl.codebasesoftware.produx.domain.support.CourseListingType;
 
@@ -16,12 +17,17 @@ public class CompanyProductSettingsFormData {
     private CourseListingType courseListingType;
     private boolean companyInfoActive;
     private boolean externalCourseLinksActive;
+    private long companyId;
     private CourseListingType[] listingTypes = CourseListingType.values();
 
-    public CompanyProductSettingsFormData(ProductSettingsEntityDTO productSettings) {
-        courseListingType = productSettings.getCourseListingType();
-        companyInfoActive = productSettings.isCompanyInfoActive();
-        externalCourseLinksActive = productSettings.isExternalCourseLinksActive();
+    public CompanyProductSettingsFormData(CompanyEntityDTO company) {
+        courseListingType = company.getProductSettings().getCourseListingType();
+        companyInfoActive = company.getProductSettings().isCompanyInfoActive();
+        externalCourseLinksActive = company.getProductSettings().isExternalCourseLinksActive();
+        companyId = company.getId();
+    }
+
+    public CompanyProductSettingsFormData() {
     }
 
     public CourseListingType getCourseListingType() {
@@ -55,6 +61,14 @@ public class CompanyProductSettingsFormData {
 
     public void setListingTypes(CourseListingType[] listingTypes) {
         this.listingTypes = listingTypes;
+    }
+
+    public long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(long companyId) {
+        this.companyId = companyId;
     }
 }
 

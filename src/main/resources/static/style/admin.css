@@ -360,6 +360,7 @@ a.subbutton.disabled-button {
 
 .default-block p {
     padding: 0px 10px 15px 0px;
+    line-height: 18px;
 }
 
 #tinymce p {

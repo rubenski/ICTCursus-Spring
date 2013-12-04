@@ -19,27 +19,37 @@
         <form:errors path="name" cssClass="form-error"/>
     </div>
     <div class="default-block logo">
-        <form:label path="hasLogo"><spring:message code="company.form.logo"/></form:label>
+        <form:label path="hasLogo"><spring:message code="company.form.logo"/>
+            <span><spring:message code="company.logo.helptext"/></span>
+        </form:label>
         <a href="#" class="lightbox"><spring:message code="company.upload.logo"/></a>
         <div id="companyLogo"></div>
     </div>
     <div class="default-block">
-        <form:label path="address"><spring:message code="company.form.address"/></form:label>
+        <form:label path="address"><spring:message code="company.form.address"/>
+            <span><spring:message code="company.address.helptext"/></span>
+        </form:label>
         <form:input path="address" cssClass="form-input" cssErrorClass="form-input-error" size="50" maxlength="60"/>
         <form:errors path="address" cssClass="form-error"/>
     </div>
     <div class="default-block">
-        <form:label path="zipCode"><spring:message code="company.form.zipcode"/></form:label>
+        <form:label path="zipCode"><spring:message code="company.form.zipcode"/>
+            <span><spring:message code="company.zip.helptext"/></span>
+        </form:label>
         <form:input path="zipCode" cssClass="form-input" cssErrorClass="form-input-error" size="6" maxlength="6"/>
         <form:errors path="zipCode" cssClass="form-error"/>
     </div>
     <div class="default-block">
-        <form:label path="city"><spring:message code="company.form.city"/></form:label>
+        <form:label path="city"><spring:message code="company.form.city"/>
+            <span><spring:message code="company.city.helptext"/></span>
+        </form:label>
         <form:input path="city" cssClass="form-input" cssErrorClass="form-input-error" size="30" maxlength="30"/>
         <form:errors path="city" cssClass="form-error"/>
     </div>
     <div class="default-block">
-        <form:label path="country"><spring:message code="company.form.country"/></form:label>
+        <form:label path="country"><spring:message code="company.form.country"/>
+            <span><spring:message code="company.country.helptext"/></span>
+        </form:label>
         <form:select path="country" cssErrorClass="form-input-error">
             <form:option value="-1" label=""/>
             <form:options items="${countries}" itemValue="code" itemLabel="name"/>
@@ -47,12 +57,15 @@
         <form:errors path="country" cssClass="form-error"/>
     </div>
     <div class="default-block">
-        <form:label path="email"><spring:message code="company.form.email"/></form:label>
+        <form:label path="email"><spring:message code="company.form.email"/>
+            <span><spring:message code="company.email.helptext"/></span>
+        </form:label>
         <form:input path="email" cssClass="form-input" cssErrorClass="form-input-error" size="50" maxlength="50"/>
         <form:errors path="email" cssClass="form-error"/>
     </div>
     <div class="default-block">
-        <form:label path="phone"><spring:message code="company.form.phone"/></form:label>
+        <form:label path="phone"><spring:message code="company.form.phone"/>
+            <span><spring:message code="company.phone.helptext"/></span></form:label>
         <form:input path="phone" cssClass="form-input" cssErrorClass="form-input-error" size="15" maxlength="15"/>
         <form:errors path="phone" cssClass="form-error"/>
     </div>
@@ -67,8 +80,8 @@
         <form:errors path="tradeNumber" cssClass="form-error"/>
     </div>
     <div class="default-block">
-        <form:label path="description">
-            <spring:message code="company.description"/>
+        <form:label path="description"><spring:message code="company.description"/>
+            <span><spring:message code="company.description.helptext"/></span>
         </form:label>
         <form:textarea rows="12" path="description" cssErrorClass="form-input-error" cols="100"/>
         <form:errors path="description" cssClass="form-error"/>

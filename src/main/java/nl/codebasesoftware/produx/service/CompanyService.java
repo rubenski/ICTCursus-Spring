@@ -6,6 +6,7 @@ import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.formdata.CompanyFormData;
 import nl.codebasesoftware.produx.formdata.BindableFileUpload;
+import nl.codebasesoftware.produx.formdata.CompanyProductSettingsFormData;
 import nl.codebasesoftware.produx.formdata.CompanySettingsFormData;
 
 /**
@@ -17,6 +18,8 @@ public interface CompanyService {
     CompanyEntityDTO findByUserProfile(UserProfileEntityDTO userProfile);
 
     void update(CompanyFormData companyFormData);
+
+    void update(CompanyProductSettingsFormData formData);
 
     CompanyEntityDTO getCurrentlyLoggedInCompany();
 

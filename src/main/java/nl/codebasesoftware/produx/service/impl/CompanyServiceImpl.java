@@ -9,6 +9,7 @@ import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.formdata.CompanyFormData;
 import nl.codebasesoftware.produx.formdata.BindableFileUpload;
+import nl.codebasesoftware.produx.formdata.CompanyProductSettingsFormData;
 import nl.codebasesoftware.produx.formdata.CompanySettingsFormData;
 import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.service.SolrService;
@@ -66,13 +67,15 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     @Transactional(readOnly = false)
     public void update(CompanyFormData companyFormData) {
-        CompanyEntityDTO companyDTO = getCurrentlyLoggedInCompany();
-        Company company = companyDao.find(companyDTO.getId());
-
-        // bindableCompanyToCompany(companyFormData, company);
-
-        company = conversionService.convert(companyFormData, Company.class);
+        Company company = conversionService.convert(companyFormData, Company.class);
         solrService.addOrUpdate(asCourseEntities(company.getCourses()));
+        companyDao.persist(company);
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public void update(CompanyProductSettingsFormData productSettingsFormData) {
+        Company company = conversionService.convert(productSettingsFormData, Company.class);
         companyDao.persist(company);
     }
 
