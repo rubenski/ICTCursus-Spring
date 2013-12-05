@@ -64,8 +64,7 @@
         <form:errors path="email" cssClass="form-error"/>
     </div>
     <div class="default-block">
-        <form:label path="phone"><spring:message code="company.form.phone"/>
-            <span><spring:message code="company.phone.helptext"/></span></form:label>
+        <form:label path="phone"><spring:message code="company.form.phone"/></form:label>
         <form:input path="phone" cssClass="form-input" cssErrorClass="form-input-error" size="15" maxlength="15"/>
         <form:errors path="phone" cssClass="form-error"/>
     </div>

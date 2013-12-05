@@ -31,6 +31,7 @@ public class LoginFormController {
         UserProfile userProfile = new UserProfile();
         model.addAttribute("userProfile", userProfile);
         model.addAttribute("title", "ICT Cursus : inloggen");
+        model.addAttribute("broadView", true);
         return "main";
     }
 

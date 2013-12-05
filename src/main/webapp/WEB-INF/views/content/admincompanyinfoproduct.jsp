@@ -35,14 +35,14 @@
 
 
     <h2><spring:message code="products.companyinfo.dontshow"/></h2>
-    <p><spring:message code="products.listingtype.explanation.simple"  /></p>
+    <p><spring:message code="products.companyinfo.explanation.none"  /></p>
     <p><spring:message code="generic.message.example"  />:</p>
     <img src="/static/img/company-info-simple.png"/>
 
     <br/><br/>
 
     <h2><spring:message code="products.companyinfo.show"/></h2>
-    <p><spring:message code="products.listingtype.explanation.advanced"  /></p>
+    <p><spring:message code="products.companyinfo.explanation.enabled"  /></p>
     <p><spring:message code="generic.message.example"  />:</p>
     <p><img src="/static/img/company-info-advanced.png"/></p>
 

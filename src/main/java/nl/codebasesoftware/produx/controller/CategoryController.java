@@ -1,7 +1,6 @@
 package nl.codebasesoftware.produx.controller;
 
 import nl.codebasesoftware.produx.domain.Category;
-import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CategoryEntityDTO;
@@ -9,6 +8,8 @@ import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCourseDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
+import nl.codebasesoftware.produx.properties.Properties;
+import nl.codebasesoftware.produx.search.FilterFromUrlExtractor;
 import nl.codebasesoftware.produx.search.criteria.SearchCriteria;
 import nl.codebasesoftware.produx.search.criteria.facet.FacetField;
 import nl.codebasesoftware.produx.search.criteria.filter.Filter;
@@ -16,11 +17,8 @@ import nl.codebasesoftware.produx.search.criteria.filter.NormalFilter;
 import nl.codebasesoftware.produx.search.result.ResultListing;
 import nl.codebasesoftware.produx.search.result.SearchResult;
 import nl.codebasesoftware.produx.service.*;
-import nl.codebasesoftware.produx.search.FilterFromUrlExtractor;
-import nl.codebasesoftware.produx.properties.Properties;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,7 +38,6 @@ import java.util.List;
 public class CategoryController {
 
     private static Logger LOG = Logger.getLogger(CategoryController.class);
-
     private CourseService courseService;
     private CategoryService categoryService;
     private PageBlockService pageBlockService;
@@ -51,8 +48,7 @@ public class CategoryController {
 
 
     @Autowired
-    public CategoryController(ApplicationContext applicationContext,
-                              CourseService courseService,
+    public CategoryController(CourseService courseService,
                               CategoryService categoryService,
                               PageBlockService pageBlockService,
                               CompanyService companyService,
@@ -99,7 +95,7 @@ public class CategoryController {
 
         Category category = categoryService.findByUrlTitle(categoryUrlName);
 
-        if(category == null){
+        if (category == null) {
             throw new ResourceNotFoundException();
         }
 
@@ -116,7 +112,6 @@ public class CategoryController {
             companyCoursesForCategory = courseService.findCoursesForCompanyAndCategory(currentlyLoggedInCompany.getId(), category.getId());
         }
 
-        pageBlockService.setEmptyRightColumn(model);
         pageBlockService.setAuthentication(model);
 
         int resultsPerPage = properties.getSearchResultsPerPage();
@@ -153,11 +148,16 @@ public class CategoryController {
             throw new ResourceNotFoundException();
         }
 
-
         List<ArticleEntityDTO> categoryArticles = articleService.findByCategory(category.getId());
 
         ResultListing.Builder listingBuilder = new ResultListing.Builder();
         ResultListing listing = listingBuilder.setFilters(filters).setSearchResult(searchResult).setCriteria(criteria).build();
+
+        if (categoryArticles.size() == 0) {
+            pageBlockService.setEmptyRightColumn(model);
+        } else {
+            model.addAttribute("rightColumn", "content/articlelisting");
+        }
 
         model.addAttribute("articles", categoryArticles);
         model.addAttribute("broadView", categoryArticles.size() == 0);
@@ -168,7 +168,6 @@ public class CategoryController {
         model.addAttribute("highlighted", highlightedCourses);
         model.addAttribute("category", category);
         model.addAttribute("mainContent", "content/category");
-        model.addAttribute("rightColumn", "content/articlelisting");
         model.addAttribute("dir", category.getUrlTitle());
         model.addAttribute("facetedSearch", true);
         model.addAttribute("filters", "/" + filters);

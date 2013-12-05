@@ -42,6 +42,7 @@ public class CompanyController {
         model.addAttribute("hasCourses", courseEntityDTOs.size() > 0);
         model.addAttribute("title", "Cursussen en bedrijfsprofiel van " + company.getName());
         model.addAttribute("rightColumn", "components/companypagerightcolumn");
+        model.addAttribute("broadView", true);
 
         return "main";
     }
