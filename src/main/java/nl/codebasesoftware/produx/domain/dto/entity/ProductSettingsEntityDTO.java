@@ -36,4 +36,9 @@ public class ProductSettingsEntityDTO {
     public void setExternalCourseLinksActive(boolean externalCourseLinksActive) {
         this.externalCourseLinksActive = externalCourseLinksActive;
     }
+
+    public double getPercentagePerRequest(){
+        return 1.0 + (companyInfoActive ? 0.5 : 0.0) + (courseListingType.equals(CourseListingType.Uitgebreid) ? 0.5 : 0.0);
+    }
+
 }

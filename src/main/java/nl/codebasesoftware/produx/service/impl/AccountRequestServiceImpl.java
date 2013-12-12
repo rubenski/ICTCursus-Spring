@@ -4,10 +4,7 @@ import nl.codebasesoftware.produx.dao.AccountRequestDao;
 import nl.codebasesoftware.produx.dao.CompanyDao;
 import nl.codebasesoftware.produx.dao.RolesAndRightsDao;
 import nl.codebasesoftware.produx.dao.UserProfileDao;
-import nl.codebasesoftware.produx.domain.AccountRequest;
-import nl.codebasesoftware.produx.domain.Company;
-import nl.codebasesoftware.produx.domain.Role;
-import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.domain.*;
 import nl.codebasesoftware.produx.domain.dto.entity.AccountRequestEntityDTO;
 import nl.codebasesoftware.produx.formdata.AccountRequestFormData;
 import nl.codebasesoftware.produx.net.mail.AccountRequestResultMailer;
@@ -133,6 +130,7 @@ public class AccountRequestServiceImpl implements AccountRequestService {
         company.setPhone(request.getCompanyPhone());
         company.setVatNumber(request.getVatNumber());
         company.setZipCode(request.getCompanyZipCode());
+        company.setProductSettings(new ProductSettings());
         companyDao.persist(company);
         return company;
     }

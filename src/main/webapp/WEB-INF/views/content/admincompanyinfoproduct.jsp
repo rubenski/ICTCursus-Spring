@@ -45,6 +45,8 @@
     <p><spring:message code="products.companyinfo.explanation.enabled"  /></p>
     <p><spring:message code="generic.message.example"  />:</p>
     <p><img src="/static/img/company-info-advanced.png"/></p>
+    <p><spring:message code="products.companyinfo.companypagexample"/>:</p>
+    <p><img src="/static/img/company-page-example.png"/></p>
 
 
 </div>

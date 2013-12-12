@@ -12,6 +12,7 @@ INSERT INTO `px_role` (`id`, `system_name`, `display_name`, `company_admin_role`
 INSERT INTO `px_role` (`id`, `system_name`, `display_name`, `company_admin_role`, `list_rank`, `user_assignable`) VALUES('7','COMPANY_SETTINGS_ADMIN', 'Toegang tot bedrijfsinstellingen', 1, 6, 0);
 INSERT INTO `px_role` (`id`, `system_name`, `display_name`, `company_admin_role`, `list_rank`, `user_assignable`) VALUES('8','COMPANY_ADVERTISING_ADMIN', 'Toegang tot advertentiemogelijkheden', 1, 7, 0);
 INSERT INTO `px_role` (`id`, `system_name`, `display_name`, `company_admin_role`, `list_rank`, `user_assignable`) VALUES('9','COMPANY_INVOICES_ADMIN', 'Toegang tot facturen', 1, 8, 0);
+INSERT INTO `px_role` (`id`, `system_name`, `display_name`, `company_admin_role`, `list_rank`, `user_assignable`) VALUES('10','COMPANY_PRODUCT_SETTINGS_ADMIN', 'Toegang tot productinstellingen', 1, 9, 0);
 
 -- right
 INSERT INTO `px_right` (`id`, `name`) VALUES('1','access_admin_screens');
@@ -25,6 +26,7 @@ INSERT INTO `px_right` (`id`, `name`) VALUES('8','edit_company_users');
 INSERT INTO `px_right` (`id`, `name`) VALUES('9','edit_company_settings');
 INSERT INTO `px_right` (`id`, `name`) VALUES('10','edit_company_advertisements');
 INSERT INTO `px_right` (`id`, `name`) VALUES('11','edit_company_invoices');
+INSERT INTO `px_right` (`id`, `name`) VALUES('12','edit_product_settings');
 
 
 -- role2right
@@ -46,6 +48,8 @@ INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('8','10');
 INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('5','10');
 INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('9','11');
 INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('5','11');
+INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('5','12');
+INSERT INTO `px_role2right` (`role_id`, `right_id`) VALUES('10','12');
 
 -- userprofile
 INSERT INTO `px_userprofile` (`id`, `email`, `first_name`, `last_name`, `password_hash`, `phone`, `company_id`) VALUES(1,'admin@example.com','Ruben','van Loen','3fc393d1c2afa6bf41a3dc44b29aace238d885cc',NULL,1);

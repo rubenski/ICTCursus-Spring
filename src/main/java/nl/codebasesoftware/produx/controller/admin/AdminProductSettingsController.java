@@ -31,7 +31,26 @@ public class AdminProductSettingsController {
         this.messageSource = messageSource;
     }
 
-    @RequestMapping(value = "/admin/products", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/productsettings", method = RequestMethod.GET)
+    public String showAllProducts(Model model, Locale locale){
+        model.addAttribute("headerText", messageSource.getMessage("product.settings.title", new Object[]{}, locale));
+        model.addAttribute("mainContent", "content/adminproductsettings");
+        setData(model);
+        return "adminMain";
+    }
+
+    @RequestMapping(value = "/admin/productsettings", method = RequestMethod.POST)
+    public String saveAllProducts(Model model, Locale locale, @ModelAttribute("productSettings") CompanyProductSettingsFormData companyFormData){
+        companyService.update(companyFormData);
+        model.addAttribute("headerText", messageSource.getMessage("product.settings.title", new Object[]{}, locale));
+        model.addAttribute("mainContent", "content/adminproductsettings");
+        model.addAttribute("valid", "true");
+        setData(model);
+        return "adminMain";
+    }
+
+    /*
+    @RequestMapping(value = "/admin/faq/products/listingtypes", method = RequestMethod.GET)
     public String showListingTypes(Model model, Locale locale){
         model.addAttribute("headerText", messageSource.getMessage("products.listingtype.title", new Object[]{}, locale));
         model.addAttribute("mainContent", "content/adminlistingtypes");
@@ -49,7 +68,7 @@ public class AdminProductSettingsController {
         return "adminMain";
     }
 
-    @RequestMapping(value = "/admin/products/companyinfo", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/faq/products/companyinfo", method = RequestMethod.GET)
     public String showAdminCompanyInfoProduct(Model model, Locale locale){
         model.addAttribute("headerText", messageSource.getMessage("products.listingtype.title", new Object[]{}, locale));
         model.addAttribute("mainContent", "content/admincompanyinfoproduct");
@@ -67,21 +86,21 @@ public class AdminProductSettingsController {
         return "adminMain";
     }
 
-    @RequestMapping(value = "/admin/products/directlinks", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/faq/products/directlinks", method = RequestMethod.GET)
     public String showAdminDirectLinksProduct(Model model, Locale locale){
-        model.addAttribute("headerText", messageSource.getMessage("products.listingtype.title", new Object[]{}, locale));
+        model.addAttribute("headerText", messageSource.getMessage("products.externalcourselinks.title", new Object[]{}, locale));
         model.addAttribute("mainContent", "content/admindirectlinksproduct");
         setData(model);
         return "adminMain";
     }
 
     @RequestMapping(value = "/admin/products/directlinks", method = RequestMethod.POST)
-    public String saveAdminDirectLinksProduct(Model model, Locale locale, @ModelAttribute("company") CompanyFormData companyFormData){
-        model.addAttribute("headerText", messageSource.getMessage("products.listingtype.title", new Object[]{}, locale));
+    public String saveAdminDirectLinksProduct(Model model, Locale locale, @ModelAttribute("productSettings") CompanyProductSettingsFormData productSettings){
+        model.addAttribute("headerText", messageSource.getMessage("products.externalcourselinks.title", new Object[]{}, locale));
         model.addAttribute("mainContent", "content/admindirectlinksproduct");
         setData(model);
         return "adminMain";
-    }
+    } */
 
     private void setData(Model model){
         CompanyEntityDTO currentlyLoggedInCompany = companyService.getCurrentlyLoggedInCompany();

@@ -19,12 +19,14 @@ public class CompanyProductSettingsFormData {
     private boolean externalCourseLinksActive;
     private long companyId;
     private CourseListingType[] listingTypes = CourseListingType.values();
+    private double percentagePerRequest;
 
     public CompanyProductSettingsFormData(CompanyEntityDTO company) {
         courseListingType = company.getProductSettings().getCourseListingType();
         companyInfoActive = company.getProductSettings().isCompanyInfoActive();
         externalCourseLinksActive = company.getProductSettings().isExternalCourseLinksActive();
         companyId = company.getId();
+        percentagePerRequest = company.getProductSettings().getPercentagePerRequest();
     }
 
     public CompanyProductSettingsFormData() {
@@ -69,6 +71,14 @@ public class CompanyProductSettingsFormData {
 
     public void setCompanyId(long companyId) {
         this.companyId = companyId;
+    }
+
+    public double getPercentagePerRequest() {
+        return percentagePerRequest;
+    }
+
+    public void setPercentagePerRequest(double percentagePerRequest) {
+        this.percentagePerRequest = percentagePerRequest;
     }
 }
 

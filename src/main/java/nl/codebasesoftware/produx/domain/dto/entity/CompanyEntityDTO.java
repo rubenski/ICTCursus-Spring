@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.domain.dto.entity;
 
 import nl.codebasesoftware.produx.domain.dto.LogoUrl;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCompanyDTO;
+import nl.codebasesoftware.produx.domain.support.CourseListingType;
 import nl.codebasesoftware.produx.formdata.CompanyFormData;
 
 /**
@@ -165,7 +166,6 @@ public class CompanyEntityDTO extends ListingCompanyDTO {
         this.productSettings = productSettings;
     }
 
-
     public CompanyFormData toCompanyFormData() {
         CompanyFormData companyFormData = new CompanyFormData();
 
@@ -185,4 +185,5 @@ public class CompanyEntityDTO extends ListingCompanyDTO {
 
         return companyFormData;
     }
+
 }

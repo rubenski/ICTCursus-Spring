@@ -13,11 +13,11 @@ import javax.persistence.*;
 @Embeddable
 public class ProductSettings {
 
-    private CourseListingType courseListingType;
-    private boolean companyInfoActive;
-    private boolean externalCourseLinksActive;
+    private CourseListingType courseListingType = CourseListingType.Eenvoudig;
+    private boolean companyInfoActive = false;
+    private boolean externalCourseLinksActive = false;
 
-    @Column(columnDefinition="tinyint(1) default 0")
+    @Column(columnDefinition="tinyint(1) not null default 0")
     public CourseListingType getCourseListingType() {
         return courseListingType;
     }
@@ -26,7 +26,7 @@ public class ProductSettings {
         this.courseListingType = courseListingType;
     }
 
-    @Column(columnDefinition="tinyint(1) default 0")
+    @Column(columnDefinition="tinyint(1) not null default 0")
     public boolean isCompanyInfoActive() {
         return companyInfoActive;
     }
@@ -35,7 +35,7 @@ public class ProductSettings {
         this.companyInfoActive = companyInfoActive;
     }
 
-    @Column(columnDefinition="tinyint(1) default 0")
+    @Column(columnDefinition="tinyint(1) not null default 0")
     public boolean isExternalCourseLinksActive() {
         return externalCourseLinksActive;
     }
