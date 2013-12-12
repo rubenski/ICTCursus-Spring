@@ -36,13 +36,10 @@ public class UserProfileDaoJpa extends GenericDaoJpa<UserProfile> implements Use
 
     @Override
     public List<UserProfile> findOthersInCompany(long companyId, long excludedProfileId) {
-        log.debug("query start");
         Query query = entityManager.createQuery("from UserProfile up where up.company.id = :companyId and up.id != :excludeProfileId");
         query.setParameter("companyId", companyId);
         query.setParameter("excludeProfileId", excludedProfileId);
-        List resultList = query.getResultList();
-        log.debug("query end");
-        return resultList;
+        return query.getResultList();
     }
 
     @Override
