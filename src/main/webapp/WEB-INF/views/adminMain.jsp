@@ -5,6 +5,7 @@
 <!doctype html>
 <html lang="nl" class="no-js">
 <head>
+    <meta charset="UTF-8">
     <jsp:include page="components/adminHtmlHeader.jsp"/>
     <title>
         ICTCursus admin

@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%--@elvariable id="course" type="nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO"--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 

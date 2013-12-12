@@ -1,9 +1,10 @@
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<jsp:include page="../components/admincoursestabs.jsp"/>
+<%-- <jsp:include page="../components/admincoursestabs.jsp"/>  --%>
 <div class="default-block">
     <h2><spring:message code="admin.your.courses"/></h2>
     <c:choose>
