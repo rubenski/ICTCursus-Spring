@@ -1,5 +1,7 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
+import nl.codebasesoftware.produx.comparator.TimeComparable;
+import nl.codebasesoftware.produx.comparator.TimeComparator;
 import nl.codebasesoftware.produx.domain.InvoiceRecord;
 import nl.codebasesoftware.produx.domain.InvoiceRecordType;
 import nl.codebasesoftware.produx.util.StringUtil;
@@ -7,10 +9,7 @@ import nl.codebasesoftware.produx.util.StringUtil;
 import java.text.DateFormatSymbols;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -29,7 +28,7 @@ public class InvoiceEntityDTO extends DomainEntityDTO {
     private String lastInvoiceNumber;
     private int forYear;
     private int forMonth;
-    private Set<InvoiceRecordEntityDTO> records = new HashSet<>();
+    private Set<InvoiceRecordEntityDTO> records = new TreeSet(new TimeComparator());
 
     @Override
     public Long getId() {
@@ -157,5 +156,45 @@ public class InvoiceEntityDTO extends DomainEntityDTO {
     public String getVat(){
         long vatAmountInCents = Math.round(getTotalRequestsAmountInCents() * 0.21);
         return StringUtil.centsToEuroPrice(vatAmountInCents);
+    }
+
+    public int getNumberOfClickRecords(){
+        int count = 0;
+        for (InvoiceRecordEntityDTO record : records) {
+            if(record.getType().equals(InvoiceRecordType.CLICK_TO_EXTERNAL_SITE)){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int getNumberOfCourseRequestRecords(){
+        int count = 0;
+        for (InvoiceRecordEntityDTO record : records) {
+            if(record.getType().equals(InvoiceRecordType.COURSE_REQUEST)){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public String getInvoiceSummaryLine(){
+        StringBuilder builder = new StringBuilder();
+        int numberOfClickRecords = getNumberOfClickRecords();
+        int numberOfCourseRequestRecords = getNumberOfCourseRequestRecords();
+        if(numberOfCourseRequestRecords > 0){
+            builder.append(numberOfCourseRequestRecords).append(" cursusaanvragen");
+        }
+
+        if(numberOfClickRecords > 0){
+            if(numberOfCourseRequestRecords > 0){
+                builder.append(" en ");
+            }
+
+            builder.append(numberOfClickRecords).append( "kliks");
+        }
+
+        builder.append(" via ictcursus.nl (zie specificatie)");
+        return builder.toString();
     }
 }

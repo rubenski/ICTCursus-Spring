@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.domain.dto.entity;
 
 import nl.codebasesoftware.produx.domain.Course;
 
+import javax.persistence.Transient;
 import java.util.Calendar;
 
 /**
@@ -9,14 +10,15 @@ import java.util.Calendar;
  * Date: 13-12-13
  * Time: 2:25
  */
-public class ClickEntityDTO extends DomainEntityDTO {
+public class ClickEntityDTO extends DomainEntityDTO implements InvoiceItem {
 
     private Long id;
     private CourseEntityDTO course;
     private String ip;
     private String userAgent;
-    private Calendar time;
-    private int commission;
+    private Calendar created;
+    private int invoicePriceInCents;
+    private String externalUrl;
 
     public Long getId() {
         return id;
@@ -50,19 +52,34 @@ public class ClickEntityDTO extends DomainEntityDTO {
         this.userAgent = userAgent;
     }
 
-    public Calendar getTime() {
-        return time;
+    @Override
+    public Calendar getCreated() {
+        return created;
     }
 
-    public void setTime(Calendar time) {
-        this.time = time;
+    public void setCreated(Calendar created) {
+        this.created = created;
     }
 
-    public int getCommission() {
-        return commission;
+    @Override
+    public int getInvoicePriceInCents() {
+        return invoicePriceInCents;
     }
 
-    public void setCommission(int commission) {
-        this.commission = commission;
+    public void setInvoicePriceInCents(int invoicePriceInCents) {
+        this.invoicePriceInCents = invoicePriceInCents;
+    }
+
+    public String getExternalUrl() {
+        return externalUrl;
+    }
+
+    public void setExternalUrl(String externalUrl) {
+        this.externalUrl = externalUrl;
+    }
+
+    @Override
+    public String getInvoiceDescription() {
+        return String.format("Klik vanaf cursus '%s'", course.getName());
     }
 }

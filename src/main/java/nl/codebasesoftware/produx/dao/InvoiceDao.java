@@ -14,4 +14,5 @@ public interface InvoiceDao extends GenericDao<Invoice> {
     List<Invoice> findForCompany(long companyId);
     Invoice findLastForCompany(long companyId);
     List<Invoice> find(long companyId, int year);
+    void save(Invoice invoice);
 }

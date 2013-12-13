@@ -101,6 +101,7 @@ public class InvoiceRecord implements DomainEntity {
         dto.setSourceRecordCreated(sourceRecordCreated);
         dto.setType(type);
         dto.setDescription(description);
+
         return dto;
     }
 }

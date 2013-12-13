@@ -4,6 +4,7 @@ import nl.codebasesoftware.produx.dao.InvoiceDao;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Invoice;
 import nl.codebasesoftware.produx.domain.InvoiceRecord;
+import nl.codebasesoftware.produx.domain.dto.entity.ClickEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import nl.codebasesoftware.produx.service.business.invoice.MonthAndYear;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class InvoiceAssembler {
         this.conversionService = conversionService;
     }
 
-    public Invoice assemble(Company company, List<CourseRequestEntityDTO> requests, MonthAndYear monthAndYear){
+    public Invoice assemble(Company company, List<CourseRequestEntityDTO> requests, List<ClickEntityDTO> clicks, MonthAndYear monthAndYear){
         Invoice lastInvoice = invoiceDao.findLastForCompany(company.getId());
         Invoice invoice = new Invoice();
         invoice.setCompany(company);
@@ -39,14 +40,23 @@ public class InvoiceAssembler {
         invoice.setForYear(monthAndYear.getYear());
 
         if(lastInvoice != null){
-            invoice.setLastInvoiceNumber(lastInvoice.getNextInvoiceNumber());
+            invoice.setLastInvoiceNumber(lastInvoice.getInvoiceNumber());
             invoice.setSerialNumber(lastInvoice.getNextSerialNumber());
+            invoice.setInvoiceNumber(String.format("%s%04d", company.getCompanyPrefix(), lastInvoice.getNextSerialNumber()));
+        } else {
+            invoice.setSerialNumber(1);
+            invoice.setInvoiceNumber(String.format("%s%04d", company.getCompanyPrefix(), 1));
         }
 
-        invoice.setInvoiceNumber(String.format("%s%04d", company.getCompanyPrefix(), lastInvoice.getNextSerialNumber()));
+
 
         for (CourseRequestEntityDTO request : requests) {
             InvoiceRecord record = conversionService.convert(request, InvoiceRecord.class);
+            invoice.addInvoiceRecord(record);
+        }
+
+        for (ClickEntityDTO click : clicks) {
+            InvoiceRecord record = conversionService.convert(click, InvoiceRecord.class);
             invoice.addInvoiceRecord(record);
         }
 

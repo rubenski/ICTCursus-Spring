@@ -10,7 +10,7 @@ package nl.codebasesoftware.produx.domain;
 public enum InvoiceRecordType {
 
     COURSE_REQUEST("COURSE_REQUEST"),
-    CATEGORY_ADVERT("CATEGORY_ADVERT");
+    CLICK_TO_EXTERNAL_SITE("CLICK_TO_EXTERNAL_SITE");
 
 
     private InvoiceRecordType(final String type) {

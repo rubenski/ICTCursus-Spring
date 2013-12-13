@@ -136,6 +136,7 @@
                 <bean class="nl.codebasesoftware.produx.conversion.CourseRequestEntityToInvoiceRecord"/>
                 <bean class="nl.codebasesoftware.produx.conversion.ApplyCompanyFormDataToCompany"/>
                 <bean class="nl.codebasesoftware.produx.conversion.ApplyCompanyProductSettingsFormDataToCompany"/>
+                <bean class="nl.codebasesoftware.produx.conversion.ClickEntityToInvoiceRecord"/>
             </set>
         </property>
     </bean>

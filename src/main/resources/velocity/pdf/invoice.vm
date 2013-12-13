@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
 #* @vtlvariable name="invoice" type="nl.codebasesoftware.produx.domain.dto.entity.InvoiceEntityDTO" *#
+
+
+<!-- Define the layouts for two pages, an overview page and a specification page that contains a list of invoice records -->
 <fo:layout-master-set>
     <fo:simple-page-master master-name="invoice-overview-page" page-height="300mm" page-width="210mm"
                            margin-top="25mm"
@@ -63,7 +66,7 @@
                 #if ($invoice.hasRequestRecords())
                     <fo:table-row>
                         <fo:table-cell padding="3mm" border="1px solid gray">
-                            <fo:block>${invoice.records.size()} aanvragen voor cursussen via ictcursus.nl (zie specificatie)</fo:block>
+                            <fo:block>${invoice.getInvoiceSummaryLine()}</fo:block>
                         </fo:table-cell>
                         <fo:table-cell padding="3mm" border="1px solid gray" text-align="right">
                             <fo:block>${invoice.getTotalRequestsAmountInEuros()}</fo:block>

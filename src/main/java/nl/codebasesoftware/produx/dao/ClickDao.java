@@ -3,6 +3,7 @@ package nl.codebasesoftware.produx.dao;
 import nl.codebasesoftware.produx.domain.Article;
 import nl.codebasesoftware.produx.domain.Click;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -11,5 +12,5 @@ import java.util.List;
  * Time: 13:32
  */
 public interface ClickDao extends GenericDao<Click> {
-    List<Click> findForCompanyAndMonth(long companyId, int month, int year);
+    List<Click> findForCompanyAndMonth(long companyId, Calendar fromDay, Calendar toDay);
 }

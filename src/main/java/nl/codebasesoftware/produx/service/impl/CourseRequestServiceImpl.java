@@ -2,26 +2,21 @@ package nl.codebasesoftware.produx.service.impl;
 
 import nl.codebasesoftware.produx.dao.CourseDao;
 import nl.codebasesoftware.produx.dao.CourseRequestDao;
-import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.CourseRequest;
 import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import nl.codebasesoftware.produx.formdata.CourseRequestFormData;
-import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.service.CourseRequestService;
 import nl.codebasesoftware.produx.service.business.invoice.MonthAndYear;
 import nl.codebasesoftware.produx.util.collection.EntityCollectionConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * User: rvanloen
@@ -52,7 +47,7 @@ public class CourseRequestServiceImpl implements CourseRequestService {
 
         request.setCurrentCoursePriceInCents(course.getPrice());
         request.setCurrentCommissionPercentage(company.getProductSettings().getPercentagePerRequest());
-        request.setCommission((int) Math.round(course.getPrice() * company.getProductSettings().getPercentagePerRequest() / 100));
+        request.setInvoicePriceInCents((int) Math.round(course.getPrice() * company.getProductSettings().getPercentagePerRequest() / 100));
 
         courseRequestDao.persist(request);
         CourseRequest full = courseRequestDao.findFull(request.getId());
@@ -94,20 +89,7 @@ public class CourseRequestServiceImpl implements CourseRequestService {
     @Override
     @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
     public List<CourseRequestEntityDTO> findForMonth(long companyId, MonthAndYear monthAndYear) {
-
-        Locale locale = LocaleContextHolder.getLocale();
-        Calendar firstDay = Calendar.getInstance(locale);
-        firstDay.set(Calendar.YEAR, monthAndYear.getYear());
-        firstDay.set(Calendar.MONTH, monthAndYear.getMonth() -1);
-        firstDay.set(Calendar.DAY_OF_MONTH, firstDay.getActualMinimum(Calendar.DAY_OF_MONTH));
-
-        Calendar lastDay = Calendar.getInstance(locale);
-        lastDay.set(Calendar.YEAR, monthAndYear.getYear());
-        lastDay.set(Calendar.MONTH, monthAndYear.getMonth() -1);
-        lastDay.set(Calendar.DAY_OF_MONTH, lastDay.getActualMaximum(Calendar.DAY_OF_MONTH));
-
-        List<CourseRequest> requests = courseRequestDao.findBetween(companyId, firstDay, lastDay);
-
+        List<CourseRequest> requests = courseRequestDao.findBetween(companyId, monthAndYear.getFirstDayOfMonth(), monthAndYear.getLastDayOfMonth());
         return new EntityCollectionConverter<CourseRequest, CourseRequestEntityDTO>().convert(requests);
     }
 

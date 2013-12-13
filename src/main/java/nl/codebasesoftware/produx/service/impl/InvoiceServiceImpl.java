@@ -4,13 +4,16 @@ import nl.codebasesoftware.produx.dao.CompanyDao;
 import nl.codebasesoftware.produx.dao.InvoiceDao;
 import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Invoice;
+import nl.codebasesoftware.produx.domain.InvoiceRecord;
 import nl.codebasesoftware.produx.domain.assembler.InvoiceAssembler;
+import nl.codebasesoftware.produx.domain.dto.entity.ClickEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.InvoiceEntityDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.net.mail.InvoiceMailer;
 import nl.codebasesoftware.produx.service.CourseRequestService;
 import nl.codebasesoftware.produx.service.InvoiceService;
+import nl.codebasesoftware.produx.service.LinkClickService;
 import nl.codebasesoftware.produx.service.business.invoice.MonthAndYear;
 import nl.codebasesoftware.produx.properties.Properties;
 import nl.codebasesoftware.produx.util.collection.EntityCollectionConverter;
@@ -48,13 +51,15 @@ public class InvoiceServiceImpl implements InvoiceService {
     private PdfGenerator generator;
     private InvoiceMailer invoiceMailer;
     private InvoiceAssembler invoiceAssembler;
+    private LinkClickService clickService;
 
 
     @Autowired
     public InvoiceServiceImpl(CourseRequestService courseRequestService, VelocityEngine velocityEngine,
                               InvoiceDao invoiceDao, Properties properties, CompanyDao companyDao,
                               PdfGenerator generator, InvoiceMailer invoiceMailer,
-                              InvoiceAssembler invoiceAssembler) {
+                              InvoiceAssembler invoiceAssembler,
+                              LinkClickService clickService) {
         this.courseRequestService = courseRequestService;
         this.velocityEngine = velocityEngine;
         this.invoiceDao = invoiceDao;
@@ -63,6 +68,7 @@ public class InvoiceServiceImpl implements InvoiceService {
         this.generator = generator;
         this.invoiceMailer = invoiceMailer;
         this.invoiceAssembler = invoiceAssembler;
+        this.clickService = clickService;
     }
 
     @Override
@@ -84,9 +90,12 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Transactional(readOnly = false)
     public void generateInvoiceOrDoNothing(long companyId, MonthAndYear monthAndYear){
         Company company = companyDao.find(companyId);
+
         List<CourseRequestEntityDTO> requests = courseRequestService.findForMonth(company.getId(), monthAndYear);
-        if(requests.size() > 0) {
-            InvoiceEntityDTO invoice = createInDb(requests, company,  monthAndYear);
+        List<ClickEntityDTO> clicks = clickService.findForCompanyAndMonth(companyId, monthAndYear);
+
+        if(requests.size() > 0 || clicks.size() > 0) {
+            InvoiceEntityDTO invoice = createInDb(requests, clicks, company,  monthAndYear);
             File pdf = createPdf(monthAndYear, invoice);
             try {
                 invoiceMailer.sendInvoiceEmail(pdf, invoice, LocaleContextHolder.getLocale());
@@ -108,15 +117,14 @@ public class InvoiceServiceImpl implements InvoiceService {
         Path pdfFilePath = pdfFileDir.resolve(invoice.getFileName("pdf"));
         File pdfFile = pdfFilePath.toFile();
 
-        File xslTempFile = createTempXslFile(invoice.getFileName("xsl"),
-                model, "/velocity/pdf/invoice.vm");
+        File xslTempFile = createTempXslFile(invoice.getFileName("xsl"), model, "/velocity/pdf/invoice.vm");
 
         return generator.generate(xslTempFile, pdfFile);
     }
 
-    public InvoiceEntityDTO createInDb(List<CourseRequestEntityDTO> requests, Company company, MonthAndYear monthAndYear){
-        Invoice invoice = invoiceAssembler.assemble(company, requests, monthAndYear);
-        invoiceDao.persist(invoice);
+    public InvoiceEntityDTO createInDb(List<CourseRequestEntityDTO> requests, List<ClickEntityDTO> clicks, Company company, MonthAndYear monthAndYear){
+        Invoice invoice = invoiceAssembler.assemble(company, requests, clicks, monthAndYear);
+        invoiceDao.save(invoice);
         return invoice.toDTO();
     }
 

@@ -6,14 +6,16 @@ import nl.codebasesoftware.produx.domain.Click;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.dto.entity.ClickEntityDTO;
 import nl.codebasesoftware.produx.properties.Properties;
-import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.service.LinkClickService;
+import nl.codebasesoftware.produx.service.business.invoice.MonthAndYear;
+import nl.codebasesoftware.produx.util.collection.EntityCollectionConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * User: rvanloen
@@ -41,6 +43,11 @@ public class LinkClickServiceImpl implements LinkClickService {
         clickDao.persist(click);
     }
 
+    @Override
+    public List<ClickEntityDTO> findForCompanyAndMonth(long companyId, MonthAndYear monthAndYear) {
+        return new EntityCollectionConverter<Click, ClickEntityDTO>().convert(clickDao.findForCompanyAndMonth(companyId, monthAndYear.getFirstDayOfMonth(), monthAndYear.getLastDayOfMonth()));
+    }
+
     private Click requestToClick(HttpServletRequest request){
 
         int costPerLinkClick = properties.getCostPerLinkClick();
@@ -52,9 +59,9 @@ public class LinkClickServiceImpl implements LinkClickService {
 
         Click click = new Click();
 
-        click.setCommission(costPerLinkClick);
+        click.setInvoicePriceInCents(costPerLinkClick);
         click.setUserAgent(request.getHeader("User-Agent"));
-        click.setTime(Calendar.getInstance());
+        click.setCreated(Calendar.getInstance());
         click.setIp(request.getRemoteAddr());
         click.setCourse(course);
         click.setExternalUrl(externalUrl);

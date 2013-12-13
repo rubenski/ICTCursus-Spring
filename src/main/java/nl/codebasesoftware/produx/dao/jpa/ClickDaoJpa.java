@@ -4,6 +4,7 @@ import nl.codebasesoftware.produx.dao.ClickDao;
 import nl.codebasesoftware.produx.domain.Click;
 import org.springframework.stereotype.Repository;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -19,7 +20,15 @@ public class ClickDaoJpa extends GenericDaoJpa<Click> implements ClickDao {
     }
 
     @Override
-    public List<Click> findForCompanyAndMonth(long companyId, int month, int year) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    @SuppressWarnings("unchecked")
+    public List<Click> findForCompanyAndMonth(long companyId, Calendar fromDay, Calendar toDay) {
+        return entityManager.createQuery("from Click c inner join fetch c.course co " +
+                "where co.company.id = :companyId " +
+                "and c.created >= :fromDay " +
+                "and c.created <= :toDay")
+                .setParameter("companyId", companyId)
+                .setParameter("fromDay", fromDay)
+                .setParameter("toDay", toDay)
+                .getResultList();
     }
 }

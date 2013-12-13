@@ -26,7 +26,7 @@ public class CourseRequestEntityToInvoiceRecord implements Converter<CourseReque
 
 
         Map<String, String> fields = new HashMap<>();
-        fields.put("id", courseRequest.getId().toString());
+        fields.put("courseRequestId", courseRequest.getId().toString());
         fields.put("email", courseRequest.getEmail());
         fields.put("courseName", courseRequest.getCourseName());
         fields.put("message", courseRequest.getMessage());

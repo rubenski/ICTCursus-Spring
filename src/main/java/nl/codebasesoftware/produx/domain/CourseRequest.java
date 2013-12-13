@@ -11,7 +11,7 @@ import java.util.Calendar;
  * Time: 16:45
  */
 @Entity
-public class CourseRequest implements DomainEntity, CostItem {
+public class CourseRequest implements DomainEntity {
 
     private Long id;
     private int prefix;
@@ -27,7 +27,7 @@ public class CourseRequest implements DomainEntity, CostItem {
     private boolean invalid;
     private double currentCommissionPercentage;
     private long currentCoursePriceInCents;
-    private int commission;
+    private int invoicePriceInCents;
 
     @Override
     @Id
@@ -154,13 +154,12 @@ public class CourseRequest implements DomainEntity, CostItem {
         this.currentCoursePriceInCents = currentCoursePriceInCents;
     }
 
-    @Override
-    public int getCommission() {
-        return commission;
+    public int getInvoicePriceInCents() {
+        return invoicePriceInCents;
     }
 
-    public void setCommission(int commission) {
-        this.commission = commission;
+    public void setInvoicePriceInCents(int commission) {
+        this.invoicePriceInCents = commission;
     }
 
     @Override
@@ -180,7 +179,7 @@ public class CourseRequest implements DomainEntity, CostItem {
         dto.setNumberOfParticipants(numberOfParticipants);
         dto.setInvalid(invalid);
         dto.setCompany(company);
-        dto.setCommission(commission);
+        dto.setInvoicePriceInCents(invoicePriceInCents);
         dto.setCurrentCommissionPercentage(currentCommissionPercentage);
         dto.setCurrentCoursePriceInCents(currentCoursePriceInCents);
         return dto;

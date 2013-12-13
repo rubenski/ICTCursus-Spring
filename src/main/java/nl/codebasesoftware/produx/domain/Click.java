@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.domain;
 
 import nl.codebasesoftware.produx.domain.dto.entity.ClickEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.InvoiceItem;
 
 import javax.persistence.*;
 import java.util.Calendar;
@@ -12,14 +13,14 @@ import java.util.Calendar;
  */
 @SuppressWarnings("unchecked")
 @Entity
-public class Click implements DomainEntity, CostItem {
+public class Click implements DomainEntity {
 
     private Long id;
     private Course course;
     private String ip;
     private String userAgent;
-    private Calendar time;
-    private int commission;
+    private Calendar created;
+    private int invoicePriceInCents;
     private String externalUrl;
 
     @Override
@@ -63,22 +64,21 @@ public class Click implements DomainEntity, CostItem {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    public Calendar getTime() {
-        return time;
+    public Calendar getCreated() {
+        return created;
     }
 
-    public void setTime(Calendar time) {
-        this.time = time;
+    public void setCreated(Calendar time) {
+        this.created = time;
     }
 
     @Column(nullable = false)
-    @Override
-    public int getCommission() {
-        return commission;
+    public int getInvoicePriceInCents() {
+        return invoicePriceInCents;
     }
 
-    public void setCommission(int commission) {
-        this.commission = commission;
+    public void setInvoicePriceInCents(int invoicePriceInCents) {
+        this.invoicePriceInCents = invoicePriceInCents;
     }
 
     @Column(nullable = false)
@@ -90,15 +90,20 @@ public class Click implements DomainEntity, CostItem {
         this.externalUrl = externalUrl;
     }
 
+
+
     @Transient
     public ClickEntityDTO toDTO(){
         ClickEntityDTO dto =  new ClickEntityDTO();
         dto.setId(id);
-        dto.setCommission(commission);
+        dto.setInvoicePriceInCents(invoicePriceInCents);
         dto.setCourse(course.toDTO());
         dto.setIp(ip);
-        dto.setTime(time);
+        dto.setCreated(created);
         dto.setUserAgent(userAgent);
+        dto.setExternalUrl(externalUrl);
         return dto;
     }
+
+
 }

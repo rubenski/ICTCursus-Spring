@@ -1,8 +1,11 @@
 package nl.codebasesoftware.produx.service;
 
+import nl.codebasesoftware.produx.domain.Click;
 import nl.codebasesoftware.produx.domain.dto.entity.ClickEntityDTO;
+import nl.codebasesoftware.produx.service.business.invoice.MonthAndYear;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * User: rvanloen
@@ -11,4 +14,5 @@ import javax.servlet.http.HttpServletRequest;
  */
 public interface LinkClickService {
     void registerClick(HttpServletRequest request);
+    List<ClickEntityDTO> findForCompanyAndMonth(long companyId, MonthAndYear monthAndYear);
 }

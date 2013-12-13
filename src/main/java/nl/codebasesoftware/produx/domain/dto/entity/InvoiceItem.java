@@ -7,8 +7,8 @@ import java.util.Calendar;
  * Date: 4-11-13
  * Time: 20:54
  */
-public interface AsInvoiceRecord {
-    long getInvoicePriceInCents();
+public interface InvoiceItem {
+    int getInvoicePriceInCents();
     String getInvoiceDescription();
     Calendar getCreated();
 }

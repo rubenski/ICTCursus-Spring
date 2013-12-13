@@ -1,7 +1,7 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
+import nl.codebasesoftware.produx.domain.Course;
+
 import java.util.Calendar;
 
 /**
@@ -9,24 +9,23 @@ import java.util.Calendar;
  * Date: 27-8-13
  * Time: 17:12
  */
-public class CourseRequestEntityDTO extends DomainEntityDTO implements AsInvoiceRecord {
+public class CourseRequestEntityDTO extends DomainEntityDTO implements InvoiceItem {
 
     private Long id;
     private int prefix;
     private String requesterName;
     private String email;
     private String message;
+    private String phone;
     private int numberOfParticipants;
     private CourseEntityDTO course;
     private String courseName;
-    private String phone;
+    private String company;
     private Calendar created;
     private boolean invalid;
-    private String company;
     private double currentCommissionPercentage;
     private long currentCoursePriceInCents;
-    private int commission;
-
+    private int invoicePriceInCents;
 
     public Long getId() {
         return id;
@@ -68,6 +67,14 @@ public class CourseRequestEntityDTO extends DomainEntityDTO implements AsInvoice
         this.message = message;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public int getNumberOfParticipants() {
         return numberOfParticipants;
     }
@@ -92,7 +99,14 @@ public class CourseRequestEntityDTO extends DomainEntityDTO implements AsInvoice
         this.courseName = courseName;
     }
 
-    @Override
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
     public Calendar getCreated() {
         return created;
     }
@@ -107,22 +121,6 @@ public class CourseRequestEntityDTO extends DomainEntityDTO implements AsInvoice
 
     public void setInvalid(boolean invalid) {
         this.invalid = invalid;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
     }
 
     public double getCurrentCommissionPercentage() {
@@ -141,12 +139,12 @@ public class CourseRequestEntityDTO extends DomainEntityDTO implements AsInvoice
         this.currentCoursePriceInCents = currentCoursePriceInCents;
     }
 
-    public int getCommission() {
-        return commission;
+    public int getInvoicePriceInCents() {
+        return invoicePriceInCents;
     }
 
-    public void setCommission(int commission) {
-        this.commission = commission;
+    public void setInvoicePriceInCents(int invoicePriceInCents) {
+        this.invoicePriceInCents = invoicePriceInCents;
     }
 
     @Override
@@ -154,11 +152,5 @@ public class CourseRequestEntityDTO extends DomainEntityDTO implements AsInvoice
         return String.format("Aanvraag voor '%s' (ID: #%d)", courseName, id);
     }
 
-    @Override
-    public long getInvoicePriceInCents(){
-        if(numberOfParticipants > 4){
-            return course.getPrice() / 50;
-        }
-        return course.getPrice() / 100;
-    }
+
 }

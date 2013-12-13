@@ -87,6 +87,10 @@
     </c:when>
     <c:otherwise>
         <p><spring:message code="submit.request.success" arguments="${course.company.name}"/></p>
+        <form>
+            <input type="hidden" id="courseId" value="${course.id}"/>
+        </form>
+
     </c:otherwise>
 </c:choose>
 

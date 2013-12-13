@@ -73,6 +73,7 @@ public class Invoice implements DomainEntity {
         this.forYear = forYear;
     }
 
+    @Column(nullable = false)
     public Calendar getDateCreated() {
         return dateCreated;
     }
@@ -81,7 +82,7 @@ public class Invoice implements DomainEntity {
         this.dateCreated = dateCreated;
     }
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.REMOVE)
     public Set<InvoiceRecord> getRecords() {
         return records;
     }
@@ -94,6 +95,7 @@ public class Invoice implements DomainEntity {
         this.records.add(invoiceRecord);
     }
 
+    @Column(nullable = false)
     public int getSerialNumber() {
         return serialNumber;
     }
@@ -102,6 +104,7 @@ public class Invoice implements DomainEntity {
         this.serialNumber = serialNumber;
     }
 
+    @Column(nullable = true)
     public String getLastInvoiceNumber() {
         return lastInvoiceNumber;
     }

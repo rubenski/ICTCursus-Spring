@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.dao.jpa;
 
 import nl.codebasesoftware.produx.dao.InvoiceDao;
 import nl.codebasesoftware.produx.domain.Invoice;
+import nl.codebasesoftware.produx.domain.InvoiceRecord;
 import nl.codebasesoftware.produx.service.business.invoice.MonthAndYear;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * Time: 22:45
  */
 @Repository
+@SuppressWarnings("unchecked")
 public class InvoiceDaoJpa extends GenericDaoJpa<Invoice> implements InvoiceDao {
 
 
@@ -46,5 +48,13 @@ public class InvoiceDaoJpa extends GenericDaoJpa<Invoice> implements InvoiceDao 
 
     }
 
+    @Override
+    public void save(Invoice invoice) {
 
+        entityManager.persist(invoice);
+        for (InvoiceRecord invoiceRecord : invoice.getRecords()) {
+            invoiceRecord.setInvoice(invoice);
+            entityManager.persist(invoiceRecord);
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
+import nl.codebasesoftware.produx.comparator.TimeComparable;
 import nl.codebasesoftware.produx.domain.InvoiceRecordType;
 
 import java.text.NumberFormat;
@@ -13,7 +14,7 @@ import java.util.Calendar;
  * Time: 19:25
  * To change this template use File | Settings | File Templates.
  */
-public class InvoiceRecordEntityDTO extends DomainEntityDTO {
+public class InvoiceRecordEntityDTO extends DomainEntityDTO implements TimeComparable {
 
     private Long id;
     private long priceInCents;
@@ -71,6 +72,12 @@ public class InvoiceRecordEntityDTO extends DomainEntityDTO {
         NumberFormat format = NumberFormat.getCurrencyInstance();
         format.setMaximumFractionDigits(2);
         format.setMinimumFractionDigits(2);
-        return format.format(priceInCents/100);
+        String result = format.format((double)priceInCents / 100);
+        return result;
+    }
+
+    @Override
+    public Calendar getTime() {
+        return sourceRecordCreated;
     }
 }
