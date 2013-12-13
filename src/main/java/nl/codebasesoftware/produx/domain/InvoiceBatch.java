@@ -1,12 +1,8 @@
 package nl.codebasesoftware.produx.domain;
 
-import nl.codebasesoftware.produx.domain.dto.entity.DomainEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.InvoiceBatchEntityDTO;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.*;
 
 /**
@@ -20,7 +16,9 @@ public class InvoiceBatch implements DomainEntity {
     private Long id;
     private Calendar jobStarted;
     private Calendar jobCompleted;
-    private Set<SentInvoice> sentInvoices = new HashSet<>();
+    private int month;
+    private int year;
+    private Set<InvoiceProcessingAttempt> invoiceProcessingAttempts = new HashSet<>();
 
     @Override
     @Id
@@ -49,17 +47,39 @@ public class InvoiceBatch implements DomainEntity {
         this.jobCompleted = jobCompleted;
     }
 
-    @OneToMany
-    public Set<SentInvoice> getSentInvoices() {
-        return sentInvoices;
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "batch")
+    public Set<InvoiceProcessingAttempt> getInvoiceProcessingAttempts() {
+        return invoiceProcessingAttempts;
     }
 
-    public void setSentInvoices(Set<SentInvoice> sentInvoices) {
-        this.sentInvoices = sentInvoices;
+    public void setInvoiceProcessingAttempts(Set<InvoiceProcessingAttempt> invoiceProcessingAttempts) {
+        this.invoiceProcessingAttempts = invoiceProcessingAttempts;
+    }
+
+    public void addInvoiceProcessingAttempt(InvoiceProcessingAttempt invoiceProcessingAttempt){
+        invoiceProcessingAttempts.add(invoiceProcessingAttempt);
+    }
+
+    @Column(nullable = false)
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    @Column(nullable = false)
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
     @Override
     public InvoiceBatchEntityDTO toDTO() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
     }
 }

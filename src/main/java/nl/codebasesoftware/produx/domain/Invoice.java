@@ -82,7 +82,7 @@ public class Invoice implements DomainEntity {
         this.dateCreated = dateCreated;
     }
 
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "invoice")
     public Set<InvoiceRecord> getRecords() {
         return records;
     }

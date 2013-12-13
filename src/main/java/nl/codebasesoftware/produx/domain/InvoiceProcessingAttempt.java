@@ -1,7 +1,7 @@
 package nl.codebasesoftware.produx.domain;
 
 import nl.codebasesoftware.produx.domain.dto.entity.SentInvoiceEntityDTO;
-import nl.codebasesoftware.produx.domain.support.InvoiceSentStatus;
+import nl.codebasesoftware.produx.domain.support.InvoiceProcessingAttemptStatus;
 
 import javax.persistence.*;
 import java.util.Calendar;
@@ -12,12 +12,14 @@ import java.util.Calendar;
  * Time: 20:36
  */
 @Entity
-public class SentInvoice implements DomainEntity {
+public class InvoiceProcessingAttempt implements DomainEntity {
 
     private Long id;
     private Invoice invoice;
     private Calendar timeSent;
-    private InvoiceSentStatus status;
+    private InvoiceProcessingAttemptStatus status;
+    private String exceptionStackTrace;
+    private InvoiceBatch batch;
 
     @Override
     @Id
@@ -48,16 +50,34 @@ public class SentInvoice implements DomainEntity {
         this.timeSent = timeSent;
     }
 
-    public InvoiceSentStatus getStatus() {
+    public InvoiceProcessingAttemptStatus getStatus() {
         return status;
     }
 
-    public void setStatus(InvoiceSentStatus status) {
+    public void setStatus(InvoiceProcessingAttemptStatus status) {
         this.status = status;
     }
 
     @Override
     public SentInvoiceEntityDTO toDTO() {
         return new SentInvoiceEntityDTO();
+    }
+
+    @Lob
+    public String getExceptionStackTrace() {
+        return exceptionStackTrace;
+    }
+
+    public void setExceptionStackTrace(String error) {
+        this.exceptionStackTrace = error;
+    }
+
+    @ManyToOne
+    public InvoiceBatch getBatch() {
+        return batch;
+    }
+
+    public void setBatch(InvoiceBatch batch) {
+        this.batch = batch;
     }
 }

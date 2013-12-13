@@ -35,32 +35,28 @@ public class PdfGenerator {
 
     }
 
-    public File generate(File xslFile, File outputPdfFile){
-
-        try {
+    public File generate(File xslFile, File outputPdfFile) throws IOException, TransformerException, FOPException {
 
 
-            // Capture input
-            FileInputStream input = new FileInputStream(xslFile);
-            StreamSource source = new StreamSource(input);
+        // Capture input
+        FileInputStream input = new FileInputStream(xslFile);
+        StreamSource source = new StreamSource(input);
 
-            // Prepare output destination
-            OutputStream outStream = new BufferedOutputStream(new FileOutputStream(outputPdfFile));
+        // Prepare output destination
+        OutputStream outStream = new BufferedOutputStream(new FileOutputStream(outputPdfFile));
 
-            FOUserAgent userAgent = configurator.newUserAgent();
-            Fop fop = configurator.getFactoryInstance().newFop(MimeConstants.MIME_PDF, userAgent, outStream);
-            SAXResult output = new SAXResult(fop.getDefaultHandler());
+        FOUserAgent userAgent = configurator.newUserAgent();
+        Fop fop = configurator.getFactoryInstance().newFop(MimeConstants.MIME_PDF, userAgent, outStream);
+        SAXResult output = new SAXResult(fop.getDefaultHandler());
 
-            // Perform transformation
-            transformer.transform(source, output);
+        // Perform transformation
+        transformer.transform(source, output);
 
-            // Flush and close output
-            outStream.flush();
-            outStream.close();
+        // Flush and close output
+        outStream.flush();
+        outStream.close();
 
-        } catch (FOPException | TransformerException | IOException e) {
-            e.printStackTrace();
-        }
+
 
         return outputPdfFile;
     }

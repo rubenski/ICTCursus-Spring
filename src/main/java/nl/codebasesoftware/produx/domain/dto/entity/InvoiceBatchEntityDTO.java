@@ -1,6 +1,6 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
-import nl.codebasesoftware.produx.domain.SentInvoice;
+import nl.codebasesoftware.produx.domain.InvoiceProcessingAttempt;
 
 import java.util.Calendar;
 import java.util.HashSet;
@@ -18,7 +18,7 @@ public class InvoiceBatchEntityDTO extends DomainEntityDTO {
     private Long id;
     private Calendar date;
     private Calendar completed;
-    private Set<SentInvoice> sentInvoices = new HashSet<>();
+    private Set<InvoiceProcessingAttempt> invoiceProcessingAttempts = new HashSet<>();
 
     @Override
     public Long getId() {
@@ -45,11 +45,11 @@ public class InvoiceBatchEntityDTO extends DomainEntityDTO {
         this.completed = completed;
     }
 
-    public Set<SentInvoice> getSentInvoices() {
-        return sentInvoices;
+    public Set<InvoiceProcessingAttempt> getInvoiceProcessingAttempts() {
+        return invoiceProcessingAttempts;
     }
 
-    public void setSentInvoices(Set<SentInvoice> sentInvoices) {
-        this.sentInvoices = sentInvoices;
+    public void setInvoiceProcessingAttempts(Set<InvoiceProcessingAttempt> invoiceProcessingAttempts) {
+        this.invoiceProcessingAttempts = invoiceProcessingAttempts;
     }
 }

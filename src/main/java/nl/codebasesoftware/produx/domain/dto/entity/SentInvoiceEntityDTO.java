@@ -1,7 +1,7 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
 import nl.codebasesoftware.produx.domain.Invoice;
-import nl.codebasesoftware.produx.domain.support.InvoiceSentStatus;
+import nl.codebasesoftware.produx.domain.support.InvoiceProcessingAttemptStatus;
 
 import java.util.Calendar;
 
@@ -15,7 +15,7 @@ public class SentInvoiceEntityDTO extends DomainEntityDTO {
     private Long id;
     private Invoice invoice;
     private Calendar timeSent;
-    private InvoiceSentStatus status;
+    private InvoiceProcessingAttemptStatus status;
 
     @Override
     public Long getId() {
@@ -42,11 +42,11 @@ public class SentInvoiceEntityDTO extends DomainEntityDTO {
         this.timeSent = timeSent;
     }
 
-    public InvoiceSentStatus getStatus() {
+    public InvoiceProcessingAttemptStatus getStatus() {
         return status;
     }
 
-    public void setStatus(InvoiceSentStatus status) {
+    public void setStatus(InvoiceProcessingAttemptStatus status) {
         this.status = status;
     }
 }

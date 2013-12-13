@@ -1,14 +1,14 @@
 package nl.codebasesoftware.produx.service.impl;
 
 import nl.codebasesoftware.produx.dao.CompanyDao;
+import nl.codebasesoftware.produx.dao.InvoiceBatchDao;
 import nl.codebasesoftware.produx.dao.InvoiceDao;
-import nl.codebasesoftware.produx.domain.Company;
-import nl.codebasesoftware.produx.domain.Invoice;
-import nl.codebasesoftware.produx.domain.InvoiceRecord;
+import nl.codebasesoftware.produx.domain.*;
 import nl.codebasesoftware.produx.domain.assembler.InvoiceAssembler;
 import nl.codebasesoftware.produx.domain.dto.entity.ClickEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.InvoiceEntityDTO;
+import nl.codebasesoftware.produx.domain.support.InvoiceProcessingAttemptStatus;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.net.mail.InvoiceMailer;
 import nl.codebasesoftware.produx.service.CourseRequestService;
@@ -18,6 +18,7 @@ import nl.codebasesoftware.produx.service.business.invoice.MonthAndYear;
 import nl.codebasesoftware.produx.properties.Properties;
 import nl.codebasesoftware.produx.util.collection.EntityCollectionConverter;
 import nl.codebasesoftware.produx.util.pdf.PdfGenerator;
+import org.apache.fop.apps.FOPException;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -25,7 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
-import javax.mail.MessagingException;
+import javax.xml.transform.TransformerException;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -52,6 +53,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     private InvoiceMailer invoiceMailer;
     private InvoiceAssembler invoiceAssembler;
     private LinkClickService clickService;
+    private InvoiceBatchDao invoiceBatchDao;
 
 
     @Autowired
@@ -59,7 +61,8 @@ public class InvoiceServiceImpl implements InvoiceService {
                               InvoiceDao invoiceDao, Properties properties, CompanyDao companyDao,
                               PdfGenerator generator, InvoiceMailer invoiceMailer,
                               InvoiceAssembler invoiceAssembler,
-                              LinkClickService clickService) {
+                              LinkClickService clickService,
+                              InvoiceBatchDao invoiceBatchDao) {
         this.courseRequestService = courseRequestService;
         this.velocityEngine = velocityEngine;
         this.invoiceDao = invoiceDao;
@@ -69,43 +72,84 @@ public class InvoiceServiceImpl implements InvoiceService {
         this.invoiceMailer = invoiceMailer;
         this.invoiceAssembler = invoiceAssembler;
         this.clickService = clickService;
+        this.invoiceBatchDao = invoiceBatchDao;
     }
 
-    @Override
-    @Transactional(readOnly = false)
-    public void runLastMonthInvoiceBatch() {
-        List<Company> all = companyDao.findAll();
 
+    public void runLastMonthInvoiceBatch() throws ProduxServiceException {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MONTH, -1);
         int month = cal.get(Calendar.MONTH);
         int year = cal.get(Calendar.YEAR);
-
-        for (Company company : all) {
-            generateInvoiceOrDoNothing(company.getId(), new MonthAndYear(month, year));
-        }
+        runInvoiceBatch(month, year);
     }
 
     @Override
-    @Transactional(readOnly = false)
-    public void generateInvoiceOrDoNothing(long companyId, MonthAndYear monthAndYear){
-        Company company = companyDao.find(companyId);
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
+    public void runInvoiceBatch(int month, int year) throws ProduxServiceException{
 
+        List<Company> all = companyDao.findAll();
+
+        List<InvoiceBatch> batchedForMonthAndYear = invoiceBatchDao.findByMonthAndYear(month, year);
+
+        if(batchedForMonthAndYear.size() > 0){
+            throw new ProduxServiceException(String.format("A batch for %d/%d has already been run! Be careful not to run the same batch again.", month, year));
+        }
+
+        InvoiceBatch batch = new InvoiceBatch();
+        batch.setJobStarted(Calendar.getInstance());
+        batch.setMonth(month);
+        batch.setYear(year);
+
+        for (Company company : all) {
+            InvoiceProcessingAttempt attempt = generateInvoiceOrDoNothing(company.getId(), new MonthAndYear(month, year));
+            if(attempt != null){
+                batch.addInvoiceProcessingAttempt(attempt);
+            }
+        }
+
+        batch.setJobCompleted(Calendar.getInstance());
+        invoiceBatchDao.save(batch);
+    }
+
+
+    private InvoiceProcessingAttempt generateInvoiceOrDoNothing(long companyId, MonthAndYear monthAndYear){
+
+        Company company = companyDao.find(companyId);
         List<CourseRequestEntityDTO> requests = courseRequestService.findForMonth(company.getId(), monthAndYear);
         List<ClickEntityDTO> clicks = clickService.findForCompanyAndMonth(companyId, monthAndYear);
 
         if(requests.size() > 0 || clicks.size() > 0) {
-            InvoiceEntityDTO invoice = createInDb(requests, clicks, company,  monthAndYear);
-            File pdf = createPdf(monthAndYear, invoice);
+
+            InvoiceProcessingAttempt attempt = new InvoiceProcessingAttempt();
             try {
-                invoiceMailer.sendInvoiceEmail(pdf, invoice, LocaleContextHolder.getLocale());
-            } catch (MessagingException e) {
-                e.printStackTrace();
+                Invoice invoice = createInDb(requests, clicks, company,  monthAndYear);
+                attempt.setInvoice(invoice);
+                File pdf = createPdf(monthAndYear, invoice.toDTO());
+                attempt.setTimeSent(Calendar.getInstance());
+                invoiceMailer.sendInvoiceEmail(pdf, invoice.toDTO(), LocaleContextHolder.getLocale());
+                attempt.setStatus(InvoiceProcessingAttemptStatus.SUCCESS);
+            } catch(Exception e){
+                handleException(attempt, e);
             }
+
+            return attempt;
         }
+
+        return null;
     }
 
-    private File createPdf(MonthAndYear monthAndYear, InvoiceEntityDTO invoice) {
+    private void handleException(InvoiceProcessingAttempt attempt, Exception e){
+        attempt.setStatus(InvoiceProcessingAttemptStatus.FAIL);
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        e.printStackTrace(pw);
+        attempt.setExceptionStackTrace(sw.toString());
+        e.printStackTrace();
+    }
+
+
+    private File createPdf(MonthAndYear monthAndYear, InvoiceEntityDTO invoice) throws TransformerException, IOException, FOPException {
 
         Map<String, Object> model = new HashMap<>();
         model.put("invoice", invoice);
@@ -122,10 +166,10 @@ public class InvoiceServiceImpl implements InvoiceService {
         return generator.generate(xslTempFile, pdfFile);
     }
 
-    public InvoiceEntityDTO createInDb(List<CourseRequestEntityDTO> requests, List<ClickEntityDTO> clicks, Company company, MonthAndYear monthAndYear){
+    private Invoice createInDb(List<CourseRequestEntityDTO> requests, List<ClickEntityDTO> clicks, Company company, MonthAndYear monthAndYear){
         Invoice invoice = invoiceAssembler.assemble(company, requests, clicks, monthAndYear);
         invoiceDao.save(invoice);
-        return invoice.toDTO();
+        return invoice;
     }
 
 
@@ -173,8 +217,4 @@ public class InvoiceServiceImpl implements InvoiceService {
         }
     }
 
-    @Override
-    public void saveAsNewVersion(InvoiceEntityDTO invoice) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
 }
