@@ -1,6 +1,6 @@
 package nl.codebasesoftware.produx.domain;
 
-import nl.codebasesoftware.produx.domain.dto.entity.SentInvoiceEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.InvoiceProcessingAttemptEntityDTO;
 import nl.codebasesoftware.produx.domain.support.InvoiceProcessingAttemptStatus;
 
 import javax.persistence.*;
@@ -59,8 +59,14 @@ public class InvoiceProcessingAttempt implements DomainEntity {
     }
 
     @Override
-    public SentInvoiceEntityDTO toDTO() {
-        return new SentInvoiceEntityDTO();
+    public InvoiceProcessingAttemptEntityDTO toDTO() {
+        InvoiceProcessingAttemptEntityDTO attempt =  new InvoiceProcessingAttemptEntityDTO();
+        attempt.setId(id);
+        attempt.setExceptionStackTrace(exceptionStackTrace);
+        attempt.setInvoice(invoice.toDTO());
+        attempt.setStatus(status);
+        attempt.setTimeSent(timeSent);
+        return attempt;
     }
 
     @Lob

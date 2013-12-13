@@ -16,11 +16,12 @@ import java.util.Set;
 public class InvoiceBatchEntityDTO extends DomainEntityDTO {
 
     private Long id;
-    private Calendar date;
-    private Calendar completed;
-    private Set<InvoiceProcessingAttempt> invoiceProcessingAttempts = new HashSet<>();
+    private Calendar jobStarted;
+    private Calendar jobCompleted;
+    private int month;
+    private int year;
+    private Set<InvoiceProcessingAttemptEntityDTO> invoiceProcessingAttempts = new HashSet<>();
 
-    @Override
     public Long getId() {
         return id;
     }
@@ -29,27 +30,43 @@ public class InvoiceBatchEntityDTO extends DomainEntityDTO {
         this.id = id;
     }
 
-    public Calendar getDate() {
-        return date;
+    public Calendar getJobStarted() {
+        return jobStarted;
     }
 
-    public void setDate(Calendar date) {
-        this.date = date;
+    public void setJobStarted(Calendar jobStarted) {
+        this.jobStarted = jobStarted;
     }
 
-    public Calendar getCompleted() {
-        return completed;
+    public Calendar getJobCompleted() {
+        return jobCompleted;
     }
 
-    public void setCompleted(Calendar completed) {
-        this.completed = completed;
+    public void setJobCompleted(Calendar jobCompleted) {
+        this.jobCompleted = jobCompleted;
     }
 
-    public Set<InvoiceProcessingAttempt> getInvoiceProcessingAttempts() {
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public Set<InvoiceProcessingAttemptEntityDTO> getInvoiceProcessingAttempts() {
         return invoiceProcessingAttempts;
     }
 
-    public void setInvoiceProcessingAttempts(Set<InvoiceProcessingAttempt> invoiceProcessingAttempts) {
+    public void setInvoiceProcessingAttempts(Set<InvoiceProcessingAttemptEntityDTO> invoiceProcessingAttempts) {
         this.invoiceProcessingAttempts = invoiceProcessingAttempts;
     }
 }

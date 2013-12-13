@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.controller.admin;
 
 import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.InvoiceBatchEntityDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.service.InvoiceService;
@@ -8,6 +9,7 @@ import nl.codebasesoftware.produx.service.business.invoice.MonthAndYear;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,7 +34,10 @@ public class InvoiceGenerationController {
     }
 
     @RequestMapping(value = "/admin/invoice/generate/batch/{month}/{year}")
-    public void generateInvoiceBatchWebCall(@PathVariable("month") int month, @PathVariable("year") int year) throws ProduxServiceException {
-        invoiceService.runInvoiceBatch(month, year);
+    public String generateInvoiceBatchWebCall(Model model, @PathVariable("month") int month, @PathVariable("year") int year) throws ProduxServiceException {
+        InvoiceBatchEntityDTO invoiceBatch = invoiceService.runInvoiceBatch(month, year);
+        model.addAttribute("mainContent", "content/invoicebatchresult");
+        model.addAttribute("invoiceBatch", invoiceBatch);
+        return "adminMain";
     }
 }

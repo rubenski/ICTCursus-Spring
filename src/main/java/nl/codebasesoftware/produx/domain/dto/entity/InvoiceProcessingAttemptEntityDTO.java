@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
 import nl.codebasesoftware.produx.domain.Invoice;
+import nl.codebasesoftware.produx.domain.InvoiceBatch;
 import nl.codebasesoftware.produx.domain.support.InvoiceProcessingAttemptStatus;
 
 import java.util.Calendar;
@@ -8,16 +9,17 @@ import java.util.Calendar;
 /**
  * User: rvanloen
  * Date: 13-12-13
- * Time: 20:52
+ * Time: 23:41
  */
-public class SentInvoiceEntityDTO extends DomainEntityDTO {
+public class InvoiceProcessingAttemptEntityDTO extends DomainEntityDTO {
 
     private Long id;
-    private Invoice invoice;
+    private InvoiceEntityDTO invoice;
     private Calendar timeSent;
     private InvoiceProcessingAttemptStatus status;
+    private String exceptionStackTrace;
+    private InvoiceBatchEntityDTO batch;
 
-    @Override
     public Long getId() {
         return id;
     }
@@ -26,11 +28,11 @@ public class SentInvoiceEntityDTO extends DomainEntityDTO {
         this.id = id;
     }
 
-    public Invoice getInvoice() {
+    public InvoiceEntityDTO getInvoice() {
         return invoice;
     }
 
-    public void setInvoice(Invoice invoice) {
+    public void setInvoice(InvoiceEntityDTO invoice) {
         this.invoice = invoice;
     }
 
@@ -48,5 +50,21 @@ public class SentInvoiceEntityDTO extends DomainEntityDTO {
 
     public void setStatus(InvoiceProcessingAttemptStatus status) {
         this.status = status;
+    }
+
+    public String getExceptionStackTrace() {
+        return exceptionStackTrace;
+    }
+
+    public void setExceptionStackTrace(String exceptionStackTrace) {
+        this.exceptionStackTrace = exceptionStackTrace;
+    }
+
+    public InvoiceBatchEntityDTO getBatch() {
+        return batch;
+    }
+
+    public void setBatch(InvoiceBatchEntityDTO batch) {
+        this.batch = batch;
     }
 }

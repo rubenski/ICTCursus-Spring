@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.service;
 
 import nl.codebasesoftware.produx.domain.InvoiceProcessingAttempt;
+import nl.codebasesoftware.produx.domain.dto.entity.InvoiceBatchEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.InvoiceEntityDTO;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
 import nl.codebasesoftware.produx.service.business.invoice.MonthAndYear;
@@ -17,7 +18,7 @@ public interface InvoiceService {
 
     File fromDisk(long id) throws ProduxServiceException;
 
-    void runInvoiceBatch(int month, int year) throws ProduxServiceException;
+    InvoiceBatchEntityDTO runInvoiceBatch(int month, int year) throws ProduxServiceException;
 
     List<InvoiceEntityDTO> findForCompany(long companyId, int year);
 }

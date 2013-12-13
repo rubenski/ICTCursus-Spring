@@ -7,6 +7,7 @@ import nl.codebasesoftware.produx.domain.*;
 import nl.codebasesoftware.produx.domain.assembler.InvoiceAssembler;
 import nl.codebasesoftware.produx.domain.dto.entity.ClickEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.InvoiceBatchEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.InvoiceEntityDTO;
 import nl.codebasesoftware.produx.domain.support.InvoiceProcessingAttemptStatus;
 import nl.codebasesoftware.produx.exception.ProduxServiceException;
@@ -86,7 +87,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     @Transactional(readOnly = false, rollbackFor = Exception.class)
-    public void runInvoiceBatch(int month, int year) throws ProduxServiceException{
+    public InvoiceBatchEntityDTO runInvoiceBatch(int month, int year) throws ProduxServiceException{
 
         List<Company> all = companyDao.findAll();
 
@@ -110,6 +111,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
         batch.setJobCompleted(Calendar.getInstance());
         invoiceBatchDao.save(batch);
+        return batch.toDTO();
     }
 
 

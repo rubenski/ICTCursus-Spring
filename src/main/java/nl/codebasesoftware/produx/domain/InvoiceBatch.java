@@ -1,6 +1,8 @@
 package nl.codebasesoftware.produx.domain;
 
 import nl.codebasesoftware.produx.domain.dto.entity.InvoiceBatchEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.InvoiceProcessingAttemptEntityDTO;
+import nl.codebasesoftware.produx.util.collection.EntityCollectionConverter;
 
 import javax.persistence.*;
 import java.util.*;
@@ -80,6 +82,14 @@ public class InvoiceBatch implements DomainEntity {
 
     @Override
     public InvoiceBatchEntityDTO toDTO() {
-        return null;
+        InvoiceBatchEntityDTO batch = new InvoiceBatchEntityDTO();
+        batch.setId(id);
+        batch.setJobCompleted(jobCompleted);
+        batch.setYear(year);
+        batch.setMonth(month);
+        batch.setJobStarted(jobStarted);
+        List<InvoiceProcessingAttemptEntityDTO> attempts = new EntityCollectionConverter<InvoiceProcessingAttempt, InvoiceProcessingAttemptEntityDTO>().convert(invoiceProcessingAttempts);
+        batch.setInvoiceProcessingAttempts(new HashSet<>(attempts));
+        return batch;
     }
 }

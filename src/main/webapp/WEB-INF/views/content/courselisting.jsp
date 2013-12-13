@@ -1,6 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%-- listing --%>
 <c:forEach items="${resultListing.courses}" var="course" varStatus="loop">
