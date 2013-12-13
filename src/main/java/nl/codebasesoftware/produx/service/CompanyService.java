@@ -9,6 +9,8 @@ import nl.codebasesoftware.produx.formdata.BindableFileUpload;
 import nl.codebasesoftware.produx.formdata.CompanyProductSettingsFormData;
 import nl.codebasesoftware.produx.formdata.CompanySettingsFormData;
 
+import java.util.List;
+
 /**
  * User: rvanloen
  * Date: 6-11-12
@@ -36,4 +38,6 @@ public interface CompanyService {
     void updateLogo(BindableFileUpload bindableFileUpload);
 
     void removeLogo(long companyId);
+
+    List<CompanyEntityDTO> findAll();
 }

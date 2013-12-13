@@ -16,7 +16,6 @@ import java.util.*;
  * User: rvanloen
  * Date: 27-8-13
  * Time: 17:23
- * To change this template use File | Settings | File Templates.
  */
 public class InvoiceEntityDTO extends DomainEntityDTO {
 
@@ -28,7 +27,7 @@ public class InvoiceEntityDTO extends DomainEntityDTO {
     private String lastInvoiceNumber;
     private int forYear;
     private int forMonth;
-    private Set<InvoiceRecordEntityDTO> records = new TreeSet(new TimeComparator());
+    private Set<InvoiceRecordEntityDTO> records = new TreeSet<>(new TimeComparator());
 
     @Override
     public Long getId() {

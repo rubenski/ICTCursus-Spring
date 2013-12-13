@@ -1,21 +1,26 @@
 package nl.codebasesoftware.produx.domain;
 
+import nl.codebasesoftware.produx.domain.dto.entity.DomainEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.InvoiceBatchEntityDTO;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.Calendar;
+import javax.persistence.OneToMany;
+import java.util.*;
 
 /**
  * User: rvanloen
- * Date: 20-5-13
- * Time: 23:49
+ * Date: 13-12-13
+ * Time: 20:32
  */
+@Entity
 public class InvoiceBatch implements DomainEntity {
 
     private Long id;
-    private Calendar date;
-    private Calendar completed;
+    private Calendar jobStarted;
+    private Calendar jobCompleted;
+    private Set<SentInvoice> sentInvoices = new HashSet<>();
 
     @Override
     @Id
@@ -28,13 +33,33 @@ public class InvoiceBatch implements DomainEntity {
         this.id = id;
     }
 
+    public Calendar getJobStarted() {
+        return jobStarted;
+    }
+
+    public void setJobStarted(Calendar jobStarted) {
+        this.jobStarted = jobStarted;
+    }
+
+    public Calendar getJobCompleted() {
+        return jobCompleted;
+    }
+
+    public void setJobCompleted(Calendar jobCompleted) {
+        this.jobCompleted = jobCompleted;
+    }
+
+    @OneToMany
+    public Set<SentInvoice> getSentInvoices() {
+        return sentInvoices;
+    }
+
+    public void setSentInvoices(Set<SentInvoice> sentInvoices) {
+        this.sentInvoices = sentInvoices;
+    }
+
     @Override
     public InvoiceBatchEntityDTO toDTO() {
-
-        InvoiceBatchEntityDTO dto = new InvoiceBatchEntityDTO();
-        dto.setId(id);
-        dto.setCompleted(completed);
-        dto.setDate(date);
-        return dto;
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

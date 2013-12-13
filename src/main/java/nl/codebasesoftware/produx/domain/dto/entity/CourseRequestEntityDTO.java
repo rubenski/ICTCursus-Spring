@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.domain.dto.entity;
 
 import nl.codebasesoftware.produx.domain.Course;
 
+import java.text.NumberFormat;
 import java.util.Calendar;
 
 /**
@@ -149,7 +150,13 @@ public class CourseRequestEntityDTO extends DomainEntityDTO implements InvoiceIt
 
     @Override
     public String getInvoiceDescription(){
-        return String.format("Aanvraag voor '%s' (ID: #%d)", courseName, id);
+
+        NumberFormat nf = NumberFormat.getInstance();
+        nf.setMinimumFractionDigits(1);
+        nf.setMaximumFractionDigits(1);
+        String percentage = nf.format(currentCommissionPercentage);
+
+        return String.format("Aanvraag voor '%s' (ID: #%d) van %s tegen %s%%", courseName, id, requesterName, percentage);
     }
 
 

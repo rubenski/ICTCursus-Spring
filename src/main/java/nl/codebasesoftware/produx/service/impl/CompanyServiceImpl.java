@@ -16,6 +16,7 @@ import nl.codebasesoftware.produx.service.SolrService;
 import nl.codebasesoftware.produx.service.support.CurrentUser;
 import nl.codebasesoftware.produx.util.ImageUtil;
 import nl.codebasesoftware.produx.properties.Properties;
+import nl.codebasesoftware.produx.util.collection.EntityCollectionConverter;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
@@ -184,6 +185,10 @@ public class CompanyServiceImpl implements CompanyService {
             courseEntities.add(course.toDTO());
         }
         return courseEntities;
+    }
+
+    public List<CompanyEntityDTO> findAll(){
+        return new EntityCollectionConverter<Company, CompanyEntityDTO>().convert(companyDao.findAll());
     }
 }
 

@@ -1,6 +1,10 @@
 package nl.codebasesoftware.produx.domain.dto.entity;
 
+import nl.codebasesoftware.produx.domain.SentInvoice;
+
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,7 +18,9 @@ public class InvoiceBatchEntityDTO extends DomainEntityDTO {
     private Long id;
     private Calendar date;
     private Calendar completed;
+    private Set<SentInvoice> sentInvoices = new HashSet<>();
 
+    @Override
     public Long getId() {
         return id;
     }
@@ -37,5 +43,13 @@ public class InvoiceBatchEntityDTO extends DomainEntityDTO {
 
     public void setCompleted(Calendar completed) {
         this.completed = completed;
+    }
+
+    public Set<SentInvoice> getSentInvoices() {
+        return sentInvoices;
+    }
+
+    public void setSentInvoices(Set<SentInvoice> sentInvoices) {
+        this.sentInvoices = sentInvoices;
     }
 }
