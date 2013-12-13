@@ -146,6 +146,7 @@ public class BindableCourseToCourse implements Converter<BindableCourse, Course>
         course.setCertificate(bindableCourse.isCertificate());
         course.setCertificateName(bindableCourse.getCertificateName());
         course.setPublished(bindableCourse.isPublished());
+        course.setLinkToSite(bindableCourse.getLinkToSite());
         return course;
     }
 }

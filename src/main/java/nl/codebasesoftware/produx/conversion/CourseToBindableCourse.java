@@ -36,6 +36,7 @@ public class CourseToBindableCourse implements Converter<Course, BindableCourse>
         bindableCourse.setOptions(getOptions(course));
         bindableCourse.setPublished(course.isPublished());
         bindableCourse.setPublishable(course.isPublishable());
+        bindableCourse.setLinkToSite(course.getLinkToSite());
         return bindableCourse;
     }
 

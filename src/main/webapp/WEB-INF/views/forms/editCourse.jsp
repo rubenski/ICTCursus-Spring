@@ -59,6 +59,17 @@
         <form:errors path="shortDescription" cssClass="form-error"/>
     </div>
 
+    <c:if test="${company.productSettings.externalCourseLinksActive}">
+        <div class="default-block">
+            <form:label path="linkToSite">
+                <spring:message code="course.form.linkToSite"/>
+                <span><spring:message code="course.form.linkToSite.helptext"/></span>
+            </form:label>
+            <form:input path="linkToSite" cssErrorClass="form-input-error" size="120"/>
+            <form:errors path="linkToSite" cssClass="form-error"/>
+        </div>
+    </c:if>
+
     <%-- long description --%>
     <div class="default-block">
         <form:label path="longDescription"><spring:message code="course.form.longdescription"/></form:label>

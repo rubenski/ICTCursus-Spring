@@ -14,6 +14,7 @@
         <li><a href="<c:url value="/admin/sys/articlesuggestions" />"><spring:message code="sysadmin.sections.articlesuggestions"/></a></li>
         <li><a href="<c:url value="/admin/sys/articles" />"><spring:message code="admin.sections.articles"/></a></li>
         <li><a href="<c:url value="/admin/sys/userprofiles" />"><spring:message code="admin.sections.users"/></a></li>
+        <li><a href="<c:url value="/admin/productsettings" />">Productinstellingen (tijdelijk)</a></li>
     </ul>
     <br>
     <ul>

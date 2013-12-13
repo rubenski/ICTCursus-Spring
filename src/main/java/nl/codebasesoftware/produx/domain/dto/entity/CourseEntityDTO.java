@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.domain.dto.entity;
 
 import nl.codebasesoftware.produx.domain.dto.generic.WebVisitable;
 import nl.codebasesoftware.produx.service.business.url.CourseUrl;
+import nl.codebasesoftware.produx.util.StringUtil;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -14,7 +15,6 @@ import java.util.List;
  * User: rvanloen
  * Date: 9-8-13
  * Time: 22:00
- * To change this template use File | Settings | File Templates.
  */
 public class CourseEntityDTO extends DomainEntityDTO implements WebVisitable {
 
@@ -39,6 +39,7 @@ public class CourseEntityDTO extends DomainEntityDTO implements WebVisitable {
     private List<HighlightedCourseOnCategoryEntityDTO> highlightedOnCategories = new ArrayList<>();
     private List<OptionCategoryEntityDTO> optionCategories = new ArrayList<>();
     private List<CourseOptionEntityDTO> options = new ArrayList<>();
+    private String linkToSite;
 
     @Override
     public Long getId() {
@@ -217,6 +218,14 @@ public class CourseEntityDTO extends DomainEntityDTO implements WebVisitable {
         this.options = options;
     }
 
+    public String getLinkToSite() {
+        return linkToSite;
+    }
+
+    public void setLinkToSite(String linkToSite) {
+        this.linkToSite = linkToSite;
+    }
+
     public List<String> getRegionNames() {
         List<String> regionNames = new ArrayList<String>();
         for (RegionEntityDTO region : regions) {
@@ -283,6 +292,10 @@ public class CourseEntityDTO extends DomainEntityDTO implements WebVisitable {
         if (category == null) return false;
         if (regions == null || regions.size() == 0) return false;
         return true;
+    }
+
+    public boolean hasLinkToSite(){
+        return !StringUtil.isNullOrEmpty(linkToSite);
     }
 
 }

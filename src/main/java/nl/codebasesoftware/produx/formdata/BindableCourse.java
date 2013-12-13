@@ -31,6 +31,7 @@ public class BindableCourse {
     private Calendar firstPublished;
     private boolean published;
     private boolean publishable;
+    private String linkToSite;
 
 
     public String getDuration() {
@@ -188,6 +189,14 @@ public class BindableCourse {
 
     public void setPublishable(boolean publishable) {
         this.publishable = publishable;
+    }
+
+    public String getLinkToSite() {
+        return linkToSite;
+    }
+
+    public void setLinkToSite(String linkToSite) {
+        this.linkToSite = linkToSite;
     }
 
     private String cleanRichText(String richText) {

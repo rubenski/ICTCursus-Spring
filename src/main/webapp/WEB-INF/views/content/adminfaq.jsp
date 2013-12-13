@@ -2,32 +2,55 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 
 <div class="default-block">
-<h2>Hoe kan ik cursussen plaatsen?</h2>
-<p>Bij <a href="/admin/courses">Uw cursussen</a> klikt u op de link <b>Voeg een cursus toe</b>. Met het formulier dat verschijnt kunt u een cursus invoeren.</p>
+
+
+<a href="#cursussen-plaatsen">Hoe kan ik cursussen plaatsen?</a><br/>
+<a href="#cursussen-verschijnen">Waar verschijnen mijn cursussen?</a><br/>
+<a href="#wat-is-een-aanvraag">Wat is een aanvraag?</a><br/>
+<a href="#aanvraag-geldigheid">Wanneer is een aanvraag geldig?</a><br/>
+<a href="#cursussen-plaatsen-kosten">Wat kost het plaatsen van cursussen?</a><br/>
+<a href="#kosten-aanvraag">Wat kost een aanvraag?</a><br/>
+<a href="#optie-lijstweergave">Wat is de optie 'weergave in lijsten'?</a><br/>
+<a href="#optie-bedrijfsgegevens">Wat is de optie 'vermelding bedrijfsgegevens'?</a><br/>
+<a href="#optie-directe-links">Wat is de optie 'links naar uw website'?</a><br/>
+
+
 </div>
 
 <div class="default-block">
-<h2>Waar verschijnen mijn cursussen?</h2>
-<p>Uw cursussen verschijnen op de categorie waar u de cursus aan toegewezen heeft en in de zoekresultaten.</p>
+    <a name="cursussen-plaatsen"></a>
+    <h2>Hoe kan ik cursussen plaatsen?</h2>
+    <p>Bij <a href="/admin/courses">Uw cursussen</a> klikt u op de link <b>Voeg een cursus toe</b>. Met het formulier dat verschijnt kunt u een cursus invoeren.</p>
 </div>
 
 <div class="default-block">
-<h2>Wat is een aanvraag?</h2>
-<p>Bezoekers van ictcursus.nl kunnen via het formulier onder uw cursus een bericht naar u versturen. Zo'n bericht heet een 'aanvraag'. Een aanvraag
-stelt u in staat om in contact te komen met potentiële cursisten.</p>
+    <a name="cursussen-verschijnen"></a>
+    <h2>Waar verschijnen mijn cursussen?</h2>
+    <p>Uw cursussen verschijnen op de categorie waar u de cursus aan toegewezen heeft en in de zoekresultaten.</p>
 </div>
+
 <div class="default-block">
+    <a name="wat-is-een-aanvraag"></a>
+    <h2>Wat is een aanvraag?</h2>
+    <p>Bezoekers van ictcursus.nl kunnen via het formulier onder uw cursus een bericht naar u versturen. Zo'n bericht heet een 'aanvraag'. Een aanvraag
+    stelt u in staat om in contact te komen met potentiële cursisten.</p>
+</div>
+
+<div class="default-block">
+    <a name="aanvraag-geldigheid"></a>
     <h2>Wanneer is een aanvraag geldig?</h2>
     <p>Een aanvraag is altijd geldig, tenzij de inhoud van het bericht onleesbaar is of echte onzin bevat. Mocht u twijfelen of een aanvraag geldig is, neem dan contact
     op met ictcursus.nl.</p>
 </div>
 
-
 <div class="default-block">
+    <a name="cursussen-plaatsen-kosten"></a>
     <h2>Wat kost het plaatsen van cursussen?</h2>
     <p>Het plaatsen van cursussen is gratis. U betaalt pas zodra u een aanvraag ontvangt of als u 'directe links naar uw site' geactiveerd heeft en er een bezoeker op een link naar uw site klikt.</p>
 </div>
+
 <div class="default-block">
+    <a name="kosten-aanvraag"></a>
     <h2>Wat kost een aanvraag?</h2>
     <p>Het <b>basisbedrag</b>s dat u betaalt voor een aanvraag is 1.0 procent van de cursusprijs, exclusief BTW. Kiest u bij <a href="/admin/productsettings">Productinstellingen</a> voor <b>uitgebreide weergave</b> van uw
         cursussen in lijsten of uitgebreide weergave van uw bedrijfsgegevens dan komt er per optie 0.5 procent bij per aanvraag.</p>
@@ -57,6 +80,7 @@ stelt u in staat om in contact te komen met potentiële cursisten.</p>
 </div>
 
 <div class="default-block">
+    <a name="optie-lijstweergave"></a>
     <h2>Wat is de optie 'weergave in lijsten'?</h2>
     <p>De cursussen die u op ictcursus.nl plaatst verschijnen in zoekresultaten en op de categorie waar u de cursus in geplaatst heeft.
         U kunt bij <a href="/admin/productsettings">Productinstellingen</a> kiezen voor een eenvoudige of een uitgebreide weergave van uw cursussen in lijsten.
@@ -75,9 +99,10 @@ stelt u in staat om in contact te komen met potentiële cursisten.</p>
 </div>
 
 <div class="default-block">
+    <a name="optie-bedrijfsgegevens"></a>
     <h2>Wat is de optie 'vermelding bedrijfsgegevens'?</h2>
     <p>Voor de weergave van uw bedrijfsgegevens biedt ictcursus.nl een eenvoudige en een uitgebreide variant. De eenvoudige variant is standaard geselecteerd en kost u niets extra.
-        Bij de uitgebreide weergave worden naast uw cursus uw bedrijfsnaam, bedrijfslogo en adresgegevens getoond, een link naar uw persoonlijke bedrijfspagina en een lijst met andere
+        Bij de uitgebreide weergave worden naast uw cursussen uw bedrijfsnaam, bedrijfslogo en adresgegevens getoond, een link naar uw persoonlijke bedrijfspagina en een lijst met andere
         relevante cursussen van uw bedrijf. Voor de uitgebreide vermelding van bedrijfsgegevens betaalt u 0.5 procent extra per aanvraag die u via ictcursus.nl ontvangt. U betaalt dus pas zodra
         u een aanvraag ontvangt.
     </p>
@@ -93,5 +118,18 @@ stelt u in staat om in contact te komen met potentiële cursisten.</p>
     <p>In de uitgebreide weergave heeft u ook uw eigen bedrijfspagina met uw adresgegevens, logo, uw bedrijfsprofiel en een lijst met al uw cursussen. Uw bedrijfsprofiel kunt u invullen
         onderaan bij <a href="/admin/company">Uw bedrijf</a></p>
     <img src="/static/img/company-page-example.png"/>
+</div>
+
+<div class="default-block">
+    <a name="optie-directe-links"></a>
+    <h2>Wat is de optie 'links naar uw website'?</h2>
+    <p>Met de optie <b>links naar uw website</b> krijgt u de mogelijkheid om bij elke cursus een link naar uw eigen website op te nemen,
+        zodat bezoekers de cursus direct op uw eigen website kunnen bekijken. U betaalt &#0128;0,75 per klik. U betaalt maar 1 keer in de 8 uur voor een klik
+        van dezelfde persoon op dezelfde cursus. Klikt iemand herhaaldelijk op een van uw links dan betaalt u dus maar 1 keer.
+    </p>
+
+    <img src="/static/img/directlinksform.png"/>
+    <br/><br/>
+    <img src="/static/img/directlink.png"/>
 </div>
 

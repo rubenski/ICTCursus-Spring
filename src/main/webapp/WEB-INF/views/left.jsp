@@ -16,7 +16,9 @@
     <c:if test="${aboutIctCursusPage}">
         <jsp:include page="components/aboutMenu.jsp"/>
     </c:if>
+
     <c:if test="${isCourse}">
         <jsp:include page="components/companyDetails.jsp"/>
     </c:if>
+
 </div>

@@ -18,6 +18,12 @@
     </c:choose>
 </div>
 
+<c:if test="${course.company.productSettings.externalCourseLinksActive && course.hasLinkToSite()}">
+    <div class="roundedbox columntext white">
+        <a href="${course.linkToSite}" target="_blank">Bekijk deze cursus bij ${course.company.name}</a>
+    </div>
+</c:if>
+
 
 <c:if test="${hasOtherCourses && course.company.productSettings.companyInfoActive}">
     <div class="roundedbox columntext">

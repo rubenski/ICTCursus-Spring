@@ -86,7 +86,6 @@ public class AdminCourseController {
             model.addAttribute("valid", isValidNewCourse);
         }
 
-
         CompanyEntityDTO loggedInCompany = companyService.getCurrentlyLoggedInCompany();
         List<CourseEntityDTO> companyCourses = courseService.findByCompanyId(loggedInCompany.getId());
 
@@ -98,7 +97,7 @@ public class AdminCourseController {
         }
 
         model.addAttribute("bindableCourse", conversionService.convert(course, BindableCourse.class));
-        addDataToModel(model, locale);
+        addDataToModel(model, locale, loggedInCompany);
 
         return "adminMain";
     }
@@ -108,7 +107,7 @@ public class AdminCourseController {
         model.addAttribute("mainContent", "forms/editCourse");
         CourseEntityDTO course = courseService.findFull(id);
         model.addAttribute("bindableCourse", conversionService.convert(course, BindableCourse.class));
-        addDataToModel(model, locale);
+        addDataToModel(model, locale, companyService.getCurrentlyLoggedInCompany());
         return "sysAdminMain";
     }
 
@@ -118,7 +117,7 @@ public class AdminCourseController {
         BindableCourse bindableCourse = new BindableCourse();
         model.addAttribute("bindableCourse", bindableCourse);
         model.addAttribute("mainContent", "forms/editCourse");
-        addDataToModel(model, locale);
+        addDataToModel(model, locale, companyService.getCurrentlyLoggedInCompany());
 
         return "adminMain";
     }
@@ -136,7 +135,7 @@ public class AdminCourseController {
             return "redirect:/admin/course/" + course.getId();
         }
 
-        addDataToModel(model, locale);
+        addDataToModel(model, locale, companyService.getCurrentlyLoggedInCompany());
         model.addAttribute("valid", "false");
         model.addAttribute("mainContent", "forms/editCourse");
         return "adminMain";
@@ -167,11 +166,11 @@ public class AdminCourseController {
 
         model.addAttribute("mainContent", "forms/editCourse");
         model.addAttribute("valid", valid);
-        addDataToModel(model, locale);
+        addDataToModel(model, locale, companyService.getCurrentlyLoggedInCompany());
     }
 
 
-    private void addDataToModel(Model model, Locale locale) {
+    private void addDataToModel(Model model, Locale locale, CompanyEntityDTO company) {
         String headerText = messageSource.getMessage("admin.sections.courses", new Object[]{}, locale);
         List<Category> categories = categoryService.findAll();
         List<Region> allRegions = regionService.findAll();
@@ -183,6 +182,7 @@ public class AdminCourseController {
         model.addAttribute("optionCategories", optionCategories);
         model.addAttribute("headerText", headerText);
         model.addAttribute("courseForm", true);
+        model.addAttribute("company", company);
     }
 
     private void setCoursesScreenData(Model model, Locale locale, List<CourseEntityDTO> courses) {

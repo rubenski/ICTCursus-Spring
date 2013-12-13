@@ -41,6 +41,7 @@ public class Course implements DomainEntity {
     private Set<Region> regions = new HashSet<>();
     private boolean published;
     private Set<HighlightedCoursePeriod> highlightedCoursePeriods = new HashSet<>();
+    private String linkToSite;
 
 
     public Course() {
@@ -263,6 +264,13 @@ public class Course implements DomainEntity {
         this.highlightedCoursePeriods = highlightedOnCategories;
     }
 
+    public String getLinkToSite() {
+        return linkToSite;
+    }
+
+    public void setLinkToSite(String linkToSite) {
+        this.linkToSite = linkToSite;
+    }
 
     @Transient
     public boolean equals(Object o) {
@@ -347,6 +355,7 @@ public class Course implements DomainEntity {
         dto.setRegions(getRegionsAsDTOs());
         dto.setTags(getTagsAsDTOs());
         dto.setTimes(getTimesAsDTOs());
+        dto.setLinkToSite(linkToSite);
 
         return dto;
     }

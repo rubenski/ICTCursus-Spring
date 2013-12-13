@@ -4,12 +4,18 @@ import nl.codebasesoftware.produx.dao.CourseOptionDao;
 import nl.codebasesoftware.produx.domain.CourseOption;
 import nl.codebasesoftware.produx.domain.OptionCategory;
 import nl.codebasesoftware.produx.formdata.BindableCourse;
+import nl.codebasesoftware.produx.util.StringUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -42,6 +48,31 @@ public class CourseFormValidator implements Validator {
         String regex = "[0-9]{1,5}(,[0-9]{2})?";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(bindableCourse.getFormattedPrice());
+
+
+        if(!StringUtil.isNullOrEmpty(bindableCourse.getLinkToSite())){
+            if(!bindableCourse.getLinkToSite().startsWith("http://")){
+                errors.rejectValue("linkToSite", "errors.linktosite.startwithhttp");
+            }else {
+                try {
+                    URL url = new URL(bindableCourse.getLinkToSite());
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setConnectTimeout(3000);
+                    int responseCode = conn.getResponseCode();
+                    conn.connect();
+                    if(responseCode != 200){
+                        errors.rejectValue("linkToSite", "errors.linktosite.notfound");
+                    }
+                } catch (MalformedURLException e) {
+                    errors.rejectValue("linkToSite", "errors.linktosite.malformed");
+                } catch (IOException e) {
+                    errors.rejectValue("linkToSite", "errors.linktosite.notfound");
+                }
+            }
+        }
+
+
+
 
         if (bindableCourse.getName().length() <= 3) {
             errors.rejectValue("name", "errors.name.invalid");
