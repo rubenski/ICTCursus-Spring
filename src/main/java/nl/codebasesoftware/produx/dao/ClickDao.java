@@ -13,4 +13,5 @@ import java.util.List;
  */
 public interface ClickDao extends GenericDao<Click> {
     List<Click> findForCompanyAndMonth(long companyId, Calendar fromDay, Calendar toDay);
+    List<Click> findClicksDuringLastEightHours(long courseId, String ua, String ip);
 }

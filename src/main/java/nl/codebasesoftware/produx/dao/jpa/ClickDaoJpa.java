@@ -31,4 +31,16 @@ public class ClickDaoJpa extends GenericDaoJpa<Click> implements ClickDao {
                 .setParameter("toDay", toDay)
                 .getResultList();
     }
+
+    public List<Click> findClicksDuringLastEightHours(long courseId, String ua, String ip){
+
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.HOUR_OF_DAY, -8);
+
+        return entityManager.createQuery("from Click c where c.course.id = :courseId and c.userAgent = :ua and c.ip = :ip and c.created > :eightHoursAgo ")
+                .setParameter("courseId", courseId)
+                .setParameter("ua", ua)
+                .setParameter("ip", ip)
+                .setParameter("eightHoursAgo", cal).getResultList();
+    }
 }

@@ -32,7 +32,7 @@ public class LinkClickController {
     @RequestMapping(value = "/externallinkclicked", method = RequestMethod.POST)
     public @ResponseBody
     String registerClick(HttpServletRequest request){
-        linkClickService.registerClick(request);
+        linkClickService.registerClickOrIgnore(request);
         return "";
     }
 }

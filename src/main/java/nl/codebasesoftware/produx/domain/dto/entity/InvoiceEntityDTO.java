@@ -191,7 +191,7 @@ public class InvoiceEntityDTO extends DomainEntityDTO {
                 builder.append(" en ");
             }
 
-            builder.append(numberOfClickRecords).append( "kliks");
+            builder.append(numberOfClickRecords).append( " kliks");
         }
 
         builder.append(" via ictcursus.nl (zie specificatie)");

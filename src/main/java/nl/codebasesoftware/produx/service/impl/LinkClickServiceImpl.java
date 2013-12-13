@@ -38,9 +38,19 @@ public class LinkClickServiceImpl implements LinkClickService {
 
     @Override
     @Transactional(readOnly = false)
-    public void registerClick(HttpServletRequest request) {
+    public void registerClickOrIgnore(HttpServletRequest request) {
         Click click = requestToClick(request);
+
+        if(alreadyClickedDuringLastEightHours(click)){
+            return;
+        }
+
         clickDao.persist(click);
+    }
+
+    private boolean alreadyClickedDuringLastEightHours(Click click) {
+        List<Click> clicksDuringLastEightHours = clickDao.findClicksDuringLastEightHours(click.getCourse().getId(), click.getUserAgent(), click.getIp());
+        return clicksDuringLastEightHours.size() > 0;
     }
 
     @Override
