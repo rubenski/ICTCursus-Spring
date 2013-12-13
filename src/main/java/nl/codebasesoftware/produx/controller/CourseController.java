@@ -50,6 +50,7 @@ public class CourseController {
     private SearchService searchService;
     private CourseRequestMailer courseRequestMailer;
     private PageBlockService pageBlockService;
+    private CompanyService companyService;
 
     private static final Logger LOG = Logger.getLogger(CourseController.class);
 
@@ -57,13 +58,15 @@ public class CourseController {
     public CourseController(CourseService courseService, CourseRequestValidator courseRequestValidator,
                             CourseRequestService courseRequestService, SearchService searchService,
                             CourseRequestMailer courseRequestMailer,
-                            PageBlockService pageBlockService) {
+                            PageBlockService pageBlockService,
+                            CompanyService companyService) {
         this.courseService = courseService;
         this.courseRequestValidator = courseRequestValidator;
         this.courseRequestService = courseRequestService;
         this.searchService = searchService;
         this.courseRequestMailer = courseRequestMailer;
         this.pageBlockService = pageBlockService;
+        this.companyService = companyService;
     }
 
     @RequestMapping(value = "/{category}/{id:[\\d]+}/{title}", method = RequestMethod.GET)
@@ -93,8 +96,10 @@ public class CourseController {
 
         courseRequestValidator.validate(request, result);
 
+        CourseEntityDTO course = courseService.findFull(request.getCourseId());
+
         if (!result.hasErrors()) {
-            CourseRequestEntityDTO requestEntityDTO = courseRequestService.saveRequest(request);
+            CourseRequestEntityDTO requestEntityDTO = courseRequestService.saveRequest(request, course.getCompany());
             courseRequestMailer.sendCourseRequestMail(requestEntityDTO, locale);
             redirectAttrs.addFlashAttribute("formData", request);
             model.addAttribute("courseRequestSubmitSuccess", true);
@@ -102,12 +107,10 @@ public class CourseController {
                     requestEntityDTO.getCourse().getId());
         }
 
-        CourseEntityDTO course = courseService.findFull(id);
-
         validateUrl(category, id, title, course);
         setData(model, request, course, false);
 
-        model.addAttribute("includeCourseJs", true);
+
         model.addAttribute("scrolldown", true);
 
         return "main";
@@ -152,6 +155,7 @@ public class CourseController {
         model.addAttribute("otherCourses", otherCourses);
         model.addAttribute("hasOtherCourses", otherCourses.getCourses().size() > 0);
         model.addAttribute("category", course.getCategory());
+        model.addAttribute("includeCourseJs", true);
     }
 
 

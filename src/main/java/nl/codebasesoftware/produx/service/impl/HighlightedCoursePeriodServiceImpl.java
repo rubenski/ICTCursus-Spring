@@ -2,9 +2,11 @@ package nl.codebasesoftware.produx.service.impl;
 
 import nl.codebasesoftware.produx.dao.CategoryDao;
 import nl.codebasesoftware.produx.dao.CategoryHighlightPeriodDao;
+import nl.codebasesoftware.produx.dao.CourseDao;
 import nl.codebasesoftware.produx.domain.Category;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.HighlightedCoursePeriod;
+import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 import nl.codebasesoftware.produx.domain.support.DateRange;
 import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.service.HighlightedCoursePeriodService;
@@ -22,13 +24,15 @@ import java.util.List;
 public class HighlightedCoursePeriodServiceImpl implements HighlightedCoursePeriodService {
 
     private CategoryDao categoryDao;
+    private CourseDao courseDao;
     private CourseService courseService;
     private CategoryHighlightPeriodDao categoryHighlightPeriodDao;
     private Properties properties;
 
     @Autowired
-    public HighlightedCoursePeriodServiceImpl(CategoryDao categoryDao, CourseService courseService, CategoryHighlightPeriodDao categoryHighlightPeriodDao, Properties properties) {
+    public HighlightedCoursePeriodServiceImpl(CategoryDao categoryDao, CourseDao courseDao, CourseService courseService, CategoryHighlightPeriodDao categoryHighlightPeriodDao, Properties properties) {
         this.categoryDao = categoryDao;
+        this.courseDao = courseDao;
         this.courseService = courseService;
         this.categoryHighlightPeriodDao = categoryHighlightPeriodDao;
         this.properties = properties;
@@ -38,7 +42,7 @@ public class HighlightedCoursePeriodServiceImpl implements HighlightedCoursePeri
     @Transactional(readOnly = false)
     public void addHighlightedCourse(Long courseId, Long categoryId, Date startDate, int numberOfMonths) {
         Category category = categoryDao.find(categoryId);
-        Course course = courseService.findById(courseId);
+        Course course = courseDao.find(courseId);
 
         Calendar startTime = Calendar.getInstance();
         startTime.setTime(startDate);

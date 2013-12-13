@@ -20,7 +20,7 @@
 
 <c:if test="${course.company.productSettings.externalCourseLinksActive && course.hasLinkToSite()}">
     <div class="roundedbox columntext white">
-        <a href="${course.linkToSite}" target="_blank">Bekijk deze cursus bij ${course.company.name}</a>
+        <a href="${course.linkToSite}" target="_blank" id="linktosite">Bekijk deze cursus bij ${course.company.name}</a>
     </div>
 </c:if>
 

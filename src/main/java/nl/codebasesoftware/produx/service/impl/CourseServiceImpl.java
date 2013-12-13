@@ -152,8 +152,13 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     @Transactional(readOnly = true)
-    public Course findById(Long courseId) {
-        return courseDao.find(courseId);
+    public CourseEntityDTO findById(Long courseId) {
+        Course course = courseDao.find(courseId);
+        if(course == null){
+            return null;
+        }
+
+        return course.toDTO();
     }
 
     @Override

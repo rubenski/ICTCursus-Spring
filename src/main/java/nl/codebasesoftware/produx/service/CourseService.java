@@ -39,7 +39,7 @@ public interface CourseService {
 
     List<Course> findCoursesForCompanyAndCategory(long categoryId, long companyId);
 
-    Course findById(Long courseId);
+    CourseEntityDTO findById(Long courseId);
 
     List<CourseEntityDTO> findAllWithCompany();
 

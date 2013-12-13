@@ -23,6 +23,10 @@ public class CourseRequestEntityDTO extends DomainEntityDTO implements AsInvoice
     private Calendar created;
     private boolean invalid;
     private String company;
+    private double currentCommissionPercentage;
+    private long currentCoursePriceInCents;
+    private int commission;
+
 
     public Long getId() {
         return id;
@@ -119,6 +123,30 @@ public class CourseRequestEntityDTO extends DomainEntityDTO implements AsInvoice
 
     public void setCompany(String company) {
         this.company = company;
+    }
+
+    public double getCurrentCommissionPercentage() {
+        return currentCommissionPercentage;
+    }
+
+    public void setCurrentCommissionPercentage(double currentCommissionPercentage) {
+        this.currentCommissionPercentage = currentCommissionPercentage;
+    }
+
+    public long getCurrentCoursePriceInCents() {
+        return currentCoursePriceInCents;
+    }
+
+    public void setCurrentCoursePriceInCents(long currentCoursePriceInCents) {
+        this.currentCoursePriceInCents = currentCoursePriceInCents;
+    }
+
+    public int getCommission() {
+        return commission;
+    }
+
+    public void setCommission(int commission) {
+        this.commission = commission;
     }
 
     @Override

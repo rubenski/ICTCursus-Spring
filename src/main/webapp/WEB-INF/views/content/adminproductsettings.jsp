@@ -103,9 +103,9 @@
                 </td>
             </tr>
             <tr>
-                <td class="center"><a href="/admin/faq/products/listingtypes"><spring:message code="generic.message.moreinfo"/></a></td>
-                <td class="center"><a href="/admin/faq/products/companyinfo"><spring:message code="generic.message.moreinfo"/></a></td>
-                <td class="center"><a href="/admin/faq/products/directlinks"><spring:message code="generic.message.moreinfo"/></a></td>
+                <td class="center"><a href="/admin/faq#optie-lijstweergave"><spring:message code="generic.message.moreinfo"/></a></td>
+                <td class="center"><a href="/admin/faq#optie-bedrijfsgegevens"><spring:message code="generic.message.moreinfo"/></a></td>
+                <td class="center"><a href="/admin/faq#optie-directe-links"><spring:message code="generic.message.moreinfo"/></a></td>
             </tr>
             <tr>
                 <td colspan="3" class="center"><input type="submit" value="Opslaan"/></td>

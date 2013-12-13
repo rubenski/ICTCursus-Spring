@@ -11,7 +11,7 @@ import java.util.Calendar;
  * Time: 16:45
  */
 @Entity
-public class CourseRequest implements DomainEntity {
+public class CourseRequest implements DomainEntity, CostItem {
 
     private Long id;
     private int prefix;
@@ -25,6 +25,9 @@ public class CourseRequest implements DomainEntity {
     private String company;
     private Calendar created;
     private boolean invalid;
+    private double currentCommissionPercentage;
+    private long currentCoursePriceInCents;
+    private int commission;
 
     @Override
     @Id
@@ -135,6 +138,31 @@ public class CourseRequest implements DomainEntity {
         this.phone = phone;
     }
 
+    public double getCurrentCommissionPercentage() {
+        return currentCommissionPercentage;
+    }
+
+    public void setCurrentCommissionPercentage(double currentCommissionPercentage) {
+        this.currentCommissionPercentage = currentCommissionPercentage;
+    }
+
+    public long getCurrentCoursePriceInCents() {
+        return currentCoursePriceInCents;
+    }
+
+    public void setCurrentCoursePriceInCents(long currentCoursePriceInCents) {
+        this.currentCoursePriceInCents = currentCoursePriceInCents;
+    }
+
+    @Override
+    public int getCommission() {
+        return commission;
+    }
+
+    public void setCommission(int commission) {
+        this.commission = commission;
+    }
+
     @Override
     @Transient
     public CourseRequestEntityDTO toDTO() {
@@ -152,6 +180,9 @@ public class CourseRequest implements DomainEntity {
         dto.setNumberOfParticipants(numberOfParticipants);
         dto.setInvalid(invalid);
         dto.setCompany(company);
+        dto.setCommission(commission);
+        dto.setCurrentCommissionPercentage(currentCommissionPercentage);
+        dto.setCurrentCoursePriceInCents(currentCoursePriceInCents);
         return dto;
     }
 }

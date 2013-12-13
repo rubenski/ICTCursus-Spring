@@ -36,5 +36,10 @@ public class Properties {
         String s = getProperty("debugging.enabled");
         return Integer.parseInt(s) == 1;
     }
+
+    public int getCostPerLinkClick(){
+        String s = getProperty("cost.per.linkclick");
+        return Integer.parseInt(s);
+    }
 }
 

@@ -4,6 +4,7 @@ import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.Course;
 import nl.codebasesoftware.produx.domain.CourseRequest;
 import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.CourseEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import nl.codebasesoftware.produx.domain.optionlists.NumberOfParticipants;
 import nl.codebasesoftware.produx.domain.optionlists.Prefixes;
@@ -111,7 +112,7 @@ public class AdminCourseRequestController {
             throw new ResourceNotFoundException();
         }
         CourseRequestFormData formData = conversionService.convert(request, CourseRequestFormData.class);
-        Course course = courseService.findById(formData.getCourseId());
+        CourseEntityDTO course = courseService.findById(formData.getCourseId());
 
         model.addAttribute("mainContent", "forms/adminCourseRequest");
         model.addAttribute("prefixes", Arrays.asList(Prefixes.values()));

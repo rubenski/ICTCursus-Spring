@@ -104,6 +104,7 @@
                 <entry key="invoices.tempxsl.path" value="${invoices.tempxsl.path}"/>
                 <entry key="invoices.logoUrl" value="${invoices.logoUrl}"/>
                 <entry key="debugging.enabled" value="${debugging.enabled}"/>
+                <entry key="cost.per.linkclick" value="${cost.per.linkclick}"/>
             </map>
         </property>
     </bean>

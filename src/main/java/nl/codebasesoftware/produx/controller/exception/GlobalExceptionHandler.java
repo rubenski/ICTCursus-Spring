@@ -36,6 +36,7 @@ public class GlobalExceptionHandler {
         this.debuggingEnabled = properties.isDebuggingEnabled();
     }
 
+    /*
     @ExceptionHandler(ResourceNotFoundException.class)
     public ModelAndView handleResourceNotFoundException(ResourceNotFoundException ex, HttpServletRequest request, HttpServletResponse response)
     {
@@ -78,6 +79,7 @@ public class GlobalExceptionHandler {
         }
         return stack.toString();
     }
+    */
 
 
 }

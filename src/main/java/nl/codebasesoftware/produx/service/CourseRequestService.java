@@ -19,7 +19,7 @@ import java.util.List;
  */
 public interface CourseRequestService {
 
-    CourseRequestEntityDTO saveRequest(CourseRequestFormData courseRequestFormData);
+    CourseRequestEntityDTO saveRequest(CourseRequestFormData courseRequestFormData, CompanyEntityDTO company);
 
     List<CourseRequest> findForCompany(long companyId);
 
