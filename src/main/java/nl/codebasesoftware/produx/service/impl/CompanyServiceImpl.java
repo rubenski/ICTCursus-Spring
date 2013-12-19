@@ -61,8 +61,12 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     @Transactional(readOnly = true)
-    public Company findByArticle(ArticleEntityDTO article) {
-        return companyDao.findByArticle(article);
+    public CompanyEntityDTO findByArticle(ArticleEntityDTO article) {
+        Company company = companyDao.findByArticle(article);
+        if(company == null){
+            return null;
+        }
+        return company.toDTO();
     }
 
     @Override

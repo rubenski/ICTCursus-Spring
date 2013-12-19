@@ -88,7 +88,9 @@
                 <jsp:include page="${mainContent}.jsp"/>
             </div>
 
-            <jsp:include page="${rightColumn}.jsp"/>
+            <c:if test="${rightColumn != null && rightColumn != ''}">
+                <jsp:include page="${rightColumn}.jsp"/>
+            </c:if>
         </div>
     </div>
 </div>

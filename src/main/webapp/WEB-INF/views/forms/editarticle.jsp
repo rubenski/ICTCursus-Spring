@@ -30,6 +30,14 @@
         <form:errors path="title" cssClass="form-error"/>
     </div>
 
+    <div class="default-block logo">
+        <form:label path="hasPicture"><spring:message code="article.form.picture"/>
+            <span><spring:message code="company.logo.helptext"/></span>
+        </form:label>
+        <a href="#" class="lightbox"><spring:message code="company.upload.logo"/></a>
+        <div id="companyLogo"></div>
+    </div>
+
     <div class="default-block">
         <form:label path="teaser">
             <spring:message code="article.form.teaser"/>
@@ -100,3 +108,26 @@
     </div>
 
 </form:form>
+
+
+<div id="lightbox" style="display: none;"></div>
+
+<div id="lightbox-panel" class="upload-lightbox">
+    <form id="uploadForm" action="/admin/logo/upload" method="post" target="upload-result" enctype="multipart/form-data">
+        <div class="default-block">
+            <label for="fileData">Upload afbeelding</label>
+            <input id="fileData" name="fileData" type="file" value=""/>
+
+            <br/><br/>
+            <input type="submit" value="upload" class="subbutton" id="uploadbutton"/>
+        </div>
+    </form>
+
+    <p align="center">
+        <a id="close-panel" href="#">Sluiten</a>
+    </p>
+</div>
+
+<iframe name="upload-result" id="upload-result-frame">
+
+</iframe>

@@ -26,6 +26,7 @@ public class ArticleEntityDTO extends DomainEntityDTO {
     private UserProfileEntityDTO author;
     private String text;
     private CategoryEntityDTO category;
+    private byte[] picture;
 
     @Override
     public Long getId() {
@@ -110,6 +111,18 @@ public class ArticleEntityDTO extends DomainEntityDTO {
 
     public void addPage(ArticlePageEntityDTO page) {
         pages.add(page);
+    }
+
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
+    }
+
+    public boolean hasPicture(){
+        return picture != null;
     }
 
     // Utility methods

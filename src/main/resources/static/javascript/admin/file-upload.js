@@ -39,6 +39,7 @@ $(document).ready(function () {
 
             var hasLogoUrl = "/admin/logo/has/" + companyId;
             $.post(hasLogoUrl, function (data) {
+
                     if (data == true) {
 
                         var logoUrl = "/logo/normal/" + companyId + "-cursusbedrijf.png";
@@ -46,6 +47,10 @@ $(document).ready(function () {
                             {
                                 statusCode: {
                                     200: function () {
+
+                                        // Remove a potential existing logo from the dom
+                                        $('#companyLogo').empty();
+
                                         $("<img/>")
                                             .attr('src', logoUrl)
                                             .attr('id', 'companyLogoImg')

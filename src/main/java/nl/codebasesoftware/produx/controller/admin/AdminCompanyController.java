@@ -54,7 +54,7 @@ public class AdminCompanyController {
         model.addAttribute("countries", listOptions.getCountries(locale));
         model.addAttribute("companyFormData", company.toCompanyFormData());
         model.addAttribute("mainContent", "forms/companyform");
-        model.addAttribute("companyform", true);
+        model.addAttribute("fileupload", true);
 
         return "adminMain";
     }
@@ -76,7 +76,7 @@ public class AdminCompanyController {
         model.addAttribute("companyFormData", companyFormData);
         model.addAttribute("valid", valid);
         model.addAttribute("mainContent", "forms/companyform");
-        model.addAttribute("companyform", true);
+        model.addAttribute("fileupload", true);
 
         return "adminMain";
     }

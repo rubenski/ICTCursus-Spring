@@ -104,7 +104,7 @@ public class AdminEditArticleController {
         }
 
         CompanyEntityDTO currentCompany = companyService.getCurrentlyLoggedInCompany();
-        Company authorCompany = companyService.findByArticle(article);
+        CompanyEntityDTO authorCompany = companyService.findByArticle(article);
 
         // Security
         if (!authorCompany.equals(currentCompany)) {
@@ -118,6 +118,7 @@ public class AdminEditArticleController {
         editArticleFormData.setTitle(article.getTitle());
         editArticleFormData.setCategory(article.getCategory().getId());
         editArticleFormData.setText(article.getText());
+        editArticleFormData.setHasPicture(article.hasPicture());
 
         setPageData(model, id, editArticleFormData, locale);
 
@@ -135,6 +136,7 @@ public class AdminEditArticleController {
         model.addAttribute("pages", pages);
         model.addAttribute("articleForm", true);
         model.addAttribute("headerText", messageSource.getMessage("admin.articles.header.editarticle", new Object[]{}, locale));
+        model.addAttribute("fileupload", true);
     }
 
 

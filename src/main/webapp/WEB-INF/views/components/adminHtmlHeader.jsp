@@ -41,7 +41,7 @@
     </script>
 </c:if>
 
-<c:if test="${companyform}">
+<c:if test="${fileupload}">
     <script type="text/javascript" src="/static/javascript/admin/file-upload.js"></script>
 </c:if>
 

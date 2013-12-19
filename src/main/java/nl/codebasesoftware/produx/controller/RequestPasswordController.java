@@ -53,6 +53,7 @@ public class RequestPasswordController  {
     @RequestMapping(value = "/login/requestpassword", method = RequestMethod.GET)
     public String createPasswordForm(Model model) {
         pageBlockService.setCourseCategoriesInLeftColumn(model);
+        pageBlockService.setEmptyRightColumn(model);
         model.addAttribute("broadView", true);
         model.addAttribute("mainContent", "forms/requestPassword");
         model.addAttribute("forgotPassword", new BindableForgotPassword());

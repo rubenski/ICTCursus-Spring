@@ -29,7 +29,7 @@ public interface CompanyService {
 
     CompanyEntityDTO findByPrefix(String prefix);
 
-    Company findByArticle(ArticleEntityDTO article);
+    CompanyEntityDTO findByArticle(ArticleEntityDTO article);
 
     CompanySettingsFormData getCompanySettingsForCurrentCompany();
 

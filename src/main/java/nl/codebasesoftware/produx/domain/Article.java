@@ -24,6 +24,7 @@ public class Article implements DomainEntity {
     private UserProfile author;
     private String text;
     private Category category;
+    private byte[] picture;
 
 
     @Override
@@ -119,6 +120,15 @@ public class Article implements DomainEntity {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    @Lob
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
     }
 
     @Transient

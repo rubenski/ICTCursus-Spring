@@ -15,6 +15,7 @@ public class EditArticleFormData extends AddArticleFormData {
     private List<ArticlePage> pages;
     private List<String> pageOrder;
     private String text;
+    private boolean hasPicture;
 
     public boolean isPublished() {
         return published;
@@ -48,4 +49,11 @@ public class EditArticleFormData extends AddArticleFormData {
         this.text = text;
     }
 
+    public boolean isHasPicture() {
+        return hasPicture;
+    }
+
+    public void setHasPicture(boolean hasLogo) {
+        this.hasPicture = hasLogo;
+    }
 }
