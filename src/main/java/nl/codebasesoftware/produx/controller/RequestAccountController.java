@@ -69,6 +69,7 @@ public class RequestAccountController {
         model.addAttribute("countries", options.getCountries(locale));
         model.addAttribute("accountRequestFormData", accountRequestFormData);
         model.addAttribute("mainContent", "forms/requestaccount");
+        model.addAttribute("broadView", true);
         return "main";
     }
 
@@ -88,6 +89,7 @@ public class RequestAccountController {
         model.addAttribute("valid", "false");
         model.addAttribute("countries", options.getCountries(locale));
         model.addAttribute("mainContent", "forms/requestaccount");
+        model.addAttribute("broadView", true);
         return "main";
     }
 
@@ -96,6 +98,7 @@ public class RequestAccountController {
                           Model model, Locale locale) {
         setPageTitle(model, locale, "pagetitle.requestaccount.success");
         model.addAttribute("mainContent", "content/requestaccountsuccess");
+        model.addAttribute("broadView", true);
         setDefaultPageBlock(model);
         return "main";
     }

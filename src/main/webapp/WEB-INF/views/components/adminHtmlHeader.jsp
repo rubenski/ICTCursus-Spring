@@ -41,8 +41,12 @@
     </script>
 </c:if>
 
-<c:if test="${fileupload}">
-    <script type="text/javascript" src="/static/javascript/admin/file-upload.js"></script>
+<c:if test="${logoupload}">
+    <script type="text/javascript" src="/static/javascript/admin/logo-upload.js"></script>
+</c:if>
+
+<c:if test="${articlepictureupload}">
+    <script type="text/javascript" src="/static/javascript/admin/articlepicture-upload.js"></script>
 </c:if>
 
 <c:if test="${articlePage}">

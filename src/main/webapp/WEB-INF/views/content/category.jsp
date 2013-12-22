@@ -27,6 +27,36 @@
 </jsp:include>
 
 
+<h2 class="mainsubheader">Online cursussen en artikelen over ${category.name}</h2>
+
+<c:forEach items="${articles}" var="article">
+    <div class="course-list-item">
+        <c:if test="${article.hasPicture()}">
+            <div class="picture">
+                <img src="/article/picture/${article.id}.png"/>
+            </div>
+        </c:if>
+        <div class="description">
+            <a href="${article.url}"><h3>${article.title}</h3></a>
+            <p>${article.teaser}</p>
+        </div>
+    </div>
+</c:forEach>
+
+
+<%-- paging --%>
+<c:if test="${resultListing.hasPaging()}">
+    <ul class="horizontal-list">
+        <c:forEach items="${resultListing.getPagingUrls()}" var="pagingUrl" varStatus="loop">
+            <li><a href="${pagingUrl}">${loop.count}</a></li>
+        </c:forEach>
+    </ul>
+</c:if>
+
+
+
+
+
 
 
 

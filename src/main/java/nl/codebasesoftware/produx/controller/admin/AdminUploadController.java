@@ -1,9 +1,9 @@
-package nl.codebasesoftware.produx.controller;
+package nl.codebasesoftware.produx.controller.admin;
 
-import nl.codebasesoftware.produx.domain.Company;
 import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
-import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
+import nl.codebasesoftware.produx.exception.ProduxSecurityException;
 import nl.codebasesoftware.produx.formdata.BindableFileUpload;
+import nl.codebasesoftware.produx.service.ArticleService;
 import nl.codebasesoftware.produx.service.CompanyService;
 import nl.codebasesoftware.produx.validator.LogoUploadFormValidator;
 import org.apache.log4j.Logger;
@@ -15,9 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Locale;
 
 /**
@@ -26,17 +23,19 @@ import java.util.Locale;
  * Time: 3:24
  */
 @Controller
-public class LogoController {
+public class AdminUploadController {
 
-    Logger LOG = Logger.getLogger(LogoController.class);
+    Logger LOG = Logger.getLogger(AdminUploadController.class);
     private LogoUploadFormValidator validator;
     private CompanyService companyService;
+    private ArticleService articleService;
     private MessageSource messageSource;
 
     @Autowired
-    public LogoController(LogoUploadFormValidator validator, CompanyService companyService, MessageSource messageSource) {
+    public AdminUploadController(LogoUploadFormValidator validator, CompanyService companyService, ArticleService articleService, MessageSource messageSource) {
         this.validator = validator;
         this.companyService = companyService;
+        this.articleService = articleService;
         this.messageSource = messageSource;
     }
 
@@ -61,44 +60,28 @@ public class LogoController {
 
     }
 
-    @RequestMapping(value = "/logo/{size}/{imageName}")
-    public void getLogo(@PathVariable("imageName") String imageName, @PathVariable("size") String size, HttpServletResponse response) {
+    @RequestMapping(value = "/admin/article/setimage/{id}", method = RequestMethod.POST)
+    public String setImageForArticle(@ModelAttribute("bindableFileUpload") BindableFileUpload bindableFileUpload, @PathVariable("id") long id,
+                                   BindingResult result, Model model, Locale locale) throws ProduxSecurityException {
 
-        response.setContentType("image/png");
+        validator.validate(bindableFileUpload, result);
+        CompanyEntityDTO company = companyService.getCurrentlyLoggedInCompany();
 
-        Long companyId = idFromImageName(imageName);
-        CompanyEntityDTO company = companyService.findById(companyId);
-
-        byte[] logo = null;
-
-        if (company != null && size.equals("small")) {
-            logo = company.getSmallLogo();
-        } else if (company != null && size.equals("normal")) {
-            logo = company.getNormalLogo();
+        String error = "";
+        if (!result.hasErrors()) {
+            articleService.updateLogo(bindableFileUpload, id, company);
         } else {
-            throw new ResourceNotFoundException();
+            FieldError fieldError = result.getFieldError("fileData");
+            String code = fieldError.getCode();
+            String message = messageSource.getMessage(code, new Object[]{}, locale);
+            error = message;
         }
 
-        ServletOutputStream outputStream = null;
+        model.addAttribute("error", error);
 
-        if (logo != null) {
-            try {
-                outputStream = response.getOutputStream();
-                outputStream.write(logo);
-                outputStream.flush();
-                outputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
+        return "components/logoUploadResult";
     }
 
-    @RequestMapping(value = "/admin/logo/remove/{companyId}", method = RequestMethod.POST)
-    @ResponseBody
-    public void removeLogo(@PathVariable(value = "companyId") long companyId) {
-        companyService.removeLogo(companyId);
-    }
 
     @RequestMapping(value = "/admin/logo/has/{companyId}", method = RequestMethod.POST)
     @ResponseBody
@@ -107,9 +90,7 @@ public class LogoController {
         return company.hasLogo();
     }
 
-    private Long idFromImageName(String imageName) {
-        return Long.parseLong(imageName.split("-")[0]);
-    }
+
 
 
 }

@@ -12,13 +12,6 @@
 
 </c:forEach>
 
-<%-- paging --%>
-<c:if test="${resultListing.hasPaging()}">
-    <ul class="horizontal-list">
-        <c:forEach items="${resultListing.getPagingUrls()}" var="pagingUrl" varStatus="loop">
-            <li><a href="${pagingUrl}">${loop.count}</a></li>
-        </c:forEach>
-    </ul>
-</c:if>
+
 
 

@@ -31,6 +31,7 @@ public class PageController {
         pageBlockService.setAboutIctCursusMenuInLeftColumn(model);
         model.addAttribute("title", "ICT Cursus voor cursusaanbieders");
         model.addAttribute("mainContent", "content/forcompanies");
+        model.addAttribute("broadView", true);
         return "main";
     }
 }

@@ -135,7 +135,8 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     @Transactional(readOnly = true)
     public CompanyEntityDTO findById(Long companyId) {
-        return companyDao.find(companyId).toDTO();
+        Company company = companyDao.find(companyId);
+        return company == null ? null : company.toDTO();
     }
 
 

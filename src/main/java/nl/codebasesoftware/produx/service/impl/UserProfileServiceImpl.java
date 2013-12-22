@@ -5,6 +5,7 @@ import nl.codebasesoftware.produx.dao.UserProfileDao;
 import nl.codebasesoftware.produx.domain.Role;
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.domain.dto.ProfileStatus;
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.domain.optionlists.RoleName;
 import nl.codebasesoftware.produx.formdata.BindableMyUserProfile;
@@ -154,6 +155,12 @@ public class UserProfileServiceImpl implements UserProfileService {
             return null;
         }
         return user.toDTO();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<UserProfileEntityDTO> findForCompany(CompanyEntityDTO company){
+        return new EntityCollectionConverter<UserProfile, UserProfileEntityDTO>().convert(userProfileDao.findForCompany(company));
     }
 
     @Override

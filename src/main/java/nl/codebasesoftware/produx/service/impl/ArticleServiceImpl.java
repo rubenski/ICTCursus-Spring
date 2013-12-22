@@ -3,18 +3,23 @@ package nl.codebasesoftware.produx.service.impl;
 import nl.codebasesoftware.produx.dao.*;
 import nl.codebasesoftware.produx.domain.*;
 import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
-import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
+import nl.codebasesoftware.produx.exception.ProduxSecurityException;
 import nl.codebasesoftware.produx.formdata.AddArticleFormData;
 import nl.codebasesoftware.produx.formdata.ArticlePageFormData;
+import nl.codebasesoftware.produx.formdata.BindableFileUpload;
 import nl.codebasesoftware.produx.formdata.EditArticleFormData;
+import nl.codebasesoftware.produx.properties.Properties;
 import nl.codebasesoftware.produx.service.ArticleService;
-import nl.codebasesoftware.produx.service.UserProfileService;
+import nl.codebasesoftware.produx.util.ImageUtil;
 import nl.codebasesoftware.produx.util.collection.EntityCollectionConverter;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -34,15 +39,17 @@ public class ArticleServiceImpl implements ArticleService {
     private ArticlePageDao articlePageDao;
     private ArticleSuggestionDao articleSuggestionDao;
     private CategoryDao categoryDao;
+    private Properties properties;
 
     @Autowired
     public ArticleServiceImpl(ArticleDao articleDao, UserProfileDao userProfileDao,
-                              ArticlePageDao articlePageDao, ArticleSuggestionDao articleSuggestionDao, CategoryDao categoryDao) {
+                              ArticlePageDao articlePageDao, ArticleSuggestionDao articleSuggestionDao, CategoryDao categoryDao, Properties properties) {
         this.articleDao = articleDao;
         this.userProfileDao = userProfileDao;
         this.articlePageDao = articlePageDao;
         this.articleSuggestionDao = articleSuggestionDao;
         this.categoryDao = categoryDao;
+        this.properties = properties;
     }
 
     @Override
@@ -84,13 +91,17 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(readOnly = true)
-    public Article findById(long id) {
-        return articleDao.find(id);
+    public ArticleEntityDTO findById(long id) {
+        Article article = articleDao.find(id);
+        if(article == null){
+            return null;
+        }
+        return article.toDTO();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<ArticlePage> findPages(Article article) {
+    public List<ArticlePage> findPages(ArticleEntityDTO article) {
         return articleDao.findPages(article);
     }
 
@@ -191,6 +202,36 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional(readOnly = true)
     public ArticleEntityDTO findFull(long id) {
         return articleDao.findFull(id).toDTO();
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public void updateLogo(BindableFileUpload bindableFileUpload, long articleId, CompanyEntityDTO currentCompany) throws ProduxSecurityException {
+
+        int imageLength = properties.getArticleImageLength();
+        List<Article> companyArticles = articleDao.findByCompany(currentCompany.getId());
+        Article article = articleDao.find(articleId);
+
+        if(!companyArticles.contains(article)){
+            throw new ProduxSecurityException("Trying to update a logo by a company that doesn't own the article");
+        }
+
+        byte[] imageBytes = null;
+
+        CommonsMultipartFile fileData = bindableFileUpload.getFileData();
+        try {
+            imageBytes = ImageUtil.resizeWithImgScalr(fileData.getInputStream(), imageLength);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        article.setPicture(imageBytes);
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public void removePicture(long articleId) {
+        Article article = articleDao.find(articleId);
+        article.setPicture(null);
     }
 
     private List<ArticleEntityDTO> asArticleEntityDTOs(List<Article> articles) {

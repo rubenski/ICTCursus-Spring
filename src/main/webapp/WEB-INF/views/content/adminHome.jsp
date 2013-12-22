@@ -18,7 +18,7 @@
         <h2><spring:message code="admin.sections.companyinfo"/></h2>
 
         <p>Uw <a href="/admin/company">bedrijfsprofiel</a> bevat informatie over uw bedrijf, waaronder het logo dat naast uw cursussen getoond
-            wordt.
+            wordt als u bij 'Productinstellingen' voor de uitgebreide weergave van uw cursussen kiest. Ook kunt u bij 'uw bedrijf' diverse instellingen doen.
         </p>
     </div>
 </sec:authorize>
@@ -27,7 +27,7 @@
     <div class="default-block">
         <h2><spring:message code="admin.sections.requests"/></h2>
 
-        <p>Bij <a href="/admin/courserequests">aanvragen</a> vindt u de informatie-aanvragen die vanaf de site verstuurd zijn door bezoekers.</p>
+        <p>Bij <a href="/admin/courserequests">aanvragen</a> vindt u de informatie-aanvragen die vanaf de site verstuurd zijn voor uw cursussen.</p>
     </div>
 </sec:authorize>
 
@@ -37,42 +37,23 @@
         <h2><spring:message code="admin.sections.articles"/></h2>
 
         <p>U kunt bij ICT Cursus zelf <a href="/admin/articles">artikelen</a> publiceren. Onder uw artikelen verschijnt uw bedrijfslogo en een
-            lijst
-            met uw cursussen. Door zelf
-            artikelen
-            te schrijven trekt u meer bezoekers via de zoekmachines en u laat zien welke kennis un in huis heeft. Artikelen zijn een effectieve en
-            gratis methode
-            om uw cursussen extra onder de aandacht te brengen. U kunt in de sectie 'artikelen' een voorstel indienen voor een artikel. Wij zullen contact met u opnemen om uw voorstel te
-            bespreken.</p>
+            lijst met uw cursussen. Het plaatsen van artikelen is een gratis manier om de kennis die uw bedrijf heeft onder de aandacht te brengen.
+            Voor artikelen gelden redactionele richtlijnen. Lees svp de FAQ over artikelen voor meer informatie.</p>
     </div>
 </sec:authorize>
 
-<sec:authorize access="hasRole('ROLE_PERM_edit_company_users') or hasRole('ROLE_PERM_edit_everything')">
+
+<sec:authorize access="hasRole('ROLE_PERM_edit_product_settings') or hasRole('ROLE_PERM_edit_everything')">
     <div class="default-block">
-        <h2><spring:message code="admin.sections.users"/></h2>
+        <h2><spring:message code="product.settings.title"/></h2>
 
-        <p>U kunt collega's binnen uw bedrijf ook toegang geven tot ICT Cursus, zodat u uw account met meerdere mensen kunt beheren.
-            Bij <a href="/admin/users">gebruikersbeheer</a> beheert u de gebruikers die binnen uw bedrijf toegang hebben tot ICT Cursus. </p>
+        <p>Bij <a href="/admin/productsettings">productinstellingen</a> kunt u de manier waarop uw cursussen en bedrijfsinformatie weergegeven worden aanpassen.</p>
     </div>
 </sec:authorize>
 
-<sec:authorize access="hasRole('ROLE_PERM_edit_company_users') or hasRole('ROLE_PERM_edit_everything')">
-    <div class="default-block">
-        <h2><spring:message code="admin.sections.invitations"/></h2>
+<div class="default-block">
+    <h2><spring:message code="user.edit.myprofile"/></h2>
 
-        <p>Bij <a href="/admin/invitations">collega's uitnodigen</a> kunt u collega's binnen uw bedrijf toegang geven tot ICT Cursus, zodat u gezamelijk uw ICT Cursus account kunt beheren.</p>
-    </div>
-</sec:authorize>
-
-<sec:authorize access="hasRole('ROLE_PERM_edit_company_settings') or hasRole('ROLE_PERM_edit_everything')">
-    <div class="default-block">
-        <h2><spring:message code="company.settings"/></h2>
-
-        <p>Bij <a href="/admin/settings">instellingen</a> kunt u instellingen doen met betrekking tot uw account bij ICT Cursus. Zo kunt u
-            een automatische waarschuwing laten versturen als er een bepaald bedrag overschreden is en u kunt uw cursussen tijdelijk depubliceren.
-            Bij
-            instellingen
-            kunt u ook instellen naar welk emailadres aanvragen verstuurd worden.</p>
-    </div>
-</sec:authorize>
+    <p>Bij <a href="/admin/myprofile"><spring:message code="user.edit.myprofile"/></a> kunt u uw persoonlijke informatie aanpassen en uw wachtwoord wijzigen.</p>
+</div>
 

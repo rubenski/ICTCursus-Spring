@@ -153,14 +153,7 @@ public class CategoryController {
         ResultListing.Builder listingBuilder = new ResultListing.Builder();
         ResultListing listing = listingBuilder.setFilters(filters).setSearchResult(searchResult).setCriteria(criteria).build();
 
-        if (categoryArticles.size() == 0) {
-            pageBlockService.setEmptyRightColumn(model);
-        } else {
-            model.addAttribute("rightColumn", "content/articlelisting");
-        }
-
         model.addAttribute("articles", categoryArticles);
-        model.addAttribute("broadView", categoryArticles.size() == 0);
         model.addAttribute("showLightboxLink", companyCoursesForCategory.size() > 0);
         model.addAttribute("showHighlighted", page == 0);
         model.addAttribute("title", "Cursussen " + category.getName() + " : ICT Cursus");
@@ -172,6 +165,7 @@ public class CategoryController {
         model.addAttribute("facetedSearch", true);
         model.addAttribute("filters", "/" + filters);
         model.addAttribute("resultListing", listing);
+        model.addAttribute("broadView", true);
 
         return "main";
     }

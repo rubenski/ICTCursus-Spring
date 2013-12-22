@@ -23,6 +23,8 @@
         <form:errors path="budgetTriggerAmount" cssClass="form-error"/>
     </div>
 
+    <%--
+
     <div class="default-block">
         <form:label path="courseRequestEmailAddress">
             <spring:message code="company.settings.requests.email"/>
@@ -33,6 +35,8 @@
         <form:input path="courseRequestEmailAddress" cssClass="form-input" cssErrorClass="form-input-error" size="60" maxlength="60"/>
         <form:errors path="courseRequestEmailAddress" cssClass="form-error"/>
     </div>
+
+    --%>
 
     <div class="default-block">
         <form:label path="allCoursesDeactivated">

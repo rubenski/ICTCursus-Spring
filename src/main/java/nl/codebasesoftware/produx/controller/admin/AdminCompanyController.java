@@ -11,10 +11,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Locale;
 
@@ -44,6 +41,13 @@ public class AdminCompanyController {
 
     }
 
+    @RequestMapping(value = "/admin/logo/remove/{companyId}", method = RequestMethod.POST)
+    @ResponseBody
+    public void removeLogo(@PathVariable(value = "companyId") long companyId) {
+        companyService.removeLogo(companyId);
+    }
+
+
     @RequestMapping(value = "/admin/company", method = RequestMethod.GET)
     public String getCompanyForm(Model model, Locale locale) {
 
@@ -54,7 +58,7 @@ public class AdminCompanyController {
         model.addAttribute("countries", listOptions.getCountries(locale));
         model.addAttribute("companyFormData", company.toCompanyFormData());
         model.addAttribute("mainContent", "forms/companyform");
-        model.addAttribute("fileupload", true);
+        model.addAttribute("logoupload", true);
 
         return "adminMain";
     }
@@ -76,7 +80,7 @@ public class AdminCompanyController {
         model.addAttribute("companyFormData", companyFormData);
         model.addAttribute("valid", valid);
         model.addAttribute("mainContent", "forms/companyform");
-        model.addAttribute("fileupload", true);
+        model.addAttribute("logoupload", true);
 
         return "adminMain";
     }

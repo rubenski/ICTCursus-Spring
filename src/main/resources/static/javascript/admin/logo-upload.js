@@ -61,7 +61,7 @@ $(document).ready(function () {
 
                         var removeLink = $(".removelogo");
                         if (removeLink.length == 0) {
-                            $(".lightbox").after("&nbsp;&nbsp;<a href='#' class='removelogo'>Verwijder logo</a>");
+                            $(".lightbox").after("&nbsp;&nbsp;<a href='#' class='removelogo'>Verwijder</a>");
                             $(".removelogo").click(function () {
                                 $.post("/admin/logo/remove/" + companyId,
                                     {

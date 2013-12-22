@@ -121,6 +121,7 @@ public class SearchController {
         model.addAttribute("resultListing", listing);
         model.addAttribute("searchResult", result);
         model.addAttribute("title", "ICT Cursus : " + terms);
+        model.addAttribute("broadView", true);
         return "main";
     }
 

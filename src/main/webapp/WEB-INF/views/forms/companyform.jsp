@@ -23,7 +23,7 @@
         <form:label path="hasLogo"><spring:message code="company.form.logo"/>
             <span><spring:message code="company.logo.helptext"/></span>
         </form:label>
-        <a href="#" class="lightbox"><spring:message code="company.upload.logo"/></a>
+        <a href="#" class="lightbox"><spring:message code="generic.message.upload"/></a>
         <div id="companyLogo"></div>
     </div>
     <div class="default-block">
@@ -93,25 +93,9 @@
 
 </form:form>
 
-<div id="lightbox" style="display: none;"></div>
+<jsp:include page="../components/uploadpanel.jsp">
+    <jsp:param name="postUrl" value="/admin/logo/upload"/>
+</jsp:include>
 
-<div id="lightbox-panel" class="upload-lightbox">
-    <form:form method="post" target="upload-result" id="uploadForm" enctype="multipart/form-data" action="/admin/logo/upload" modelAttribute="bindableFileUpload">
-        <div class="default-block">
-            <form:label path="fileData"><spring:message code="company.upload.logo"/></form:label>
-            <form:input type="file" path="fileData"/>
-            <form:errors path="fileData" cssClass="form-error"/>
-            <br/><br/>
-            <input type="submit" value="upload" class="subbutton" id="uploadbutton"/>
-        </div>
-    </form:form>
 
-    <p align="center">
-        <a id="close-panel" href="#">Sluiten</a>
-    </p>
-</div>
-
-<iframe name="upload-result" id="upload-result-frame">
-
-</iframe>
 

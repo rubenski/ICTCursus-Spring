@@ -5,6 +5,7 @@ import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.ArticleSuggestionEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.exception.ResourceNotFoundException;
+import nl.codebasesoftware.produx.formdata.BindableFileUpload;
 import nl.codebasesoftware.produx.formdata.EditArticleFormData;
 import nl.codebasesoftware.produx.service.ArticleService;
 import nl.codebasesoftware.produx.service.ArticleSuggestionService;
@@ -17,10 +18,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -119,14 +117,28 @@ public class AdminEditArticleController {
         editArticleFormData.setCategory(article.getCategory().getId());
         editArticleFormData.setText(article.getText());
         editArticleFormData.setHasPicture(article.hasPicture());
+        model.addAttribute("bindableFileUpload", new BindableFileUpload());
 
         setPageData(model, id, editArticleFormData, locale);
 
         return "adminMain";
     }
 
+    @RequestMapping(value = "/admin/article/haspicture/{id}", method = RequestMethod.POST)
+    public @ResponseBody
+    boolean hasPicture(@PathVariable("id") long id){
+        ArticleEntityDTO article = articleService.findById(id);
+        return article.hasPicture();
+    }
+
+    @RequestMapping(value = "/admin/article/removepicture/{articleId}", method = RequestMethod.POST)
+    public @ResponseBody
+    void removeArticlePicture(@PathVariable("articleId") long articleId){
+        articleService.removePicture(articleId);
+    }
+
     private void setPageData(Model model, long articleId, EditArticleFormData formData, Locale locale) {
-        Article article = articleService.findById(articleId);
+        ArticleEntityDTO article = articleService.findById(articleId);
         List<ArticlePage> pages = articleService.findPages(article);
         List<Category> categories = categoryService.findAll();
         model.addAttribute("categories", categories);
@@ -136,7 +148,7 @@ public class AdminEditArticleController {
         model.addAttribute("pages", pages);
         model.addAttribute("articleForm", true);
         model.addAttribute("headerText", messageSource.getMessage("admin.articles.header.editarticle", new Object[]{}, locale));
-        model.addAttribute("fileupload", true);
+        model.addAttribute("articlepictureupload", true);
     }
 
 

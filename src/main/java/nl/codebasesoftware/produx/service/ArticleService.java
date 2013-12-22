@@ -3,8 +3,11 @@ package nl.codebasesoftware.produx.service;
 import nl.codebasesoftware.produx.domain.Article;
 import nl.codebasesoftware.produx.domain.ArticlePage;
 import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
+import nl.codebasesoftware.produx.exception.ProduxSecurityException;
 import nl.codebasesoftware.produx.formdata.AddArticleFormData;
 import nl.codebasesoftware.produx.formdata.ArticlePageFormData;
+import nl.codebasesoftware.produx.formdata.BindableFileUpload;
 import nl.codebasesoftware.produx.formdata.EditArticleFormData;
 
 import java.util.List;
@@ -19,9 +22,9 @@ public interface ArticleService {
 
     Article addArticle(AddArticleFormData formData, long authorProfileId);
 
-    Article findById(long id);
+    ArticleEntityDTO findById(long id);
 
-    List<ArticlePage> findPages(Article article);
+    List<ArticlePage> findPages(ArticleEntityDTO article);
 
     long saveArticlePage(ArticlePageFormData formData, long articleId);
 
@@ -31,7 +34,11 @@ public interface ArticleService {
 
     void removePage(long pageId);
 
-    List<ArticleEntityDTO> findByCategory(long catgeoryId);
+    List<ArticleEntityDTO> findByCategory(long categoryId);
 
     ArticleEntityDTO findFull(long id);
+
+    void updateLogo(BindableFileUpload bindableFileUpload, long articleId, CompanyEntityDTO companyId) throws ProduxSecurityException;
+
+    void removePicture(long articleId);
 }

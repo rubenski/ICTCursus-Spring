@@ -32,6 +32,10 @@ public class Properties {
         return Integer.parseInt(getProperty("courses.per.page"));
     }
 
+    public int getArticleImageLength(){
+        return Integer.parseInt(getProperty("articleimage.widthheight"));
+    }
+
     public boolean isDebuggingEnabled(){
         String s = getProperty("debugging.enabled");
         return Integer.parseInt(s) == 1;

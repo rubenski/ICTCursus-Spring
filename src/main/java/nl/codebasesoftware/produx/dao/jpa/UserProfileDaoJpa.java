@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.dao.jpa;
 
 import nl.codebasesoftware.produx.dao.UserProfileDao;
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.optionlists.RoleName;
 import org.apache.log4j.Logger;
 import org.springframework.dao.DataAccessException;
@@ -32,6 +33,14 @@ public class UserProfileDaoJpa extends GenericDaoJpa<UserProfile> implements Use
         } else {
             return results.get(0);
         }
+    }
+
+
+    @Override
+    public List<UserProfile> findForCompany(CompanyEntityDTO company) {
+        Query query = entityManager.createQuery("from UserProfile up where up.company.id = :companyId");
+        query.setParameter("companyId", company.getId());
+        return query.getResultList();
     }
 
     @Override

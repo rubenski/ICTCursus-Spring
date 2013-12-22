@@ -3,6 +3,7 @@ package nl.codebasesoftware.produx.dao.jpa;
 import nl.codebasesoftware.produx.dao.ArticleDao;
 import nl.codebasesoftware.produx.domain.Article;
 import nl.codebasesoftware.produx.domain.ArticlePage;
+import nl.codebasesoftware.produx.domain.dto.entity.ArticleEntityDTO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -27,9 +28,9 @@ public class ArticleDaoJpa extends GenericDaoJpa<Article> implements ArticleDao 
     }
 
     @Override
-    public List<ArticlePage> findPages(Article article) {
-        return entityManager.createQuery("from ArticlePage ap where ap.article = :article order by ap.position")
-                .setParameter("article", article).getResultList();
+    public List<ArticlePage> findPages(ArticleEntityDTO article) {
+        return entityManager.createQuery("from ArticlePage ap where ap.article.id = :articleId order by ap.position")
+                .setParameter("articleId", article.getId()).getResultList();
     }
 
     @Override

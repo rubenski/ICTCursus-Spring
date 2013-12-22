@@ -34,7 +34,7 @@
         <form:label path="hasPicture"><spring:message code="article.form.picture"/>
             <span><spring:message code="company.logo.helptext"/></span>
         </form:label>
-        <a href="#" class="lightbox"><spring:message code="company.upload.logo"/></a>
+        <a href="#" class="lightbox"><spring:message code="generic.message.upload"/></a>
         <div id="companyLogo"></div>
     </div>
 
@@ -43,7 +43,7 @@
             <spring:message code="article.form.teaser"/>
             <span><spring:message code="article.shortdescription.helptext"/></span>
         </form:label>
-        <form:textarea cols="75" rows="2" path="teaser" cssClass="form-input" cssErrorClass="form-input-error" size="50" maxlength="120"/>
+        <form:textarea cols="7 b 5" rows="2" path="teaser" cssClass="form-input" cssErrorClass="form-input-error" size="50" maxlength="120"/>
         <form:errors path="teaser" cssClass="form-error"/>
     </div>
 
@@ -110,24 +110,7 @@
 </form:form>
 
 
-<div id="lightbox" style="display: none;"></div>
+<jsp:include page="../components/uploadpanel.jsp">
+    <jsp:param name="postUrl" value="/admin/article/setimage/${editArticleFormData.id}"/>
+</jsp:include>
 
-<div id="lightbox-panel" class="upload-lightbox">
-    <form id="uploadForm" action="/admin/logo/upload" method="post" target="upload-result" enctype="multipart/form-data">
-        <div class="default-block">
-            <label for="fileData">Upload afbeelding</label>
-            <input id="fileData" name="fileData" type="file" value=""/>
-
-            <br/><br/>
-            <input type="submit" value="upload" class="subbutton" id="uploadbutton"/>
-        </div>
-    </form>
-
-    <p align="center">
-        <a id="close-panel" href="#">Sluiten</a>
-    </p>
-</div>
-
-<iframe name="upload-result" id="upload-result-frame">
-
-</iframe>

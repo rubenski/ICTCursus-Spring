@@ -1,6 +1,7 @@
 package nl.codebasesoftware.produx.dao;
 
 import nl.codebasesoftware.produx.domain.UserProfile;
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.optionlists.RoleName;
 
 import javax.persistence.EntityNotFoundException;
@@ -21,4 +22,6 @@ public interface UserProfileDao extends GenericDao<UserProfile> {
     UserProfile findWithCompany(Long id);
 
     List<UserProfile> findByRole(RoleName role);
+
+    List<UserProfile> findForCompany(CompanyEntityDTO company);
 }

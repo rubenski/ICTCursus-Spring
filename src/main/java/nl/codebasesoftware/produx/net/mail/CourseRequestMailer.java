@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -51,11 +52,21 @@ public class CourseRequestMailer {
             public void prepare(MimeMessage mimeMessage) throws Exception {
                 MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
 
+                // Send the mail as a BCC to all the admins in the system
                 for(UserProfileEntityDTO admin : userProfileService.findByRole(RoleName.SYS_ADMIN)){
                     message.addBcc(admin.getEmail());
                 }
 
+                // Send the email to the company's main email address
                 message.addTo(request.getCourse().getCompany().getEmail());
+
+                List<UserProfileEntityDTO> profiles = userProfileService.findForCompany(request.getCourse().getCompany());
+
+                // Send the request to all users in the company
+                for (UserProfileEntityDTO profile : profiles) {
+                    message.addTo(profile.getEmail());
+                }
+
                 message.setSubject(subject);
                 message.setFrom(fromEmail, senderName);
                 Map<String,Object>  model= new HashMap<>();

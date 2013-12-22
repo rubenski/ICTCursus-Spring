@@ -231,6 +231,10 @@ body {
     display: block;
 }
 
+#maincontent h2.mainsubheader {
+    font-size: 1.5em;
+}
+
 #maincontent .course-list-item.simple h2 {
     font-weight: normal;
 }
@@ -308,6 +312,24 @@ body {
     background-position: bottom left;
 }
 
+#main #innermain #maincontent .course-list-item .description {
+    padding: 0px 10px 10px 0px;
+    float: left;
+}
+
+#main #innermain #maincontent .course-list-item .picture {
+    padding: 0px 10px 10px 0px;
+    float: left;
+}
+
+#main #innermain #maincontent .course-list-item .description b {
+    padding-top: 8px;
+}
+
+#main #innermain #maincontent .course-list-item.last {
+    background-image: none;
+}
+
 #main #innermain #maincontent .course-list-item.simple {
     min-height: 50px;
 }
@@ -331,13 +353,7 @@ body {
 }
 
 
-#main #innermain #maincontent .course-list-item .description {
-    padding: 0px 10px 10px 0px;
-}
 
-#main #innermain #maincontent .course-list-item .description b {
-    padding-top: 8px;
-}
 
 #advertising-overlay-link-container {
     text-align: right;

@@ -2,6 +2,7 @@ package nl.codebasesoftware.produx.service;
 
 import nl.codebasesoftware.produx.domain.UserProfile;
 import nl.codebasesoftware.produx.domain.dto.ProfileStatus;
+import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.UserProfileEntityDTO;
 import nl.codebasesoftware.produx.domain.optionlists.RoleName;
 import nl.codebasesoftware.produx.formdata.BindableMyUserProfile;
@@ -47,6 +48,8 @@ public interface UserProfileService {
     void removeProfile(Long id);
 
     UserProfileEntityDTO getCurrentlyLoggedInUser();
+
+    List<UserProfileEntityDTO> findForCompany(CompanyEntityDTO company);
 
 
 }

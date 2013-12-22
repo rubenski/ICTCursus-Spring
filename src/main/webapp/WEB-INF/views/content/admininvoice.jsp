@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
+<jsp:include page="../components/adminyourcompanytabs.jsp"/>
+
 <div class="default-block">
     <h2><spring:message code="admin.your.invoices"/></h2>
     <c:choose>

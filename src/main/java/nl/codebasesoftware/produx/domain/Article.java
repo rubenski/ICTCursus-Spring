@@ -155,6 +155,7 @@ public class Article implements DomainEntity {
         dto.setTitle(title);
         dto.setText(text);
         dto.setTeaser(teaser);
+        dto.setPicture(picture);
         return dto;
     }
 
