@@ -7,6 +7,7 @@ import nl.codebasesoftware.produx.domain.CourseRequest;
 import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import nl.codebasesoftware.produx.formdata.CourseRequestFormData;
+import nl.codebasesoftware.produx.service.BudgetWarningService;
 import nl.codebasesoftware.produx.service.CourseRequestService;
 import nl.codebasesoftware.produx.service.business.invoice.MonthAndYear;
 import nl.codebasesoftware.produx.util.collection.EntityCollectionConverter;
@@ -28,30 +29,10 @@ public class CourseRequestServiceImpl implements CourseRequestService {
 
 
     private CourseRequestDao courseRequestDao;
-    private ConversionService conversionService;
-    private CourseDao courseDao;
 
     @Autowired
-    public CourseRequestServiceImpl(CourseRequestDao courseRequestDao, ConversionService conversionService, CourseDao courseDao) {
+    public CourseRequestServiceImpl(CourseRequestDao courseRequestDao) {
         this.courseRequestDao = courseRequestDao;
-        this.conversionService = conversionService;
-        this.courseDao = courseDao;
-    }
-
-    @Override
-    @Transactional(readOnly = false)
-    public CourseRequestEntityDTO saveRequest(CourseRequestFormData courseRequestFormData, CompanyEntityDTO company) {
-        CourseRequest request = conversionService.convert(courseRequestFormData, CourseRequest.class);
-
-        Course course = courseDao.find(courseRequestFormData.getId());
-
-        request.setCurrentCoursePriceInCents(course.getPrice());
-        request.setCurrentCommissionPercentage(company.getProductSettings().getPercentagePerRequest());
-        request.setInvoicePriceInCents((int) Math.round(course.getPrice() * company.getProductSettings().getPercentagePerRequest() / 100));
-
-        courseRequestDao.persist(request);
-        CourseRequest full = courseRequestDao.findFull(request.getId());
-        return full.toDTO();
     }
 
     @Override
@@ -84,7 +65,6 @@ public class CourseRequestServiceImpl implements CourseRequestService {
     public void setInvalid(Long id, boolean invalid) {
         courseRequestDao.setInvalid(id, invalid);
     }
-
 
     @Override
     @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)

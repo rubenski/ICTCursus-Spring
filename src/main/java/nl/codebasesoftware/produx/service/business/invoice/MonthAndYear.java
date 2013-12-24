@@ -29,6 +29,12 @@ public class MonthAndYear {
         }
     }
 
+    public MonthAndYear(){
+        Calendar c = Calendar.getInstance();
+        month = c.get(Calendar.MONTH);
+        year = c.get(Calendar.YEAR);
+    }
+
     public int getMonth() {
         return month;
     }

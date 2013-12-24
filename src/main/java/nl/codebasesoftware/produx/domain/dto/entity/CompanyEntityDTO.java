@@ -4,6 +4,7 @@ import nl.codebasesoftware.produx.domain.dto.LogoUrl;
 import nl.codebasesoftware.produx.domain.dto.listing.ListingCompanyDTO;
 import nl.codebasesoftware.produx.domain.support.CourseListingType;
 import nl.codebasesoftware.produx.formdata.CompanyFormData;
+import nl.codebasesoftware.produx.util.StringUtil;
 
 /**
  * User: rvanloen
@@ -184,6 +185,10 @@ public class CompanyEntityDTO extends ListingCompanyDTO {
         companyFormData.setCompanyPrefix(companyPrefix);
 
         return companyFormData;
+    }
+
+    public String getBudgetTriggerAmountInEuros(){
+        return StringUtil.centsToEuroPrice(budgetTriggerAmount);
     }
 
 }

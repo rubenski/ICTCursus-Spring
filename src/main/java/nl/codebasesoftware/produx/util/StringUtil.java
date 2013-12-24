@@ -18,9 +18,18 @@ public class StringUtil {
     }
 
     public static String centsToEuroPrice(long amount){
-        NumberFormat format = NumberFormat.getCurrencyInstance();
+        NumberFormat format = NumberFormat.getInstance();
         format.setMaximumFractionDigits(2);
         format.setMinimumFractionDigits(2);
         return format.format(amount/100d);
     }
+
+
+    public static String centsToRoundedEuroPrice(long amount){
+        NumberFormat format = NumberFormat.getInstance();
+        format.setMaximumFractionDigits(0);
+        format.setMinimumFractionDigits(0);
+        return format.format(amount/100d);
+    }
+
 }

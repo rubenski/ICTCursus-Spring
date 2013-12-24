@@ -61,6 +61,11 @@ public class SolrServiceImpl implements SolrService {
     public int addOrUpdate(Collection<CourseEntityDTO> courses) {
         List<SolrInputDocument> solrDocuments = new ArrayList<>();
 
+
+        if(courses.size() == 0){
+            return -1;
+        }
+
         for (CourseEntityDTO indexableCourse : courses) {
             SolrInputDocument solrInputDocument = conversionService.convert(indexableCourse, SolrInputDocument.class);
             solrDocuments.add(solrInputDocument);

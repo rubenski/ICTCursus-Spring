@@ -3,6 +3,8 @@ package nl.codebasesoftware.produx.validator;
 import nl.codebasesoftware.produx.domain.optionlists.NumberOfParticipants;
 import nl.codebasesoftware.produx.util.StringUtil;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,7 +35,7 @@ public class ProduxValidator {
         if (name == null || name.length() == 0) {
             return false;
         }
-        Pattern p = Pattern.compile("[a-zA-Z ']{2,20}");
+        Pattern p = Pattern.compile("[a-zA-Z ']{2,40}");
         Matcher m = p.matcher(name);
         return m.matches();
     }
@@ -159,19 +161,23 @@ public class ProduxValidator {
         return matcher.matches();
     }
 
-    public static boolean isValidBudgetTriggerAmount(Integer budgetTriggerAmount) {
-        if (budgetTriggerAmount == null) {
+    public static boolean isValidBudgetTriggerAmount(String budgetTriggerAmount) {
+        if (StringUtil.isNullOrEmpty(budgetTriggerAmount)) {
             return true;
         }
-
-        Pattern p = Pattern.compile("[1-9]{1}[0-9]{1,3}");
-        Matcher matcher = p.matcher(budgetTriggerAmount.toString());
+        Pattern p = Pattern.compile("[1-9][0-9]{1,3}(,[0]{1,2})?");
+        Matcher matcher = p.matcher(budgetTriggerAmount);
         boolean match = matcher.matches();
-        if (!match) {
+
+        NumberFormat nf = NumberFormat.getInstance();
+        Number number = null;
+        try {
+            number = nf.parse(budgetTriggerAmount);
+        } catch (ParseException e) {
             return false;
         }
 
-        return budgetTriggerAmount >= 10;
+        return match && number.intValue() >= 10;
     }
 
     public static boolean isValidRequestMessage(String message) {

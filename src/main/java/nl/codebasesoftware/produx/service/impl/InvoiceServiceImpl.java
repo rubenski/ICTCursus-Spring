@@ -119,7 +119,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
         Company company = companyDao.find(companyId);
         List<CourseRequestEntityDTO> requests = courseRequestService.findForMonth(company.getId(), monthAndYear);
-        List<ClickEntityDTO> clicks = clickService.findForCompanyAndMonth(companyId, monthAndYear);
+        List<ClickEntityDTO> clicks = clickService.findForMonth(companyId, monthAndYear);
 
         if(requests.size() > 0 || clicks.size() > 0) {
 

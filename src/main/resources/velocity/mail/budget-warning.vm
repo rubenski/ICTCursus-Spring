@@ -1,0 +1,23 @@
+#* @vtlvariable name="company" type="nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO" *#
+
+<html>
+<body>
+<p>
+    Geachte heer/mevrouw,
+    <br>
+    <br>
+    Het maandbudget van ${company.getBudgetTriggerAmountInEuros()} is zojuist overschreden. U kunt  bij
+    <a href="${link}" target="_blank">instellingen</a> eventueel uw cursussen tijdelijk deactiveren als u wilt voorkomen dat
+    u meer aanvragen krijgt. Als u uw cursussen deactiveert blijven uw cursussen wel bestaan op de site. Het aanvraagformulier
+    onder de cursus wordt echter gedeactiveerd, zodat u geen aanvragen meer ontvangt.
+    <br>
+    <br>
+    Hartelijke groeten,
+    <br>
+    <br>
+    ICTCursus.nl
+    <br>
+    <br>
+    </p>
+    </body>
+</html>

@@ -13,6 +13,5 @@ import java.util.List;
  * Time: 13:16
  */
 public interface LinkClickService {
-    void registerClickOrIgnore(HttpServletRequest request);
-    List<ClickEntityDTO> findForCompanyAndMonth(long companyId, MonthAndYear monthAndYear);
+    List<ClickEntityDTO> findForMonth(long companyId, MonthAndYear monthAndYear);
 }

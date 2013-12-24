@@ -19,7 +19,7 @@
             <spring:message code="company.settings.budgetwarning.trigger"/>
             <span><spring:message code="company.settings.budgetwarning.trigger.helptext"/></span>
         </form:label>
-        <form:input path="budgetTriggerAmount" cssClass="form-input" cssErrorClass="form-input-error" size="2" maxlength="4"/> &#0128;
+        <form:input path="budgetTriggerAmount" cssClass="form-input" cssErrorClass="form-input-error" size="3" maxlength="5"/> &#0128;
         <form:errors path="budgetTriggerAmount" cssClass="form-error"/>
     </div>
 

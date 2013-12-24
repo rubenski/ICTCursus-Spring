@@ -100,6 +100,7 @@ public class CourseController {
 
         if (!result.hasErrors()) {
             CourseRequestEntityDTO requestEntityDTO = courseRequestService.saveRequest(request, course.getCompany());
+
             courseRequestMailer.sendCourseRequestMail(requestEntityDTO, locale);
             redirectAttrs.addFlashAttribute("formData", request);
             model.addAttribute("courseRequestSubmitSuccess", true);

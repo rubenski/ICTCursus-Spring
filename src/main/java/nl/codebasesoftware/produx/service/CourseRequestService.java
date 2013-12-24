@@ -19,8 +19,6 @@ import java.util.List;
  */
 public interface CourseRequestService {
 
-    CourseRequestEntityDTO saveRequest(CourseRequestFormData courseRequestFormData, CompanyEntityDTO company);
-
     List<CourseRequest> findForCompany(long companyId);
 
     CourseRequestEntityDTO findFull(long id);

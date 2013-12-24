@@ -104,9 +104,9 @@ public class CompanyServiceImpl implements CompanyService {
     public CompanySettingsFormData getCompanySettingsForCurrentCompany() {
         CompanyEntityDTO company = getCurrentlyLoggedInCompany();
         CompanySettingsFormData dto = new CompanySettingsFormData();
-        dto.setCourseRequestEmailAddress(company.getCourseRequestEmailAddress());
+        //dto.setCourseRequestEmailAddress(company.getCourseRequestEmailAddress());
         dto.setAllCoursesDeactivated(company.isAllCoursesDeactivated());
-        dto.setBudgetTriggerAmount(company.getBudgetTriggerAmount());
+        dto.setBudgetTriggerAmount(company.getBudgetTriggerAmountInEuros());
         dto.setCompanyId(company.getId());
         return dto;
     }
@@ -117,9 +117,12 @@ public class CompanyServiceImpl implements CompanyService {
         CompanyEntityDTO companyDTO = getCurrentlyLoggedInCompany();
         Company company = companyDao.find(companyDTO.getId());
         company.setAllCoursesDeactivated(settingsDto.isAllCoursesDeactivated());
-        company.setBudgetTriggerAmount(settingsDto.getBudgetTriggerAmount());
-        company.setCourseRequestEmailAddress(settingsDto.getCourseRequestEmailAddress());
+        company.setBudgetTriggerAmount(settingsDto.getBudgetTriggerAmountInCents());
+        //company.setCourseRequestEmailAddress(settingsDto.getCourseRequestEmailAddress());
     }
+
+    /*
+    not used anymore?
 
     private void bindableCompanyToCompany(CompanyFormData companyFormData, Company company) {
         try {
@@ -129,7 +132,7 @@ public class CompanyServiceImpl implements CompanyService {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
 
     @Override
@@ -139,7 +142,7 @@ public class CompanyServiceImpl implements CompanyService {
         return company == null ? null : company.toDTO();
     }
 
-
+    @Override
     @Transactional(readOnly = true)
     public CompanyEntityDTO findByPrefix(String prefix){
         Company company = companyDao.findByPrefix(prefix);

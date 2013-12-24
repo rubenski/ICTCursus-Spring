@@ -23,10 +23,6 @@ public class CompanySettingsValidator implements Validator {
     public void validate(Object o, Errors errors) {
         CompanySettingsFormData settings = (CompanySettingsFormData) o;
 
-        if (!ProduxValidator.isValidEmail(settings.getCourseRequestEmailAddress())) {
-            errors.rejectValue("courseRequestEmailAddress", "error.email.invalid");
-        }
-
         if (!ProduxValidator.isValidBudgetTriggerAmount(settings.getBudgetTriggerAmount())) {
             errors.rejectValue("budgetTriggerAmount", "error.budget.triggeramount");
         }

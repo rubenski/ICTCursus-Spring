@@ -56,13 +56,13 @@ public class AdminSolrController {
 
     @RequestMapping(value = "/admin/solr/updatecompany/{companyId}", method = RequestMethod.POST)
     @ResponseBody
-    public int updateCompanyCourses(@PathVariable("companyId") long companyId) {
+    public void updateCompanyCourses(@PathVariable("companyId") long companyId) {
         CompanyEntityDTO company = companyService.findById(companyId);
         List<CourseEntityDTO> courses = courseService.findByCompany(company);
         List<CourseEntityDTO> updatableCourses = new ArrayList<>();
         for (CourseEntityDTO course : courses) {
             updatableCourses.add(course);
         }
-        return solrService.addOrUpdate(updatableCourses);
+        solrService.addOrUpdate(updatableCourses);
     }
 }
