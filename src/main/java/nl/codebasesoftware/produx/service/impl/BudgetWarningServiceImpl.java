@@ -4,10 +4,7 @@ import nl.codebasesoftware.produx.domain.dto.entity.ClickEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CompanyEntityDTO;
 import nl.codebasesoftware.produx.domain.dto.entity.CourseRequestEntityDTO;
 import nl.codebasesoftware.produx.net.mail.BudgetWarningMailer;
-import nl.codebasesoftware.produx.service.BudgetWarningService;
-import nl.codebasesoftware.produx.service.CourseRequestService;
-import nl.codebasesoftware.produx.service.InvoiceService;
-import nl.codebasesoftware.produx.service.LinkClickService;
+import nl.codebasesoftware.produx.service.*;
 import nl.codebasesoftware.produx.service.business.invoice.MonthAndYear;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -15,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -25,18 +23,18 @@ import java.util.List;
 @Service
 public class BudgetWarningServiceImpl implements BudgetWarningService {
 
-    private final InvoiceService invoiceService;
     private final LinkClickService linkClickService;
     private final CourseRequestService requestService;
     private BudgetWarningMailer budgetWarningMailer;
+    private CompanyService companyService;
 
     @Autowired
-    public BudgetWarningServiceImpl(InvoiceService invoiceService, LinkClickService linkClickService,
-                                    CourseRequestService requestService, BudgetWarningMailer budgetWarningMailer) {
-        this.invoiceService = invoiceService;
+    public BudgetWarningServiceImpl(LinkClickService linkClickService,
+                                    CourseRequestService requestService, BudgetWarningMailer budgetWarningMailer, CompanyService companyService) {
         this.linkClickService = linkClickService;
         this.requestService = requestService;
         this.budgetWarningMailer = budgetWarningMailer;
+        this.companyService = companyService;
     }
 
     @Override
@@ -46,10 +44,16 @@ public class BudgetWarningServiceImpl implements BudgetWarningService {
         Integer budgetTriggerAmount = company.getBudgetTriggerAmount();
 
         if (budgetTriggerAmount != null) {
-            int totalInvoiceAmount = getTotalInvoiceAmount(company.getId(), new MonthAndYear());
-            if (totalInvoiceAmount > budgetTriggerAmount) {
+
+            MonthAndYear currentMonth = new MonthAndYear();
+            int totalInvoiceAmount = getTotalInvoiceAmount(company.getId(), currentMonth);
+            Calendar now = Calendar.getInstance();
+
+            // Send the warning mail if the trigger amount was exceeded and no mail was sent yet this month
+            if (totalInvoiceAmount > budgetTriggerAmount && !currentMonth.dateInMonth(company.getBudgetWarningMailSent())) {
                 try {
                     budgetWarningMailer.sendBudgetWarningMail(company, LocaleContextHolder.getLocale());
+                    companyService.updateWarningMailSent(company, now);
                 } catch (MessagingException e) {
                     e.printStackTrace();
                 }

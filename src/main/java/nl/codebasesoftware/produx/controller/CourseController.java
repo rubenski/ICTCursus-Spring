@@ -46,27 +46,24 @@ public class CourseController {
 
     private CourseService courseService;
     private CourseRequestValidator courseRequestValidator;
-    private CourseRequestService courseRequestService;
+    private RegisterCourseRequestService registerCourseRequestService;
     private SearchService searchService;
     private CourseRequestMailer courseRequestMailer;
     private PageBlockService pageBlockService;
-    private CompanyService companyService;
 
     private static final Logger LOG = Logger.getLogger(CourseController.class);
 
     @Autowired
     public CourseController(CourseService courseService, CourseRequestValidator courseRequestValidator,
-                            CourseRequestService courseRequestService, SearchService searchService,
+                            RegisterCourseRequestService registerCourseRequestService, SearchService searchService,
                             CourseRequestMailer courseRequestMailer,
-                            PageBlockService pageBlockService,
-                            CompanyService companyService) {
+                            PageBlockService pageBlockService) {
         this.courseService = courseService;
         this.courseRequestValidator = courseRequestValidator;
-        this.courseRequestService = courseRequestService;
+        this.registerCourseRequestService = registerCourseRequestService;
         this.searchService = searchService;
         this.courseRequestMailer = courseRequestMailer;
         this.pageBlockService = pageBlockService;
-        this.companyService = companyService;
     }
 
     @RequestMapping(value = "/{category}/{id:[\\d]+}/{title}", method = RequestMethod.GET)
@@ -99,7 +96,7 @@ public class CourseController {
         CourseEntityDTO course = courseService.findFull(request.getCourseId());
 
         if (!result.hasErrors()) {
-            CourseRequestEntityDTO requestEntityDTO = courseRequestService.saveRequest(request, course.getCompany());
+            CourseRequestEntityDTO requestEntityDTO = registerCourseRequestService.saveRequest(request, course.getCompany());
 
             courseRequestMailer.sendCourseRequestMail(requestEntityDTO, locale);
             redirectAttrs.addFlashAttribute("formData", request);

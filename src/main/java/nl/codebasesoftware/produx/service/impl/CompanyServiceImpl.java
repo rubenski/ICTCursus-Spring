@@ -17,7 +17,6 @@ import nl.codebasesoftware.produx.service.support.CurrentUser;
 import nl.codebasesoftware.produx.util.ImageUtil;
 import nl.codebasesoftware.produx.properties.Properties;
 import nl.codebasesoftware.produx.util.collection.EntityCollectionConverter;
-import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
@@ -25,8 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 
@@ -75,6 +74,13 @@ public class CompanyServiceImpl implements CompanyService {
         Company company = conversionService.convert(companyFormData, Company.class);
         solrService.addOrUpdate(asCourseEntities(company.getCourses()));
         companyDao.persist(company);
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public void updateWarningMailSent(CompanyEntityDTO companyEntityDTO, Calendar sentTime){
+        Company company = companyDao.find(companyEntityDTO.getId());
+        company.setBudgetWarningMailSent(sentTime);
     }
 
     @Override

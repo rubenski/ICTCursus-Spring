@@ -9,6 +9,7 @@ import nl.codebasesoftware.produx.formdata.BindableFileUpload;
 import nl.codebasesoftware.produx.formdata.CompanyProductSettingsFormData;
 import nl.codebasesoftware.produx.formdata.CompanySettingsFormData;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -40,4 +41,6 @@ public interface CompanyService {
     void removeLogo(long companyId);
 
     List<CompanyEntityDTO> findAll();
+
+    void updateWarningMailSent(CompanyEntityDTO companyEntityDTO, Calendar instance);
 }

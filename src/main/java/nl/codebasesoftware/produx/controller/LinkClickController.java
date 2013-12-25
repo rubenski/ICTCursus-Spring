@@ -3,6 +3,7 @@ package nl.codebasesoftware.produx.controller;
 import nl.codebasesoftware.produx.domain.dto.entity.ClickEntityDTO;
 import nl.codebasesoftware.produx.service.CourseService;
 import nl.codebasesoftware.produx.service.LinkClickService;
+import nl.codebasesoftware.produx.service.RegisterLinkClickService;
 import nl.codebasesoftware.produx.service.impl.CourseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,10 +22,10 @@ import java.util.Calendar;
 @Controller
 public class LinkClickController {
 
-    private LinkClickService linkClickService;
+    private RegisterLinkClickService linkClickService;
 
     @Autowired
-    public LinkClickController(LinkClickService linkClickService){
+    public LinkClickController(RegisterLinkClickService linkClickService){
         this.linkClickService = linkClickService;
     }
 

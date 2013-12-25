@@ -6,10 +6,10 @@
     Geachte heer/mevrouw,
     <br>
     <br>
-    Het maandbudget van ${company.getBudgetTriggerAmountInEuros()} is zojuist overschreden. U kunt  bij
+    Het maandbudget van ${company.getBudgetTriggerAmountInEuros()} euro dat u heeft ingesteld op ictcursus.nl is zojuist overschreden. U kunt  bij
     <a href="${link}" target="_blank">instellingen</a> eventueel uw cursussen tijdelijk deactiveren als u wilt voorkomen dat
-    u meer aanvragen krijgt. Als u uw cursussen deactiveert blijven uw cursussen wel bestaan op de site. Het aanvraagformulier
-    onder de cursus wordt echter gedeactiveerd, zodat u geen aanvragen meer ontvangt.
+    u meer aanvragen of kliks krijgt. Als u uw cursussen deactiveert blijven uw cursussen wel bestaan op de site. Het aanvraagformulier en de links naar uw eigen site
+    onder de cursus worden echter gedeactiveerd, zodat u geen aanvragen meer ontvangt en u dus geen kosten maakt.
     <br>
     <br>
     Hartelijke groeten,

@@ -5,6 +5,7 @@ import nl.codebasesoftware.produx.domain.dto.listing.ListingCompanyDTO;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -36,6 +37,7 @@ public class Company implements DomainEntity, Serializable {
     private boolean allCoursesDeactivated;
     private String companyPrefix;
     private ProductSettings productSettings;
+    private Calendar budgetWarningMailSent;
 
 
     @Override
@@ -217,6 +219,16 @@ public class Company implements DomainEntity, Serializable {
         this.productSettings = productSettings;
     }
 
+    @Column(nullable = true)
+    @Temporal(TemporalType.TIMESTAMP)
+    public Calendar getBudgetWarningMailSent() {
+        return budgetWarningMailSent;
+    }
+
+    public void setBudgetWarningMailSent(Calendar budgetWarningMailSent) {
+        this.budgetWarningMailSent = budgetWarningMailSent;
+    }
+
     @Transient
     public boolean hasLogo() {
         return normalLogo != null;
@@ -268,6 +280,7 @@ public class Company implements DomainEntity, Serializable {
         companyDTO.setZipCode(zipCode);
         companyDTO.setLogo(hasLogo());
         companyDTO.setCompanyPrefix(companyPrefix);
+        companyDTO.setBudgetWarningMailSent(budgetWarningMailSent);
 
         companyDTO.setProductSettings(productSettings.toDTO());
 

@@ -31,7 +31,7 @@ public class MonthAndYear {
 
     public MonthAndYear(){
         Calendar c = Calendar.getInstance();
-        month = c.get(Calendar.MONTH);
+        month = c.get(Calendar.MONTH) + 1;
         year = c.get(Calendar.YEAR);
     }
 
@@ -57,5 +57,9 @@ public class MonthAndYear {
         lastDay.set(Calendar.MONTH, month -1);
         lastDay.set(Calendar.DAY_OF_MONTH, lastDay.getActualMaximum(Calendar.DAY_OF_MONTH));
         return lastDay;
+    }
+
+    public boolean dateInMonth(Calendar date){
+        return date != null && (date.after(getFirstDayOfMonth()) && date.before(getLastDayOfMonth()) || date.equals(getFirstDayOfMonth()) || date.equals(getLastDayOfMonth()));
     }
 }

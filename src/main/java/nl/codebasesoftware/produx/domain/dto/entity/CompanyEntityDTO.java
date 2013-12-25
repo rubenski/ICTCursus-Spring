@@ -6,6 +6,8 @@ import nl.codebasesoftware.produx.domain.support.CourseListingType;
 import nl.codebasesoftware.produx.formdata.CompanyFormData;
 import nl.codebasesoftware.produx.util.StringUtil;
 
+import java.util.Calendar;
+
 /**
  * User: rvanloen
  * Date: 15-8-13
@@ -30,6 +32,7 @@ public class CompanyEntityDTO extends ListingCompanyDTO {
     private byte[] smallLogo;
     private String companyPrefix;
     private ProductSettingsEntityDTO productSettings;
+    private Calendar budgetWarningMailSent;
 
     public String getEmail() {
         return email;
@@ -165,6 +168,14 @@ public class CompanyEntityDTO extends ListingCompanyDTO {
 
     public void setProductSettings(ProductSettingsEntityDTO productSettings) {
         this.productSettings = productSettings;
+    }
+
+    public Calendar getBudgetWarningMailSent() {
+        return budgetWarningMailSent;
+    }
+
+    public void setBudgetWarningMailSent(Calendar budgetWarningMailSent) {
+        this.budgetWarningMailSent = budgetWarningMailSent;
     }
 
     public CompanyFormData toCompanyFormData() {
